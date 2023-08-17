@@ -17,46 +17,46 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx .",
-		"lint:fix": "npm run lint -- --fix",
-		"format": "prettier . --write"
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier . --write"
   },
   "eslintConfig": {
     "extends": [
-			"react-app",
-			"react-app/jest",
-			"airbnb",
-			"airbnb/hooks",
-			"prettier"
-		],
-		"rules": {
-			"react/jsx-filename-extension": [
-				1,
-				{
-					"extensions": [
-						".js",
-						".jsx"
-					]
-				}
-			],
-			"react/react-in-jsx-scope": "off",
-			"import/prefer-default-export": "off",
-			"react/function-component-definition": "off",
-			"react/jsx-props-no-spreading": "off",
-			"react/no-unescaped-entities": "off",
-			"react/button-has-type": "off"
-		},
-		"overrides": [
-			{
-				"files": [
-					"**/*.stories.*",
-					"src/stories/**/*"
-				],
-				"rules": {
-					"import/no-anonymous-default-export": "off",
-					"import/no-extraneous-dependencies": "off"
-				}
-			}
-		]
+      "react-app",
+      "react-app/jest",
+      "airbnb",
+      "airbnb/hooks",
+      "prettier"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "react/react-in-jsx-scope": "off",
+      "import/prefer-default-export": "off",
+      "react/function-component-definition": "off",
+      "react/jsx-props-no-spreading": "off",
+      "react/no-unescaped-entities": "off",
+      "react/button-has-type": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*",
+          "src/stories/**/*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off",
+          "import/no-extraneous-dependencies": "off"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
