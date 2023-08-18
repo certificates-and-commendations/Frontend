@@ -15,10 +15,10 @@ function App() {
 			{/* По готовности компонента Main кладем его в роут */}
 			{/* <Route path='/' element={ Ожидаю Main } /> */}
 
-			{/* По готовности компонента Main кладем его в роут */}
+			{/* По готовности компонента SignUp кладем его в роут */}
 			{/* <Route path='/signup' element={isloggedIn ? <Navigate to='/' /> : Ожидаю SignUp />} /> */}
 
-			{/* По готовности компонента Main кладем его в роут */}
+			{/* По готовности компонента SignIn кладем его в роут */}
 			{/* <Route path='/signin' element={isloggedIn ? <Navigate to='/' /> : Ожидаю SignIn />} /> */}
 
 			{/* По готовности компонента Editor кладем его в роут */}
