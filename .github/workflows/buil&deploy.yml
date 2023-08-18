@@ -1,0 +1,69 @@
+name: Build & Deploy develop to main
+on: 
+ push:
+  branches:
+      - main
+ pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  frontend_build_and_push_to_docker_hub:
+    name: Push frontend Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1 
+      - name: Login to Docker 
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }} # gratitudeya
+          password: ${{ secrets.DOCKER_PASSWORD }} # gratitudeya08&
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2 
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/certificates_frontend:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: frontend_build_and_push_to_docker_hub
+    steps:
+    - name: executing remote ssh commands to deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }} # 185.93.111.238
+        username: ${{ secrets.USER }} # root
+        key: ${{ secrets.SSH_KEY }} # твой ssh ключ
+        passphrase: ${{ secrets.PASSPHRASE }} # пароль, если при подключении по ssh требует его
+        script: |
+          sudo docker-compose down
+          rm .env
+          touch .env
+          echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env             # django.db.backends.postgresql
+          echo DB_NAME=${{ secrets.DB_NAME }} >> .env                       # postgres
+          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env           # postgres   
+          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env   # postgres_vlad
+          echo DB_HOST=${{ secrets.DB_HOST }} >> .env                       # db
+          echo DB_PORT=${{ secrets.DB_PORT }} >> .env                       # 5432
+          sudo docker-compose up -d --build
