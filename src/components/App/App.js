@@ -1,13 +1,12 @@
 import './App.css';
+import React from 'react';
+import CertificateEditor from "../CertificateEditor/CertificateEditor";
 
 function App() {
 	return (
-		<div className="App">
-			<p>Hello again!</p>
-			<p>Hello again2!</p>
-			<p>Hello again3!</p>
-			<p>Hello again4!</p>
-		</div>
+		<main className="main-content">
+			<CertificateEditor />
+		</main>
 	);
 }
 
