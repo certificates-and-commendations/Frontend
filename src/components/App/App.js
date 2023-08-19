@@ -9,7 +9,7 @@ import { Routes } from 'react-router-dom';
 function App() {
 	// СТЕЙТ СОСТОЯНИЯ LOGIN
 	// const [isloggedIn, setIsloggedIn] = useState(false);
-
+// тест поле
 	return (
 		<Routes >
 			{/* По готовности компонента Main кладем его в роут */}
