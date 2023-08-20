@@ -26,7 +26,8 @@ function TextBlock({
                        onStampUpload,
                        isVisible,
                        setActiveTextIndex,
-                       activeTextIndex
+                       activeTextIndex,
+                       setShowProperties
                    }) {
 
     return (
@@ -53,7 +54,11 @@ function TextBlock({
                     />
                 ) : (
                     <div
-                        onDoubleClick={() => setEditingTextIndex(index)}
+                        onDoubleClick={() => {
+                            setEditingTextIndex(index);
+                            setShowProperties(true);
+                            setActiveTextIndex(index);
+                        }}
                         style={{
                             cursor: 'pointer',
                             fontFamily: textBlock.fontFamily,

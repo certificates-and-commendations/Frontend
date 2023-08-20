@@ -182,6 +182,7 @@ function CertificateEditor() {
 					isVisible={showProperties}
 					setActiveTextIndex={setActiveTextIndex}
 					activeTextIndex={activeTextIndex}
+					setShowProperties={setShowProperties}
 				/>
 			))}
 			{signature && (
