@@ -2,6 +2,7 @@ import React from 'react';
 import FioTable from '../FioTable/FioTable';
 
 function PropertiesPanel({
+	 index,
 	font,
 	fontSize,
 	onFontChange,
@@ -17,7 +18,8 @@ function PropertiesPanel({
 	setTextBlocks,
 	certificateRef,
 	onStampUpload,
-	isVisible
+	isVisible,
+	activeTextIndex
 }) {
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
@@ -33,10 +35,9 @@ function PropertiesPanel({
 			}
 		}
 	};
-	console.log(isVisible)
 
 	return (
-		<div className={`properties ${isVisible ? 'visible' : 'hidden'}`}>
+		<div className={`properties ${isVisible && activeTextIndex === index ? 'properties_visible' : 'properties_hidden'}`}>
 			<label className="properties__label properties__label_fonts" htmlFor="fontSelect">
 				<span className="properties__span-text">Font:</span>
 				<select

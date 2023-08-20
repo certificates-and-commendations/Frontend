@@ -19,6 +19,7 @@ function CertificateEditor() {
 	const [tableData, setTableData] = useState([]);
 	const [stamp, setStamp] = useState(null);
 	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
+	const [activeTextIndex, setActiveTextIndex] = useState(null);
 
 	const certificateRef = useRef(null);
 
@@ -31,9 +32,9 @@ function CertificateEditor() {
 				{ text: '', x, y, fontFamily: font, fontSize },
 			]);
 			setEditingTextIndex(textBlocks.length);
-			setShowProperties(false);
+			setActiveTextIndex(textBlocks.length);
+			setShowProperties(true);
 		}
-		setShowProperties(true);
 	};
 
 	const handleTextChange = (e, index) => {
@@ -70,6 +71,7 @@ function CertificateEditor() {
 			updatedTextBlocks[index].text = e.target.value;
 			setTextBlocks(updatedTextBlocks);
 			setShowProperties(false);
+			setActiveTextIndex(null);
 		}
 	};
 
@@ -178,6 +180,8 @@ function CertificateEditor() {
 					certificateRef={certificateRef}
 					onStampUpload={handleStampUpload}
 					isVisible={showProperties}
+					setActiveTextIndex={setActiveTextIndex}
+					activeTextIndex={activeTextIndex}
 				/>
 			))}
 			{signature && (

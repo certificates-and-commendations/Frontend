@@ -24,7 +24,9 @@ function TextBlock({
                        setTextBlocks,
                        certificateRef,
                        onStampUpload,
-                       isVisible
+                       isVisible,
+                       setActiveTextIndex,
+                       activeTextIndex
                    }) {
 
     return (
@@ -62,6 +64,7 @@ function TextBlock({
                     </div>
                 )}
                 <PropertiesPanel
+                    index={index}
                     font={font}
                     fontSize={fontSize}
                     onFontChange={onFontChange}
@@ -78,6 +81,8 @@ function TextBlock({
                     certificateRef={certificateRef}
                     onStampUpload={onStampUpload}
                     isVisible={isVisible}
+                    activeTextIndex={activeTextIndex}
+                    setActiveTextIndex={setActiveTextIndex}
                 />
             </div>
         </Draggable>

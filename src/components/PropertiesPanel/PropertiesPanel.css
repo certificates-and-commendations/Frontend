@@ -6,11 +6,11 @@
     gap: 15px;
 }
 
-.visible {
+.properties_visible {
     display: block;
 }
 
-.hidden {
+.properties_hidden {
     display: none;
 }
 
