@@ -1,5 +1,6 @@
 import React from 'react';
-    import Draggable from 'react-draggable';
+import Draggable from 'react-draggable';
+import PropertiesPanel from "../PropertiesPanel/PropertiesPanel";
 
 function TextBlock({
                        index,
@@ -7,7 +8,23 @@ function TextBlock({
                        editingTextIndex,
                        onTextChange,
                        onInputKeyDown,
-                       setEditingTextIndex
+                       setEditingTextIndex,
+                       font,
+                       fontSize,
+                       onFontChange,
+                       onFontSizeChange,
+                       onSignatureUpload,
+                       onSavePDF,
+                       onCertificateUpload,
+                       showTable,
+                       tableData,
+                       setTableData,
+                       setShowTable,
+                       textBlocks,
+                       setTextBlocks,
+                       certificateRef,
+                       onStampUpload,
+                       isVisible
                    }) {
 
     return (
@@ -15,8 +32,6 @@ function TextBlock({
             <div
                 className="certificate__text-field"
                 style={{
-                    fontFamily: textBlock.fontFamily,
-                    fontSize: textBlock.fontSize,
                     top: textBlock.y,
                     left: textBlock.x,
                 }}
@@ -46,6 +61,24 @@ function TextBlock({
                         {textBlock.text}
                     </div>
                 )}
+                <PropertiesPanel
+                    font={font}
+                    fontSize={fontSize}
+                    onFontChange={onFontChange}
+                    onFontSizeChange={onFontSizeChange}
+                    onSignatureUpload={onSignatureUpload}
+                    onSavePDF={onSavePDF}
+                    onCertificateUpload={onCertificateUpload}
+                    showTable={showTable}
+                    setShowTable={setShowTable}
+                    tableData={tableData} // Передаем данные таблицы
+                    setTableData={setTableData} // Передаем функцию для обновления данных таблицы
+                    textBlocks={textBlocks}
+                    setTextBlocks={setTextBlocks}
+                    certificateRef={certificateRef}
+                    onStampUpload={onStampUpload}
+                    isVisible={isVisible}
+                />
             </div>
         </Draggable>
     );

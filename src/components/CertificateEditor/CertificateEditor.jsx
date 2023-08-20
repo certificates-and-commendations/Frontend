@@ -4,7 +4,6 @@ import JsPDF from 'jspdf';
 import charter from '../../image/charter.jpg';
 import TextBlock from '../TextBlock/TextBlock';
 import Signature from '../Signature/Signature';
-import PropertiesPanel from '../PropertiesPanel/PropertiesPanel';
 import Stamp from '../Stamp/Stamp';
 
 function CertificateEditor() {
@@ -31,9 +30,10 @@ function CertificateEditor() {
 				...textBlocks,
 				{ text: '', x, y, fontFamily: font, fontSize },
 			]);
-			setShowProperties(true);
 			setEditingTextIndex(textBlocks.length);
+			setShowProperties(false);
 		}
+		setShowProperties(true);
 	};
 
 	const handleTextChange = (e, index) => {
@@ -69,6 +69,7 @@ function CertificateEditor() {
 			const updatedTextBlocks = [...textBlocks];
 			updatedTextBlocks[index].text = e.target.value;
 			setTextBlocks(updatedTextBlocks);
+			setShowProperties(false);
 		}
 	};
 
@@ -161,26 +162,6 @@ function CertificateEditor() {
 					editingTextIndex={editingTextIndex}
 					onTextChange={(e) => handleTextChange(e, index)}
 					onInputKeyDown={(e) => handleInputKeyDown(e, index)}
-					setShowTable={setShowTable}
-					tableData={tableData}
-				/>
-			))}
-			{signature && (
-				<Signature
-					signature={signature}
-					position={signaturePosition}
-					onDrag={handleSignatureDrag}
-				/>
-			)}
-			{stamp && (
-				<Stamp
-					stampImage={stamp}
-					position={stampPosition}
-					onDrag={handleStampDrag}
-				/>
-			)}
-			{showProperties && (
-				<PropertiesPanel
 					font={font}
 					fontSize={fontSize}
 					onFontChange={handleFontChange}
@@ -196,6 +177,21 @@ function CertificateEditor() {
 					setTextBlocks={setTextBlocks}
 					certificateRef={certificateRef}
 					onStampUpload={handleStampUpload}
+					isVisible={showProperties}
+				/>
+			))}
+			{signature && (
+				<Signature
+					signature={signature}
+					position={signaturePosition}
+					onDrag={handleSignatureDrag}
+				/>
+			)}
+			{stamp && (
+				<Stamp
+					stampImage={stamp}
+					position={stampPosition}
+					onDrag={handleStampDrag}
 				/>
 			)}
 		</section>

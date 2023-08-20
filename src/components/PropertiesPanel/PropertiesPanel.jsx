@@ -17,6 +17,7 @@ function PropertiesPanel({
 	setTextBlocks,
 	certificateRef,
 	onStampUpload,
+	isVisible
 }) {
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
@@ -32,9 +33,10 @@ function PropertiesPanel({
 			}
 		}
 	};
+	console.log(isVisible)
 
 	return (
-		<div className="properties">
+		<div className={`properties ${isVisible ? 'visible' : 'hidden'}`}>
 			<label className="properties__label properties__label_fonts" htmlFor="fontSelect">
 				<span className="properties__span-text">Font:</span>
 				<select
