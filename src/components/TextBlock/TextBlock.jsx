@@ -1,6 +1,6 @@
 import React from 'react';
 import Draggable from 'react-draggable';
-import PropertiesPanel from "../PropertiesPanel/PropertiesPanel";
+import StylePropertiesPanel from "../StylePropertiesPanel/StylePropertiesPanel";
 
 function TextBlock({
                        index,
@@ -77,7 +77,7 @@ function TextBlock({
                         {textBlock.text}
                     </div>
                 )}
-                <PropertiesPanel
+                <StylePropertiesPanel
                     index={index}
                     font={font}
                     fontSize={fontSize}
