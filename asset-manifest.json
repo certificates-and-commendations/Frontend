@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/certificates-and-commendations/frontend/tree/feature/editor/static/css/main.bf42a2a1.css",
+    "main.js": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/main.a5bfa237.js",
+    "static/js/703.dd222d96.chunk.js": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/703.dd222d96.chunk.js",
+    "static/js/760.79d953e2.chunk.js": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/760.79d953e2.chunk.js",
+    "static/js/787.cda612ba.chunk.js": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/787.cda612ba.chunk.js",
+    "static/media/charter.jpg": "/certificates-and-commendations/frontend/tree/feature/editor/static/media/charter.1bfb6344e91265f76937.jpg",
+    "index.html": "/certificates-and-commendations/frontend/tree/feature/editor/index.html",
+    "main.bf42a2a1.css.map": "/certificates-and-commendations/frontend/tree/feature/editor/static/css/main.bf42a2a1.css.map",
+    "main.a5bfa237.js.map": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/main.a5bfa237.js.map",
+    "703.dd222d96.chunk.js.map": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/703.dd222d96.chunk.js.map",
+    "760.79d953e2.chunk.js.map": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/760.79d953e2.chunk.js.map",
+    "787.cda612ba.chunk.js.map": "/certificates-and-commendations/frontend/tree/feature/editor/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf42a2a1.css",
+    "static/js/main.a5bfa237.js"
+  ]
+}
