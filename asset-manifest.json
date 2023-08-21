@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/certificates-and-commendations/frontend/static/css/main.bf42a2a1.css",
-    "main.js": "/certificates-and-commendations/frontend/static/js/main.9505ca59.js",
-    "static/js/703.dd222d96.chunk.js": "/certificates-and-commendations/frontend/static/js/703.dd222d96.chunk.js",
-    "static/js/760.79d953e2.chunk.js": "/certificates-and-commendations/frontend/static/js/760.79d953e2.chunk.js",
-    "static/js/787.cda612ba.chunk.js": "/certificates-and-commendations/frontend/static/js/787.cda612ba.chunk.js",
-    "static/media/charter.jpg": "/certificates-and-commendations/frontend/static/media/charter.1bfb6344e91265f76937.jpg",
-    "index.html": "/certificates-and-commendations/frontend/index.html",
-    "main.bf42a2a1.css.map": "/certificates-and-commendations/frontend/static/css/main.bf42a2a1.css.map",
-    "main.9505ca59.js.map": "/certificates-and-commendations/frontend/static/js/main.9505ca59.js.map",
-    "703.dd222d96.chunk.js.map": "/certificates-and-commendations/frontend/static/js/703.dd222d96.chunk.js.map",
-    "760.79d953e2.chunk.js.map": "/certificates-and-commendations/frontend/static/js/760.79d953e2.chunk.js.map",
-    "787.cda612ba.chunk.js.map": "/certificates-and-commendations/frontend/static/js/787.cda612ba.chunk.js.map"
+    "main.css": "/certificates-and-commendations/static/css/main.bf42a2a1.css",
+    "main.js": "/certificates-and-commendations/static/js/main.4bb6d59c.js",
+    "static/js/703.dd222d96.chunk.js": "/certificates-and-commendations/static/js/703.dd222d96.chunk.js",
+    "static/js/760.79d953e2.chunk.js": "/certificates-and-commendations/static/js/760.79d953e2.chunk.js",
+    "static/js/787.cda612ba.chunk.js": "/certificates-and-commendations/static/js/787.cda612ba.chunk.js",
+    "static/media/charter.jpg": "/certificates-and-commendations/static/media/charter.1bfb6344e91265f76937.jpg",
+    "index.html": "/certificates-and-commendations/index.html",
+    "main.bf42a2a1.css.map": "/certificates-and-commendations/static/css/main.bf42a2a1.css.map",
+    "main.4bb6d59c.js.map": "/certificates-and-commendations/static/js/main.4bb6d59c.js.map",
+    "703.dd222d96.chunk.js.map": "/certificates-and-commendations/static/js/703.dd222d96.chunk.js.map",
+    "760.79d953e2.chunk.js.map": "/certificates-and-commendations/static/js/760.79d953e2.chunk.js.map",
+    "787.cda612ba.chunk.js.map": "/certificates-and-commendations/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bf42a2a1.css",
-    "static/js/main.9505ca59.js"
+    "static/js/main.4bb6d59c.js"
   ]
 }
