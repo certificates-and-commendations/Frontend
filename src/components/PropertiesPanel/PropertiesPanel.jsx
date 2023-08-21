@@ -19,7 +19,8 @@ function PropertiesPanel({
 	certificateRef,
 	onStampUpload,
 	isVisible,
-	activeTextIndex
+	activeTextIndex,
+    setTextDecorationStyle
 }) {
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
@@ -34,6 +35,36 @@ function PropertiesPanel({
 				alert('Пожалуйста, загрузите изображение в формате JPEG или PNG.');
 			}
 		}
+	};
+
+	const handleItalicChange = () => {
+		const updatedTextBlocks = [...textBlocks];
+		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
+		updatedTextBlocks[index].isItalic = !updatedTextBlocks[index].isItalic;
+		setTextBlocks(updatedTextBlocks);
+	};
+
+	const handleTextDecorationChange = (style) => {
+		const updatedTextBlocks = [...textBlocks];
+		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
+
+		if (style === 'none') {
+			updatedTextBlocks[index].isDecoration = 'none';
+		} else if (style === 'underline') {
+			updatedTextBlocks[index].isDecoration = 'underline';
+		} else if (style === 'strikethrough') {
+			updatedTextBlocks[index].isDecoration = 'strikethrough';
+		}
+
+		setTextBlocks(updatedTextBlocks);
+		setTextDecorationStyle(style);
+	};
+
+	const handleBoldChange = () => {
+		const updatedTextBlocks = [...textBlocks];
+		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
+		updatedTextBlocks[index].isBold = !updatedTextBlocks[index].isBold;
+		setTextBlocks(updatedTextBlocks);
 	};
 
 	return (
@@ -59,6 +90,56 @@ function PropertiesPanel({
 					onChange={onFontSizeChange}
 					className="properties__input properties__input_font-size"
 				/>
+			</label>
+			<label className="properties__label properties__label_italic" htmlFor="italicCheckbox">
+				<input
+					id="italicCheckbox"
+					type="checkbox"
+					checked={textBlocks[index].isItalic}
+					onChange={handleItalicChange}
+				/>
+				<span className="properties__span-text">Курсив</span>
+			</label>
+			<label className="properties__label properties__label_text-decoration" htmlFor="underlineRadio">
+				<input
+					type="radio"
+					name="textDecoration"
+					value="underline"
+					checked={textBlocks[index].isDecoration === 'underline'}
+					onChange={() => handleTextDecorationChange('underline')}
+				/>
+				<span className="properties__span-text">Подчеркнутый</span>
+			</label>
+
+			<label className="properties__label properties__label_text-decoration" htmlFor="strikethroughRadio">
+				<input
+					type="radio"
+					name="textDecoration"
+					value="strikethrough"
+					checked={textBlocks[index].isDecoration === 'strikethrough'}
+					onChange={() => handleTextDecorationChange('strikethrough')}
+				/>
+				<span className="properties__span-text">Зачеркнутый</span>
+			</label>
+
+			<label className="properties__label properties__label_text-decoration" htmlFor="noneRadio">
+				<input
+					type="radio"
+					name="textDecoration"
+					value="none"
+					checked={textBlocks[index].isDecoration === 'none'}
+					onChange={() => handleTextDecorationChange('none')}
+				/>
+				<span className="properties__span-text">Нет</span>
+			</label>
+			<label className="properties__label properties__label_bold" htmlFor="boldCheckbox">
+				<input
+					id="boldCheckbox"
+					type="checkbox"
+					checked={textBlocks[index].isBold}
+					onChange={handleBoldChange}
+				/>
+				<span className="properties__span-text">Полужирный</span>
 			</label>
 			<label className="properties__label properties__label_signature" htmlFor="signatureSelect">
 				<span className="properties__span-text">Загрузка подписи (PNG):</span>

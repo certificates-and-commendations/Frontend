@@ -27,7 +27,9 @@ function TextBlock({
                        isVisible,
                        setActiveTextIndex,
                        activeTextIndex,
-                       setShowProperties
+                       setShowProperties,
+                       setTextDecorationStyle,
+                       textDecorationStyle
                    }) {
 
     return (
@@ -49,6 +51,10 @@ function TextBlock({
                         style={{
                             fontFamily: textBlock.fontFamily,
                             fontSize: textBlock.fontSize,
+                            fontStyle: textBlock.isItalic ? 'italic' : 'normal',
+                            textDecoration: textDecorationStyle === 'underline' ? 'underline' :
+                                textDecorationStyle === 'strikethrough' ? 'line-through' : 'none',
+                            fontWeight: textBlock.isBold ? 'bold' : 'normal',
                         }}
                         className="certificate__input"
                     />
@@ -60,9 +66,12 @@ function TextBlock({
                             setActiveTextIndex(index);
                         }}
                         style={{
-                            cursor: 'pointer',
                             fontFamily: textBlock.fontFamily,
                             fontSize: textBlock.fontSize,
+                            fontStyle: textBlock.isItalic ? 'italic' : 'normal',
+                            textDecoration: textDecorationStyle === 'underline' ? 'underline' :
+                                textDecorationStyle === 'strikethrough' ? 'line-through' : 'none',
+                            fontWeight: textBlock.isBold ? 'bold' : 'normal',
                         }}
                     >
                         {textBlock.text}
@@ -88,6 +97,7 @@ function TextBlock({
                     isVisible={isVisible}
                     activeTextIndex={activeTextIndex}
                     setActiveTextIndex={setActiveTextIndex}
+                    setTextDecorationStyle={setTextDecorationStyle}
                 />
             </div>
         </Draggable>

@@ -20,6 +20,7 @@ function CertificateEditor() {
 	const [stamp, setStamp] = useState(null);
 	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
+	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 
 	const certificateRef = useRef(null);
 
@@ -29,7 +30,15 @@ function CertificateEditor() {
 			const y = e.clientY - certificateRef.current.getBoundingClientRect().top;
 			setTextBlocks([
 				...textBlocks,
-				{ text: '', x, y, fontFamily: font, fontSize },
+				{
+					text: '',
+					x, y,
+					fontFamily: font,
+					fontSize,
+					isItalic: false,
+					isDecoration: 'none',
+					isBold: false
+				},
 			]);
 			setEditingTextIndex(textBlocks.length);
 			setActiveTextIndex(textBlocks.length);
@@ -183,6 +192,8 @@ function CertificateEditor() {
 					setActiveTextIndex={setActiveTextIndex}
 					activeTextIndex={activeTextIndex}
 					setShowProperties={setShowProperties}
+					setTextDecorationStyle={setTextDecorationStyle}
+					textDecorationStyle={textDecorationStyle}
 				/>
 			))}
 			{signature && (
