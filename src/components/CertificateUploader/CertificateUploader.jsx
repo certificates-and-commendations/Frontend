@@ -22,12 +22,13 @@ function CertificateUploader({ onUpload }) {
 
 	return (
 		<div className="certificate-uploader">
-			<label htmlFor="imageUpload">Загрузите свою грамоту:</label>
+			<label className="certificate-uploader__label" htmlFor="imageUpload">Загрузите свою грамоту:</label>
 			<input
 				type="file"
 				accept="image/jpeg,image/png"
 				onChange={handleImageUpload}
 				id="imageUpload"
+				className="certificate-uploader__input"
 			/>
 			{uploadedImage && <img src={uploadedImage} alt="Uploaded Certificate" />}
 		</div>
