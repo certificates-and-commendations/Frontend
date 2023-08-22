@@ -97,7 +97,7 @@ function CertificateEditor() {
 				reader.readAsDataURL(file);
 			} else {
 				setSignature(null);
-				alert('Пожалуйста, загрузите изображение в формате PNG.');
+				console.log('Пожалуйста, загрузите изображение в формате PNG.');
 			}
 		}
 	};
@@ -113,7 +113,7 @@ function CertificateEditor() {
 				reader.readAsDataURL(file);
 			} else {
 				setStamp(null);
-				alert('Пожалуйста, загрузите изображение в формате PNG.');
+				console.log('Пожалуйста, загрузите изображение в формате PNG.');
 			}
 		}
 	};
@@ -142,7 +142,7 @@ function CertificateEditor() {
 			if (img.width === 600 && img.height === 850) {
 				setUploadedCertificate(uploadedImage);
 			} else {
-				alert(
+				console.log(
 					'Загруженная грамота должна быть размером 600x850 пикселей. Загрузка отменена.'
 				);
 			}
