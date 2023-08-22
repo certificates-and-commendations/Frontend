@@ -12,12 +12,12 @@ function App() {
 	// СТЕЙТ СОСТОЯНИЯ LOGIN
 	// const [isloggedIn, setIsloggedIn] = useState(false);
 	// тест поле
-
+	
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 
-	function closeAllPopups () {
+	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
 		setIsRecoveryPopupOpen(false);
@@ -25,9 +25,35 @@ function App() {
 
 	return (
 		<>
-			{isRegisterPopupOpen ? <Register title="Регистрация" buttonText="Зарегистрироваться" popupName="register" isOpened={isRegisterPopupOpen} onClose={() => closeAllPopups()} /> : undefined}
-			{isLoginPopupOpen ? <Login title="Вход" buttonText="Войти" popupName="login" isOpened={isLoginPopupOpen} onClose={() => closeAllPopups()} setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}/> : undefined}
-			{isRecoveryPopupOpen ? <Recovery title="Забыли пароль?" buttonText="Отправить инструкцию" popupName="recovery" isOpened={isRecoveryPopupOpen} onClose={() => closeAllPopups()} setIsLoginPopupOpen={setIsLoginPopupOpen}/> : undefined}
+			{isRegisterPopupOpen ? (
+				<Register
+					title="Регистрация"
+					buttonText="Зарегистрироваться"
+					popupName="register"
+					isOpened={isRegisterPopupOpen}
+					onClose={() => closeAllPopups()}
+				/>
+			) : undefined}
+			{isLoginPopupOpen ? (
+				<Login
+					title="Вход"
+					buttonText="Войти"
+					popupName="login"
+					isOpened={isLoginPopupOpen}
+					onClose={() => closeAllPopups()}
+					setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
+				/>
+			) : undefined}
+			{isRecoveryPopupOpen ? (
+				<Recovery
+					title="Забыли пароль?"
+					buttonText="Отправить инструкцию"
+					popupName="recovery"
+					isOpened={isRecoveryPopupOpen}
+					onClose={() => closeAllPopups()}
+					setIsLoginPopupOpen={setIsLoginPopupOpen}
+				/>
+			) : undefined}
 			{/* <Routes > */}
 			{/* По готовности компонента Main кладем его в роут */}
 			{/* <Route path='/' element={ Ожидаю Main } /> */}
