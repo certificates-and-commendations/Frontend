@@ -1,5 +1,6 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import CertificateEditor from '../CertificateEditor/CertificateEditor';
 // import { Routes } from 'react-router-dom';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -25,6 +26,9 @@ function App() {
 
 	return (
 		<>
+			<main className="main-content">
+				<CertificateEditor />
+			</main>
 			{isRegisterPopupOpen ? (
 				<Register
 					title="Регистрация"
