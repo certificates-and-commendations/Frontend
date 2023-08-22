@@ -1,7 +1,6 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
-import { useState } from 'react';
 // import { Routes } from 'react-router-dom';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
