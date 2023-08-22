@@ -1,26 +1,26 @@
 .certificate {
-    position: relative;
-    display: flex;
-    max-width: 600px;
+	position: relative;
+	display: flex;
+	max-width: 600px;
 }
 
 .certificate__container {
-    display: flex;
+	display: flex;
 }
 
 .certificate__image {
-    max-width: 100%;
-    height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 .certificate__text-field {
-    position: absolute;
-    cursor: text;
+	position: absolute;
+	cursor: text;
 }
 
 .certificate__input {
-    background: none;
-    border: none;
-    border-bottom: 1px solid black;
-    outline: none;
+	background: none;
+	border: none;
+	border-bottom: 1px solid black;
+	outline: none;
 }

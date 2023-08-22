@@ -1,7 +1,7 @@
 import React from 'react';
 
 function StylePropertiesPanel({
-	 index,
+	index,
 	font,
 	fontSize,
 	onFontChange,
@@ -10,9 +10,8 @@ function StylePropertiesPanel({
 	setTextBlocks,
 	isVisible,
 	activeTextIndex,
-    setTextDecorationStyle
+	setTextDecorationStyle,
 }) {
-
 	const handleItalicChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
@@ -44,8 +43,17 @@ function StylePropertiesPanel({
 	};
 
 	return (
-		<div className={`properties ${isVisible && activeTextIndex === index ? 'properties_visible' : 'properties_hidden'}`}>
-			<label className="properties__label properties__label_fonts" htmlFor="fontSelect">
+		<div
+			className={`properties ${
+				isVisible && activeTextIndex === index
+					? 'properties_visible'
+					: 'properties_hidden'
+			}`}
+		>
+			<label
+				className="properties__label properties__label_fonts"
+				htmlFor="fontSelect"
+			>
 				<span className="properties__span-text">Font:</span>
 				<select
 					id="fontSelect"
@@ -57,7 +65,10 @@ function StylePropertiesPanel({
 					<option value="Times New Roman">Times New Roman</option>
 				</select>
 			</label>
-			<label className="properties__label properties__label_font-size" htmlFor="fontSizeSelect">
+			<label
+				className="properties__label properties__label_font-size"
+				htmlFor="fontSizeSelect"
+			>
 				<span className="properties__span-text">Font Size:</span>
 				<input
 					id="fontSizeSelect"
@@ -67,7 +78,10 @@ function StylePropertiesPanel({
 					className="properties__input properties__input_font-size"
 				/>
 			</label>
-			<label className="properties__label properties__label_italic" htmlFor="italicCheckbox">
+			<label
+				className="properties__label properties__label_italic"
+				htmlFor="italicCheckbox"
+			>
 				<input
 					id="italicCheckbox"
 					type="checkbox"
@@ -76,7 +90,10 @@ function StylePropertiesPanel({
 				/>
 				<span className="properties__span-text">Курсив</span>
 			</label>
-			<label className="properties__label properties__label_bold" htmlFor="boldCheckbox">
+			<label
+				className="properties__label properties__label_bold"
+				htmlFor="boldCheckbox"
+			>
 				<input
 					id="boldCheckbox"
 					type="checkbox"
@@ -85,7 +102,10 @@ function StylePropertiesPanel({
 				/>
 				<span className="properties__span-text">Полужирный</span>
 			</label>
-			<label className="properties__label properties__label_text-decoration" htmlFor="underlineRadio">
+			<label
+				className="properties__label properties__label_text-decoration"
+				htmlFor="underlineRadio"
+			>
 				<input
 					type="radio"
 					name="textDecoration"
@@ -96,7 +116,10 @@ function StylePropertiesPanel({
 				<span className="properties__span-text">Подчеркнутый</span>
 			</label>
 
-			<label className="properties__label properties__label_text-decoration" htmlFor="strikethroughRadio">
+			<label
+				className="properties__label properties__label_text-decoration"
+				htmlFor="strikethroughRadio"
+			>
 				<input
 					type="radio"
 					name="textDecoration"
@@ -107,7 +130,10 @@ function StylePropertiesPanel({
 				<span className="properties__span-text">Зачеркнутый</span>
 			</label>
 
-			<label className="properties__label properties__label_text-decoration" htmlFor="noneRadio">
+			<label
+				className="properties__label properties__label_text-decoration"
+				htmlFor="noneRadio"
+			>
 				<input
 					type="radio"
 					name="textDecoration"

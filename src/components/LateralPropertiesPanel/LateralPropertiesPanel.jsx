@@ -12,7 +12,7 @@ function LateralPropertiesPanel({
 	textBlocks,
 	setTextBlocks,
 	certificateRef,
-	onStampUpload
+	onStampUpload,
 }) {
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
@@ -31,7 +31,10 @@ function LateralPropertiesPanel({
 
 	return (
 		<div className="properties properties_lateral">
-			<label className="properties__label properties__label_signature" htmlFor="signatureSelect">
+			<label
+				className="properties__label properties__label_signature"
+				htmlFor="signatureSelect"
+			>
 				<span className="properties__span-text">Загрузка подписи (PNG):</span>
 				<input
 					id="signatureSelect"
@@ -41,7 +44,10 @@ function LateralPropertiesPanel({
 					className="properties__input_signature"
 				/>
 			</label>
-			<label className="properties__label properties__label_upload-stamp" htmlFor="uploadStampSelect">
+			<label
+				className="properties__label properties__label_upload-stamp"
+				htmlFor="uploadStampSelect"
+			>
 				<span className="properties__span-text properties__span-text_upload-stamp">
 					Загрузка печати (PNG):
 				</span>
@@ -53,7 +59,10 @@ function LateralPropertiesPanel({
 					className="properties__input_stamp"
 				/>
 			</label>
-			<label className="properties__label properties__label_upload-certificate" htmlFor="uploadCertificateSelect">
+			<label
+				className="properties__label properties__label_upload-certificate"
+				htmlFor="uploadCertificateSelect"
+			>
 				<span className="properties__span-text properties__span-text_upload-certificate">
 					Загрузка грамоты (JPEG/PNG: 600x850):
 				</span>
