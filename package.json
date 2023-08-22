@@ -60,7 +60,9 @@
 			"jsx-a11y/click-events-have-key-events": "off",
 			"jsx-a11y/no-noninteractive-element-interactions": "off",
 			"no-nested-ternary": "off",
-			"no-unused-vars": "off"
+			"no-unused-vars": "off",
+			"no-plusplus": "off",
+			"no-await-in-loop": "off"
 		},
 		"overrides": [
 			{

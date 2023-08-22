@@ -150,7 +150,7 @@ function CertificateEditor() {
 
     return (
         <section className="certificate" ref={certificateRef}>
-            {typeof uploadedCertificate === 'string' ? (
+            {uploadedCertificate ? (
                 <img
                     src={uploadedCertificate}
                     alt="Uploaded Certificate"
