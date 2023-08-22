@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
-import charter from '../../image/charter.jpg';
+import charter from '../../images/charter.jpg';
 import TextBlock from '../TextBlock/TextBlock';
 import Signature from '../Signature/Signature';
 import Stamp from '../Stamp/Stamp';
