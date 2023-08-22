@@ -107,6 +107,7 @@ function StylePropertiesPanel({
 				htmlFor="underlineRadio"
 			>
 				<input
+					id="underlineRadio"
 					type="radio"
 					name="textDecoration"
 					value="underline"
@@ -121,6 +122,7 @@ function StylePropertiesPanel({
 				htmlFor="strikethroughRadio"
 			>
 				<input
+					id="strikethroughRadio"
 					type="radio"
 					name="textDecoration"
 					value="strikethrough"
@@ -135,6 +137,7 @@ function StylePropertiesPanel({
 				htmlFor="noneRadio"
 			>
 				<input
+					id="noneRadio"
 					type="radio"
 					name="textDecoration"
 					value="none"
