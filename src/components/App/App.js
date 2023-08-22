@@ -12,7 +12,7 @@ function App() {
 	// СТЕЙТ СОСТОЯНИЯ LOGIN
 	// const [isloggedIn, setIsloggedIn] = useState(false);
 	// тест поле
-	
+
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
