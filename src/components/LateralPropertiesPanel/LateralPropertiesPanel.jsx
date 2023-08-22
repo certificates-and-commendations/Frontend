@@ -24,7 +24,7 @@ function LateralPropertiesPanel({
 				};
 				reader.readAsDataURL(file);
 			} else {
-				console.log('Пожалуйста, загрузите изображение в формате JPEG или PNG.');
+				// alert('Пожалуйста, загрузите изображение в формате JPEG или PNG.');
 			}
 		}
 	};
