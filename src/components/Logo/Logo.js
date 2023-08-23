@@ -1,5 +1,5 @@
-import '../Header/Header.css';
+import './Logo.css';
 
 export default function Logo() {
-	return <img className="header__item" src="" alt="ЛОГО" />;
+	return <p className="logo">ЛОГО</p>;
 }

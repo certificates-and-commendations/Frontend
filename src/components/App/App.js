@@ -2,6 +2,7 @@ import { Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import './App.css';
 import '../../vendor/normalize.css';
+import Footer from '../Footer/Footer';
 // import { useState } from 'react';
 // import { Route, Navigate } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ function App() {
 			{/* <Route path='*' element={ Ожидаю NotFoundPage } /> */}
 
 		</Routes>
+		<Footer />
 		</div>
 	);
 }
