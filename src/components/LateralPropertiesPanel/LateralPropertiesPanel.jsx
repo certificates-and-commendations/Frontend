@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import FioTable from '../FioTable/FioTable';
 
 function LateralPropertiesPanel({
@@ -13,7 +13,9 @@ function LateralPropertiesPanel({
 	setTextBlocks,
 	certificateRef,
 	onStampUpload,
+	onCreateJson
 }) {
+
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
 		if (file) {
@@ -82,6 +84,7 @@ function LateralPropertiesPanel({
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
 					certificateRef={certificateRef}
+					onCreateJson={onCreateJson}
 				/>
 			)}
 			<button onClick={onSavePDF} className="save-button">

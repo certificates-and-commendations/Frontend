@@ -29,15 +29,29 @@ function TextBlock({
 	activeTextIndex,
 	setShowProperties,
 	setTextDecorationStyle,
-	textDecorationStyle,
+    setTextPosition,
+	textDecorationStyle
 }) {
+
+	const handleDragStop = (e, data) => {
+		setTextPosition({x: data.x, y: data.y,} )
+		// data.x и data.y содержат конечные координаты блока после перемещения
+		// console.log('Конечные координаты x:', data.x);
+		// console.log('Конечные координаты y:', data.y);
+		// Здесь вы можете выполнить дополнительные действия с полученными координатами
+	};
+
 	return (
-		<Draggable bounds="parent">
+		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
+		<Draggable bounds="parent" onStop={handleDragStop}>
 			<div
 				className="certificate__text-field"
 				style={{
-					top: textBlock.y,
-					left: textBlock.x,
+					// top: textBlock.y,
+					// left: textBlock.x,
+					position: 'absolute',
+					top: '50%',
+					left: '50%'
 				}}
 			>
 				{editingTextIndex === index ? (
