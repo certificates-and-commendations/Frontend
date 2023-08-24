@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable consistent-return */
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
