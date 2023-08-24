@@ -9,6 +9,7 @@ function FioTable({
 	certificateRef,
 	textBlocks,
 	setTextBlocks,
+    onCreateJson
 }) {
 	const addRow = () => {
 		if (tableData.length < 10) {
@@ -32,6 +33,7 @@ function FioTable({
 	};
 
 	const handleSaveAllPDFs = async () => {
+		onCreateJson();
 		const scale = 3;
 		const pdf = new JsPDF();
 

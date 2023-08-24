@@ -20,6 +20,7 @@ function CertificateEditor() {
 	const [tableData, setTableData] = useState([]);
 	const [stamp, setStamp] = useState(null);
 	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
+	const [textPosition, setTextPosition] = useState({ x: 0, y: 0 });
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 	const [pdfData, setPdfData] = useState(null);
@@ -34,6 +35,8 @@ function CertificateEditor() {
 				...textBlocks,
 				{
 					text: '',
+					x: '',
+					y: '',
 					fontFamily: font,
 					fontSize,
 					isItalic: false,
@@ -79,6 +82,8 @@ function CertificateEditor() {
 			setEditingTextIndex(null);
 			const updatedTextBlocks = [...textBlocks];
 			updatedTextBlocks[index].text = e.target.value;
+			updatedTextBlocks[index].x = textPosition.x;
+			updatedTextBlocks[index].y = textPosition.y;
 			setTextBlocks(updatedTextBlocks);
 			setShowProperties(false);
 			setActiveTextIndex(null);
@@ -125,7 +130,7 @@ function CertificateEditor() {
 		setStampPosition({ x: data.x, y: data.y });
 	};
 
-	const handleSavePDF = async () => {
+	const handleCreateJson = () => {
 		// Создание JSON объекта
 		const jsonToSave = {
 			text_field: textBlocks.map(block => ({
@@ -134,20 +139,31 @@ function CertificateEditor() {
 				y: block.y,
 				fontFamily: block.fontFamily,
 				fontSize: block.fontSize,
-				italic:block.isItalic,
+				italic: block.isItalic,
 				textDecoration: block.isDecoration,
 				fontWeight: block.isBold
 			})),
 			background: {
-
+				width: 600,
+				height: 850
 			}, // Подставьте URL фона
 			Stamp: {
-				url: stamp
-			}, // Подставьте URL печати
+				url: stamp,
+				x: stampPosition.x,
+				y: stampPosition.y
+			},
+			Signature: {
+				url: signature,
+				x: signaturePosition.x,
+				y: signaturePosition.y
+			} // Подставьте URL печати
 		};
-
+		console.log(jsonToSave)
 		setPdfData(jsonToSave);
+	}
 
+	const handleSavePDF = async () => {
+		handleCreateJson()
 		const scale = 3; // Увеличение разрешения в 3 раза
 		const canvas = await html2canvas(certificateRef.current, { scale });
 		const imgData = canvas.toDataURL('image/png');
@@ -209,6 +225,7 @@ function CertificateEditor() {
 					setShowProperties={setShowProperties}
 					setTextDecorationStyle={setTextDecorationStyle}
 					textDecorationStyle={textDecorationStyle}
+					setTextPosition={setTextPosition}
 					onTextClick={handleTextClick}
 				/>
 			))}
@@ -228,6 +245,7 @@ function CertificateEditor() {
 					onStampUpload={handleStampUpload}
 					activeTextIndex={activeTextIndex}
 					setActiveTextIndex={setActiveTextIndex}
+					onCreateJson={handleCreateJson}
 				/>
 			</div>
 

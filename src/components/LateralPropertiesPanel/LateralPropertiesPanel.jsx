@@ -13,6 +13,7 @@ function LateralPropertiesPanel({
 	setTextBlocks,
 	certificateRef,
 	onStampUpload,
+	onCreateJson
 }) {
 
 	const handleCertificateUpload = (e) => {
@@ -83,6 +84,7 @@ function LateralPropertiesPanel({
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
 					certificateRef={certificateRef}
+					onCreateJson={onCreateJson}
 				/>
 			)}
 			<button onClick={onSavePDF} className="save-button">
