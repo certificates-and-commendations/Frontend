@@ -36,8 +36,8 @@ function TextBlock({
 	const handleDragStop = (e, data) => {
 		setTextPosition({x: data.x, y: data.y,} )
 		// data.x и data.y содержат конечные координаты блока после перемещения
-		console.log('Конечные координаты x:', data.x);
-		console.log('Конечные координаты y:', data.y);
+		// console.log('Конечные координаты x:', data.x);
+		// console.log('Конечные координаты y:', data.y);
 		// Здесь вы можете выполнить дополнительные действия с полученными координатами
 	};
 

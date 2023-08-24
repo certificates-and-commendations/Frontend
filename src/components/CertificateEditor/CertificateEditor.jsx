@@ -27,7 +27,7 @@ function CertificateEditor() {
 
 	const certificateRef = useRef(null);
 
-	console.log(pdfData)
+	// console.log(pdfData)
 
 	const handleTextClick = (e) => {
 		if (!editingTextIndex) {
@@ -158,7 +158,7 @@ function CertificateEditor() {
 				y: signaturePosition.y
 			} // Подставьте URL печати
 		};
-		console.log(jsonToSave)
+		// console.log(jsonToSave)
 		setPdfData(jsonToSave);
 	}
 
