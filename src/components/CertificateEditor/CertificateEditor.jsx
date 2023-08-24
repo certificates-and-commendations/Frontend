@@ -22,19 +22,18 @@ function CertificateEditor() {
 	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
+	const [pdfData, setPdfData] = useState(null);
 
 	const certificateRef = useRef(null);
 
+	console.log(pdfData)
+
 	const handleTextClick = (e) => {
 		if (!editingTextIndex) {
-			const x = e.clientX - certificateRef.current.getBoundingClientRect().left;
-			const y = e.clientY - certificateRef.current.getBoundingClientRect().top;
 			setTextBlocks([
 				...textBlocks,
 				{
 					text: '',
-					x,
-					y,
 					fontFamily: font,
 					fontSize,
 					isItalic: false,
@@ -127,6 +126,28 @@ function CertificateEditor() {
 	};
 
 	const handleSavePDF = async () => {
+		// Создание JSON объекта
+		const jsonToSave = {
+			text_field: textBlocks.map(block => ({
+				text: block.text,
+				x: block.x,
+				y: block.y,
+				fontFamily: block.fontFamily,
+				fontSize: block.fontSize,
+				italic:block.isItalic,
+				textDecoration: block.isDecoration,
+				fontWeight: block.isBold
+			})),
+			background: {
+
+			}, // Подставьте URL фона
+			Stamp: {
+				url: stamp
+			}, // Подставьте URL печати
+		};
+
+		setPdfData(jsonToSave);
+
 		const scale = 3; // Увеличение разрешения в 3 раза
 		const canvas = await html2canvas(certificateRef.current, { scale });
 		const imgData = canvas.toDataURL('image/png');
@@ -188,6 +209,7 @@ function CertificateEditor() {
 					setShowProperties={setShowProperties}
 					setTextDecorationStyle={setTextDecorationStyle}
 					textDecorationStyle={textDecorationStyle}
+					onTextClick={handleTextClick}
 				/>
 			))}
 

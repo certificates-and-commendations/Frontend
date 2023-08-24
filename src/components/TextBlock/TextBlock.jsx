@@ -30,9 +30,18 @@ function TextBlock({
 	setShowProperties,
 	setTextDecorationStyle,
 	textDecorationStyle,
+    onTextClick
 }) {
+
+	const handleDragStop = (e, data) => {
+		// data.x и data.y содержат конечные координаты блока после перемещения
+		console.log('Конечные координаты x:', data.x);
+		console.log('Конечные координаты y:', data.y);
+		// Здесь вы можете выполнить дополнительные действия с полученными координатами
+	};
+
 	return (
-		<Draggable bounds="parent">
+		<Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
 			<div
 				className="certificate__text-field"
 				style={{
