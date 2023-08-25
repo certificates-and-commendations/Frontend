@@ -10,7 +10,6 @@ import Recovery from '../Recovery/Recovery';
 // import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-
 	const [isloggedIn, setIsloggedIn] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
