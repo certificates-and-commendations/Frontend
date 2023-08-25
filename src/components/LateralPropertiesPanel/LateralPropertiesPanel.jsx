@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import FioTable from '../FioTable/FioTable';
 
 function LateralPropertiesPanel({
@@ -13,9 +13,8 @@ function LateralPropertiesPanel({
 	setTextBlocks,
 	certificateRef,
 	onStampUpload,
-	onCreateJson
+	onCreateJson,
 }) {
-
 	const handleCertificateUpload = (e) => {
 		const file = e.target.files[0];
 		if (file) {

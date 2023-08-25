@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import './Form.css';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { EMAIL_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
 import authApi from '../../utils/AuthApi';
@@ -16,7 +16,7 @@ function Form({
 	goLogin,
 	handleSubmittingAForm,
 	isLoggedIn,
-	setIsLoggedIn
+	setIsLoggedIn,
 }) {
 	const navigate = useNavigate();
 	const [formValue, setFormValue] = useState({});
@@ -24,11 +24,11 @@ function Form({
 	const isFormFieldsValid =
 		popupName === 'recovery'
 			? !formErrorMessage.email &&
-			!(formValue.email === '' || formValue.email === undefined)
+			  !(formValue.email === '' || formValue.email === undefined)
 			: !formErrorMessage.email &&
-			!formErrorMessage.password &&
-			!(formValue.email === '' || formValue.email === undefined) &&
-			!(formValue.password === '' || formValue.password === undefined);
+			  !formErrorMessage.password &&
+			  !(formValue.email === '' || formValue.email === undefined) &&
+			  !(formValue.password === '' || formValue.password === undefined);
 
 	function handleChangeEmail(e) {
 		const { name, value } = e.target;
@@ -63,10 +63,11 @@ function Form({
 		e.preventDefault();
 		// На восстановление пароля нету метода на сервере, поэтому функции на отправку формы Recovery нет
 		handleSubmittingAForm(formValue, setFormValue)
-			.then(res => {
+			.then((res) => {
 				// Мы выполняем запрос из пропса, затем проверяем, был ли это запрос на регистрацию (если был, то поле id будет), иначе это запрос на логин, тогда ничего не делаем. Если на регистрацию, то логиним.
 				if (res.id) {
-					authApi.signIn(formValue.password, formValue.email)
+					authApi
+						.signIn(formValue.password, formValue.email)
 						// eslint-disable-next-line consistent-return
 						.then((data) => {
 							if (data.token) {
@@ -79,12 +80,12 @@ function Form({
 						})
 						.catch((err) => {
 							console.log(err);
-						})
+						});
 				}
 			})
-			.catch(err => {
+			.catch((err) => {
 				console.log(err);
-			})
+			});
 		// Вся информация из инпутов хранится в переменной "formValue", будем её передавать уже в запросы
 		// Узнаем пути у бэкендеров, затем продолжим
 	}
@@ -137,7 +138,7 @@ function Form({
 						<span
 							className={
 								formErrorMessage.email === undefined ||
-									formErrorMessage.email === ''
+								formErrorMessage.email === ''
 									? 'popup__input-error popup__input-error_invisible'
 									: 'popup__input-error'
 							}
@@ -167,7 +168,7 @@ function Form({
 						<span
 							className={
 								formErrorMessage.password === undefined ||
-									formErrorMessage.password === ''
+								formErrorMessage.password === ''
 									? 'popup__input-error popup__input-error_invisible'
 									: 'popup__input-error'
 							}

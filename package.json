@@ -9,6 +9,7 @@
 		"@testing-library/user-event": "^13.5.0",
 		"html2canvas": "^1.4.1",
 		"html2pdf.js": "^0.10.1",
+		"husky": "^8.0.3",
 		"jspdf": "^2.5.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -30,7 +31,7 @@
 		"format": "prettier . --write",
 		"prepare": "husky install",
 		"lint-staged": "lint-staged",
-		"commit": "cz"
+		"commit": "npm run lint-staged && cz"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -99,18 +100,18 @@
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^9.0.0",
 		"gh-pages": "^6.0.0",
-		"husky": "^8.0.3",
 		"lint-staged": "^14.0.0",
 		"prettier": "^3.0.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint-staged",
+			"pre-push": "echo pre-push"
+		}
 	},
 	"lint-staged": {
 		"*.{js,jsx}": "npm run lint",
 		"*.{js,jsx,css,md,html,json}": "npm run format"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint-staged"
-		}
 	},
 	"config": {
 		"commitizen": {

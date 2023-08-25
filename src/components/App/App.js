@@ -6,11 +6,9 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Recovery from '../Recovery/Recovery';
 // import { Route, Navigate } from 'react-router-dom';
-
 // import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-
 	const [isloggedIn, setIsloggedIn] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
