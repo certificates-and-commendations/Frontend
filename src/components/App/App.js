@@ -10,10 +10,8 @@ import Recovery from '../Recovery/Recovery';
 // import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-	// СТЕЙТ СОСТОЯНИЯ LOGIN
-	// const [isloggedIn, setIsloggedIn] = useState(false);
-	// тест поле
 
+	const [isloggedIn, setIsloggedIn] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
@@ -36,6 +34,7 @@ function App() {
 					popupName="register"
 					isOpened={isRegisterPopupOpen}
 					onClose={() => closeAllPopups()}
+					isloggedIn={isloggedIn}
 				/>
 			) : undefined}
 			{isLoginPopupOpen ? (
@@ -46,6 +45,8 @@ function App() {
 					isOpened={isLoginPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
+					setIsloggedIn={setIsloggedIn}
+					isloggedIn={isloggedIn}
 				/>
 			) : undefined}
 			{isRecoveryPopupOpen ? (
@@ -56,6 +57,7 @@ function App() {
 					isOpened={isRecoveryPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsLoginPopupOpen={setIsLoginPopupOpen}
+					isloggedIn={isloggedIn}
 				/>
 			) : undefined}
 			{/* <Routes > */}
