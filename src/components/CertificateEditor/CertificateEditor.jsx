@@ -133,7 +133,7 @@ function CertificateEditor() {
 	const handleCreateJson = () => {
 		// Создание JSON объекта
 		const jsonToSave = {
-			text_field: textBlocks.map(block => ({
+			text_field: textBlocks.map((block) => ({
 				text: block.text,
 				x: block.x,
 				y: block.y,
@@ -141,29 +141,29 @@ function CertificateEditor() {
 				fontSize: block.fontSize,
 				italic: block.isItalic,
 				textDecoration: block.isDecoration,
-				fontWeight: block.isBold
+				fontWeight: block.isBold,
 			})),
 			background: {
 				width: 600,
-				height: 850
+				height: 850,
 			}, // Подставьте URL фона
 			Stamp: {
 				url: stamp,
 				x: stampPosition.x,
-				y: stampPosition.y
+				y: stampPosition.y,
 			},
 			Signature: {
 				url: signature,
 				x: signaturePosition.x,
-				y: signaturePosition.y
-			} // Подставьте URL печати
+				y: signaturePosition.y,
+			}, // Подставьте URL печати
 		};
 		// console.log(jsonToSave)
 		setPdfData(jsonToSave);
-	}
+	};
 
 	const handleSavePDF = async () => {
-		handleCreateJson()
+		handleCreateJson();
 		const scale = 3; // Увеличение разрешения в 3 раза
 		const canvas = await html2canvas(certificateRef.current, { scale });
 		const imgData = canvas.toDataURL('image/png');

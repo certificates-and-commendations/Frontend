@@ -29,12 +29,11 @@ function TextBlock({
 	activeTextIndex,
 	setShowProperties,
 	setTextDecorationStyle,
-    setTextPosition,
-	textDecorationStyle
+	setTextPosition,
+	textDecorationStyle,
 }) {
-
 	const handleDragStop = (e, data) => {
-		setTextPosition({x: data.x, y: data.y,} )
+		setTextPosition({ x: data.x, y: data.y });
 		// data.x и data.y содержат конечные координаты блока после перемещения
 		// console.log('Конечные координаты x:', data.x);
 		// console.log('Конечные координаты y:', data.y);
@@ -51,7 +50,7 @@ function TextBlock({
 					// left: textBlock.x,
 					position: 'absolute',
 					top: '50%',
-					left: '50%'
+					left: '50%',
 				}}
 			>
 				{editingTextIndex === index ? (
