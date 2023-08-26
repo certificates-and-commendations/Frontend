@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable consistent-return */
 import { useNavigate } from 'react-router-dom';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
@@ -29,7 +27,6 @@ function Register({
 			.then((response) => {
 				authApi
 					.signIn(formValue.password, formValue.email)
-					// eslint-disable-next-line consistent-return
 					.then((data) => {
 						if (data.auth_token) {
 							localStorage.setItem('jwt', data.auth_token);
@@ -38,6 +35,7 @@ function Register({
 							navigate('/editor', { replace: true });
 							return data;
 						}
+						return console.log(`Ошибка, токена нет! + ${data}`);
 					})
 					.catch((err) => {
 						console.log(err);

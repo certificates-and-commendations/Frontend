@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable react-hooks/exhaustive-deps */
 import './App.css';
 import React, { useState } from 'react';
 import {
@@ -29,32 +27,29 @@ function App() {
 		// настало время проверить токен
 		if (localStorage.getItem('jwt')) {
 			const jwt = localStorage.getItem('jwt');
-			if (jwt) {
-				// проверим токен
-				authApi
-					.tokenValidity()
-					.then((res) => {
-						if (res) {
-							// авторизуем пользователя
-							setIsLoggedIn(true);
-							setCurrentUser(res);
-							if (
-								location.pathname === '/editor' ||
-								location.pathname === '/' ||
-								location.pathname === '/main'
-							) {
-								navigate(location);
-							}
+			// проверим токен
+			authApi
+				.tokenValidity()
+				.then((res) => {
+					if (res) {
+						// авторизуем пользователя
+						setIsLoggedIn(true);
+						setCurrentUser(res);
+						if (
+							location.pathname === '/editor' ||
+							location.pathname === '/' ||
+							location.pathname === '/main'
+						) {
+							navigate(location);
 						}
-						return res;
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			}
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 			// здесь будем проверять токен
 		}
-	}, [isLoggedIn]);
+	}, []);
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);

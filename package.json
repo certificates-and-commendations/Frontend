@@ -67,7 +67,10 @@
 			"no-await-in-loop": "off",
 			"arrow-body-style": "off",
 			"no-debugger": "off",
-			"no-object-shorthand": "off"
+			"no-object-shorthand": "off",
+			"react-hooks/exhaustive-deps": "off",
+			"no-console": "off",
+			"consistent-return": "off"
 		},
 		"overrides": [
 			{
