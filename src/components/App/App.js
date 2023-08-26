@@ -98,7 +98,6 @@ function App() {
 					isOpened={isRecoveryPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsLoginPopupOpen={setIsLoginPopupOpen}
-					isoggedIn={isLoggedIn}
 				/>
 			) : undefined}
 			{/* <Routes > */}
