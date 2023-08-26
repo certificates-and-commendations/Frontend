@@ -69,8 +69,8 @@
 			"no-debugger": "off",
 			"no-object-shorthand": "off",
 			"react-hooks/exhaustive-deps": "off",
-			"no-console": "off",
-			"consistent-return": "off"
+      "no-console": "off",
+      "consistent-return": "off"
 		},
 		"overrides": [
 			{
