@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useNavigate } from 'react-router-dom';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
@@ -28,7 +27,7 @@ function Login({
 					if (data.token) {
 						localStorage.setItem('jwt', data.token);
 						setIsLoggedIn(true);
-						setFormValue({ username: '', password: '' });
+						setFormValue({ email: '', password: '' });
 						navigate('/editor', { replace: true });
 						return data;
 					}

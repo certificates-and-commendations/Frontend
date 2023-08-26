@@ -31,7 +31,7 @@
 		"format": "prettier . --write",
 		"prepare": "husky install",
 		"lint-staged": "lint-staged",
-		"commit": "npm run lint-staged && cz"
+		"commit": "npm run lint-staged && git add -A && cz"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -69,8 +69,8 @@
 			"no-debugger": "off",
 			"no-object-shorthand": "off",
 			"react-hooks/exhaustive-deps": "off",
-                        "no-console": "off",
-                        "consistent-return": "off"
+      "no-console": "off",
+      "consistent-return": "off"
 		},
 		"overrides": [
 			{
