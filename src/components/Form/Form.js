@@ -2,7 +2,7 @@
 import './Form.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EMAIL_CHECKER } from '../../constants/constants';
+import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
 import authApi from '../../utils/AuthApi';
 
@@ -15,11 +15,12 @@ function Form({
 	goRecovery,
 	goLogin,
 	handleSubmittingAForm,
-	isLoggedIn,
-	setIsLoggedIn,
 }) {
 	const navigate = useNavigate();
-	const [formValue, setFormValue] = useState({});
+	const [formValue, setFormValue] = useState({
+		email: '',
+		password: '',
+	});
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const isFormFieldsValid =
 		popupName === 'recovery'
@@ -53,39 +54,23 @@ function Form({
 			[name]: value,
 		});
 
-		setFormErrorMessage({
-			...formErrorMessage,
-			[name]: e.target.validationMessage,
-		});
+		if (value.length > 0) {
+			const isValid = PASSWORD_CHECKER.test(value);
+			setFormErrorMessage({
+				...formErrorMessage,
+				[name]: isValid
+					? ''
+					: 'Пароль должен содержать одно число, один спецсимвол, одну букву в нижнем и верхнем регистре, а также он должен быть не менее 8 символов',
+			});
+		}
 	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		// На восстановление пароля нету метода на сервере, поэтому функции на отправку формы Recovery нет
-		handleSubmittingAForm(formValue, setFormValue)
-			.then((res) => {
-				// Мы выполняем запрос из пропса, затем проверяем, был ли это запрос на регистрацию (если был, то поле id будет), иначе это запрос на логин, тогда ничего не делаем. Если на регистрацию, то логиним.
-				if (res.id) {
-					authApi
-						.signIn(formValue.password, formValue.email)
-						// eslint-disable-next-line consistent-return
-						.then((data) => {
-							if (data.token) {
-								localStorage.setItem('jwt', data.token);
-								setIsLoggedIn(true);
-								setFormValue({ username: '', password: '' });
-								navigate('/editor', { replace: true });
-								return data;
-							}
-						})
-						.catch((err) => {
-							console.log(err);
-						});
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		handleSubmittingAForm(formValue, setFormValue).catch((err) => {
+			console.log(err);
+		});
 		// Вся информация из инпутов хранится в переменной "formValue", будем её передавать уже в запросы
 		// Узнаем пути у бэкендеров, затем продолжим
 	}
@@ -134,6 +119,7 @@ function Form({
 							required
 							placeholder="Введите корректный email"
 							onChange={handleChangeEmail}
+							value={formValue.email}
 						/>
 						<span
 							className={
@@ -164,6 +150,7 @@ function Form({
 							required
 							placeholder="Пароль"
 							onChange={handleChangePassword}
+							value={formValue.password}
 						/>
 						<span
 							className={

@@ -14,16 +14,16 @@ class AuthApi {
 
 	tokenValidity() {
 		const token = localStorage.getItem('jwt');
-		return fetch(`${this.url}/users/me`, {
+		return fetch(`${this.url}/users/me/`, {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}
 
 	signUp(password, email) {
-		return fetch(`${this.url}/users`, {
+		return fetch(`${this.url}/users/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -31,16 +31,12 @@ class AuthApi {
 			body: JSON.stringify({
 				password,
 				email,
-				username: 'kza',
-				first_name: 'hello',
-				last_name: 'ggadad',
 			}),
-			// Здесь захардкожены username, firstname, lastname - так как это пока что обязательные поля в схеме, но потом можно их уберут и тут можно эти 3 строки стереть, и всё будет работать
 		}).then(handleResponse);
 	}
 
 	signIn(password, email) {
-		return fetch(`${this.url}/auth/token/login`, {
+		return fetch(`${this.url}/auth/token/login/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
