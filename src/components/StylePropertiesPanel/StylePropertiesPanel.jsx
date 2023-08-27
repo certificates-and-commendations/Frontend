@@ -50,6 +50,7 @@ function StylePropertiesPanel({
 					: 'properties_hidden'
 			}`}
 		>
+			<button className="properties__button-move">Двигать панель</button>
 			<label
 				className="properties__label properties__label_fonts"
 				htmlFor="fontSelect"
@@ -73,6 +74,7 @@ function StylePropertiesPanel({
 				<input
 					id="fontSizeSelect"
 					type="number"
+					min={1}
 					value={fontSize}
 					onChange={onFontSizeChange}
 					className="properties__input properties__input_font-size"

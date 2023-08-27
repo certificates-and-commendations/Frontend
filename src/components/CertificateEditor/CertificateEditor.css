@@ -16,12 +16,26 @@
 
 .certificate__text-field {
 	position: absolute;
-	cursor: text;
+	box-sizing: border-box;
+	max-width: 100%;
+	max-height: 200px;
+	top: 50%;
+	left: 50%;
 }
 
 .certificate__input {
+	max-width: inherit;
+	max-height: inherit;
+	width: 200px;
 	background: none;
 	border: none;
 	border-bottom: 1px solid black;
 	outline: none;
+}
+
+.certificate__text-paragraph {
+	cursor: text;
+	margin: 0;
+	text-wrap: normal;
+	overflow-wrap: anywhere;
 }

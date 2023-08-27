@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
@@ -30,8 +30,12 @@ function TextBlock({
 	setShowProperties,
 	setTextDecorationStyle,
     setTextPosition,
-	textDecorationStyle
+	textDecorationStyle,
 }) {
+
+	const handleResizeMouseDown = (e) => {
+		e.stopPropagation(); // Предотвращаем всплытие события
+	};
 
 	const handleDragStop = (e, data) => {
 		setTextPosition({x: data.x, y: data.y,} )
@@ -43,21 +47,14 @@ function TextBlock({
 
 	return (
 		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
-		<Draggable bounds="parent" onStop={handleDragStop}>
+		<Draggable bounds="parent" onStop={handleDragStop} >
 			<div
 				className="certificate__text-field"
-				style={{
-					// top: textBlock.y,
-					// left: textBlock.x,
-					position: 'absolute',
-					top: '50%',
-					left: '50%'
-				}}
 			>
 				{editingTextIndex === index ? (
-					<input
-						type="text"
+					<textarea
 						value={textBlock.text}
+						onMouseDown={handleResizeMouseDown}
 						onChange={(e) => onTextChange(e, index)}
 						onKeyDown={(e) => onInputKeyDown(e, index)}
 						onClick={(e) => e.stopPropagation()}
@@ -77,6 +74,7 @@ function TextBlock({
 					/>
 				) : (
 					<div
+						className="certificate__text-block"
 						onDoubleClick={() => {
 							setEditingTextIndex(index);
 							setShowProperties(true);
@@ -95,7 +93,7 @@ function TextBlock({
 							fontWeight: textBlock.isBold ? 'bold' : 'normal',
 						}}
 					>
-						{textBlock.text}
+						<p className="certificate__text-paragraph">{textBlock.text}</p>
 					</div>
 				)}
 				<StylePropertiesPanel
