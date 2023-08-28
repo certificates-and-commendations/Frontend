@@ -1,22 +1,55 @@
 import './App.css';
 import React, { useState } from 'react';
+import {
+	Route,
+	Navigate,
+	useLocation,
+	Routes,
+	useNavigate,
+} from 'react-router-dom';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
-// import { Routes } from 'react-router-dom';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Recovery from '../Recovery/Recovery';
-// import { Route, Navigate } from 'react-router-dom';
-
+import authApi from '../../utils/AuthApi';
 // import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-	// СТЕЙТ СОСТОЯНИЯ LOGIN
-	// const [isloggedIn, setIsloggedIn] = useState(false);
-	// тест поле
-
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
+	const [currentUser, setCurrentUser] = useState({});
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	React.useEffect(() => {
+		// настало время проверить токен
+		if (localStorage.getItem('jwt')) {
+			const jwt = localStorage.getItem('jwt');
+			// проверим токен
+			authApi
+				.tokenValidity()
+				.then((res) => {
+					if (res) {
+						// авторизуем пользователя
+						setIsLoggedIn(true);
+						setCurrentUser(res);
+						if (
+							location.pathname === '/editor' ||
+							location.pathname === '/' ||
+							location.pathname === '/main'
+						) {
+							navigate(location);
+						}
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+			// здесь будем проверять токен
+		}
+	}, []);
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
@@ -36,6 +69,8 @@ function App() {
 					popupName="register"
 					isOpened={isRegisterPopupOpen}
 					onClose={() => closeAllPopups()}
+					isloggedIn={isLoggedIn}
+					setIsLoggedIn={setIsLoggedIn}
 				/>
 			) : undefined}
 			{isLoginPopupOpen ? (
@@ -46,6 +81,8 @@ function App() {
 					isOpened={isLoginPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
+					setIsloggedIn={setIsLoggedIn}
+					isloggedIn={isLoggedIn}
 				/>
 			) : undefined}
 			{isRecoveryPopupOpen ? (

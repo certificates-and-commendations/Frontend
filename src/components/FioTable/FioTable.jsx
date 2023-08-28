@@ -9,7 +9,7 @@ function FioTable({
 	certificateRef,
 	textBlocks,
 	setTextBlocks,
-    onCreateJson
+	onCreateJson,
 }) {
 	const addRow = () => {
 		if (tableData.length < 10) {
