@@ -130,47 +130,47 @@ function CertificateEditor() {
 		setStampPosition({ x: data.x, y: data.y });
 	};
 
-	const handleCreateJson = () => {
-		// Создание JSON объекта
-		const jsonToSave = {
-			text_field: textBlocks.map((block) => ({
-				text: block.text,
-				x: block.x,
-				y: block.y,
-				fontFamily: block.fontFamily,
-				fontSize: block.fontSize,
-				italic: block.isItalic,
-				textDecoration: block.isDecoration,
-				fontWeight: block.isBold,
-			})),
-			background: {
-				width: 600,
-				height: 850,
-			}, // Подставьте URL фона
-			Stamp: {
-				url: stamp,
-				x: stampPosition.x,
-				y: stampPosition.y,
-			},
-			Signature: {
-				url: signature,
-				x: signaturePosition.x,
-				y: signaturePosition.y,
-			}, // Подставьте URL печати
-		};
-		// console.log(jsonToSave)
-		setPdfData(jsonToSave);
-	};
+    const handleCreateJson = () => {
+        // Создание JSON объекта
+        const jsonToSave = {
+            text_field: textBlocks.map(block => ({
+                text: block.text,
+                x: block.x,
+                y: block.y,
+                fontFamily: block.fontFamily,
+                fontSize: block.fontSize,
+                italic: block.isItalic,
+                textDecoration: block.isDecoration,
+                fontWeight: block.isBold
+            })),
+            background: {
+                width: 600,
+                height: 850
+            }, // Подставьте URL фона
+            Stamp: {
+                url: stamp,
+                x: stampPosition.x,
+                y: stampPosition.y
+            },
+            Signature: {
+                url: signature,
+                x: signaturePosition.x,
+                y: signaturePosition.y
+            } // Подставьте URL печати
+        };
+        // console.log(jsonToSave)
+        setPdfData(jsonToSave);
+    }
 
-	const handleSavePDF = async () => {
-		handleCreateJson();
-		const scale = 3; // Увеличение разрешения в 3 раза
-		const canvas = await html2canvas(certificateRef.current, { scale });
-		const imgData = canvas.toDataURL('image/png');
-		const pdf = new JsPDF();
-		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
-		pdf.save('certificate.pdf');
-	};
+    const handleSavePDF = async () => {
+        handleCreateJson()
+        const scale = 3; // Увеличение разрешения в 3 раза
+        const canvas = await html2canvas(certificateRef.current, {scale});
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new JsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
+        pdf.save('certificate.pdf');
+    };
 
 	const handleCertificateUpload = (uploadedImage) => {
 		const img = new Image();

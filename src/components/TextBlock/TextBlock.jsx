@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
@@ -29,11 +29,18 @@ function TextBlock({
 	activeTextIndex,
 	setShowProperties,
 	setTextDecorationStyle,
-	setTextPosition,
+    setTextPosition,
 	textDecorationStyle,
+   	textBlockStyles,
+   	setTextBlockStyles
 }) {
+
+	const handleResizeMouseDown = (e) => {
+		e.stopPropagation(); // Предотвращаем всплытие события
+	};
+
 	const handleDragStop = (e, data) => {
-		setTextPosition({ x: data.x, y: data.y });
+		setTextPosition({x: data.x, y: data.y,} )
 		// data.x и data.y содержат конечные координаты блока после перемещения
 		// console.log('Конечные координаты x:', data.x);
 		// console.log('Конечные координаты y:', data.y);
@@ -42,21 +49,14 @@ function TextBlock({
 
 	return (
 		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
-		<Draggable bounds="parent" onStop={handleDragStop}>
+		<Draggable bounds="parent" onStop={handleDragStop} >
 			<div
 				className="certificate__text-field"
-				style={{
-					// top: textBlock.y,
-					// left: textBlock.x,
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-				}}
 			>
 				{editingTextIndex === index ? (
-					<input
-						type="text"
+					<textarea
 						value={textBlock.text}
+						onMouseDown={handleResizeMouseDown}
 						onChange={(e) => onTextChange(e, index)}
 						onKeyDown={(e) => onInputKeyDown(e, index)}
 						onClick={(e) => e.stopPropagation()}
@@ -76,6 +76,7 @@ function TextBlock({
 					/>
 				) : (
 					<div
+						className="certificate__text-block"
 						onDoubleClick={() => {
 							setEditingTextIndex(index);
 							setShowProperties(true);
@@ -94,7 +95,7 @@ function TextBlock({
 							fontWeight: textBlock.isBold ? 'bold' : 'normal',
 						}}
 					>
-						{textBlock.text}
+						<p className="certificate__text-paragraph">{textBlock.text}</p>
 					</div>
 				)}
 				<StylePropertiesPanel
@@ -118,6 +119,8 @@ function TextBlock({
 					activeTextIndex={activeTextIndex}
 					setActiveTextIndex={setActiveTextIndex}
 					setTextDecorationStyle={setTextDecorationStyle}
+					textBlockStyles={textBlockStyles}
+					setTextBlockStyles={setTextBlockStyles}
 				/>
 			</div>
 		</Draggable>
