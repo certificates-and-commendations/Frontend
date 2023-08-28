@@ -26,6 +26,7 @@
 .certificate__input {
 	max-width: inherit;
 	max-height: inherit;
+	min-width: 209px;
 	width: 200px;
 	background: none;
 	border: none;

@@ -31,6 +31,8 @@ function TextBlock({
 	setTextDecorationStyle,
     setTextPosition,
 	textDecorationStyle,
+   	textBlockStyles,
+   	setTextBlockStyles
 }) {
 
 	const handleResizeMouseDown = (e) => {
@@ -117,6 +119,8 @@ function TextBlock({
 					activeTextIndex={activeTextIndex}
 					setActiveTextIndex={setActiveTextIndex}
 					setTextDecorationStyle={setTextDecorationStyle}
+					textBlockStyles={textBlockStyles}
+					setTextBlockStyles={setTextBlockStyles}
 				/>
 			</div>
 		</Draggable>

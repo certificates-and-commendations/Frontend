@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 function StylePropertiesPanel({
 	index,
@@ -11,7 +11,10 @@ function StylePropertiesPanel({
 	isVisible,
 	activeTextIndex,
 	setTextDecorationStyle,
+  	textBlockStyles,
+  	setTextBlockStyles
 }) {
+
 	const handleItalicChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
@@ -19,21 +22,24 @@ function StylePropertiesPanel({
 		setTextBlocks(updatedTextBlocks);
 	};
 
-	const handleTextDecorationChange = (style) => {
-		const updatedTextBlocks = [...textBlocks];
-		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
-
+	const handleTextDecorationChange = (currentIndex, style) => {
+		const updatedStyles = [...textBlockStyles];
+		updatedStyles[currentIndex] = { ...updatedStyles[currentIndex] };
 		if (style === 'none') {
-			updatedTextBlocks[index].isDecoration = 'none';
+			updatedStyles[currentIndex].isDecoration = 'none';
 		} else if (style === 'underline') {
-			updatedTextBlocks[index].isDecoration = 'underline';
+			updatedStyles[currentIndex].isDecoration = 'underline';
 		} else if (style === 'strikethrough') {
-			updatedTextBlocks[index].isDecoration = 'strikethrough';
+			updatedStyles[currentIndex].isDecoration = 'strikethrough';
 		}
 
-		setTextBlocks(updatedTextBlocks);
+		setTextBlockStyles(updatedStyles);
 		setTextDecorationStyle(style);
 	};
+
+	useEffect(() => {
+
+	}, [textBlockStyles, index])
 
 	const handleBoldChange = () => {
 		const updatedTextBlocks = [...textBlocks];
@@ -111,10 +117,10 @@ function StylePropertiesPanel({
 				<input
 					id="underlineRadio"
 					type="radio"
-					name="textDecoration"
+					name={`textDecoration-${index}`}
 					value="underline"
-					checked={textBlocks[index].isDecoration === 'underline'}
-					onChange={() => handleTextDecorationChange('underline')}
+					checked={textBlockStyles[index].isDecoration === 'underline'}
+					onChange={() => handleTextDecorationChange(index, 'underline')}
 				/>
 				<span className="properties__span-text">Подчеркнутый</span>
 			</label>
@@ -126,10 +132,10 @@ function StylePropertiesPanel({
 				<input
 					id="strikethroughRadio"
 					type="radio"
-					name="textDecoration"
+					name={`textDecoration-${index}`}
 					value="strikethrough"
-					checked={textBlocks[index].isDecoration === 'strikethrough'}
-					onChange={() => handleTextDecorationChange('strikethrough')}
+					checked={textBlockStyles[index].isDecoration === 'strikethrough'}
+					onChange={() => handleTextDecorationChange(index, 'strikethrough')}
 				/>
 				<span className="properties__span-text">Зачеркнутый</span>
 			</label>
@@ -141,10 +147,10 @@ function StylePropertiesPanel({
 				<input
 					id="noneRadio"
 					type="radio"
-					name="textDecoration"
+					name={`textDecoration-${index}`}
 					value="none"
-					checked={textBlocks[index].isDecoration === 'none'}
-					onChange={() => handleTextDecorationChange('none')}
+					checked={textBlockStyles[index].isDecoration === 'none'}
+					onChange={() => handleTextDecorationChange(index, 'none')}
 				/>
 				<span className="properties__span-text">Нет</span>
 			</label>

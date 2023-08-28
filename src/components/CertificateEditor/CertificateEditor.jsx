@@ -26,10 +26,9 @@ function CertificateEditor() {
     const [activeTextIndex, setActiveTextIndex] = useState(null);
     const [textDecorationStyle, setTextDecorationStyle] = useState('none');
     const [pdfData, setPdfData] = useState(null);
+    const [textBlockStyles, setTextBlockStyles] = useState([]);
 
     const certificateRef = useRef(null);
-
-    console.log(pdfData)
 
     const handleTextClick = (e) => {
         if (!editingTextIndex) {
@@ -40,12 +39,14 @@ function CertificateEditor() {
                     x: '',
                     y: '',
                     fontFamily: font,
-                    fontSize,
-                    isItalic: false,
-                    isDecoration: 'none',
-                    isBold: false,
+                    fontSize
                 },
             ]);
+            setTextBlockStyles([...textBlockStyles, {
+                isItalic: false,
+                isDecoration: 'none',
+                isBold: false,
+            }]);
             setEditingTextIndex(textBlocks.length);
             setActiveTextIndex(textBlocks.length);
             setShowProperties(true);
@@ -234,9 +235,11 @@ function CertificateEditor() {
                     activeTextIndex={activeTextIndex}
                     setShowProperties={setShowProperties}
                     setTextDecorationStyle={setTextDecorationStyle}
-                    textDecorationStyle={textDecorationStyle}
+                    textDecorationStyle={textBlockStyles[index].isDecoration}
                     setTextPosition={setTextPosition}
                     onTextClick={handleTextClick}
+                    textBlockStyles={textBlockStyles}
+                    setTextBlockStyles={setTextBlockStyles}
                 />
             ))}
 
