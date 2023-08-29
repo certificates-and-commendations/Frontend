@@ -92,7 +92,17 @@ function StylePropertiesPanel({
 					checked={textBlocks[index].isItalic}
 					onChange={handleItalicChange}
 				/>
-				<span className="properties__span-text">Курсив</span>
+				<span
+					className="properties__span-text"
+					onClick={(e) => {
+						// Предотвращаем активацию радио-кнопки при клике на текст
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					aria-hidden="true"
+				>
+					Курсив
+				</span>
 			</label>
 			<label
 				className="properties__label properties__label_bold"
@@ -104,7 +114,17 @@ function StylePropertiesPanel({
 					checked={textBlocks[index].isBold}
 					onChange={handleBoldChange}
 				/>
-				<span className="properties__span-text">Полужирный</span>
+				<span
+					className="properties__span-text"
+					onClick={(e) => {
+						// Предотвращаем активацию радио-кнопки при клике на текст
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					aria-hidden="true"
+				>
+					Полужирный
+				</span>
 			</label>
 			<label
 				className="properties__label properties__label_text-decoration"
@@ -118,7 +138,17 @@ function StylePropertiesPanel({
 					checked={textBlockStyles[index].isDecoration === 'underline'}
 					onChange={() => handleTextDecorationChange(index, 'underline')}
 				/>
-				<span className="properties__span-text">Подчеркнутый</span>
+				<span
+					className="properties__span-text"
+					onClick={(e) => {
+						// Предотвращаем активацию радио-кнопки при клике на текст
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					aria-hidden="true"
+				>
+					Подчеркнутый
+			  </span>
 			</label>
 
 			<label
@@ -133,7 +163,17 @@ function StylePropertiesPanel({
 					checked={textBlockStyles[index].isDecoration === 'strikethrough'}
 					onChange={() => handleTextDecorationChange(index, 'strikethrough')}
 				/>
-				<span className="properties__span-text">Зачеркнутый</span>
+				<span
+					className="properties__span-text"
+					onClick={(e) => {
+						// Предотвращаем активацию радио-кнопки при клике на текст
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					aria-hidden="true"
+				>
+					Зачеркнутый
+				</span>
 			</label>
 
 			<label
@@ -148,7 +188,17 @@ function StylePropertiesPanel({
 					checked={textBlockStyles[index].isDecoration === 'none'}
 					onChange={() => handleTextDecorationChange(index, 'none')}
 				/>
-				<span className="properties__span-text">Нет</span>
+				<span
+					className="properties__span-text"
+					onClick={(e) => {
+						// Предотвращаем активацию радио-кнопки при клике на текст
+						e.preventDefault();
+						e.stopPropagation();
+					}}
+					aria-hidden="true"
+				>
+					Нет
+				</span>
 			</label>
 		</div>
 	);
