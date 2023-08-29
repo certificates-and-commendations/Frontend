@@ -55,11 +55,11 @@ function StylePropertiesPanel({
 			<button className="properties__button-move">Двигать панель</button>
 			<label
 				className="properties__label properties__label_fonts"
-				htmlFor="fontSelect"
+				htmlFor={`fontSelect-${index}`}
 			>
 				<span className="properties__span-text">Font:</span>
 				<select
-					id="fontSelect"
+					id={`fontSelect-${index}`}
 					value={font}
 					onChange={onFontChange}
 					className="properties__select"
@@ -70,11 +70,11 @@ function StylePropertiesPanel({
 			</label>
 			<label
 				className="properties__label properties__label_font-size"
-				htmlFor="fontSizeSelect"
+				htmlFor={`fontSizeSelect-${index}`}
 			>
 				<span className="properties__span-text">Font Size:</span>
 				<input
-					id="fontSizeSelect"
+					id={`fontSizeSelect-${index}`}
 					type="number"
 					min={1}
 					value={fontSize}
@@ -84,116 +84,71 @@ function StylePropertiesPanel({
 			</label>
 			<label
 				className="properties__label properties__label_italic"
-				htmlFor="italicCheckbox"
+				htmlFor={`italicCheckbox-${index}`}
 			>
 				<input
-					id="italicCheckbox"
+					id={`italicCheckbox-${index}`}
 					type="checkbox"
 					checked={textBlocks[index].isItalic}
 					onChange={handleItalicChange}
 				/>
-				<span
-					className="properties__span-text"
-					onClick={(e) => {
-						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.stopPropagation();
-					}}
-					aria-hidden="true"
-				>
-					Курсив
-				</span>
+				<span className="properties__span-text">Курсив</span>
 			</label>
 			<label
 				className="properties__label properties__label_bold"
-				htmlFor="boldCheckbox"
+				htmlFor={`boldCheckbox-${index}`}
 			>
 				<input
-					id="boldCheckbox"
+					id={`boldCheckbox-${index}`}
 					type="checkbox"
 					checked={textBlocks[index].isBold}
 					onChange={handleBoldChange}
 				/>
-				<span
-					className="properties__span-text"
-					onClick={(e) => {
-						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.stopPropagation();
-					}}
-					aria-hidden="true"
-				>
-					Полужирный
-				</span>
+				<span className="properties__span-text">Полужирный</span>
 			</label>
 			<label
 				className="properties__label properties__label_text-decoration"
-				htmlFor="underlineRadio"
+				htmlFor={`underlineRadio-${index}`}
 			>
 				<input
-					id="underlineRadio"
+					id={`underlineRadio-${index}`}
 					type="radio"
 					name={`textDecoration-${index}`}
 					value="underline"
 					checked={textBlockStyles[index].isDecoration === 'underline'}
 					onChange={() => handleTextDecorationChange(index, 'underline')}
 				/>
-				<span
-					className="properties__span-text"
-					onClick={(e) => {
-						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.stopPropagation();
-					}}
-					aria-hidden="true"
-				>
-					Подчеркнутый
-			  </span>
+				<span className="properties__span-text">Подчеркнутый</span>
 			</label>
 
 			<label
 				className="properties__label properties__label_text-decoration"
-				htmlFor="strikethroughRadio"
+				htmlFor={`strikethroughRadio-${index}`}
 			>
 				<input
-					id="strikethroughRadio"
+					id={`strikethroughRadio-${index}`}
 					type="radio"
 					name={`textDecoration-${index}`}
 					value="strikethrough"
 					checked={textBlockStyles[index].isDecoration === 'strikethrough'}
 					onChange={() => handleTextDecorationChange(index, 'strikethrough')}
 				/>
-				<span
-					className="properties__span-text"
-					onClick={(e) => {
-						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.stopPropagation();
-					}}
-					aria-hidden="true"
-				>
-					Зачеркнутый
-				</span>
+				<span className="properties__span-text">Зачеркнутый</span>
 			</label>
 
 			<label
 				className="properties__label properties__label_text-decoration"
-				htmlFor="noneRadio"
+				htmlFor={`noneRadio-${index}`}
 			>
 				<input
-					id="noneRadio"
+					id={`noneRadio-${index}`}
 					type="radio"
 					name={`textDecoration-${index}`}
 					value="none"
 					checked={textBlockStyles[index].isDecoration === 'none'}
 					onChange={() => handleTextDecorationChange(index, 'none')}
 				/>
-				<span
-					className="properties__span-text"
-					onClick={(e) => {
-						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.stopPropagation();
-					}}
-					aria-hidden="true"
-				>
-					Нет
-				</span>
+				<span className="properties__span-text">Нет</span>
 			</label>
 		</div>
 	);
