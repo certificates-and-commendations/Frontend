@@ -96,7 +96,6 @@ function StylePropertiesPanel({
 					className="properties__span-text"
 					onClick={(e) => {
 						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.preventDefault();
 						e.stopPropagation();
 					}}
 					aria-hidden="true"
@@ -118,7 +117,6 @@ function StylePropertiesPanel({
 					className="properties__span-text"
 					onClick={(e) => {
 						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.preventDefault();
 						e.stopPropagation();
 					}}
 					aria-hidden="true"
@@ -142,7 +140,6 @@ function StylePropertiesPanel({
 					className="properties__span-text"
 					onClick={(e) => {
 						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.preventDefault();
 						e.stopPropagation();
 					}}
 					aria-hidden="true"
@@ -167,7 +164,6 @@ function StylePropertiesPanel({
 					className="properties__span-text"
 					onClick={(e) => {
 						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.preventDefault();
 						e.stopPropagation();
 					}}
 					aria-hidden="true"
@@ -192,7 +188,6 @@ function StylePropertiesPanel({
 					className="properties__span-text"
 					onClick={(e) => {
 						// Предотвращаем активацию радио-кнопки при клике на текст
-						e.preventDefault();
 						e.stopPropagation();
 					}}
 					aria-hidden="true"
