@@ -37,10 +37,6 @@ function StylePropertiesPanel({
 		setTextDecorationStyle(style);
 	};
 
-	useEffect(() => {
-
-	}, [textBlockStyles, index])
-
 	const handleBoldChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
