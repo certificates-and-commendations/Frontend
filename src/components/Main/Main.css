@@ -1,0 +1,10 @@
+.temporary__container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+}
+
+.temporary__item {
+	margin: 0 auto;
+}

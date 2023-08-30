@@ -10,9 +10,9 @@ function TextBlock({
 	onInputKeyDown,
 	setEditingTextIndex,
 	font,
-   	setFont,
+	setFont,
 	fontSize,
-   	setFontSize,
+	setFontSize,
 	onFontChange,
 	onFontSizeChange,
 	onSignatureUpload,
@@ -31,18 +31,17 @@ function TextBlock({
 	activeTextIndex,
 	setShowProperties,
 	setTextDecorationStyle,
-    setTextPosition,
+	setTextPosition,
 	textDecorationStyle,
-   	textBlockStyles,
-   	setTextBlockStyles
+	textBlockStyles,
+	setTextBlockStyles,
 }) {
-
 	const handleResizeMouseDown = (e) => {
 		e.stopPropagation(); // Предотвращаем всплытие события
 	};
 
 	const handleDragStop = (e, data) => {
-		setTextPosition({x: data.x, y: data.y,} )
+		setTextPosition({ x: data.x, y: data.y });
 		// data.x и data.y содержат конечные координаты блока после перемещения
 		// console.log('Конечные координаты x:', data.x);
 		// console.log('Конечные координаты y:', data.y);
@@ -51,10 +50,8 @@ function TextBlock({
 
 	return (
 		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
-		<Draggable bounds="parent" onStop={handleDragStop} >
-			<div
-				className="certificate__text-field"
-			>
+		<Draggable bounds="parent" onStop={handleDragStop}>
+			<div className="certificate__text-field">
 				{editingTextIndex === index ? (
 					<textarea
 						value={textBlock.text}
@@ -83,8 +80,8 @@ function TextBlock({
 							setEditingTextIndex(index);
 							setShowProperties(true);
 							setActiveTextIndex(index);
-							setFontSize(textBlock.fontSize)
-							setFont(textBlock.fontFamily)
+							setFontSize(textBlock.fontSize);
+							setFont(textBlock.fontFamily);
 						}}
 						style={{
 							fontFamily: textBlock.fontFamily,

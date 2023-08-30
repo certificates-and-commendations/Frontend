@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 function StylePropertiesPanel({
 	index,
@@ -11,10 +11,9 @@ function StylePropertiesPanel({
 	isVisible,
 	activeTextIndex,
 	setTextDecorationStyle,
-  	textBlockStyles,
-  	setTextBlockStyles
+	textBlockStyles,
+	setTextBlockStyles,
 }) {
-
 	const handleItalicChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
