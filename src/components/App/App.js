@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -8,18 +8,50 @@ import Recovery from '../Recovery/Recovery';
 import Main from '../Main/Main';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
+import authApi from '../../utils/AuthApi';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
+	const [currentUser, setCurrentUser] = useState({});
+	const location = useLocation();
+	const navigate = useNavigate();
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
 		setIsRecoveryPopupOpen(false);
 	}
+
+	React.useEffect(() => {
+		// настало время проверить токен
+		if (localStorage.getItem('jwt')) {
+			const jwt = localStorage.getItem('jwt');
+			// проверим токен
+			authApi
+				.tokenValidity()
+				.then((res) => {
+					if (res) {
+						// авторизуем пользователя
+						setIsloggedIn(true);
+						setCurrentUser(res);
+						if (
+							location.pathname === '/editor' ||
+							location.pathname === '/' ||
+							location.pathname === '/main'
+						) {
+							navigate(location);
+						}
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+			// здесь будем проверять токен
+		}
+	}, []);
 
 	return (
 		<div className="App">
