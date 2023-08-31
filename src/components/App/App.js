@@ -1,27 +1,29 @@
 import './App.css';
 import React, { useState } from 'react';
-import {
-	Route,
-	Navigate,
-	useLocation,
-	Routes,
-	useNavigate,
-} from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Recovery from '../Recovery/Recovery';
+import Main from '../Main/Main';
+import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
+import Header from '../Header/Header';
 import authApi from '../../utils/AuthApi';
-// import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isloggedIn, setIsloggedIn] = useState(true);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
 	const location = useLocation();
 	const navigate = useNavigate();
+
+	function closeAllPopups() {
+		setIsRegisterPopupOpen(false);
+		setIsLoginPopupOpen(false);
+		setIsRecoveryPopupOpen(false);
+	}
 
 	React.useEffect(() => {
 		// настало время проверить токен
@@ -33,7 +35,7 @@ function App() {
 				.then((res) => {
 					if (res) {
 						// авторизуем пользователя
-						setIsLoggedIn(true);
+						setIsloggedIn(true);
 						setCurrentUser(res);
 						if (
 							location.pathname === '/editor' ||
@@ -51,29 +53,45 @@ function App() {
 		}
 	}, []);
 
-	function closeAllPopups() {
-		setIsRegisterPopupOpen(false);
-		setIsLoginPopupOpen(false);
-		setIsRecoveryPopupOpen(false);
-	}
-
 	return (
-		<>
-			<main className="main-content">
-				<CertificateEditor />
-			</main>
-			{isRegisterPopupOpen ? (
+		<div className="App">
+			<Header
+				setIsLoginPopupOpen={setIsLoginPopupOpen}
+				setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+			/>
+			<Routes>
+				{/* Роут для Main */}
+				<Route path="/" element={<Main />} />
+
+				{/* Роут для Editor */}
+				<Route
+					path="/editor"
+					element={
+						<ProtectedRouteElement
+							loggedIn={isloggedIn}
+							element={CertificateEditor}
+						/>
+					}
+				/>
+
+				{/* По готовности компонента Samples кладем его в роут */}
+				{/* <Route path='/profile' element={<ProtectedRouteElement loggedIn={isloggedIn} element={ Ожидаю Samples } />} /> */}
+
+				{/* По готовности компонента NotFoundPage кладем его в роут */}
+				{/* <Route path='*' element={ Ожидаю NotFoundPage } /> */}
+			</Routes>
+
+			{isRegisterPopupOpen && (
 				<Register
 					title="Регистрация"
 					buttonText="Зарегистрироваться"
 					popupName="register"
 					isOpened={isRegisterPopupOpen}
 					onClose={() => closeAllPopups()}
-					isloggedIn={isLoggedIn}
-					setIsLoggedIn={setIsLoggedIn}
+					isloggedIn={isloggedIn}
 				/>
-			) : undefined}
-			{isLoginPopupOpen ? (
+			)}
+			{isLoginPopupOpen && (
 				<Login
 					title="Вход"
 					buttonText="Войти"
@@ -81,11 +99,11 @@ function App() {
 					isOpened={isLoginPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
-					setIsloggedIn={setIsLoggedIn}
-					isloggedIn={isLoggedIn}
+					setIsloggedIn={setIsloggedIn}
+					isloggedIn={isloggedIn}
 				/>
-			) : undefined}
-			{isRecoveryPopupOpen ? (
+			)}
+			{isRecoveryPopupOpen && (
 				<Recovery
 					title="Забыли пароль?"
 					buttonText="Отправить инструкцию"
@@ -93,23 +111,10 @@ function App() {
 					isOpened={isRecoveryPopupOpen}
 					onClose={() => closeAllPopups()}
 					setIsLoginPopupOpen={setIsLoginPopupOpen}
+					isloggedIn={isloggedIn}
 				/>
-			) : undefined}
-			{/* <Routes > */}
-			{/* По готовности компонента Main кладем его в роут */}
-			{/* <Route path='/' element={ Ожидаю Main } /> */}
-
-			{/* По готовности компонента Editor кладем его в роут */}
-			{/* <Route path='/editor' element={<ProtectedRouteElement loggedIn={isloggedIn} element={ Ожидаю Editor } />} /> */}
-
-			{/* По готовности компонента Editor кладем его в роут */}
-			{/* <Route path='/profile' element={<ProtectedRouteElement loggedIn={isloggedIn} element={ Ожидаю Profile } />} /> */}
-
-			{/* По готовности компонента NotFoundPage кладем его в роут */}
-			{/* <Route path='*' element={ Ожидаю NotFoundPage } /> */}
-
-			{/* </Routes> */}
-		</>
+			)}
+		</div>
 	);
 }
 

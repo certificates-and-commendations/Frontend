@@ -35,6 +35,7 @@
 	width: 425px;
 	background-color: white;
 	padding: 60px;
+	border-radius: 32px;
 }
 
 .popup__navigation {

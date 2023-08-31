@@ -6,6 +6,7 @@ import TextBlock from '../TextBlock/TextBlock';
 import Signature from '../Signature/Signature';
 import Stamp from '../Stamp/Stamp';
 import LateralPropertiesPanel from '../LateralPropertiesPanel/LateralPropertiesPanel';
+import Header from '../Header/Header';
 
 function CertificateEditor() {
 	const [font, setFont] = useState('Arial');
@@ -14,13 +15,13 @@ function CertificateEditor() {
 	const [textBlocks, setTextBlocks] = useState([]);
 	const [editingTextIndex, setEditingTextIndex] = useState(null);
 	const [signature, setSignature] = useState(null);
-	const [signaturePosition, setSignaturePosition] = useState({x: 0, y: 0});
+	const [signaturePosition, setSignaturePosition] = useState({ x: 0, y: 0 });
 	const [uploadedCertificate, setUploadedCertificate] = useState(null);
 	const [showTable, setShowTable] = useState([]);
 	const [tableData, setTableData] = useState([]);
 	const [stamp, setStamp] = useState(null);
-	const [stampPosition, setStampPosition] = useState({x: 0, y: 0});
-	const [textPosition, setTextPosition] = useState({x: 0, y: 0});
+	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
+	const [textPosition, setTextPosition] = useState({ x: 0, y: 0 });
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 	const [pdfData, setPdfData] = useState(null);
@@ -29,8 +30,8 @@ function CertificateEditor() {
 	const certificateRef = useRef(null);
 
 	const handleTextClick = (e) => {
-		setFontSize(14)
-		setFont('Arial')
+		setFontSize(14);
+		setFont('Arial');
 
 		if (!editingTextIndex) {
 			setTextBlocks([
@@ -40,14 +41,17 @@ function CertificateEditor() {
 					x: '',
 					y: '',
 					fontFamily: 'Arial',
-					fontSize: 14
+					fontSize: 14,
 				},
 			]);
-			setTextBlockStyles([...textBlockStyles, {
-				isItalic: false,
-				isDecoration: 'none',
-				isBold: false,
-			}]);
+			setTextBlockStyles([
+				...textBlockStyles,
+				{
+					isItalic: false,
+					isDecoration: 'none',
+					isBold: false,
+				},
+			]);
 			setEditingTextIndex(textBlocks.length);
 			setActiveTextIndex(textBlocks.length);
 			setShowProperties(true);
@@ -73,16 +77,19 @@ function CertificateEditor() {
 		const updatedTextBlocks = [...textBlocks];
 
 		if (parseInt(e.target.value, 10) > 50) {
-			setFontSize(50)
+			setFontSize(50);
 			updatedTextBlocks[editingTextIndex].fontSize = 50;
 		} else if (parseInt(e.target.value, 10) < 0) {
-			setFontSize(1)
+			setFontSize(1);
 			updatedTextBlocks[editingTextIndex].fontSize = 1;
 		} else {
 			setFontSize(parseInt(e.target.value, 10));
 
 			if (editingTextIndex !== null) {
-				updatedTextBlocks[editingTextIndex].fontSize = parseInt(e.target.value, 10);
+				updatedTextBlocks[editingTextIndex].fontSize = parseInt(
+					e.target.value,
+					10
+				);
 
 				setTextBlocks(updatedTextBlocks);
 			}
@@ -135,17 +142,17 @@ function CertificateEditor() {
 	};
 
 	const handleSignatureDrag = (e, data) => {
-		setSignaturePosition({x: data.x, y: data.y});
+		setSignaturePosition({ x: data.x, y: data.y });
 	};
 
 	const handleStampDrag = (e, data) => {
-		setStampPosition({x: data.x, y: data.y});
+		setStampPosition({ x: data.x, y: data.y });
 	};
 
 	const handleCreateJson = () => {
 		// Создание JSON объекта
 		const jsonToSave = {
-			text_field: textBlocks.map(block => ({
+			text_field: textBlocks.map((block) => ({
 				text: block.text,
 				x: block.x,
 				y: block.y,
@@ -153,31 +160,31 @@ function CertificateEditor() {
 				fontSize: block.fontSize,
 				italic: block.isItalic,
 				textDecoration: block.isDecoration,
-				fontWeight: block.isBold
+				fontWeight: block.isBold,
 			})),
 			background: {
 				width: 600,
-				height: 850
+				height: 850,
 			}, // Подставьте URL фона
 			Stamp: {
 				url: stamp,
 				x: stampPosition.x,
-				y: stampPosition.y
+				y: stampPosition.y,
 			},
 			Signature: {
 				url: signature,
 				x: signaturePosition.x,
-				y: signaturePosition.y
-			} // Подставьте URL печати
+				y: signaturePosition.y,
+			}, // Подставьте URL печати
 		};
 		// console.log(jsonToSave)
 		setPdfData(jsonToSave);
-	}
+	};
 
 	const handleSavePDF = async () => {
-		handleCreateJson()
+		handleCreateJson();
 		const scale = 3; // Увеличение разрешения в 3 раза
-		const canvas = await html2canvas(certificateRef.current, {scale});
+		const canvas = await html2canvas(certificateRef.current, { scale });
 		const imgData = canvas.toDataURL('image/png');
 		const pdf = new JsPDF();
 		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
