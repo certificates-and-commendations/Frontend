@@ -18,7 +18,7 @@ export default function HeaderAuth({
 				className="header__item header__item_color_yellow"
 				type="button"
 			>
-				Зарегестрироваться
+				Зарегистрироваться
 			</button>
 		</div>
 	);

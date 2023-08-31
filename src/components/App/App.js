@@ -9,12 +9,14 @@ import Main from '../Main/Main';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import authApi from '../../utils/AuthApi';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
+	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -55,10 +57,12 @@ function App() {
 
 	return (
 		<div className="App">
-			<Header
-				setIsLoginPopupOpen={setIsLoginPopupOpen}
-				setIsRegisterPopupOpen={setIsRegisterPopupOpen}
-			/>
+			{!isPageNotFoundOpen && (
+				<Header
+					setIsLoginPopupOpen={setIsLoginPopupOpen}
+					setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+				/>
+			)}
 			<Routes>
 				{/* Роут для Main */}
 				<Route path="/" element={<Main />} />
@@ -77,8 +81,12 @@ function App() {
 				{/* По готовности компонента Samples кладем его в роут */}
 				{/* <Route path='/profile' element={<ProtectedRouteElement loggedIn={isloggedIn} element={ Ожидаю Samples } />} /> */}
 
-				{/* По готовности компонента NotFoundPage кладем его в роут */}
-				{/* <Route path='*' element={ Ожидаю NotFoundPage } /> */}
+				<Route
+					path="*"
+					element={
+						<PageNotFound setIsPageNotFoundOpen={setIsPageNotFoundOpen} />
+					}
+				/>
 			</Routes>
 
 			{isRegisterPopupOpen && (
