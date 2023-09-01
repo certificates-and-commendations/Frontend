@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
+import { GithubPicker } from 'react-color';
 
 function StylePropertiesPanel({
 	index,
@@ -13,7 +14,11 @@ function StylePropertiesPanel({
 	setTextDecorationStyle,
 	textBlockStyles,
 	setTextBlockStyles,
+  	setTextAlignStyle,
+  	onChangeComplete,
+  	color
 }) {
+
 	const handleItalicChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
@@ -34,6 +39,22 @@ function StylePropertiesPanel({
 
 		setTextBlockStyles(updatedStyles);
 		setTextDecorationStyle(style);
+	};
+
+	const handleTextAlignChange = (currentIndex, style) => {
+
+		const updatedStyles = [...textBlockStyles];
+		updatedStyles[currentIndex] = { ...updatedStyles[currentIndex] };
+		if (style === 'left') {
+			updatedStyles[currentIndex].isAlign = 'left';
+		} else if (style === 'center') {
+			updatedStyles[currentIndex].isAlign = 'center';
+		} else if (style === 'right') {
+			updatedStyles[currentIndex].isAlign = 'right';
+		}
+
+		setTextBlockStyles(updatedStyles);
+		setTextAlignStyle(style);
 	};
 
 	const handleBoldChange = () => {
@@ -149,6 +170,61 @@ function StylePropertiesPanel({
 				/>
 				<span className="properties__span-text">Нет</span>
 			</label>
+
+			<div className="properties__block-text-align">
+				<p className="properties__name">Расположение текста</p>
+				<label
+					className="properties__label properties__label_text-align"
+					htmlFor={`text-align-left-${index}`}
+				>
+					<input
+						id={`text-align-left-${index}`}
+						type="radio"
+						name={`textAlign-${index}`}
+						value="none"
+						checked={textBlockStyles[index].isAlign === 'left'}
+						onChange={() => handleTextAlignChange(index, 'left')}
+					/>
+					<span className="properties__span-text">Лево</span>
+				</label>
+
+				<label
+					className="properties__label properties__label_text-align"
+					htmlFor={`text-align-center-${index}`}
+				>
+					<input
+						id={`text-align-center-${index}`}
+						type="radio"
+						name={`textAlign-${index}`}
+						value="none"
+						checked={textBlockStyles[index].isAlign === 'center'}
+						onChange={() => handleTextAlignChange(index, 'center')}
+					/>
+					<span className="properties__span-text">Центр</span>
+				</label>
+
+				<label
+					className="properties__label properties__label_text-align"
+					htmlFor={`text-align-right-${index}`}
+				>
+					<input
+						id={`text-align-right-${index}`}
+						type="radio"
+						name={`textAlign-${index}`}
+						value="none"
+						checked={textBlockStyles[index].isAlign === 'right'}
+						onChange={() => handleTextAlignChange(index, 'right')}
+					/>
+					<span className="properties__span-text">Право</span>
+				</label>
+			</div>
+			<div className="properties__block-text-align">
+				<p className="properties__name">Цвет текста</p>
+				<GithubPicker
+					color={color}
+					onChangeComplete={onChangeComplete}
+				/>
+			</div>
 		</div>
 	);
 }

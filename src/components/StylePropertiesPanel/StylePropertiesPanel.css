@@ -61,3 +61,8 @@
 	padding: 5px 10px;
 	cursor: pointer;
 }
+
+.properties__name {
+	margin: 0;
+	background: white;
+}
