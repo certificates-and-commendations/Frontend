@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
+import { GithubPicker } from 'react-color';
 
 function StylePropertiesPanel({
 	index,
@@ -13,8 +14,11 @@ function StylePropertiesPanel({
 	setTextDecorationStyle,
 	textBlockStyles,
 	setTextBlockStyles,
-  	setTextAlignStyle
+  	setTextAlignStyle,
+  	onChangeComplete,
+  	color
 }) {
+
 	const handleItalicChange = () => {
 		const updatedTextBlocks = [...textBlocks];
 		updatedTextBlocks[index] = { ...updatedTextBlocks[index] };
@@ -212,6 +216,13 @@ function StylePropertiesPanel({
 					/>
 					<span className="properties__span-text">Право</span>
 				</label>
+			</div>
+			<div className="properties__block-text-align">
+				<p className="properties__name">Цвет текста</p>
+				<GithubPicker
+					color={color}
+					onChangeComplete={onChangeComplete}
+				/>
 			</div>
 		</div>
 	);
