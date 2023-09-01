@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
@@ -35,7 +35,14 @@ function TextBlock({
 	textDecorationStyle,
 	textBlockStyles,
 	setTextBlockStyles,
+   	textAlignStyle,
+   	setTextAlignStyle
 }) {
+	const [widthInput, setWidthInput] = useState(209)
+	const [heightInput, setHeightInput] = useState(17)
+	const textareaRef = useRef(null);
+	const scrollbarWidth = 17;
+
 	const handleResizeMouseDown = (e) => {
 		e.stopPropagation(); // Предотвращаем всплытие события
 	};
@@ -48,6 +55,13 @@ function TextBlock({
 		// Здесь вы можете выполнить дополнительные действия с полученными координатами
 	};
 
+	const handleTextareaClick = () => {
+		if (textareaRef.current) {
+			setWidthInput(textareaRef.current.clientWidth);
+			setHeightInput(textareaRef.current.clientHeight)
+		}
+	};
+
 	return (
 		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
 		<Draggable bounds="parent" onStop={handleDragStop}>
@@ -58,18 +72,30 @@ function TextBlock({
 						onMouseDown={handleResizeMouseDown}
 						onChange={(e) => onTextChange(e, index)}
 						onKeyDown={(e) => onInputKeyDown(e, index)}
-						onClick={(e) => e.stopPropagation()}
+						onClick={(e) => {
+							e.stopPropagation()
+							handleTextareaClick()
+						}}
+						ref={textareaRef}
 						style={{
 							fontFamily: textBlock.fontFamily,
 							fontSize: textBlock.fontSize,
 							fontStyle: textBlock.isItalic ? 'italic' : 'normal',
+							fontWeight: textBlock.isBold ? 'bold' : 'normal',
 							textDecoration:
 								textDecorationStyle === 'underline'
 									? 'underline'
 									: textDecorationStyle === 'strikethrough'
 									? 'line-through'
 									: 'none',
-							fontWeight: textBlock.isBold ? 'bold' : 'normal',
+							textAlign:
+								textAlignStyle === 'left'
+									? 'left'
+									: textAlignStyle === 'center'
+									? 'center'
+									: 'right',
+							width: widthInput + scrollbarWidth,
+							height: heightInput
 						}}
 						className="certificate__input"
 					/>
@@ -87,13 +113,21 @@ function TextBlock({
 							fontFamily: textBlock.fontFamily,
 							fontSize: textBlock.fontSize,
 							fontStyle: textBlock.isItalic ? 'italic' : 'normal',
+							fontWeight: textBlock.isBold ? 'bold' : 'normal',
 							textDecoration:
 								textDecorationStyle === 'underline'
 									? 'underline'
 									: textDecorationStyle === 'strikethrough'
-									? 'line-through'
-									: 'none',
-							fontWeight: textBlock.isBold ? 'bold' : 'normal',
+										? 'line-through'
+										: 'none',
+							textAlign:
+								textAlignStyle === 'left'
+									? 'left'
+									: textAlignStyle === 'center'
+										? 'center'
+										: 'right',
+							width: widthInput + scrollbarWidth,
+							height: heightInput
 						}}
 					>
 						<p className="certificate__text-paragraph">{textBlock.text}</p>
@@ -122,6 +156,7 @@ function TextBlock({
 					setTextDecorationStyle={setTextDecorationStyle}
 					textBlockStyles={textBlockStyles}
 					setTextBlockStyles={setTextBlockStyles}
+					setTextAlignStyle={setTextAlignStyle}
 				/>
 			</div>
 		</Draggable>

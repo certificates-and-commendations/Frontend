@@ -28,11 +28,13 @@
 	max-width: inherit;
 	max-height: inherit;
 	min-width: 209px;
-	width: 200px;
 	background: none;
 	border: none;
 	border-bottom: 1px solid black;
 	outline: none;
+	margin: 0;
+	padding: 0;
+	overflow-y: scroll;
 }
 
 .certificate__text-paragraph {
