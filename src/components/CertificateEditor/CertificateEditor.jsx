@@ -24,6 +24,7 @@ function CertificateEditor() {
 	const [textPosition, setTextPosition] = useState({ x: 0, y: 0 });
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
+	const [textAlignStyle, setTextAlignStyle] = useState('left');
 	const [pdfData, setPdfData] = useState(null);
 	const [textBlockStyles, setTextBlockStyles] = useState([]);
 
@@ -48,8 +49,9 @@ function CertificateEditor() {
 				...textBlockStyles,
 				{
 					isItalic: false,
-					isDecoration: 'none',
 					isBold: false,
+					isDecoration: 'none',
+					isAlign: 'left'
 				},
 			]);
 			setEditingTextIndex(textBlocks.length);
@@ -250,6 +252,8 @@ function CertificateEditor() {
 					onTextClick={handleTextClick}
 					textBlockStyles={textBlockStyles}
 					setTextBlockStyles={setTextBlockStyles}
+					textAlignStyle={textAlignStyle}
+					setTextAlignStyle={setTextAlignStyle}
 				/>
 			))}
 
