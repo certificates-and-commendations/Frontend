@@ -10,6 +10,7 @@ import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import Footer from '../Footer/Footer';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -88,7 +89,7 @@ function App() {
 					}
 				/>
 			</Routes>
-
+			{!isPageNotFoundOpen && <Footer />}
 			{isRegisterPopupOpen && (
 				<Register
 					title="Регистрация"
