@@ -41,6 +41,7 @@ function TextBlock({
 	const [widthInput, setWidthInput] = useState(209)
 	const [heightInput, setHeightInput] = useState(17)
 	const textareaRef = useRef(null);
+	const [color, setColor] = useState('#000000');
 	const scrollbarWidth = 17;
 
 	const handleResizeMouseDown = (e) => {
@@ -60,6 +61,10 @@ function TextBlock({
 			setWidthInput(textareaRef.current.clientWidth);
 			setHeightInput(textareaRef.current.clientHeight)
 		}
+	};
+
+	const handleChangeComplete = (newColor) => {
+		setColor(newColor.hex); // Обновляем цвет при выборе
 	};
 
 	return (
@@ -95,7 +100,8 @@ function TextBlock({
 									? 'center'
 									: 'right',
 							width: widthInput + scrollbarWidth,
-							height: heightInput
+							height: heightInput,
+							color
 						}}
 						className="certificate__input"
 					/>
@@ -127,7 +133,8 @@ function TextBlock({
 										? 'center'
 										: 'right',
 							width: widthInput + scrollbarWidth,
-							height: heightInput
+							height: heightInput,
+							color
 						}}
 					>
 						<p className="certificate__text-paragraph">{textBlock.text}</p>
@@ -157,6 +164,8 @@ function TextBlock({
 					textBlockStyles={textBlockStyles}
 					setTextBlockStyles={setTextBlockStyles}
 					setTextAlignStyle={setTextAlignStyle}
+					onChangeComplete={handleChangeComplete}
+					color={color}
 				/>
 			</div>
 		</Draggable>
