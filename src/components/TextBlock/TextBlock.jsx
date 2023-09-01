@@ -42,7 +42,7 @@ function TextBlock({
 	const [heightInput, setHeightInput] = useState(17)
 	const textareaRef = useRef(null);
 	const [color, setColor] = useState('#000000');
-	const scrollbarWidth = 17;
+	const scrollbarWidth = 19;
 
 	const handleResizeMouseDown = (e) => {
 		e.stopPropagation(); // Предотвращаем всплытие события

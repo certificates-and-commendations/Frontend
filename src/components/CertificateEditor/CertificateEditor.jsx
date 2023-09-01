@@ -252,7 +252,7 @@ function CertificateEditor() {
 					onTextClick={handleTextClick}
 					textBlockStyles={textBlockStyles}
 					setTextBlockStyles={setTextBlockStyles}
-					textAlignStyle={textAlignStyle}
+					textAlignStyle={textBlockStyles[index].isAlign}
 					setTextAlignStyle={setTextAlignStyle}
 				/>
 			))}

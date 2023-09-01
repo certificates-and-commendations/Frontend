@@ -42,6 +42,7 @@ function StylePropertiesPanel({
 	};
 
 	const handleTextAlignChange = (currentIndex, style) => {
+
 		const updatedStyles = [...textBlockStyles];
 		updatedStyles[currentIndex] = { ...updatedStyles[currentIndex] };
 		if (style === 'left') {
@@ -179,7 +180,7 @@ function StylePropertiesPanel({
 					<input
 						id={`text-align-left-${index}`}
 						type="radio"
-						name={`text-align-left-${index}`}
+						name={`textAlign-${index}`}
 						value="none"
 						checked={textBlockStyles[index].isAlign === 'left'}
 						onChange={() => handleTextAlignChange(index, 'left')}
@@ -194,7 +195,7 @@ function StylePropertiesPanel({
 					<input
 						id={`text-align-center-${index}`}
 						type="radio"
-						name={`text-align-center-${index}`}
+						name={`textAlign-${index}`}
 						value="none"
 						checked={textBlockStyles[index].isAlign === 'center'}
 						onChange={() => handleTextAlignChange(index, 'center')}
@@ -209,7 +210,7 @@ function StylePropertiesPanel({
 					<input
 						id={`text-align-right-${index}`}
 						type="radio"
-						name={`text-align-right-${index}`}
+						name={`textAlign-${index}`}
 						value="none"
 						checked={textBlockStyles[index].isAlign === 'right'}
 						onChange={() => handleTextAlignChange(index, 'right')}
