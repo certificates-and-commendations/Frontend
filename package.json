@@ -34,7 +34,7 @@
 		"format": "prettier . --write",
 		"prepare": "husky install",
 		"lint-staged": "lint-staged",
-		"commit": "npm run lint-staged && git add -A && cz"
+		"commit": "git add -A && npm run lint-staged && git add -A && cz"
 	},
 	"eslintConfig": {
 		"extends": [
