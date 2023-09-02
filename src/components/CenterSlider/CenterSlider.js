@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 
-export default function CenterSlider({ array, setDiploma, delay, isRtl }) {
+export default function CenterSlider({ array, setDiploma, delay }) {
 	const settings = {
 		dots: true,
 		speed: 3500,
