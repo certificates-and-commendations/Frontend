@@ -8,7 +8,7 @@ import Stamp from '../Stamp/Stamp';
 import LateralPropertiesPanel from '../LateralPropertiesPanel/LateralPropertiesPanel';
 import Header from '../Header/Header';
 
-function CertificateEditor() {
+function CertificateEditor({ diploma }) {
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
 	const [showProperties, setShowProperties] = useState(false);

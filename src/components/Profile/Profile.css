@@ -52,6 +52,10 @@
 	margin: 0 100px;
 }
 
+.profile__template {
+	cursor: pointer;
+}
+
 .profile__template_horizontal {
 	width: 369px;
 	height: 243px;
@@ -60,4 +64,8 @@
 .profile__template_vertical {
 	width: 161px;
 	height: 245px;
+}
+
+.profile__template-link_inactive {
+	pointer-events: none;
 }

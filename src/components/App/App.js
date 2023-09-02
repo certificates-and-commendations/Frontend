@@ -23,6 +23,7 @@ function App() {
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
+	const [diploma, setDiploma] = useState({});
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -82,6 +83,7 @@ function App() {
 							<ProtectedRouteElement
 								loggedIn={isloggedIn}
 								element={CertificateEditor}
+								diploma={diploma}
 							/>
 						}
 					/>
@@ -89,7 +91,11 @@ function App() {
 					<Route
 						path="/profile"
 						element={
-							<ProtectedRouteElement loggedIn={isloggedIn} element={Profile} />
+							<ProtectedRouteElement
+								loggedIn={isloggedIn}
+								element={Profile}
+								setDiploma={setDiploma}
+							/>
 						}
 					/>
 
