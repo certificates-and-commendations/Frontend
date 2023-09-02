@@ -51,7 +51,7 @@ function CertificateEditor() {
 					isItalic: false,
 					isBold: false,
 					isDecoration: 'none',
-					isAlign: 'left'
+					isAlign: 'left',
 				},
 			]);
 			setEditingTextIndex(textBlocks.length);

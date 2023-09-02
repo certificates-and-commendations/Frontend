@@ -35,11 +35,11 @@ function TextBlock({
 	textDecorationStyle,
 	textBlockStyles,
 	setTextBlockStyles,
-   	textAlignStyle,
-   	setTextAlignStyle
+	textAlignStyle,
+	setTextAlignStyle,
 }) {
-	const [widthInput, setWidthInput] = useState(209)
-	const [heightInput, setHeightInput] = useState(17)
+	const [widthInput, setWidthInput] = useState(209);
+	const [heightInput, setHeightInput] = useState(17);
 	const textareaRef = useRef(null);
 	const [color, setColor] = useState('#000000');
 	const scrollbarWidth = 19;
@@ -59,7 +59,7 @@ function TextBlock({
 	const handleTextareaClick = () => {
 		if (textareaRef.current) {
 			setWidthInput(textareaRef.current.clientWidth);
-			setHeightInput(textareaRef.current.clientHeight)
+			setHeightInput(textareaRef.current.clientHeight);
 		}
 	};
 
@@ -78,8 +78,8 @@ function TextBlock({
 						onChange={(e) => onTextChange(e, index)}
 						onKeyDown={(e) => onInputKeyDown(e, index)}
 						onClick={(e) => {
-							e.stopPropagation()
-							handleTextareaClick()
+							e.stopPropagation();
+							handleTextareaClick();
 						}}
 						ref={textareaRef}
 						style={{
@@ -101,7 +101,7 @@ function TextBlock({
 									: 'right',
 							width: widthInput + scrollbarWidth,
 							height: heightInput,
-							color
+							color,
 						}}
 						className="certificate__input"
 					/>
@@ -124,17 +124,17 @@ function TextBlock({
 								textDecorationStyle === 'underline'
 									? 'underline'
 									: textDecorationStyle === 'strikethrough'
-										? 'line-through'
-										: 'none',
+									? 'line-through'
+									: 'none',
 							textAlign:
 								textAlignStyle === 'left'
 									? 'left'
 									: textAlignStyle === 'center'
-										? 'center'
-										: 'right',
+									? 'center'
+									: 'right',
 							width: widthInput + scrollbarWidth,
 							height: heightInput,
-							color
+							color,
 						}}
 					>
 						<p className="certificate__text-paragraph">{textBlock.text}</p>

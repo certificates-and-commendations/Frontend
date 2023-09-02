@@ -11,6 +11,10 @@ import Header from '../Header/Header';
 import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
+import Profile from '../Profile/Profile';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -57,73 +61,81 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
-			{!isPageNotFoundOpen && (
-				<Header
-					setIsLoginPopupOpen={setIsLoginPopupOpen}
-					setIsRegisterPopupOpen={setIsRegisterPopupOpen}
-				/>
-			)}
-			<Routes>
-				{/* Роут для Main */}
-				<Route path="/" element={<Main />} />
+		<CurrentUserContext.Provider value={currentUser}>
+			<div className="App">
+				{!isPageNotFoundOpen && (
+					<Header
+						setIsLoginPopupOpen={setIsLoginPopupOpen}
+						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
+						isloggedIn={isloggedIn}
+						setIsLoggedIn={setIsloggedIn}
+					/>
+				)}
+				<Routes>
+					{/* Роут для Main */}
+					<Route path="/" element={<Main />} />
 
-				{/* Роут для Editor */}
-				<Route
-					path="/editor"
-					element={
-						<ProtectedRouteElement
-							loggedIn={isloggedIn}
-							element={CertificateEditor}
-						/>
-					}
-				/>
+					{/* Роут для Editor */}
+					<Route
+						path="/editor"
+						element={
+							<ProtectedRouteElement
+								loggedIn={isloggedIn}
+								element={CertificateEditor}
+							/>
+						}
+					/>
 
-				{/* По готовности компонента Samples кладем его в роут */}
-				{/* <Route path='/profile' element={<ProtectedRouteElement loggedIn={isloggedIn} element={ Ожидаю Samples } />} /> */}
+					<Route
+						path="/profile"
+						element={
+							<ProtectedRouteElement loggedIn={isloggedIn} element={Profile} />
+						}
+					/>
 
-				<Route
-					path="*"
-					element={
-						<PageNotFound setIsPageNotFoundOpen={setIsPageNotFoundOpen} />
-					}
-				/>
-			</Routes>
-			{!isPageNotFoundOpen && <Footer />}
-			{isRegisterPopupOpen && (
-				<Register
-					title="Регистрация"
-					buttonText="Зарегистрироваться"
-					popupName="register"
-					isOpened={isRegisterPopupOpen}
-					onClose={() => closeAllPopups()}
-					isloggedIn={isloggedIn}
-				/>
-			)}
-			{isLoginPopupOpen && (
-				<Login
-					title="Вход"
-					buttonText="Войти"
-					popupName="login"
-					isOpened={isLoginPopupOpen}
-					onClose={() => closeAllPopups()}
-					setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
-					setIsloggedIn={setIsloggedIn}
-					isloggedIn={isloggedIn}
-				/>
-			)}
-			{isRecoveryPopupOpen && (
-				<Recovery
-					title="Забыли пароль?"
-					buttonText="Отправить инструкцию"
-					popupName="recovery"
-					isOpened={isRecoveryPopupOpen}
-					onClose={() => closeAllPopups()}
-					setIsLoginPopupOpen={setIsLoginPopupOpen}
-					isloggedIn={isloggedIn}
-				/>
-			)}
-		</div>
+					<Route
+						path="*"
+						element={
+							<PageNotFound setIsPageNotFoundOpen={setIsPageNotFoundOpen} />
+						}
+					/>
+				</Routes>
+				{!isPageNotFoundOpen && <Footer />}
+				{isRegisterPopupOpen && (
+					<Register
+						title="Регистрация"
+						buttonText="Зарегистрироваться"
+						popupName="register"
+						isOpened={isRegisterPopupOpen}
+						onClose={() => closeAllPopups()}
+						isloggedIn={isloggedIn}
+					/>
+				)}
+				{isLoginPopupOpen && (
+					<Login
+						title="Вход"
+						buttonText="Войти"
+						popupName="login"
+						isOpened={isLoginPopupOpen}
+						onClose={() => closeAllPopups()}
+						setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
+						setIsloggedIn={setIsloggedIn}
+						isloggedIn={isloggedIn}
+					/>
+				)}
+				{isRecoveryPopupOpen && (
+					<Recovery
+						title="Забыли пароль?"
+						buttonText="Отправить инструкцию"
+						popupName="recovery"
+						isOpened={isRecoveryPopupOpen}
+						onClose={() => closeAllPopups()}
+						setIsLoginPopupOpen={setIsLoginPopupOpen}
+						isloggedIn={isloggedIn}
+					/>
+				)}
+			</div>
+		</CurrentUserContext.Provider>
 	);
 }
 
