@@ -28,7 +28,7 @@
 .options__infinite span {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .options__item {
