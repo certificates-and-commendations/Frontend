@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import CertificateEditor from '../CertificateEditor/CertificateEditor';
+import CertificateEditor from '../PageEditor/CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Recovery from '../Recovery/Recovery';
@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import PageEditor from "../PageEditor/PageEditor";
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -82,7 +83,7 @@ function App() {
 						element={
 							<ProtectedRouteElement
 								loggedIn={isloggedIn}
-								element={CertificateEditor}
+								element={PageEditor}
 								diploma={diploma}
 							/>
 						}
