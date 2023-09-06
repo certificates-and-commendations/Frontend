@@ -7,8 +7,14 @@
 /* App */
 @import url('./components/App/App.css');
 
+/* PageEditor */
+@import url('./components/PageEditor/PageEditor.css');
+
+/* SidebarEditor */
+@import url('./components/PageEditor/SidebarEditor/SidebarEditor.css');
+
 /* CertificateEditor */
-@import url('./components/CertificateEditor/CertificateEditor.css');
+@import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
 
 /* TextBlock */
 @import url('./components/TextBlock/TextBlock.css');
