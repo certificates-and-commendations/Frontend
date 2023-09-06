@@ -1,12 +1,6 @@
-.panel-container {
-    border-right: 2px solid #959596;
-    border-left: 2px solid #959596;
-}
-
 .sidebar {
     border-right: 1px solid #959596;
     max-width: 144px;
-    display: flex;
 }
 
 .sidebar-navigate {
