@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef} from 'react';
 import Draggable from 'react-draggable';
 import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
@@ -132,8 +132,8 @@ function TextBlock({
 									: textAlignStyle === 'center'
 									? 'center'
 									: 'right',
-							width: widthInput + scrollbarWidth,
-							height: heightInput,
+							// width: widthInput + scrollbarWidth,
+							// height: heightInput,
 							color,
 						}}
 					>
