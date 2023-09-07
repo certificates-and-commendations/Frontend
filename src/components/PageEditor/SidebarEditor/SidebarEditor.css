@@ -1,6 +1,7 @@
 .sidebar {
     border-right: 1px solid #959596;
     max-width: 144px;
+    display: flex;
 }
 
 .sidebar-navigate {
@@ -38,4 +39,10 @@
     border-radius: 16px;
     border: 1px solid #2B2B2E;
     cursor: pointer;
+}
+
+.panel-container {
+    background: #F0F0F0;
+    border-right: 1px solid #959596;
+    border-left: 1px solid #959596;
 }

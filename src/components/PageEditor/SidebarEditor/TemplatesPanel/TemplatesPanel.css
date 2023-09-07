@@ -8,10 +8,10 @@
 .search-panel__search-input {
     width: 250px;
     height: 32px;
-    border-radius: 16px;
+    border-radius: 12px;
     background: #FFFFFF;
     padding: 0 0 0 40px;
-    border: 1px solid #959596;
+    border: none;
 }
 
 .search-panel__search-input::placeholder {
