@@ -13,6 +13,12 @@
 /* SidebarEditor */
 @import url('./components/PageEditor/SidebarEditor/SidebarEditor.css');
 
+/* TemplatesPanel */
+@import url('./components/PageEditor/SidebarEditor/TemplatesPanel/TemplatesPanel.css');
+
+/* TextPanel */
+@import url('./components/PageEditor/SidebarEditor/TextPanel/TextPanel.css');
+
 /* CertificateEditor */
 @import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
 
