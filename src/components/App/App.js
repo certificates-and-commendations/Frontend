@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Samples from '../Samples/Samples';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -87,7 +88,13 @@ function App() {
 							/>
 						}
 					/>
-
+					<Route
+						path="/samples"
+						element={
+							<ProtectedRouteElement loggedIn={isloggedIn} element={Samples} />
+						}
+					/>
+					{/* {Роут для Profile} */}
 					<Route
 						path="/profile"
 						element={

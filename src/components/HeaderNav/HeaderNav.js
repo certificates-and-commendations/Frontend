@@ -5,7 +5,7 @@ export default function HeaderNav() {
 	const location = useLocation();
 	const isEditorPage = location.pathname === '/editor';
 	const isMainPage = location.pathname === '/';
-
+	const isSamplesPage = location.pathname === '/samples';
 	return (
 		<nav>
 			<ul className="header__nav">
@@ -21,8 +21,14 @@ export default function HeaderNav() {
 					</Link>
 				</li>
 				<li>
-					<Link className="header__link" to="/">
-						<p className="header__item">Шаблоны</p>
+					<Link className="header__link" to="/samples">
+						<p
+							className={`header__item ${
+								isSamplesPage ? 'header__item_active' : ''
+							}`}
+						>
+							Шаблоны
+						</p>
 					</Link>
 				</li>
 				<li>
