@@ -4,20 +4,32 @@ import squareCheck from '../../../../images/imageEditor/elements-panel__square-c
 
 function ElementsPanel() {
 
-    const [imageURLs, setImageURLs] = useState([]);
+    const [imageURLsElements, setImageURLsElements] = useState([]);
     const [squareStates, setSquareStates] = useState([]);
 
-    const handleFileInputChange = (e) => {
+    function isImageValid(file) {
+        const allowedFormats = ['image/jpeg', 'image/png'];
+        return allowedFormats.includes(file.type);
+    }
+
+    const handleFileInputChangeElements = (e) => {
         const files = Array.from(e.target.files);
 
-        setImageURLs((prevImageURLs) => [
+        const validFiles = files.filter(isImageValid);
+
+        if (validFiles.length === 0) {
+            alert('Загрузите изображение в формате JPEG или PNG.');
+            return;
+        }
+
+        setImageURLsElements((prevImageURLs) => [
             ...prevImageURLs,
-            ...files.map((file) => URL.createObjectURL(file)),
+            ...validFiles.map((file) => URL.createObjectURL(file)),
         ]);
         setSquareStates((prevStates) => [...prevStates, false]);
     };
 
-    const handleClickSquare = (index) => {
+    const handleClickSquareElements = (index) => {
         setSquareStates((prevStates) => {
             const newStates = [...prevStates];
             newStates[index] = !newStates[index];
@@ -39,12 +51,12 @@ function ElementsPanel() {
                         id="fileElementsInput"
                         className="elements-panel__input"
                         multiple
-                        onChange={handleFileInputChange}
+                        onChange={handleFileInputChangeElements}
                     />
                 </label>
             </div>
             <div className="elements-panel__loading-file">
-                {imageURLs.map((url, index) => (
+                {imageURLsElements.map((url, index) => (
                     <div className="elements-panel__wrapper">
                         <img
                             key={index}
@@ -56,7 +68,7 @@ function ElementsPanel() {
                             src={squareStates[index] ? squareCheck : square}
                             alt={squareStates[index] ? ' Квадрат с галочкой.' : ' Пустой квадрат.'}
                             className="elements-panel__square"
-                            onClick={() => handleClickSquare(index)}
+                            onClick={() => handleClickSquareElements(index)}
                         />
                     </div>
                 ))}
