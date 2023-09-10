@@ -22,6 +22,9 @@
 /* ElementsPanel */
 @import url('./components/PageEditor/SidebarEditor/ElementsPanel/ElementsPanel.css');
 
+/* DownloadsPanel */
+@import url('./components/PageEditor/SidebarEditor/DownloadsPanel/DownloadsPanel.css');
+
 /* CertificateEditor */
 @import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
 
