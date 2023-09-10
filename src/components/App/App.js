@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
@@ -15,6 +15,7 @@ import Profile from '../Profile/Profile';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Samples from '../Samples/Samples';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -23,6 +24,7 @@ function App() {
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
+	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -87,7 +89,17 @@ function App() {
 							/>
 						}
 					/>
-
+					<Route
+						path="/samples"
+						element={
+							<ProtectedRouteElement
+								loggedIn={isloggedIn}
+								element={Samples}
+								setDiploma={setDiploma}
+							/>
+						}
+					/>
+					{/* {Роут для Profile} */}
 					<Route
 						path="/profile"
 						element={

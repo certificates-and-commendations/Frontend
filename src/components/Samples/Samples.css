@@ -1,0 +1,84 @@
+.samples {
+	display: flex;
+	flex-direction: column;
+	padding: 60px;
+	box-sizing: border-box;
+}
+
+.samples__main {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: 40px;
+}
+
+.samples__title {
+	color: var(--text-100, #2b2b2e);
+	/* Web/Bold/Title 2 */
+	font-family: Wix Madefor Display;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: 0.36px;
+}
+
+.samples__menu {
+	display: flex;
+	flex-direction: column;
+	width: 304px;
+}
+
+.samples__menu-title {
+	margin-top: 18px;
+}
+
+.samples__button {
+	display: flex;
+	padding: 12px 26px;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	border-radius: 12px;
+	border: 1px solid var(--text-50, #959596);
+	color: var(--text-50, #959596);
+	text-align: center;
+	/* Web/Regular/Caption */
+	font-family: Wix Madefor Display;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.42px;
+}
+
+.samples__button:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.samples__button_active {
+	background: var(--primary, #c3beff);
+}
+
+.samples__menu-continer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.samples__container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 28px;
+}
+
+.samples__link:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.samples__image {
+}
