@@ -129,3 +129,9 @@
 	border: 0;
 	z-index: 99;
 }
+
+.samples__button-like:hover,
+.samples__button-like_active:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
