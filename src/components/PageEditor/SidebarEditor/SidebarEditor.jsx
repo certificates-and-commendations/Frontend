@@ -6,6 +6,7 @@ import downloadImage from '../../../images/imageEditor/downloadImage.svg'
 import TemplatesPanel from "./TemplatesPanel/TemplatesPanel";
 import TextPanel from "./TextPanel/TextPanel";
 import ElementsPanel from "./ElementsPanel/ElementsPanel";
+import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 
 function SidebarEditor() {
 
@@ -20,6 +21,8 @@ function SidebarEditor() {
                 return <TextPanel />;
             case 'panelElements':
                 return <ElementsPanel />;
+            case 'panelDownloads':
+                return <DownloadsPanel />;
             default:
                 return null;
         }
@@ -65,8 +68,14 @@ function SidebarEditor() {
                             Элементы
                         </button>
                     </li>
-                    <li className="sidebar-navigate__item">
-                        <button className="sidebar-navigate__button">
+                    <li className={`sidebar-navigate__item ${activeClass === 'panelDownloads' ? "sidebar-navigate__item_active" : ""}`}>
+                        <button
+                            className="sidebar-navigate__button"
+                            onClick={() => {
+                                setActivePanel('panelDownloads');
+                                setActiveClass('panelDownloads');
+                            }}
+                        >
                             <img src={downloadImage} alt=" Кнопка открытия панели загрузок." className="sidebar-navigate__icon"/>
                             Загрузки
                         </button>
