@@ -80,15 +80,52 @@
 
 .samples__link {
 	height: min-content;
+	position: relative;
 	/* Temporary */
 	break-inside: avoid;
 }
 
-.samples__link:hover {
-	cursor: pointer;
-	opacity: 0.7;
+.samples__link {
 }
 
 .samples__image {
 	width: 194px;
+}
+
+.samples__image:hover {
+	width: 194px;
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.samples__button-like {
+	background-image: url(../../images/heart.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: 40px;
+	left: 154px;
+	border: 0;
+	background-color: transparent;
+	z-index: 99;
+}
+
+.samples__button-like_active {
+	background-color: blue;
+	background-image: url(../../images/heart.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: 40px;
+	left: 154px;
+	border: 0;
+	z-index: 99;
 }

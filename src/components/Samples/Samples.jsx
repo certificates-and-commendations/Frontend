@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
 import Checkbox from './Checkbox/Checkbox';
+import Sample from './Sample/Sample';
 // Временно подключил картинки
 import sampleImageVertical from '../../images/vertical2.svg';
 import sampleImageHorizontal from '../../images/horizontal2.svg';
@@ -94,6 +95,34 @@ function Samples({ setDiploma }) {
 			[name]: isChecked,
 		});
 	};
+
+	const handleDislike = (e, item) => {
+		e.stopPropagation();
+		// return authApi.addLike(item)
+		// 	.then((res) => {
+		// 		const newSamples = samples.filter((card) => card.id === res.id)
+		// 		setSamples(newSamples)
+		// 	})
+		// 	.catch((err) => console.log(err))
+		console.log('Dislike', item);
+	};
+
+	const handleLike = (e, item) => {
+		e.stopPropagation();
+		// return authApi.addLike(item)
+		// 	.then((res) => {
+		// 		const newSamples = samples.filter((card) => card.id === res.id)
+		// 		setSamples(newSamples)
+		// 	})
+		// 	.catch((err) => console.log(err))
+		console.log('Like', item);
+	};
+
+	const handleImageClick = (e, item) => {
+		e.stopPropagation();
+		setDiploma(item);
+		console.log('Click');
+	};
 	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ПОЛУЧЕНИЯ ОТФИЛЬТРОВАНЫХ ШАБЛОНОВ
 	async function getFilteredSamples() {
 		try {
@@ -160,14 +189,13 @@ function Samples({ setDiploma }) {
 				<div className="samples__container">
 					{samples.results.map((item) => {
 						return (
-							<Link key={item.id} className="samples__link" to="/editor">
-								<img
-									onClick={() => setDiploma(item)}
-									alt={item.title}
-									className="samples__image"
-									src={item.thumbnail}
-								/>
-							</Link>
+							<Sample
+								key={item.id}
+								item={item}
+								onImageClick={handleImageClick}
+								onLike={handleLike}
+								onDislike={handleDislike}
+							/>
 						);
 					})}
 				</div>
