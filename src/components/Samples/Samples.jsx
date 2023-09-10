@@ -84,7 +84,7 @@ function Samples({ setDiploma }) {
 		diplomas: false,
 		thanks: false,
 		certificates: false,
-		is_vertikal: false,
+		is_vertical: false,
 		is_horizontal: false,
 	});
 
@@ -95,7 +95,6 @@ function Samples({ setDiploma }) {
 		});
 	};
 	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ПОЛУЧЕНИЯ ОТФИЛЬТРОВАНЫХ ШАБЛОНОВ
-	
 	async function getFilteredSamples() {
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues)
@@ -161,7 +160,6 @@ function Samples({ setDiploma }) {
 						return (
 							<Link key={item.id} className='samples__link' to='/editor'>
 								<img
-
 									onClick={() => setDiploma(item)}
 									alt={item.title}
 									className="samples__image"

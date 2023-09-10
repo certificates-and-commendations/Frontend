@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
 import authApi from '../../utils/AuthApi';
-import ConfirmPassword from '../ConfirmPassword/ConfirmPassword';
 
 function Form({
 	popupName,
@@ -83,7 +82,6 @@ function Form({
 					: `popup popup_${popupName}`
 			}
 		>
-			{isConfirmPopupOpened && <ConfirmPassword email={formValue.email} />}
 			<div className="popup__container">
 				<div className="popup__navigation">
 					<h1 className="popup__title">{title}</h1>

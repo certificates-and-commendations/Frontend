@@ -73,6 +73,15 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 28px;
+/* Temporary */
+	column-count: 3;
+	column-gap: 28px;
+}
+
+.samples__link {
+	height: min-content;
+	/* Temporary */
+	break-inside: avoid;
 }
 
 .samples__link:hover {
@@ -81,4 +90,5 @@
 }
 
 .samples__image {
+	width: 194px;
 }
