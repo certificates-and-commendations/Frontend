@@ -19,6 +19,9 @@
 /* TextPanel */
 @import url('./components/PageEditor/SidebarEditor/TextPanel/TextPanel.css');
 
+/* ElementsPanel */
+@import url('./components/PageEditor/SidebarEditor/ElementsPanel/ElementsPanel.css');
+
 /* CertificateEditor */
 @import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
 

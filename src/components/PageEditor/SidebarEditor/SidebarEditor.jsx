@@ -5,8 +5,9 @@ import elementImage from '../../../images/imageEditor/elementImage.svg'
 import downloadImage from '../../../images/imageEditor/downloadImage.svg'
 import TemplatesPanel from "./TemplatesPanel/TemplatesPanel";
 import TextPanel from "./TextPanel/TextPanel";
+import ElementsPanel from "./ElementsPanel/ElementsPanel";
 
-function SidebarEditor(props) {
+function SidebarEditor() {
 
     const [activePanel, setActivePanel] = useState(null);
     const [activeClass, setActiveClass] = useState(null);
@@ -17,6 +18,8 @@ function SidebarEditor(props) {
                 return <TemplatesPanel />;
             case 'panelText':
                 return <TextPanel />;
+            case 'panelElements':
+                return <ElementsPanel />;
             default:
                 return null;
         }
@@ -50,8 +53,14 @@ function SidebarEditor(props) {
                             Текст
                         </button>
                     </li>
-                    <li className="sidebar-navigate__item">
-                        <button className="sidebar-navigate__button">
+                    <li className={`sidebar-navigate__item ${activeClass === 'panelElements' ? "sidebar-navigate__item_active" : ""}`}>
+                        <button
+                            className="sidebar-navigate__button"
+                            onClick={() => {
+                                setActivePanel('panelElements');
+                                setActiveClass('panelElements');
+                            }}
+                        >
                             <img src={elementImage} alt=" Кнопка для открытия панели с элементами." className="sidebar-navigate__icon"/>
                             Элементы
                         </button>
