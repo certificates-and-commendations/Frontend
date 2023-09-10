@@ -24,11 +24,11 @@ function Form({
 	const isFormFieldsValid =
 		popupName === 'recovery'
 			? !formErrorMessage.email &&
-			!(formValue.email === '' || formValue.email === undefined)
+			  !(formValue.email === '' || formValue.email === undefined)
 			: !formErrorMessage.email &&
-			!formErrorMessage.password &&
-			!(formValue.email === '' || formValue.email === undefined) &&
-			!(formValue.password === '' || formValue.password === undefined);
+			  !formErrorMessage.password &&
+			  !(formValue.email === '' || formValue.email === undefined) &&
+			  !(formValue.password === '' || formValue.password === undefined);
 
 	function handleChangeEmail(e) {
 		const { name, value } = e.target;
@@ -123,7 +123,7 @@ function Form({
 						<span
 							className={
 								formErrorMessage.email === undefined ||
-									formErrorMessage.email === ''
+								formErrorMessage.email === ''
 									? 'popup__input-error popup__input-error_invisible'
 									: 'popup__input-error'
 							}
@@ -154,7 +154,7 @@ function Form({
 						<span
 							className={
 								formErrorMessage.password === undefined ||
-									formErrorMessage.password === ''
+								formErrorMessage.password === ''
 									? 'popup__input-error popup__input-error_invisible'
 									: 'popup__input-error'
 							}
