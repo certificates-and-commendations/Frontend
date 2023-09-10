@@ -75,5 +75,10 @@
 	gap: 28px;
 }
 
+.samples__link:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
 .samples__image {
 }

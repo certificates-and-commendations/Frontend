@@ -47,6 +47,36 @@ class AuthApi {
 			}),
 		}).then(handleResponse);
 	}
+
+	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
+	getAllSamples() {
+		return fetch(`${this.url}/documents`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		}).then(handleResponse);
+	}
+
+	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
+	handleFilterSamples(obj) {
+		const queryParams = [];
+		Object.keys(obj).forEach((key) => {
+			if (obj[key]) {
+				queryParams.push(`category=${key}=`);
+			}
+		});
+
+		const queryString = queryParams.join('&');
+		const url = `${this.url}/documents/?${queryString}True`;
+		console.log(url);
+		return fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
