@@ -26,7 +26,7 @@
 .samples__menu {
 	display: flex;
 	flex-direction: column;
-	width: 304px;
+	min-width: 304px;
 }
 
 .samples__menu-title {
@@ -73,7 +73,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 28px;
-/* Temporary */
+	/* Temporary */
 	column-count: 3;
 	column-gap: 28px;
 }
