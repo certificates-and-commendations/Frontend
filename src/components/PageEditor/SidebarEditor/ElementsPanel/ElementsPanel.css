@@ -1,0 +1,35 @@
+.elements-panel {
+    max-width: 288px;
+    padding: 0 20px;
+}
+
+.elements-panel__block-download {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.elements-panel__paragraph {
+    width: 256px;
+    padding: 10px 16px;
+    margin: 0;
+    color: #2B2B2E;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.24px;
+}
+
+.elements-panel__btn-download {
+    border-radius: 16px;
+    border: 1px solid #2B2B2E;
+    background: none;
+    display: flex;
+    padding: 12px 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+}
