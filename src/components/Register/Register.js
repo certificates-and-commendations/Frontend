@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
+import Form from '../Form/Form';
 
 function Register({
 	popupName,
@@ -9,10 +9,16 @@ function Register({
 	buttonText,
 	onClose,
 	setIsLoggedIn,
+	formValue,
+	setFormValue,
+	setTimeoutButton,
+	setIsRegisterConfirmationPopupOpen,
+	setIsRegisterPopupOpen,
+	timer,
 }) {
 	const navigate = useNavigate();
 
-	async function handleRegistrationUser(formValue, setFormValue) {
+	async function handleRegistrationUser() {
 		return authApi
 			.signUp(formValue.password, formValue.email)
 			.then((response) => {
@@ -25,21 +31,9 @@ function Register({
 				}
 			})
 			.then((response) => {
-				authApi
-					.signIn(formValue.password, formValue.email)
-					.then((data) => {
-						if (data.auth_token) {
-							localStorage.setItem('jwt', data.auth_token);
-							setIsLoggedIn(true);
-							setFormValue({ email: '', password: '' });
-							navigate('/editor', { replace: true });
-							return data;
-						}
-						return console.log(`Ошибка, токена нет! + ${data}`);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
+				setIsRegisterPopupOpen(false);
+				setIsRegisterConfirmationPopupOpen(true);
+				timer();
 			})
 			.catch((err) => {
 				console.log(err);
@@ -53,9 +47,9 @@ function Register({
 			isOpened={isOpened}
 			buttonText={buttonText}
 			onClose={onClose}
-			handleSubmittingAForm={(formValue, setFormValue) =>
-				handleRegistrationUser(formValue, setFormValue)
-			}
+			handleSubmittingAForm={() => handleRegistrationUser()}
+			formValue={formValue}
+			setFormValue={setFormValue}
 		/>
 	);
 }

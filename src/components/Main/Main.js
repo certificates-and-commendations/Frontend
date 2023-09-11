@@ -11,7 +11,7 @@ export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 
 	return (
 		<>
-		<div className="temporary__container">
+			<div className="temporary__container">
 				<p className="temporary__item">...Coming soon</p>
 			</div>
 			<Opportunities />

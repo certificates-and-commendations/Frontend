@@ -7,6 +7,8 @@ function Recovery({
 	buttonText,
 	onClose,
 	setIsLoginPopupOpen,
+	formValue,
+	setFormValue,
 }) {
 	function goLogin() {
 		onClose();
@@ -21,6 +23,8 @@ function Recovery({
 			buttonText={buttonText}
 			onClose={onClose}
 			goLogin={() => goLogin()}
+			formValue={formValue}
+			setFormValue={setFormValue}
 		/>
 	);
 }

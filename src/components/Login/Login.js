@@ -10,6 +10,8 @@ function Login({
 	onClose,
 	setIsRecoveryPopupOpen,
 	setIsLoggedIn,
+	formValue,
+	setFormValue,
 }) {
 	const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ function Login({
 		setIsRecoveryPopupOpen(true);
 	}
 
-	async function handleLoginUser(formValue, setFormValue) {
+	async function handleLoginUser() {
 		return (
 			authApi
 				.signIn(formValue.password, formValue.email)
@@ -46,9 +48,9 @@ function Login({
 			buttonText={buttonText}
 			onClose={onClose}
 			goRecovery={() => goRecovery()}
-			handleSubmittingAForm={(formValue, setFormValue) =>
-				handleLoginUser(formValue, setFormValue)
-			}
+			handleSubmittingAForm={() => handleLoginUser()}
+			formValue={formValue}
+			setFormValue={setFormValue}
 		/>
 	);
 }
