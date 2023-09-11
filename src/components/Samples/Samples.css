@@ -26,7 +26,7 @@
 .samples__menu {
 	display: flex;
 	flex-direction: column;
-	width: 304px;
+	min-width: 304px;
 }
 
 .samples__menu-title {
@@ -73,12 +73,65 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 28px;
+	/* Temporary */
+	column-count: 3;
+	column-gap: 28px;
 }
 
-.samples__link:hover {
+.samples__link {
+	height: min-content;
+	position: relative;
+	/* Temporary */
+	break-inside: avoid;
+}
+
+.samples__link {
+}
+
+.samples__image {
+	width: 194px;
+}
+
+.samples__image:hover {
+	width: 194px;
 	cursor: pointer;
 	opacity: 0.7;
 }
 
-.samples__image {
+.samples__button-like {
+	background-image: url(../../images/heart.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: 40px;
+	left: 154px;
+	border: 0;
+	background-color: transparent;
+	z-index: 99;
+}
+
+.samples__button-like_active {
+	background-color: blue;
+	background-image: url(../../images/heart.svg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: 40px;
+	left: 154px;
+	border: 0;
+	z-index: 99;
+}
+
+.samples__button-like:hover,
+.samples__button-like_active:hover {
+	cursor: pointer;
+	opacity: 0.7;
 }

@@ -3,113 +3,143 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
 import Checkbox from './Checkbox/Checkbox';
+import Sample from './Sample/Sample';
 // Временно подключил картинки
 import sampleImageVertical from '../../images/temporary.jpg';
 import sampleImageHorizontal from '../../images/temporary_qwt3rXd.jpg';
 
-function Samples({ setDiploma }) {
-	// Массив шаблонов
-	const [samples, setSamples] = useState({
-		"count": 2,
-		"next": null,
-		"previous": null,
-		"results": [
+function Samples({ setDiploma, favoriteSamples, samples }) {
+	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
+	const [samplesTemp, setSamplesTemp] = useState({
+		count: 2,
+		next: null,
+		previous: null,
+		results: [
 			{
-				"id": 2,
-				"title": "horizotal template",
-				"thumbnail": sampleImageHorizontal,
-				"category": null,
-				"color": null,
-				"is_horizontal": true
+				id: 2,
+				title: 'horizotal template',
+				thumbnail: sampleImageHorizontal,
+				category: null,
+				color: null,
+				is_horizontal: true,
 			},
 			{
-				"id": 1,
-				"title": "vertical template",
-				"thumbnail": sampleImageVertical,
-				"category": null,
-				"color": null,
-				"is_horizontal": false
+				id: 1,
+				title: 'vertical template',
+				thumbnail: sampleImageVertical,
+				category: null,
+				color: null,
+				is_horizontal: false,
 			},
 			{
-				"id": 3,
-				"title": "horizotal template",
-				"thumbnail": sampleImageHorizontal,
-				"category": null,
-				"color": null,
-				"is_horizontal": true
+				id: 3,
+				title: 'horizotal template',
+				thumbnail: sampleImageHorizontal,
+				category: null,
+				color: null,
+				is_horizontal: true,
 			},
 			{
-				"id": 4,
-				"title": "vertical template",
-				"thumbnail": sampleImageVertical,
-				"category": null,
-				"color": null,
-				"is_horizontal": false
+				id: 4,
+				title: 'vertical template',
+				thumbnail: sampleImageVertical,
+				category: null,
+				color: null,
+				is_horizontal: false,
 			},
 			{
-				"id": 5,
-				"title": "horizotal template",
-				"thumbnail": sampleImageHorizontal,
-				"category": null,
-				"color": null,
-				"is_horizontal": true
+				id: 5,
+				title: 'horizotal template',
+				thumbnail: sampleImageHorizontal,
+				category: null,
+				color: null,
+				is_horizontal: true,
 			},
 			{
-				"id": 6,
-				"title": "vertical template",
-				"thumbnail": sampleImageVertical,
-				"category": null,
-				"color": null,
-				"is_horizontal": false
+				id: 6,
+				title: 'vertical template',
+				thumbnail: sampleImageVertical,
+				category: null,
+				color: null,
+				is_horizontal: false,
 			},
 			{
-				"id": 7,
-				"title": "horizotal template",
-				"thumbnail": sampleImageHorizontal,
-				"category": null,
-				"color": null,
-				"is_horizontal": true
+				id: 7,
+				title: 'horizotal template',
+				thumbnail: sampleImageHorizontal,
+				category: null,
+				color: null,
+				is_horizontal: true,
 			},
 			{
-				"id": 8,
-				"title": "vertical template",
-				"thumbnail": sampleImageVertical,
-				"category": null,
-				"color": null,
-				"is_horizontal": false
-			}
-		]
+				id: 8,
+				title: 'vertical template',
+				thumbnail: sampleImageVertical,
+				category: null,
+				color: null,
+				is_horizontal: false,
+			},
+		],
 	});
+	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
 		diplomas: false,
 		thanks: false,
 		certificates: false,
-		is_vertikal: false,
+		is_vertical: false,
 		is_horizontal: false,
 	});
-
+	// ЗАПИСЫВАЕМ ОБНОВЛЕННОЕ СОСТОЯНИЕ КНОПКИ В ОБЬЕКТ НАСТРОЕК
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
 			...checkboxValues,
 			[name]: isChecked,
 		});
 	};
+	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ УДАЛЕНИЯ ШАБЛОНА ИЗ СОХРАНЕННЫХ
+	const handleDislike = (e, item) => {
+		e.stopPropagation();
+		// return authApi.addLike(item)
+		// 	.then((res) => {
+		// 		const newSamples = samples.filter((card) => card.id === res.id)
+		// 		setSamples(newSamples)
+		// 	})
+		// 	.catch((err) => console.log(err))
+		console.log('Dislike', item);
+	};
+	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ДОБАВЛЕНИЕ ЩАБЛОНА В СОХРАНЕННЫЕ
+	const handleLike = (e, item) => {
+		e.stopPropagation();
+		// return authApi.addLike(item)
+		// 	.then((res) => {
+		// 		const newSamples = samples.filter((card) => card.id === res.id)
+		// 		setSamples(newSamples)
+		// 	})
+		// 	.catch((err) => console.log(err))
+		console.log('Like', item);
+	};
+	// УСТАНАВЛИВАЕМ СТЕЙТ ВЫБРАННЫЙ ШАБЛОН
+	const handleImageClick = (e, item) => {
+		e.stopPropagation();
+		setDiploma(item);
+	};
 	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ПОЛУЧЕНИЯ ОТФИЛЬТРОВАНЫХ ШАБЛОНОВ
-
 	async function getFilteredSamples() {
 		try {
-			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues)
-			setSamples(samplesFromBack);
+			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues);
+			setSamplesTemp(samplesFromBack);
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
 	}
 	// ПРИ ИЗМЕНЕНИИ ОБЬЕКТА НАСТРОЕК checkboxValues ОТПРАВЛЯЕМ ЗАБРОС НА БЭК
-	// И СЕТАПИМ ШАБЛОНЫ К ПОКАЗУ 
+	// И СЕТАПИМ ШАБЛОНЫ К ПОКАЗУ
 	useEffect(() => {
-		const allFalse = Object.values(checkboxValues).every((value) => value === false);
+		const allFalse = Object.values(checkboxValues).every(
+			(value) => value === false
+		);
 		if (!allFalse) {
-			getFilteredSamples()
+			getFilteredSamples();
 		}
 	}, [checkboxValues]);
 
@@ -142,13 +172,13 @@ function Samples({ setDiploma }) {
 					<span className="samples__menu-title">Ориентация</span>
 					<div className="samples__menu-continer">
 						<Checkbox
-							name="horizontal"
+							name="is_horizontal"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Горизонтальная"
 						/>
 						<Checkbox
-							name="vertikal"
+							name="is_vertical"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Вертикальнаяы"
@@ -157,17 +187,16 @@ function Samples({ setDiploma }) {
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samples.results.map((item) => {
+					{samplesTemp.results.map((item) => {
 						return (
-							<Link key={item.id} className='samples__link' to='/editor'>
-								<img
-
-									onClick={() => setDiploma(item)}
-									alt={item.title}
-									className="samples__image"
-									src={item.thumbnail}
-								/>
-							</Link>
+							<Sample
+								key={item.id}
+								item={item}
+								onImageClick={handleImageClick}
+								onLike={handleLike}
+								onDislike={handleDislike}
+								favoriteSamples={favoriteSamples}
+							/>
 						);
 					})}
 				</div>

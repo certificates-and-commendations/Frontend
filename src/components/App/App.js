@@ -18,6 +18,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Samples from '../Samples/Samples';
 
 function App() {
+	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
 	const [isloggedIn, setIsloggedIn] = useState(true);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -26,6 +27,10 @@ function App() {
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
+	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
+	const [favoriteSamples, setFavoriteSamples] = useState([]);
+	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
+	const [samples, setSamples] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -63,6 +68,13 @@ function App() {
 		}
 	}, []);
 
+	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
+	useEffect(() => {
+		authApi.getAllSamples()
+			.then((res) => setSamples(res))
+			.catch((err) => console.log(err))
+	}, [])
+
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="App">
@@ -96,6 +108,8 @@ function App() {
 								loggedIn={isloggedIn}
 								element={Samples}
 								setDiploma={setDiploma}
+								favoriteSamples={favoriteSamples}
+								samples={samples}
 							/>
 						}
 					/>

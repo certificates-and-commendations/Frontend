@@ -23,7 +23,9 @@ export default function Header({
 	return (
 		<header className={`header ${isMainPage && 'header_section_main'}`}>
 			<div className="header__column">
-				<Logo />
+				<Link className="header__logo" to="/">
+					<Logo />
+				</Link>
 				{!isMainPage && <HeaderNav />}
 			</div>
 
