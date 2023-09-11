@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
 import Checkbox from './Checkbox/Checkbox';
 // Временно подключил картинки
-import sampleImageVertical from '../../images/vertical2.svg';
-import sampleImageHorizontal from '../../images/horizontal2.svg';
+import sampleImageVertical from '../../images/temporary.jpg';
+import sampleImageHorizontal from '../../images/temporary_qwt3rXd.jpg';
 
 function Samples({ setDiploma }) {
 	// Массив шаблонов
@@ -95,7 +95,7 @@ function Samples({ setDiploma }) {
 		});
 	};
 	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ПОЛУЧЕНИЯ ОТФИЛЬТРОВАНЫХ ШАБЛОНОВ
-	
+
 	async function getFilteredSamples() {
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues)
