@@ -7,7 +7,7 @@ import Sample from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({ setDiploma, favoriteSamples, samples }) {
+function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
@@ -68,6 +68,7 @@ function Samples({ setDiploma, favoriteSamples, samples }) {
 	};
 
 	const handleLike = (e, item) => {
+		setFavoriteSamples([...favoriteSamples, item]);
 		e.stopPropagation();
 		// return authApi.addLike(item)
 		// 	.then((res) => {
@@ -75,7 +76,7 @@ function Samples({ setDiploma, favoriteSamples, samples }) {
 		// 		setSamples(newSamples)
 		// 	})
 		// 	.catch((err) => console.log(err))
-		console.log('Like', item);
+		console.log('Like', favoriteSamples);
 	};
 
 	const handleImageClick = (e, item) => {

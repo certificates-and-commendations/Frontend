@@ -110,6 +110,7 @@ function App() {
 								element={Samples}
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
+								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
 							/>
 						}
@@ -122,6 +123,7 @@ function App() {
 								loggedIn={isloggedIn}
 								element={Profile}
 								setDiploma={setDiploma}
+								favoriteSamples={favoriteSamples}
 							/>
 						}
 					/>

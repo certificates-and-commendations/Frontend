@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 
-export default function CenterSlider({ array, setDiploma, delay }) {
+export default function CenterSlider({
+	array,
+	setDiploma,
+	delay,
+	isFavoriteSamples,
+}) {
 	const settings = {
 		dots: true,
 		speed: 3500,
@@ -25,19 +30,23 @@ export default function CenterSlider({ array, setDiploma, delay }) {
 	return (
 		<Slider {...settings}>
 			{array.map((item) => (
-				<div key={item}>
+				<div key={item.id}>
 					<Link
 						to="/editor"
 						className="profile__template-link"
 						onClick={() => onClick(item)}
 					>
 						<img
-							src={item.image}
-							alt={item.name}
+							src={isFavoriteSamples ? item.thumbnail : item.image}
+							alt={isFavoriteSamples ? item.title : item.name}
 							className={
-								item.type === 'vertical'
-									? 'profile__template profile__template_vertical'
-									: 'profile__template profile__template_horizontal'
+								isFavoriteSamples
+									? item.is_horizontal
+										? 'profile__template profile__template_horizontal'
+										: 'profile__template profile__template_vertical'
+									: item.type === 'horizontal'
+									? 'profile__template profile__template_horizontal'
+									: 'profile__template profile__template_vertical'
 							}
 						/>
 					</Link>

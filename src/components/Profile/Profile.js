@@ -4,8 +4,9 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import CenterSlider from '../CenterSlider/CenterSlider';
 import { array } from '../../constants/constants';
 
-function Profile({ setDiploma, diplomas, templates }) {
+function Profile({ setDiploma, diplomas, templates, favoriteSamples }) {
 	const currentUser = React.useContext(CurrentUserContext);
+	const trueValue = true;
 
 	return (
 		<main className="profile">
@@ -16,9 +17,10 @@ function Profile({ setDiploma, diplomas, templates }) {
 			<div className="profile__templates">
 				<h2 className="profile__subtitle">Избранные шаблоны</h2>
 				<CenterSlider
-					array={templates || array}
+					array={favoriteSamples || array}
 					setDiploma={setDiploma}
 					delay={5000}
+					isFavoriteSamples={trueValue}
 				/>
 			</div>
 			<div className="profile__documents">
