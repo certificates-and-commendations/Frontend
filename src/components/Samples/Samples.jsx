@@ -5,12 +5,12 @@ import authApi from '../../utils/AuthApi';
 import Checkbox from './Checkbox/Checkbox';
 import Sample from './Sample/Sample';
 // Временно подключил картинки
-import sampleImageVertical from '../../images/vertical2.svg';
-import sampleImageHorizontal from '../../images/horizontal2.svg';
+import sampleImageVertical from '../../images/temporary.jpg';
+import sampleImageHorizontal from '../../images/temporary_qwt3rXd.jpg';
 
-function Samples({ setDiploma }) {
-	// Массив шаблонов
-	const [samples, setSamples] = useState({
+function Samples({ setDiploma, favoriteSamples, samples }) {
+	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
+	const [samplesTemp, setSamplesTemp] = useState({
 		count: 2,
 		next: null,
 		previous: null,
@@ -81,7 +81,7 @@ function Samples({ setDiploma }) {
 			},
 		],
 	});
-	// СТЕЙТ СОСТОЯНИЙ КНОПОК 
+	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
 		diplomas: false,
 		thanks: false,
@@ -89,14 +89,14 @@ function Samples({ setDiploma }) {
 		is_vertical: false,
 		is_horizontal: false,
 	});
-	// ЗАПИСЫВАЕТ СОСТОЯНИЕ КНОПКИ В ОБЬЕКТ СОСТОЯНИЙ
+
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
 			...checkboxValues,
 			[name]: isChecked,
 		});
 	};
-	// ОТПРАВЛЯЕМ ЗАПРОС НА СНЯТИЕ ЛАЙКА
+
 	const handleDislike = (e, item) => {
 		e.stopPropagation();
 		// return authApi.addLike(item)
@@ -107,7 +107,7 @@ function Samples({ setDiploma }) {
 		// 	.catch((err) => console.log(err))
 		console.log('Dislike', item);
 	};
-	// ОТПРАВЛЯЕМ ЗАПРОС НА ПОСТАНОВКУ ЛАЙКА
+
 	const handleLike = (e, item) => {
 		e.stopPropagation();
 		// return authApi.addLike(item)
@@ -118,17 +118,16 @@ function Samples({ setDiploma }) {
 		// 	.catch((err) => console.log(err))
 		console.log('Like', item);
 	};
-	// СЕТАПИМ СТЕЙТ "ВЫБРАНЫЙ ШАБЛОН"
+
 	const handleImageClick = (e, item) => {
 		e.stopPropagation();
 		setDiploma(item);
-		console.log('Click');
 	};
 	// ОТПРАВЛЯЕМ ЗАПРОС НА БЭК ДЛЯ ПОЛУЧЕНИЯ ОТФИЛЬТРОВАНЫХ ШАБЛОНОВ
 	async function getFilteredSamples() {
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues);
-			setSamples(samplesFromBack);
+			setSamplesTemp(samplesFromBack);
 		} catch (err) {
 			console.log(err);
 		}
@@ -188,7 +187,7 @@ function Samples({ setDiploma }) {
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samples.results.map((item) => {
+					{samplesTemp.results.map((item) => {
 						return (
 							<Sample
 								key={item.id}
@@ -196,6 +195,7 @@ function Samples({ setDiploma }) {
 								onImageClick={handleImageClick}
 								onLike={handleLike}
 								onDislike={handleDislike}
+								favoriteSamples={favoriteSamples}
 							/>
 						);
 					})}

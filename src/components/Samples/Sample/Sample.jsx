@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-function Sample({ item, onImageClick, onLike, onDislike }) {
+function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples }) {
 	const [isCliked, setIsCliked] = useState(false);
 
 	function handleLike(e) {
@@ -14,13 +14,11 @@ function Sample({ item, onImageClick, onLike, onDislike }) {
 		setIsCliked(!isCliked);
 	}
 
-	// СЕТАПИМ isLike ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИЛ ЛАЙК ИНАЧЕ НЕТ
+	// СЕТАПИМ isCliked ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИЛ ЛАЙК ИНАЧЕ НЕТ
 	// useEffect(() => {
-	//   if (!isSavedMovie) {
-	//     const result = savedMovies.some((item) => (movie.id + '') === item.movieId)
+	//     const result = favoriteSamples.some((elem) => (item.id + '') === elem.Id)
 	//     setIsCliked(result)
-	//   }
-	// }, [savedMovies])
+	// }, [favoriteSamples])
 
 	return (
 		<div className='samples__div' key={item.id}>
