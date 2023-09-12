@@ -1,12 +1,12 @@
-import "./Promo.css";
-import { Link, useLocation } from "react-router-dom";
-import mac from "../../../images/macBook.svg";
-import dipl from "../../../images/before-word-diploms.svg";
-import sert from "../../../images/after-word-sertificates.svg";
+import './Promo.css';
+import { Link, useLocation } from 'react-router-dom';
+import mac from '../../../images/macBook.svg';
+import dipl from '../../../images/before-word-diploms.svg';
+import sert from '../../../images/after-word-sertificates.svg';
 
 export default function Promo() {
   const location = useLocation();
-  const isEditorPage = location.pathname === "/editor";
+  const isEditorPage = location.pathname === '/editor';
 
   return (
     <section className="promo">
@@ -24,7 +24,7 @@ export default function Promo() {
       <Link className="promo__link" to="/editor">
         <button
           className={`promo__button ${
-            isEditorPage ? "promo__button_active" : ""
+            isEditorPage ? 'promo__button_active' : ''
           }`}
           type="button"
         >
