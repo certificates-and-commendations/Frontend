@@ -70,7 +70,7 @@ export const temporarySamles = {
 			thumbnail: sampleImageVertical,
 			category: null,
 			color: null,
-			is_horizontal: true,
+			is_horizontal: false,
 		},
 		{
 			id: 5,
@@ -102,7 +102,7 @@ export const temporarySamles = {
 			thumbnail: sampleImageVertical,
 			category: null,
 			color: null,
-			is_horizontal: true,
+			is_horizontal: false,
 		},
 		{
 			id: 22,
@@ -142,7 +142,7 @@ export const temporarySamles = {
 			thumbnail: sampleImageHorizontal,
 			category: null,
 			color: null,
-			is_horizontal: false,
+			is_horizontal: true,
 		},
 		{
 			id: 67,
@@ -158,7 +158,7 @@ export const temporarySamles = {
 			thumbnail: sampleImageHorizontal,
 			category: null,
 			color: null,
-			is_horizontal: false,
+			is_horizontal: true,
 		},
 		{
 			id: 89,

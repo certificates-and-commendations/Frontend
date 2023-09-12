@@ -36,9 +36,12 @@ export default function CenterSlider({
 						className="profile__template-link"
 						onClick={() => onClick(item)}
 					>
-						<img
-							src={isFavoriteSamples ? item.thumbnail : item.image}
+						<div
+							// src={isFavoriteSamples ? item.thumbnail : item.image}
 							alt={isFavoriteSamples ? item.title : item.name}
+							style={{ 
+								backgroundImage: `url(${isFavoriteSamples ? item.thumbnail : item.image})` 
+							  }}
 							className={
 								isFavoriteSamples
 									? item.is_horizontal
