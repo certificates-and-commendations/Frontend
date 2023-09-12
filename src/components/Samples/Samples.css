@@ -135,3 +135,7 @@
 	cursor: pointer;
 	opacity: 0.7;
 }
+
+.samples__div {
+	height: min-content;
+}

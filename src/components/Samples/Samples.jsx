@@ -81,6 +81,7 @@ function Samples({ setDiploma }) {
 			},
 		],
 	});
+	// СТЕЙТ СОСТОЯНИЙ КНОПОК 
 	const [checkboxValues, setCheckboxValues] = useState({
 		diplomas: false,
 		thanks: false,
@@ -88,14 +89,14 @@ function Samples({ setDiploma }) {
 		is_vertical: false,
 		is_horizontal: false,
 	});
-
+	// ЗАПИСЫВАЕТ СОСТОЯНИЕ КНОПКИ В ОБЬЕКТ СОСТОЯНИЙ
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
 			...checkboxValues,
 			[name]: isChecked,
 		});
 	};
-
+	// ОТПРАВЛЯЕМ ЗАПРОС НА СНЯТИЕ ЛАЙКА
 	const handleDislike = (e, item) => {
 		e.stopPropagation();
 		// return authApi.addLike(item)
@@ -106,7 +107,7 @@ function Samples({ setDiploma }) {
 		// 	.catch((err) => console.log(err))
 		console.log('Dislike', item);
 	};
-
+	// ОТПРАВЛЯЕМ ЗАПРОС НА ПОСТАНОВКУ ЛАЙКА
 	const handleLike = (e, item) => {
 		e.stopPropagation();
 		// return authApi.addLike(item)
@@ -117,7 +118,7 @@ function Samples({ setDiploma }) {
 		// 	.catch((err) => console.log(err))
 		console.log('Like', item);
 	};
-
+	// СЕТАПИМ СТЕЙТ "ВЫБРАНЫЙ ШАБЛОН"
 	const handleImageClick = (e, item) => {
 		e.stopPropagation();
 		setDiploma(item);
@@ -139,7 +140,7 @@ function Samples({ setDiploma }) {
 			(value) => value === false
 		);
 		if (!allFalse) {
-			getFilteredSamples();
+			getFilteredSamples(checkboxValues);
 		}
 	}, [checkboxValues]);
 
