@@ -12,10 +12,10 @@ import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
+import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Samples from '../Samples/Samples';
 
 function App() {
 	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
@@ -70,10 +70,11 @@ function App() {
 
 	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
 	useEffect(() => {
-		authApi.getAllSamples()
+		authApi
+			.getAllSamples()
 			.then((res) => setSamples(res))
-			.catch((err) => console.log(err))
-	}, [])
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
 		<CurrentUserContext.Provider value={currentUser}>

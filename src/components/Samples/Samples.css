@@ -71,11 +71,8 @@
 .samples__container {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	width: 100%;
 	gap: 28px;
-	/* Temporary */
-	column-count: 3;
-	column-gap: 28px;
 }
 
 .samples__link {
@@ -89,11 +86,11 @@
 }
 
 .samples__image {
-	width: 194px;
+	width: 300px;
 }
 
 .samples__image:hover {
-	width: 194px;
+	width: 300px;
 	cursor: pointer;
 	opacity: 0.7;
 }
@@ -108,15 +105,14 @@
 	height: 32px;
 	position: relative;
 	top: 40px;
-	left: 154px;
+	left: 256px;
 	border: 0;
 	background-color: transparent;
 	z-index: 99;
 }
 
 .samples__button-like_active {
-	background-color: blue;
-	background-image: url(../../images/heart.svg);
+	background-image: url(../../images/heart=active.svg);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -125,8 +121,9 @@
 	height: 32px;
 	position: relative;
 	top: 40px;
-	left: 154px;
+	left: 256px;
 	border: 0;
+	background-color: transparent;
 	z-index: 99;
 }
 
@@ -138,4 +135,10 @@
 
 .samples__div {
 	height: min-content;
+}
+
+.samples__container-inside {
+	display: flex;
+	flex-direction: column;
+	/* gap: 32px; */
 }

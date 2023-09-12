@@ -4,83 +4,17 @@ import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
 import Checkbox from './Checkbox/Checkbox';
 import Sample from './Sample/Sample';
-// Временно подключил картинки
-import sampleImageVertical from '../../images/temporary.jpg';
-import sampleImageHorizontal from '../../images/temporary_qwt3rXd.jpg';
+// ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
+import { temporarySamles } from '../../constants/constants';
 
 function Samples({ setDiploma, favoriteSamples, samples }) {
-	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
-	const [samplesTemp, setSamplesTemp] = useState({
-		count: 2,
-		next: null,
-		previous: null,
-		results: [
-			{
-				id: 2,
-				title: 'horizotal template',
-				thumbnail: sampleImageHorizontal,
-				category: null,
-				color: null,
-				is_horizontal: true,
-			},
-			{
-				id: 1,
-				title: 'vertical template',
-				thumbnail: sampleImageVertical,
-				category: null,
-				color: null,
-				is_horizontal: false,
-			},
-			{
-				id: 3,
-				title: 'horizotal template',
-				thumbnail: sampleImageHorizontal,
-				category: null,
-				color: null,
-				is_horizontal: true,
-			},
-			{
-				id: 4,
-				title: 'vertical template',
-				thumbnail: sampleImageVertical,
-				category: null,
-				color: null,
-				is_horizontal: false,
-			},
-			{
-				id: 5,
-				title: 'horizotal template',
-				thumbnail: sampleImageHorizontal,
-				category: null,
-				color: null,
-				is_horizontal: true,
-			},
-			{
-				id: 6,
-				title: 'vertical template',
-				thumbnail: sampleImageVertical,
-				category: null,
-				color: null,
-				is_horizontal: false,
-			},
-			{
-				id: 7,
-				title: 'horizotal template',
-				thumbnail: sampleImageHorizontal,
-				category: null,
-				color: null,
-				is_horizontal: true,
-			},
-			{
-				id: 8,
-				title: 'vertical template',
-				thumbnail: sampleImageVertical,
-				category: null,
-				color: null,
-				is_horizontal: false,
-			},
-		],
+	const [separetedSamples, setSeparatedSamples] = useState({
+		column1: [],
+		column2: [],
+		column3: [],
 	});
+	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
+	const [samplesTemp, setSamplesTemp] = useState(temporarySamles);
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
 		diplomas: false,
@@ -89,6 +23,31 @@ function Samples({ setDiploma, favoriteSamples, samples }) {
 		is_vertical: false,
 		is_horizontal: false,
 	});
+
+	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
+	useEffect(() => {
+		const column1 = [];
+		const column2 = [];
+		const column3 = [];
+
+		for (let i = 0; i < samplesTemp.results.length; i++) {
+			const index = i % 3;
+
+			if (index === 0) {
+				column1.push(samplesTemp.results[i]);
+			} else if (index === 1) {
+				column2.push(samplesTemp.results[i]);
+			} else {
+				column3.push(samplesTemp.results[i]);
+			}
+		}
+
+		setSeparatedSamples({
+			column1,
+			column2,
+			column3,
+		});
+	}, [samplesTemp]);
 
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
@@ -187,18 +146,45 @@ function Samples({ setDiploma, favoriteSamples, samples }) {
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samplesTemp.results.map((item) => {
-						return (
-							<Sample
-								key={item.id}
-								item={item}
-								onImageClick={handleImageClick}
-								onLike={handleLike}
-								onDislike={handleDislike}
-								favoriteSamples={favoriteSamples}
-							/>
-						);
-					})}
+					<div className="samples__container-inside">
+						{separetedSamples.column1.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column2.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column3.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</main>

@@ -21,7 +21,7 @@ function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples }) {
 	// }, [favoriteSamples])
 
 	return (
-		<div className='samples__div' key={item.id}>
+		<div className="samples__div" key={item.id}>
 			<button
 				type="button"
 				onClick={isCliked ? (e) => handleDislike(e) : (e) => handleLike(e)}
