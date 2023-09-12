@@ -3,6 +3,7 @@ import { useLocation, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Opportunities from './Opportunities/Opportunities';
 import BestOptions from './BestOptions/BestOptions';
+import Promo from './Promo/Promo';
 
 export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 	const location = useLocation();
@@ -11,9 +12,7 @@ export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 
 	return (
 		<>
-			<div className="temporary__container">
-				<p className="temporary__item">...Coming soon</p>
-			</div>
+			<Promo />
 			<Opportunities />
 			<BestOptions />
 		</>
