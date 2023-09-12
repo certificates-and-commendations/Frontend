@@ -13,7 +13,7 @@ export default function Promo() {
       <h1 className="promo__title">
         Онлайн-редактор
         <img src={mac} alt="Шаблон грамоты" className="promo__image" />
-        грамот, <img
+        грамот,<img
           src={dipl}
           alt="Шаблон грамоты"
           className="promo__image"

@@ -18,6 +18,16 @@
 	text-decoration: none;
 }
 
+.promo__image {
+    border-radius: 8px;
+    border: 1px solid #959596;
+    margin-left: 16px;
+    margin-right: 16px; 
+}
+.promo__image:first-of-type {
+    border: none;
+}
+
 .promo__button {
     border-radius: 12px;
     background-color: #e9f993;
