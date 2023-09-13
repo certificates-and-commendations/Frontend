@@ -56,6 +56,34 @@ function App() {
 		});
 	}
 
+	const isOpen =
+		isRegisterPopupOpen ||
+		isRegisterConfirmationPopupOpen ||
+		isLoginPopupOpen ||
+		isRecoveryPopupOpen;
+
+	React.useEffect(() => {
+		function closeByEscape(evt) {
+			if (evt.key === 'Escape') {
+				closeAllPopups();
+			}
+		}
+		function closeByOverlay(evt) {
+			if (!evt.target.closest('.popup *')) {
+				closeAllPopups();
+			}
+		}
+		if (isOpen) {
+			// навешиваем только при открытии
+			document.addEventListener('keydown', closeByEscape);
+			document.addEventListener('mousedown', closeByOverlay);
+			return () => {
+				document.removeEventListener('keydown', closeByEscape);
+				document.removeEventListener('mousedown', closeByOverlay);
+			};
+		}
+	}, [isOpen]);
+
 	React.useEffect(() => {
 		// настало время проверить токен
 		if (localStorage.getItem('jwt')) {

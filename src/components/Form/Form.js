@@ -105,7 +105,12 @@ function Form({
 			});
 	}
 
+	function closeByOverlay() {
+		onClose();
+	}
+
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<section
 			className={
 				isOpened
