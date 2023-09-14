@@ -73,7 +73,7 @@ function Form({
 		const { name, value } = e.target;
 		setFormValue({
 			...formValue,
-			[name]: String(value).substring(0, 1),
+			[name]: value.substring(0, 1).replace(/[^\d]/g, ''),
 		});
 	}
 
@@ -110,7 +110,6 @@ function Form({
 	}
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<section
 			className={
 				isOpened
@@ -232,7 +231,7 @@ function Form({
 							Пароль
 						</span> */}
 						<input
-							type="number"
+							type="text"
 							name="first"
 							className="popup__input popup__input_number"
 							id="first"
@@ -243,7 +242,7 @@ function Form({
 							value={formValue.first}
 						/>
 						<input
-							type="number"
+							type="text"
 							name="second"
 							className="popup__input popup__input_number"
 							id="second"
@@ -254,7 +253,7 @@ function Form({
 							value={formValue.second}
 						/>
 						<input
-							type="number"
+							type="text"
 							name="thirst"
 							className="popup__input popup__input_number"
 							id="thirst"
@@ -265,7 +264,7 @@ function Form({
 							value={formValue.thirst}
 						/>
 						<input
-							type="number"
+							type="text"
 							name="fourth"
 							className="popup__input popup__input_number"
 							id="fourth"
