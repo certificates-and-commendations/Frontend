@@ -80,7 +80,7 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-	baseUrl: 'http://127.0.0.1:8000/api',
+	baseUrl: 'http://185.93.111.238/api',
 	// НУЖНО ПОМЕНЯТЬ АДРЕС НА АДРЕС СЕРВЕРА!!!
 });
 

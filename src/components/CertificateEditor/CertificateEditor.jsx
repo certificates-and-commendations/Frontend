@@ -207,6 +207,8 @@ function CertificateEditor({ diploma }) {
 		};
 	};
 
+	console.log(textPosition);
+
 	return (
 		<section className="certificate" ref={certificateRef}>
 			{uploadedCertificate ? (

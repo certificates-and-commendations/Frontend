@@ -39,9 +39,11 @@ export default function CenterSlider({
 						<div
 							// src={isFavoriteSamples ? item.thumbnail : item.image}
 							alt={isFavoriteSamples ? item.title : item.name}
-							style={{ 
-								backgroundImage: `url(${isFavoriteSamples ? item.thumbnail : item.image})` 
-							  }}
+							style={{
+								backgroundImage: `url(${
+									isFavoriteSamples ? item.thumbnail : item.image
+								})`,
+							}}
 							className={
 								isFavoriteSamples
 									? item.is_horizontal

@@ -43,7 +43,7 @@ export const temporarySamles = {
 		{
 			id: 2,
 			title: 'horizotal template',
-			thumbnail: sampleImageHorizontal,
+			thumbnail: 'http://185.93.111.238/media/thumbnails/temp_uvALw2v.jpg',
 			category: null,
 			color: null,
 			is_horizontal: true,
@@ -51,7 +51,7 @@ export const temporarySamles = {
 		{
 			id: 1,
 			title: 'vertical template',
-			thumbnail: sampleImageVertical,
+			thumbnail: 'http://185.93.111.238/media/thumbnails/temp_JBxHVB7.jpg',
 			category: null,
 			color: null,
 			is_horizontal: false,

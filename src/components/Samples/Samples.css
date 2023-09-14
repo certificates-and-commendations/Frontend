@@ -86,13 +86,13 @@
 }
 
 .samples__image {
-	width: 300px;
+	width: 100%;
+	transition: transform 0.3s ease;
 }
 
 .samples__image:hover {
-	width: 300px;
 	cursor: pointer;
-	opacity: 0.7;
+	transform: scale(1.1);
 }
 
 .samples__button-like {
@@ -103,12 +103,12 @@
 	display: block;
 	width: 32px;
 	height: 32px;
-	position: relative;
-	top: 40px;
+	position: absolute;
+	top: 10px;
 	left: 256px;
 	border: 0;
 	background-color: transparent;
-	z-index: 99;
+	z-index: 2;
 }
 
 .samples__button-like_active {
@@ -119,8 +119,8 @@
 	display: block;
 	width: 32px;
 	height: 32px;
-	position: relative;
-	top: 40px;
+	position: absolute;
+	top: 10px;
 	left: 256px;
 	border: 0;
 	background-color: transparent;
@@ -134,11 +134,17 @@
 }
 
 .samples__div {
+	position: relative;
+	width: 300px;
 	height: min-content;
+	overflow: hidden;
+	border-radius: 12px;
+	border: 1px solid var(--text-100, #2b2b2e);
+	display: block;
 }
 
 .samples__container-inside {
 	display: flex;
 	flex-direction: column;
-	/* gap: 32px; */
+	gap: 32px;
 }
