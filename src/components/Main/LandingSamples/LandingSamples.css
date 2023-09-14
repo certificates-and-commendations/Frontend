@@ -55,6 +55,12 @@
     margin-left: 8px;
 }
 
+/*.landing-samples__item:hover {
+    position: relative;
+    right: -8px;
+    transition: right 0.2s ease 0s;
+}*/
+
 .landing-samples__image:first-of-type {
     margin-left: 0;
 }
