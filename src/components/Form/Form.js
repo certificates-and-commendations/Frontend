@@ -19,6 +19,7 @@ function Form({
 	timer,
 	setIsLoading,
 	isLoading,
+	setInfoToolTip,
 }) {
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const isFormFieldsValid =
@@ -97,18 +98,15 @@ function Form({
 				}
 			})
 			.then(() => {
+				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 				timer();
 			})
 			.catch((err) => {
-				console.log(err);
+				setInfoToolTip({ text: err.message, status: false, opened: true });
 			})
 			.finally(() => {
 				setIsLoading(false);
 			});
-	}
-
-	function closeByOverlay() {
-		onClose();
 	}
 
 	return (

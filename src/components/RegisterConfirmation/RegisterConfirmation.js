@@ -17,6 +17,7 @@ function RegisterConfirmation({
 	timer,
 	isLoading,
 	setIsLoading,
+	setInfoToolTip,
 }) {
 	const navigate = useNavigate();
 
@@ -49,6 +50,7 @@ function RegisterConfirmation({
 					.signIn(formValue.password, formValue.email)
 					.then((data) => {
 						if (data.auth_token) {
+							setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 							localStorage.setItem('jwt', data.auth_token);
 							setIsLoggedIn(true);
 							setFormValue({
@@ -65,12 +67,10 @@ function RegisterConfirmation({
 						}
 						return console.log(`Ошибка, токена нет! + ${data}`);
 					})
-					.catch((err) => {
-						console.log(err);
-					});
+					.catch((err) => {});
 			})
 			.catch((err) => {
-				console.log(err);
+				setInfoToolTip({ text: err.message, status: false, opened: true });
 			})
 			.finally(() => {
 				setIsLoading(false);
@@ -94,6 +94,7 @@ function RegisterConfirmation({
 			handleConfirmRegistrarion={() => handleConfirmRegistrarion()}
 			isLoading={isLoading}
 			setIsLoading={setIsLoading}
+			setInfoToolTip={setInfoToolTip}
 		/>
 	);
 }
