@@ -179,7 +179,7 @@ function App() {
 					/>
 
 					<Route
-						path="*"
+						path="/frontend/*"
 						element={
 							<PageNotFound setIsPageNotFoundOpen={setIsPageNotFoundOpen} />
 						}
