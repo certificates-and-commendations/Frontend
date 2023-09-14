@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function Login({
 	popupName,

@@ -16,6 +16,7 @@ import Profile from '../Profile/Profile';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
 	const [isloggedIn, setIsloggedIn] = useState(true);
@@ -38,6 +39,11 @@ function App() {
 	});
 	const [currentUser, setCurrentUser] = useState({});
 	const [diploma, setDiploma] = useState({});
+	const [infoToolTip, setInfoToolTip] = React.useState({
+		text: '',
+		status: true,
+		opened: false,
+	});
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -254,6 +260,12 @@ function App() {
 						setIsLoading={setIsLoading}
 					/>
 				)}
+				<InfoToolTip
+					text={infoToolTip.text}
+					status={infoToolTip.status}
+					opened={infoToolTip.opened}
+					onClose={setInfoToolTip({ text: '', status: true, opened: false })}
+				/>
 			</div>
 		</CurrentUserContext.Provider>
 	);
