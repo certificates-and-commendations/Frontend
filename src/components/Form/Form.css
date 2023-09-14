@@ -258,6 +258,11 @@ input[type='number']:focus {
 	display: none;
 }
 
+.popup__timeout-button_disabled {
+	cursor: default;
+	opacity: 0.8;
+}
+
 .popup__back-button_invisible {
 	display: none;
 }

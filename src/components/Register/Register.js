@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
 import Form from '../Form/Form';
 
@@ -8,17 +7,16 @@ function Register({
 	isOpened,
 	buttonText,
 	onClose,
-	setIsLoggedIn,
 	formValue,
 	setFormValue,
-	setTimeoutButton,
 	setIsRegisterConfirmationPopupOpen,
 	setIsRegisterPopupOpen,
 	timer,
+	isLoading,
+	setIsLoading,
 }) {
-	const navigate = useNavigate();
-
 	async function handleRegistrationUser() {
+		setIsLoading(true);
 		return authApi
 			.signUp(formValue.password, formValue.email)
 			.then((response) => {
@@ -37,6 +35,9 @@ function Register({
 			})
 			.catch((err) => {
 				console.log(err);
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
 	}
 
@@ -50,6 +51,8 @@ function Register({
 			handleSubmittingAForm={() => handleRegistrationUser()}
 			formValue={formValue}
 			setFormValue={setFormValue}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
 		/>
 	);
 }

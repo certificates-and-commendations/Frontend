@@ -9,10 +9,16 @@ function Recovery({
 	setIsLoginPopupOpen,
 	formValue,
 	setFormValue,
+	isLoading,
+	setIsLoading,
 }) {
 	function goLogin() {
 		onClose();
 		setIsLoginPopupOpen(true);
+	}
+
+	function handleRecovery() {
+		// Пока что нет запроса на восстановление, но скоро будет (ждём бэкенд)
 	}
 
 	return (
@@ -25,6 +31,7 @@ function Recovery({
 			goLogin={() => goLogin()}
 			formValue={formValue}
 			setFormValue={setFormValue}
+			handleSubmittingAForm={() => handleRecovery()}
 		/>
 	);
 }

@@ -15,6 +15,8 @@ function RegisterConfirmation({
 	setTimeoutButton,
 	timeoutButton,
 	timer,
+	isLoading,
+	setIsLoading,
 }) {
 	const navigate = useNavigate();
 
@@ -30,6 +32,7 @@ function RegisterConfirmation({
 	}, [formValue.first, formValue.second, formValue.thirst, formValue.fourth]);
 
 	async function handleConfirmRegistrarion() {
+		setIsLoading(true);
 		return authApi
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
@@ -48,7 +51,15 @@ function RegisterConfirmation({
 						if (data.auth_token) {
 							localStorage.setItem('jwt', data.auth_token);
 							setIsLoggedIn(true);
-							setFormValue({ email: '', password: '', code: '' });
+							setFormValue({
+								email: '',
+								password: '',
+								first: '',
+								second: '',
+								thirst: '',
+								fourth: '',
+								code: '',
+							});
 							navigate('/editor', { replace: true });
 							return data;
 						}
@@ -60,6 +71,9 @@ function RegisterConfirmation({
 			})
 			.catch((err) => {
 				console.log(err);
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
 	}
 
@@ -78,6 +92,8 @@ function RegisterConfirmation({
 			timer={() => timer()}
 			setIsLoggedIn={setIsLoggedIn}
 			handleConfirmRegistrarion={() => handleConfirmRegistrarion()}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
 		/>
 	);
 }

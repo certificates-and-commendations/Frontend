@@ -1,6 +1,5 @@
 import './Form.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
 import authApi from '../../utils/AuthApi';
@@ -18,8 +17,9 @@ function Form({
 	setFormValue,
 	timeoutButton,
 	timer,
+	setIsLoading,
+	isLoading,
 }) {
-	const navigate = useNavigate();
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const isFormFieldsValid =
 		popupName === 'recovery'
@@ -80,12 +80,11 @@ function Form({
 	function handleSubmit(e) {
 		e.preventDefault();
 		// На восстановление пароля нету метода на сервере, поэтому функции на отправку формы Recovery нет
-		handleSubmittingAForm().catch((err) => {
-			console.log(err);
-		});
+		handleSubmittingAForm();
 	}
 
 	function reloadTimer() {
+		setIsLoading(true);
 		authApi
 			.signUp(formValue.password, formValue.email)
 			.then((response) => {
@@ -97,11 +96,14 @@ function Form({
 					return e;
 				}
 			})
-			.then((response) => {
+			.then(() => {
 				timer();
 			})
 			.catch((err) => {
 				console.log(err);
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
 	}
 
@@ -163,6 +165,7 @@ function Form({
 							placeholder="Введите корректный email"
 							onChange={handleChangeEmail}
 							value={formValue.email}
+							disabled={isLoading}
 						/>
 						<span
 							className={
@@ -199,6 +202,7 @@ function Form({
 							}
 							onChange={handleChangePassword}
 							value={formValue.password}
+							disabled={isLoading}
 						/>
 						<span
 							className={
@@ -237,9 +241,16 @@ function Form({
 							id="first"
 							minLength="1"
 							maxLength="1"
-							required={!(popupName === 'register' || popupName === 'login')}
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
 							onChange={handleChangeNumber}
 							value={formValue.first}
+							disabled={isLoading}
 						/>
 						<input
 							type="text"
@@ -248,9 +259,16 @@ function Form({
 							id="second"
 							minLength="1"
 							maxLength="1"
-							required={!(popupName === 'register' || popupName === 'login')}
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
 							onChange={handleChangeNumber}
 							value={formValue.second}
+							disabled={isLoading}
 						/>
 						<input
 							type="text"
@@ -259,9 +277,16 @@ function Form({
 							id="thirst"
 							minLength="1"
 							maxLength="1"
-							required={!(popupName === 'register' || popupName === 'login')}
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
 							onChange={handleChangeNumber}
 							value={formValue.thirst}
+							disabled={isLoading}
 						/>
 						<input
 							type="text"
@@ -270,19 +295,26 @@ function Form({
 							id="fourth"
 							minLength="1"
 							maxLength="1"
-							required={!(popupName === 'register' || popupName === 'login')}
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
 							onChange={handleChangeNumber}
 							value={formValue.fourth}
+							disabled={isLoading}
 						/>
 					</fieldset>
 					<button
 						type="submit"
 						className={
-							isFormFieldsValid
-								? 'popup__submit-button'
-								: 'popup__submit-button popup__submit-button_disabled'
+							!isFormFieldsValid || isLoading
+								? 'popup__submit-button popup__submit-button_disabled'
+								: 'popup__submit-button'
 						}
-						disabled={!isFormFieldsValid}
+						disabled={!isFormFieldsValid || isLoading}
 					>
 						{buttonText}
 					</button>
@@ -304,10 +336,12 @@ function Form({
 							popupName === 'registerConfirmation'
 								? timeoutButton
 									? 'popup__timeout-button popup__timeout-button_active'
+									: isLoading
+									? 'popup__timeout-button popup__timeout-button_disabled'
 									: 'popup__timeout-button'
 								: 'popup__timeout-button popup__timeout-button_invisible'
 						}
-						disabled={timeoutButton}
+						disabled={timeoutButton || isLoading}
 					>
 						{timeoutButton || 'Отправить повторно'}
 					</button>

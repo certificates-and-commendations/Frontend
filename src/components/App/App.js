@@ -26,6 +26,7 @@ function App() {
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [formValue, setFormValue] = useState({
 		email: '',
 		password: '',
@@ -201,6 +202,8 @@ function App() {
 						}
 						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
 						timer={() => timer()}
+						isLoading={isLoading}
+						setIsLoading={setIsLoading}
 					/>
 				)}
 				{isRegisterConfirmationPopupOpen && (
@@ -216,6 +219,8 @@ function App() {
 						setTimeoutButton={setTimeoutButton}
 						timeoutButton={timeoutButton}
 						timer={() => timer()}
+						isLoading={isLoading}
+						setIsLoading={setIsLoading}
 					/>
 				)}
 				{isLoginPopupOpen && (
@@ -230,6 +235,8 @@ function App() {
 						isloggedIn={isloggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
+						isLoading={isLoading}
+						setIsLoading={setIsLoading}
 					/>
 				)}
 				{isRecoveryPopupOpen && (
@@ -243,6 +250,8 @@ function App() {
 						isloggedIn={isloggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
+						isLoading={isLoading}
+						setIsLoading={setIsLoading}
 					/>
 				)}
 			</div>

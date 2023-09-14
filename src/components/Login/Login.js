@@ -12,6 +12,8 @@ function Login({
 	setIsLoggedIn,
 	formValue,
 	setFormValue,
+	isLoading,
+	setIsLoading,
 }) {
 	const navigate = useNavigate();
 
@@ -21,6 +23,7 @@ function Login({
 	}
 
 	async function handleLoginUser() {
+		setIsLoading(true);
 		return (
 			authApi
 				.signIn(formValue.password, formValue.email)
@@ -37,6 +40,9 @@ function Login({
 				.catch((err) => {
 					console.log(err);
 				})
+				.finally(() => {
+					setIsLoading(false);
+				})
 		);
 	}
 
@@ -51,6 +57,8 @@ function Login({
 			handleSubmittingAForm={() => handleLoginUser()}
 			formValue={formValue}
 			setFormValue={setFormValue}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
 		/>
 	);
 }
