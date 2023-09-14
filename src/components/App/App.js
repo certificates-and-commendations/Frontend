@@ -98,10 +98,10 @@ function App() {
 						setIsloggedIn(true);
 						setCurrentUser(res);
 						if (
-							location.pathname === '/frontend/editor' ||
-							location.pathname === '/frontend' ||
-							location.pathname === '/frontend/main' ||
-							location.pathname === '/frontend/profile'
+							location.pathname === '/editor' ||
+							location.pathname === '/' ||
+							location.pathname === '/main' ||
+							location.pathname === '/profile'
 						) {
 							navigate(location);
 						}
@@ -157,7 +157,7 @@ function App() {
 
 					{/* Роут для Editor */}
 					<Route
-						path="/frontend/editor"
+						path="/editor"
 						element={
 							<ProtectedRouteElement
 								loggedIn={isloggedIn}
@@ -168,7 +168,7 @@ function App() {
 					/>
 
 					<Route
-						path="/frontend/profile"
+						path="/profile"
 						element={
 							<ProtectedRouteElement
 								loggedIn={isloggedIn}
@@ -179,7 +179,7 @@ function App() {
 					/>
 
 					<Route
-						path="/frontend/*"
+						path="*"
 						element={
 							<PageNotFound setIsPageNotFoundOpen={setIsPageNotFoundOpen} />
 						}

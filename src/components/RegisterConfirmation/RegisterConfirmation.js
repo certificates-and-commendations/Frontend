@@ -60,7 +60,7 @@ function RegisterConfirmation({
 								fourth: '',
 								code: '',
 							});
-							navigate('/frontend/editor', { replace: true });
+							navigate('/editor', { replace: true });
 							return data;
 						}
 						return console.log(`Ошибка, токена нет! + ${data}`);

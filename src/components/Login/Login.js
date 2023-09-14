@@ -33,7 +33,7 @@ function Login({
 						localStorage.setItem('jwt', data.token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
-						navigate('/frontend/editor', { replace: true });
+						navigate('/editor', { replace: true });
 						return data;
 					}
 				})
