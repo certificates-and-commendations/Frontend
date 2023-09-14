@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function HeaderNav() {
 	const location = useLocation();
-	const isEditorPage = location.pathname === '/editor';
-	const isMainPage = location.pathname === '/';
+	const isEditorPage = location.pathname === '/frontend/editor';
+	const isMainPage = location.pathname === '/frontend';
 
 	return (
 		<nav>
