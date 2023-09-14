@@ -27,7 +27,7 @@ export default function CenterSlider({ array, setDiploma, delay }) {
 			{array.map((item) => (
 				<div key={item}>
 					<Link
-						to="/editor"
+						to="/frontend/editor"
 						className="profile__template-link"
 						onClick={() => onClick(item)}
 					>

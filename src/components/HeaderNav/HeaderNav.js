@@ -10,7 +10,7 @@ export default function HeaderNav() {
 		<nav>
 			<ul className="header__nav">
 				<li>
-					<Link className="header__link" to="/">
+					<Link className="header__link" to="/frontend">
 						<p
 							className={`header__item ${
 								isMainPage ? 'header__item_active' : ''
@@ -21,12 +21,12 @@ export default function HeaderNav() {
 					</Link>
 				</li>
 				<li>
-					<Link className="header__link" to="/">
+					<Link className="header__link" to="/frontend">
 						<p className="header__item">Шаблоны</p>
 					</Link>
 				</li>
 				<li>
-					<Link className="header__link" to="/editor">
+					<Link className="header__link" to="/frontend/editor">
 						<p
 							className={`header__item ${
 								isEditorPage ? 'header__item_active' : ''

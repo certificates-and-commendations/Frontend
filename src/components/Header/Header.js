@@ -23,7 +23,7 @@ export default function Header({
 	return (
 		<header className={`header ${isMainPage && 'header_section_main'}`}>
 			<div className="header__column">
-				<Link className="header__logo" to="/">
+				<Link className="header__logo" to="/frontend">
 					<Logo />
 				</Link>
 				{!isMainPage && <HeaderNav />}
@@ -31,7 +31,7 @@ export default function Header({
 
 			{isloggedIn ? (
 				<div className="header__profile">
-					<Link to="/profile">
+					<Link to="/frontend/profile">
 						<img src={avatar} alt="Аватар" className="header__avatar" />
 					</Link>
 					<button
