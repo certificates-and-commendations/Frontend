@@ -158,12 +158,7 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={
-							<ProtectedRouteElement
-								loggedIn={isloggedIn}
-								element={CertificateEditor}
-								diploma={diploma}
-							/>
+						element={<CertificateEditor diploma={diploma} loggedIn={isloggedIn}/>
 						}
 					/>
 
