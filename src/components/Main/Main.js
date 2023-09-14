@@ -7,8 +7,6 @@ import Promo from './Promo/Promo';
 
 export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 	const location = useLocation();
-	const isMain =
-		location.pathname === '/certificates-and-commendations/frontend';
 
 	return (
 		<>
