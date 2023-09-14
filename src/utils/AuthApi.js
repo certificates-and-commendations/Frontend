@@ -35,6 +35,19 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
+	registerConfirm(email, code) {
+		return fetch(`${this.url}/confirm/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+				code,
+			}),
+		}).then(handleResponse);
+	}
+
 	signIn(password, email) {
 		return fetch(`${this.url}/auth/token/login/`, {
 			method: 'POST',
