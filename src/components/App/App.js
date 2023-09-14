@@ -153,7 +153,7 @@ function App() {
 				)}
 				<Routes>
 					{/* Роут для Main */}
-					<Route path="/frontend" element={<Main />} />
+					<Route path="/" element={<Main />} />
 
 					{/* Роут для Editor */}
 					<Route
