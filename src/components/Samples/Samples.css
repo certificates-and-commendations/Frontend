@@ -136,12 +136,17 @@
 
 .samples__div {
 	position: relative;
+	box-sizing: border-box;
 	width: 300px;
 	height: min-content;
 	overflow: hidden;
 	border-radius: 12px;
-	border: 1px solid var(--text-100, #2b2b2e);
+	/* border: 1px solid var(--text-100, #898990); */
 	display: block;
+}
+
+.samples__div:hover {
+	border: 1px solid var(--text-100, #898990);
 }
 
 .samples__container-inside {
