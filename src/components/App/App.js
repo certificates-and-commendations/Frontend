@@ -17,6 +17,8 @@ import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
 	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
@@ -41,10 +43,18 @@ function App() {
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
+
+	const [infoToolTip, setInfoToolTip] = useState({
+		text: '',
+		status: true,
+		opened: false,
+	});
+
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
 	const [samples, setSamples] = useState([]);
+
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -77,7 +87,7 @@ function App() {
 			}
 		}
 		function closeByOverlay(evt) {
-			if (!evt.target.closest('.popup *')) {
+			if (!evt.target.closest('.popup *') && !infoToolTip.opened) {
 				closeAllPopups();
 			}
 		}
@@ -90,7 +100,7 @@ function App() {
 				document.removeEventListener('mousedown', closeByOverlay);
 			};
 		}
-	}, [isOpen]);
+	}, [isOpen, infoToolTip]);
 
 	React.useEffect(() => {
 		// настало время проверить токен
@@ -104,6 +114,11 @@ function App() {
 						// авторизуем пользователя
 						setIsloggedIn(true);
 						setCurrentUser(res);
+						setInfoToolTip({
+							text: 'Успешно!',
+							status: true,
+							opened: true,
+						});
 						if (
 							location.pathname === '/editor' ||
 							location.pathname === '/' ||
@@ -115,7 +130,7 @@ function App() {
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					setInfoToolTip({ text: err.message, status: false, opened: true });
 				});
 			// здесь будем проверять токен
 		}
@@ -174,7 +189,8 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={<CertificateEditor diploma={diploma} loggedIn={isloggedIn}/>
+						element={
+							<CertificateEditor diploma={diploma} loggedIn={isloggedIn} />
 						}
 					/>
 					<Route
@@ -229,6 +245,7 @@ function App() {
 						timer={() => timer()}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
+						setInfoToolTip={setInfoToolTip}
 					/>
 				)}
 				{isRegisterConfirmationPopupOpen && (
@@ -246,6 +263,7 @@ function App() {
 						timer={() => timer()}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
+						setInfoToolTip={setInfoToolTip}
 					/>
 				)}
 				{isLoginPopupOpen && (
@@ -262,6 +280,7 @@ function App() {
 						setFormValue={setFormValue}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
+						setInfoToolTip={setInfoToolTip}
 					/>
 				)}
 				{isRecoveryPopupOpen && (
@@ -277,8 +296,20 @@ function App() {
 						setFormValue={setFormValue}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
+						setInfoToolTip={setInfoToolTip}
 					/>
 				)}
+				{infoToolTip.opened && (
+					<InfoToolTip
+						text={infoToolTip.text}
+						status={infoToolTip.status}
+						opened={infoToolTip.opened}
+						onClose={() => {
+							setInfoToolTip({ text: '', status: true, opened: false });
+						}}
+					/>
+				)}
+				<ComputerRestrictions />
 			</div>
 		</CurrentUserContext.Provider>
 	);

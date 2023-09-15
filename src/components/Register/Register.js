@@ -14,6 +14,7 @@ function Register({
 	timer,
 	isLoading,
 	setIsLoading,
+	setInfoToolTip,
 }) {
 	async function handleRegistrationUser() {
 		setIsLoading(true);
@@ -34,7 +35,7 @@ function Register({
 				timer();
 			})
 			.catch((err) => {
-				console.log(err);
+				setInfoToolTip({ text: err.message, status: false, opened: true });
 			})
 			.finally(() => {
 				setIsLoading(false);

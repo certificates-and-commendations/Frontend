@@ -14,6 +14,7 @@ function Login({
 	setFormValue,
 	isLoading,
 	setIsLoading,
+	setInfoToolTip,
 }) {
 	const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ function Login({
 				// eslint-disable-next-line consistent-return
 				.then((data) => {
 					if (data.token) {
+						setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 						localStorage.setItem('jwt', data.token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
@@ -38,7 +40,7 @@ function Login({
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					setInfoToolTip({ text: err.message, status: false, opened: true });
 				})
 				.finally(() => {
 					setIsLoading(false);

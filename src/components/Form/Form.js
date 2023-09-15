@@ -19,6 +19,7 @@ function Form({
 	timer,
 	setIsLoading,
 	isLoading,
+	setInfoToolTip,
 }) {
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const isFormFieldsValid =
@@ -71,6 +72,11 @@ function Form({
 
 	function handleChangeNumber(e) {
 		const { name, value } = e.target;
+		if (!/[^\d]/g.test(value)) {
+			if (e.target.nextSibling) {
+				e.target.nextSibling.focus();
+			}
+		}
 		setFormValue({
 			...formValue,
 			[name]: value.substring(0, 1).replace(/[^\d]/g, ''),
@@ -97,18 +103,15 @@ function Form({
 				}
 			})
 			.then(() => {
+				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 				timer();
 			})
 			.catch((err) => {
-				console.log(err);
+				setInfoToolTip({ text: err.message, status: false, opened: true });
 			})
 			.finally(() => {
 				setIsLoading(false);
 			});
-	}
-
-	function closeByOverlay() {
-		onClose();
 	}
 
 	return (
