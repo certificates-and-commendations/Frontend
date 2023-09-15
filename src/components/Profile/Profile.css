@@ -54,6 +54,10 @@
 
 .profile__template {
 	cursor: pointer;
+	background-size: cover;
+	background-position: center;
+	border: 1px solid gray;
+	border-radius: 15px;
 }
 
 .profile__template_horizontal {
