@@ -16,6 +16,7 @@ import Profile from '../Profile/Profile';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
@@ -275,6 +276,7 @@ function App() {
 						}}
 					/>
 				)}
+				<ComputerRestrictions />
 			</div>
 		</CurrentUserContext.Provider>
 	);

@@ -72,6 +72,11 @@ function Form({
 
 	function handleChangeNumber(e) {
 		const { name, value } = e.target;
+		if (!/[^\d]/g.test(value)) {
+			if (e.target.nextSibling) {
+				e.target.nextSibling.focus();
+			}
+		}
 		setFormValue({
 			...formValue,
 			[name]: value.substring(0, 1).replace(/[^\d]/g, ''),
