@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import CertificateEditor from '../CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
@@ -13,11 +13,13 @@ import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
+import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
+	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
 	const [isloggedIn, setIsloggedIn] = useState(true);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
@@ -37,7 +39,12 @@ function App() {
 		code: '',
 	});
 	const [currentUser, setCurrentUser] = useState({});
+	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
+	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
+	const [favoriteSamples, setFavoriteSamples] = useState([]);
+	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
+	const [samples, setSamples] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -114,6 +121,15 @@ function App() {
 		}
 	}, []);
 
+
+	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
+	useEffect(() => {
+		authApi
+			.getAllSamples()
+			.then((res) => setSamples(res))
+			.catch((err) => console.log(err));
+	}, []);
+
 	function timer() {
 		const startTime = new Date();
 		const stopTime = startTime.setMinutes(startTime.getMinutes() + 1);
@@ -161,7 +177,20 @@ function App() {
 						element={<CertificateEditor diploma={diploma} loggedIn={isloggedIn}/>
 						}
 					/>
-
+					<Route
+						path="/samples"
+						element={
+							<ProtectedRouteElement
+								loggedIn={isloggedIn}
+								element={Samples}
+								setDiploma={setDiploma}
+								favoriteSamples={favoriteSamples}
+								setFavoriteSamples={setFavoriteSamples}
+								samples={samples}
+							/>
+						}
+					/>
+					{/* {Роут для Profile} */}
 					<Route
 						path="/profile"
 						element={
@@ -169,6 +198,7 @@ function App() {
 								loggedIn={isloggedIn}
 								element={Profile}
 								setDiploma={setDiploma}
+								favoriteSamples={favoriteSamples}
 							/>
 						}
 					/>
