@@ -26,6 +26,8 @@
 }
 
 .landing-samples__image {
+    display: inline-block;
+    box-sizing: border-box;
     width: 357px;
     height: 220px;
     border-radius: 12px;
