@@ -2,7 +2,7 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "/",
+	"homepage": "https://certificates-and-commendations.github.io/frontend/",
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
@@ -74,7 +74,8 @@
 			"no-object-shorthand": "off",
 			"react-hooks/exhaustive-deps": "off",
 			"no-console": "off",
-			"consistent-return": "off"
+			"consistent-return": "off",
+			"jsx-a11y/control-has-associated-label": "off"
 		},
 		"overrides": [
 			{

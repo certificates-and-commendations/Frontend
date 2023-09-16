@@ -8,8 +8,6 @@ import LandingSamples from './LandingSamples/LandingSamples';
 
 export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 	const location = useLocation();
-	const isMain =
-		location.pathname === '/certificates-and-commendations/frontend';
 
 	return (
 		<>
