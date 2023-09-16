@@ -6,6 +6,7 @@ import TextBlock from '../../TextBlock/TextBlock';
 import Signature from '../../Signature/Signature';
 import Stamp from '../../Stamp/Stamp';
 import LateralPropertiesPanel from '../../LateralPropertiesPanel/LateralPropertiesPanel';
+import TextFunctions from "./TextFunctions/TextFunctions";
 
 function CertificateEditor({diploma}) {
     const [font, setFont] = useState('Arial');
@@ -207,7 +208,9 @@ function CertificateEditor({diploma}) {
     };
 
     return (
-        <section className="certificate" ref={certificateRef}>
+        <section className="certificate-main" ref={certificateRef}>
+            <TextFunctions />
+            <div className="certificate">
             {uploadedCertificate ? (
                 <img
                     src={uploadedCertificate}
@@ -289,6 +292,7 @@ function CertificateEditor({diploma}) {
                     onDrag={handleStampDrag}
                 />
             )}
+            </div>
         </section>
     );
 }
