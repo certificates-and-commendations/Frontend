@@ -18,6 +18,7 @@ class AuthApi {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
+				referrerPolicy: "unsafe_url" 
 			},
 		}).then(handleResponse);
 	}
@@ -27,6 +28,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				referrerPolicy: "unsafe_url" 
 			},
 			body: JSON.stringify({
 				password,
@@ -40,6 +42,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				referrerPolicy: "unsafe_url" 
 			},
 			body: JSON.stringify({
 				email,
@@ -53,6 +56,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				referrerPolicy: "unsafe_url" 
 			},
 			body: JSON.stringify({
 				password,
@@ -67,6 +71,7 @@ class AuthApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
+				referrerPolicy: "unsafe_url" 
 			},
 		}).then(handleResponse);
 	}
@@ -82,11 +87,11 @@ class AuthApi {
 
 		const queryString = queryParams.join('&');
 		const url = `${this.url}/documents/?${queryString}True`;
-		console.log(url);
 		return fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				referrerPolicy: "unsafe_url" 
 			},
 		}).then(handleResponse);
 	}
@@ -94,7 +99,6 @@ class AuthApi {
 
 const authApi = new AuthApi({
 	baseUrl: 'http://185.93.111.238/api',
-	// НУЖНО ПОМЕНЯТЬ АДРЕС НА АДРЕС СЕРВЕРА!!!
 });
 
 export default authApi;
