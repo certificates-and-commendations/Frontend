@@ -19,7 +19,6 @@ class AuthApi {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
-			referrerPolicy: "unsafe-url" 
 		}).then(handleResponse);
 	}
 
@@ -33,7 +32,6 @@ class AuthApi {
 				password,
 				email,
 			}), 
-			referrerPolicy: "unsafe-url" 
 		}).then(handleResponse);
 	}
 
@@ -47,7 +45,6 @@ class AuthApi {
 				email,
 				code,
 			}),
-			referrerPolicy: "unsafe-url" 
 		}).then(handleResponse);
 	}
 
@@ -61,7 +58,6 @@ class AuthApi {
 				password,
 				email,
 			}),
-			referrerPolicy: "unsafe-url" 
 		}).then(handleResponse);
 	}
 
@@ -71,8 +67,7 @@ class AuthApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-			}, 
-			referrerPolicy: "unsafe-url" 
+			},  
 		}).then(handleResponse);
 	}
 
@@ -92,7 +87,6 @@ class AuthApi {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			referrerPolicy: "unsafe-url" 
 		}).then(handleResponse);
 	}
 }
