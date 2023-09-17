@@ -12,6 +12,8 @@
 
 .options__infinite {
 	overflow: hidden;
+	/*max-width: 1440px;*/
+	margin: 0 auto;
 }
 
 .options__infinite div {

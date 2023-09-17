@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Opportunities from './Opportunities/Opportunities';
 import BestOptions from './BestOptions/BestOptions';
 import Promo from './Promo/Promo';
+import LandingSamples from './LandingSamples/LandingSamples';
 
 export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 	const location = useLocation();
@@ -11,6 +12,7 @@ export default function Main({ setIsLoginPopupOpen, setIsRegisterPopupOpen }) {
 	return (
 		<>
 			<Promo />
+			<LandingSamples />
 			<Opportunities />
 			<BestOptions />
 		</>
