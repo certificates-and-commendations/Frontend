@@ -26,7 +26,7 @@ function App() {
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
-		useState(true);
+		useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
@@ -214,6 +214,7 @@ function App() {
 								element={Profile}
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
+								setFavoriteSamples={setFavoriteSamples}
 							/>
 						}
 					/>

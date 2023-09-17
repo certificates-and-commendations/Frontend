@@ -1,13 +1,17 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import trash from '../../images/trash.svg';
 
 export default function CenterSlider({
 	array,
 	setDiploma,
-	delay,
 	isFavoriteSamples,
+	setFavoriteSamples,
 }) {
+	const navigate = useNavigate();
+
 	const settings = {
 		dots: true,
 		speed: 3500,
@@ -18,25 +22,32 @@ export default function CenterSlider({
 		variableWidth: true,
 		adaptiveHeight: true,
 		infinite: false,
-		autoplay: true,
-		autoplaySpeed: delay,
-		pauseOnHover: true,
 	};
 
-	function onClick(item) {
+	function onTemplateClick(item) {
 		setDiploma(item);
+		navigate('/editor');
+	}
+
+	function onTrashClick(item) {
+		const newSamples = array.filter((card) => card.id !== item.id);
+		setFavoriteSamples(newSamples);
 	}
 
 	return (
-		<Slider {...settings}>
-			{array.map((item) => (
-				<div key={item.id}>
-					<Link
-						to="/editor"
-						className="profile__template-link"
-						onClick={() => onClick(item)}
-					>
+		// eslint-disable-next-line eqeqeq
+		!(array.length === 0) ? (
+			<Slider {...settings}>
+				{array.map((item) => (
+					<div key={item.id} className="profile__template-main">
+						<img
+							src={trash}
+							alt="Удалить"
+							className="profile__template-trash"
+							onClick={() => onTrashClick(item)}
+						/>
 						<div
+							onClick={() => onTemplateClick()}
 							// src={isFavoriteSamples ? item.thumbnail : item.image}
 							alt={isFavoriteSamples ? item.title : item.name}
 							style={{
@@ -54,9 +65,13 @@ export default function CenterSlider({
 									: 'profile__template profile__template_vertical'
 							}
 						/>
-					</Link>
-				</div>
-			))}
-		</Slider>
+					</div>
+				))}
+			</Slider>
+		) : isFavoriteSamples ? (
+			<p className="profile__template-text">У вас нет избранных шаблонов</p>
+		) : (
+			<p className="profile__template-text">У вас нет созданных документов</p>
+		)
 	);
 }

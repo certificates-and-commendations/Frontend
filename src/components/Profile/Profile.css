@@ -60,6 +60,26 @@
 	border-radius: 15px;
 }
 
+.profile__template-trash {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+}
+
+.profile__template-main {
+	position: relative;
+}
+
+.profile__template-text {
+	color: var(--text-100, #2b2b2e);
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	text-align: center;
+}
+
 .profile__template_horizontal {
 	width: 369px;
 	height: 243px;
@@ -68,8 +88,4 @@
 .profile__template_vertical {
 	width: 161px;
 	height: 245px;
-}
-
-.profile__template-link_inactive {
-	pointer-events: none;
 }
