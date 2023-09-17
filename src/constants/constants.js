@@ -9,26 +9,31 @@ export const PASSWORD_CHECKER =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}/;
 export const array = [
 	{
+		id: '1',
 		name: 'diploma',
 		image: horizontal,
 		type: 'horizontal',
 	},
 	{
+		id: '2',
 		name: 'diploma',
 		image: horizontal,
 		type: 'horizontal',
 	},
 	{
+		id: '3',
 		name: 'diploma',
 		image: horizontal,
 		type: 'horizontal',
 	},
 	{
+		id: '4',
 		name: 'diploma',
 		image: horizontal,
 		type: 'horizontal',
 	},
 	{
+		id: '5',
 		name: 'diploma',
 		image: vertical,
 		type: 'vertical',

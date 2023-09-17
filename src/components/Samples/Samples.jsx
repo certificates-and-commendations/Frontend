@@ -57,6 +57,8 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	};
 
 	const handleDislike = (e, item) => {
+		const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
+		setFavoriteSamples(newSamples);
 		e.stopPropagation();
 		// return authApi.addLike(item)
 		// 	.then((res) => {
