@@ -1,7 +1,7 @@
 import './Promo.css';
 import { Link } from 'react-router-dom';
 import mac from '../../../images/macBook.svg';
-import dipl from '../../../images/before-word-diploms.svg';
+import dipl from '../../../images/before-word-diplomas.svg';
 import sert from '../../../images/after-word-sertificates.svg';
 
 export default function Promo() {

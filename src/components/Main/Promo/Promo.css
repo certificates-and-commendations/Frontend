@@ -19,10 +19,13 @@
 }
 
 .promo__image {
+	width: 196px;
+	height: 123px;
 	border-radius: 8px;
-	border: 1px solid #959596;
+	/*border: 0.5px solid #959596;*/
 	margin-left: 16px;
 	margin-right: 16px;
+	vertical-align: -35px;
 }
 .promo__image:first-of-type {
 	border: none;
