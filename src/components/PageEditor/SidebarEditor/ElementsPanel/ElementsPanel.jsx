@@ -18,7 +18,7 @@ function ElementsPanel() {
         const validFiles = files.filter(isImageValid);
 
         if (validFiles.length === 0) {
-            alert('Загрузите изображение в формате JPEG или PNG.');
+            console.log('Загрузите изображение в формате JPEG или PNG.');
             return;
         }
 
