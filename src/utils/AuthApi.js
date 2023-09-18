@@ -23,7 +23,7 @@ class AuthApi {
 	}
 
 	signUp(password, email) {
-		return fetch(`${this.url}/users/`, {
+		return fetch(`${this.url}/auth/regist/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ class AuthApi {
 	}
 
 	registerConfirm(email, code) {
-		return fetch(`${this.url}/confirm/`, {
+		return fetch(`${this.url}/auth/confirm/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

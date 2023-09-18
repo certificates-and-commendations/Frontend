@@ -13,6 +13,7 @@
 .info-tooltip_opened {
 	display: block;
 	cursor: pointer;
+	z-index: 99;
 }
 
 .info-tooltip__container {
