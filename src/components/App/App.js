@@ -206,6 +206,7 @@ function App() {
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
+								isLoggedIn={isLoggedIn}
 							/>
 						}
 					/>

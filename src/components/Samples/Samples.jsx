@@ -7,7 +7,7 @@ import Sample from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
+function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isLoggedIn }) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
@@ -155,6 +155,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
@@ -169,6 +170,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
@@ -183,6 +185,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
