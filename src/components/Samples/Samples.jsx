@@ -59,7 +59,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	const handleDislike = (e, item) => {
 		e.stopPropagation();
 		return authApi
-			.addLike(item)
+			.removeLike(item.id)
 			.then((res) => {
 				console.log(res);
 				const newSamples = favoriteSamples.filter(
@@ -73,7 +73,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	const handleLike = (e, item) => {
 		e.stopPropagation();
 		return authApi
-			.addLike(item)
+			.addLike(item.id)
 			.then((res) => {
 				const newSamples = samples.filter((card) => card.id === res.id);
 				setFavoriteSamples([...favoriteSamples, item]);

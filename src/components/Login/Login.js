@@ -35,6 +35,7 @@ function Login({
 						localStorage.setItem('jwt', data.auth_token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
+						onClose();
 						navigate('/editor', { replace: true });
 						return data;
 					}

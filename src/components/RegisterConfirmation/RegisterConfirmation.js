@@ -37,11 +37,8 @@ function RegisterConfirmation({
 		return authApi
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
-				console.log('Ответ на Confirm', response)
 				localStorage.setItem('jwt', response.Token);
-				console.log('Положили в локал')
 				setIsLoggedIn(true);
-				console.log('Перевели стейт')
 				setFormValue({
 					email: '',
 					password: '',
@@ -51,11 +48,8 @@ function RegisterConfirmation({
 					fourth: '',
 					code: '',
 				});
-				console.log('Обнулили поля')
 				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
-				console.log('вывели Успешно в туллтип')
 				onClose();
-				console.log('Закрыли')
 				navigate('/', { replace: true })
 			})
 			.catch((err) => {

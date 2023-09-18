@@ -7,17 +7,18 @@ const handleResponse = (res) => {
 	return Promise.reject(new Error('Произошла ошибка'));
 };
 
+const token = localStorage.getItem('jwt');
+
 class AuthApi {
 	constructor(options) {
 		this.url = options.baseUrl;
 	}
 
 	tokenValidity() {
-		const token = localStorage.getItem('jwt');
 		return fetch(`${this.url}/users/me/`, {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
+				'Authorization': `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}
@@ -63,13 +64,36 @@ class AuthApi {
 
 	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
 	getAllSamples() {
-		return fetch(`${this.url}/documents`, {
+		return fetch(`${this.url}/documents/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}
+
+	// СТАВИМ ЛАЙК
+	addLike(id) {
+		return fetch(`${this.url}/documents/${id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
+			},
+		}).then(handleResponse);
+	}
+
+		// УДАЛЯЕМ ЛАЙК
+		removeLike(id) {
+			return fetch(`${this.url}/documents/${id}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Token ${token}`,
+				},
+			}).then(handleResponse);
+		}
 
 	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
 	handleFilterSamples(obj) {
@@ -86,6 +110,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				'Authorization': `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}

@@ -133,7 +133,7 @@ function App() {
 					}
 				})
 				.catch((err) => {
-					setInfoToolTip({ text: err.message, status: false, opened: true });
+					console.log('Token check', err)
 				});
 			// здесь будем проверять токен
 		}
@@ -143,7 +143,10 @@ function App() {
 	useEffect(() => {
 		authApi
 			.getAllSamples()
-			.then((res) => setSamples(res))
+			.then((res) => {
+				if (res.results.lenght > 6)
+					setSamples(res.results)
+			})
 			.catch((err) => console.log(err));
 	}, []);
 
@@ -226,7 +229,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen || (isEditorPage && <Footer />)}
+				{!isPageNotFoundOpen || !isEditorPage ? <Footer /> : null}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"
