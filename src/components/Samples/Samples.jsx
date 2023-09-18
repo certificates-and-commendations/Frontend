@@ -66,7 +66,6 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 		// 		setSamples(newSamples)
 		// 	})
 		// 	.catch((err) => console.log(err))
-		console.log('Dislike', item);
 	};
 
 	const handleLike = (e, item) => {
@@ -78,7 +77,6 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 		// 		setSamples(newSamples)
 		// 	})
 		// 	.catch((err) => console.log(err))
-		console.log('Like', favoriteSamples);
 	};
 
 	const handleImageClick = (e, item) => {
@@ -158,6 +156,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
@@ -171,6 +170,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
@@ -184,6 +184,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
