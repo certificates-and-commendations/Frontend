@@ -23,7 +23,7 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
 	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
-	const [isloggedIn, setIsloggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
@@ -115,7 +115,7 @@ function App() {
 				.then((res) => {
 					if (res) {
 						// авторизуем пользователя
-						setIsloggedIn(true);
+						setIsLoggedIn(true);
 						setCurrentUser(res);
 						setInfoToolTip({
 							text: 'Успешно!',
@@ -180,8 +180,8 @@ function App() {
 					<Header
 						setIsLoginPopupOpen={setIsLoginPopupOpen}
 						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
-						isloggedIn={isloggedIn}
-						setIsLoggedIn={setIsloggedIn}
+						isloggedIn={isLoggedIn}
+						setIsLoggedIn={setIsLoggedIn}
 					/>
 				)}
 				<Routes>
@@ -191,14 +191,14 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={<PageEditor diploma={diploma} loggedIn={isloggedIn} />}
+						element={<PageEditor diploma={diploma} loggedIn={isLoggedIn} />}
 					/>
 					<Route
 						path="/samples"
 						element={
 							<Samples
 								setDiploma={setDiploma}
-								loggedIn={isloggedIn}
+								loggedIn={isLoggedIn}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
@@ -210,7 +210,7 @@ function App() {
 						path="/profile"
 						element={
 							<ProtectedRouteElement
-								loggedIn={isloggedIn}
+								loggedIn={isLoggedIn}
 								element={Profile}
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
@@ -234,7 +234,7 @@ function App() {
 						popupName="register"
 						isOpened={isRegisterPopupOpen}
 						onClose={() => closeAllPopups()}
-						isloggedIn={isloggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						setTimeoutButton={setTimeoutButton}
@@ -255,7 +255,7 @@ function App() {
 						popupName="registerConfirmation"
 						isOpened={isRegisterConfirmationPopupOpen}
 						onClose={() => closeAllPopups()}
-						setIsloggedIn={setIsloggedIn}
+						setIsLoggedIn={setIsLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						setTimeoutButton={setTimeoutButton}
@@ -274,8 +274,8 @@ function App() {
 						isOpened={isLoginPopupOpen}
 						onClose={() => closeAllPopups()}
 						setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
-						setIsloggedIn={setIsloggedIn}
-						isloggedIn={isloggedIn}
+						setIsLoggedIn={setIsLoggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}
@@ -291,7 +291,7 @@ function App() {
 						isOpened={isRecoveryPopupOpen}
 						onClose={() => closeAllPopups()}
 						setIsLoginPopupOpen={setIsLoginPopupOpen}
-						isloggedIn={isloggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}

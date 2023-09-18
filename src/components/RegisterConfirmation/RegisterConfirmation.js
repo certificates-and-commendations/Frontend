@@ -38,8 +38,8 @@ function RegisterConfirmation({
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
 				console.log('Ответ на Confirm', response)
-				console.log('Response.Token', response.Token)
 				localStorage.setItem('jwt', response.Token);
+				console.log('Положили в локал')
 				setIsLoggedIn(true);
 				console.log('Перевели стейт')
 				setFormValue({
