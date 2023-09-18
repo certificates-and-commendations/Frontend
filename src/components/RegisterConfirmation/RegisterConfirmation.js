@@ -37,6 +37,7 @@ function RegisterConfirmation({
 		return authApi
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
+				console.log('Ответ на Confirm', response)
 				localStorage.setItem('jwt', response.Token);
 				setIsLoggedIn(true);
 				setFormValue({
