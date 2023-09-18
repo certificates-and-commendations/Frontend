@@ -31,7 +31,7 @@ class AuthApi {
 			body: JSON.stringify({
 				password,
 				email,
-			}), 
+			}),
 		}).then(handleResponse);
 	}
 
@@ -67,7 +67,7 @@ class AuthApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-			},  
+			},
 		}).then(handleResponse);
 	}
 
