@@ -10,8 +10,8 @@ import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 
 function SidebarEditor() {
 
-    const [activePanel, setActivePanel] = useState(null);
-    const [activeClass, setActiveClass] = useState(null);
+    const [activePanel, setActivePanel] = useState('panelTemplates');
+    const [activeClass, setActiveClass] = useState('panelTemplates');
 
     const renderPanel = () => {
         switch (activePanel) {
