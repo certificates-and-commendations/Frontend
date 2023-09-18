@@ -29,22 +29,22 @@
 @import url('./components/PageEditor/CertificateEditor/CertificateEditor.css');
 
 /* TextBlock */
-@import url('./components/TextBlock/TextBlock.css');
+@import url('./components/PageEditor/CertificateEditor/TextBlock/TextBlock.css');
 
 /* Signature */
-@import url('./components/Signature/Signature.css');
+@import url('./components/PageEditor/CertificateEditor/Signature/Signature.css');
 
 /* StylePropertiesPanel */
-@import url('components/StylePropertiesPanel/StylePropertiesPanel.css');
+@import url('./components/PageEditor/CertificateEditor/StylePropertiesPanel/StylePropertiesPanel.css');
 
 /* LateralPropertiesPanel */
-@import url('components/LateralPropertiesPanel/LateralPropertiesPanel.css');
+@import url('./components/PageEditor/CertificateEditor/LateralPropertiesPanel/LateralPropertiesPanel.css');
 
 /* FioTable */
-@import url('./components/FioTable/FioTable.css');
+@import url('./components/PageEditor/CertificateEditor/FioTable/FioTable.css');
 
 /* Stamp */
-@import url('./components/Stamp/Stamp.css');
+@import url('./components/PageEditor/CertificateEditor/Stamp/Stamp.css');
 
 body {
 	-webkit-font-smoothing: antialiased;
