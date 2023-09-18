@@ -11,7 +11,9 @@ import ElementsPanel from "./ElementsPanel/ElementsPanel";
 import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 
 function SidebarEditor({
-                           textPanelActive
+                           setTextPanelActive,
+                           textPanelActive,
+                           setUploadedCertificate
                        }) {
 
     const [activePanel, setActivePanel] = useState('panelTemplates');
@@ -26,7 +28,10 @@ function SidebarEditor({
             case 'panelElements':
                 return <ElementsPanel/>;
             case 'panelDownloads':
-                return <DownloadsPanel/>;
+                return <DownloadsPanel
+                    setTextPanelActive={setTextPanelActive}
+                    setUploadedCertificate={setUploadedCertificate}
+                />;
             default:
                 return null;
         }
