@@ -55,7 +55,7 @@ function App() {
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
-	const [samples, setSamples] = useState([]);
+	const [samples, setSamples] = useState({ results: [] });
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -145,8 +145,10 @@ function App() {
 		authApi
 			.getAllSamples()
 			.then((res) => {
-				if (res.results.lenght > 6)
+				console.log('Вернулось с бэка', res)
+				if (res.results) {
 					setSamples(res.results)
+				}
 			})
 			.catch((err) => console.log(err));
 	}, []);
