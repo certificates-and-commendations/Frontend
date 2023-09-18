@@ -44,7 +44,8 @@ function App() {
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
-
+	// CТЕЙТ С СОЗДАННЫМИ ДОКУМЕНТАМИ
+	const [myDocuments, setMyDocuments] = useState([]);
 	const [infoToolTip, setInfoToolTip] = useState({
 		text: '',
 		status: true,
@@ -218,6 +219,7 @@ function App() {
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
+								myDocuments={myDocuments}
 							/>
 						}
 					/>
