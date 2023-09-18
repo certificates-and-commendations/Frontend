@@ -89,6 +89,9 @@
 					"import/no-extraneous-dependencies": "off"
 				}
 			}
+		],
+		"ignorePatterns": [
+			"build/"
 		]
 	},
 	"browserslist": {

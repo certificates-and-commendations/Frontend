@@ -16,9 +16,9 @@ function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples }) {
 
 	// СЕТАПИМ isCliked ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИЛ ЛАЙК ИНАЧЕ НЕТ
 	useEffect(() => {
-		const result = favoriteSamples.some((elem) => item.id === elem.id)
-		setIsCliked(result)
-	}, [favoriteSamples])
+		const result = favoriteSamples.some((elem) => item.id === elem.id);
+		setIsCliked(result);
+	}, [favoriteSamples]);
 
 	return (
 		<div className="samples__div" key={item.id}>
