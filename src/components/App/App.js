@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import CertificateEditor from '../CertificateEditor/CertificateEditor';
+import CertificateEditor from '../PageEditor/CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -17,6 +17,7 @@ import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import PageEditor from "../PageEditor/PageEditor";
 import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
@@ -189,7 +190,11 @@ function App() {
 					<Route
 						path="/editor"
 						element={
-							<CertificateEditor diploma={diploma} loggedIn={isloggedIn} />
+							<ProtectedRouteElement
+								loggedIn={isloggedIn}
+								element={PageEditor}
+								diploma={diploma}
+							/>
 						}
 					/>
 					<Route

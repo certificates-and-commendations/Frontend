@@ -75,7 +75,8 @@
 			"react-hooks/exhaustive-deps": "off",
 			"no-console": "off",
 			"consistent-return": "off",
-			"jsx-a11y/control-has-associated-label": "off"
+			"jsx-a11y/control-has-associated-label": "off",
+			"prefer-destructuring": "off"
 		},
 		"overrides": [
 			{
