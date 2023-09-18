@@ -57,26 +57,28 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	};
 
 	const handleDislike = (e, item) => {
-		const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
-		setFavoriteSamples(newSamples);
 		e.stopPropagation();
-		// return authApi.addLike(item)
-		// 	.then((res) => {
-		// 		const newSamples = samples.filter((card) => card.id === res.id)
-		// 		setSamples(newSamples)
-		// 	})
-		// 	.catch((err) => console.log(err))
+		return authApi
+			.addLike(item)
+			.then((res) => {
+				console.log(res);
+				const newSamples = favoriteSamples.filter(
+					(card) => card.id !== item.id
+				);
+				setFavoriteSamples(newSamples);
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const handleLike = (e, item) => {
-		setFavoriteSamples([...favoriteSamples, item]);
 		e.stopPropagation();
-		// return authApi.addLike(item)
-		// 	.then((res) => {
-		// 		const newSamples = samples.filter((card) => card.id === res.id)
-		// 		setSamples(newSamples)
-		// 	})
-		// 	.catch((err) => console.log(err))
+		return authApi
+			.addLike(item)
+			.then((res) => {
+				const newSamples = samples.filter((card) => card.id === res.id);
+				setFavoriteSamples([...favoriteSamples, item]);
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const handleImageClick = (e, item) => {
