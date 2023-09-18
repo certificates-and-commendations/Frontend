@@ -5,13 +5,19 @@ function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples }) {
 	const [isCliked, setIsCliked] = useState(false);
 
 	function handleLike(e) {
-		onLike(e, item);
-		setIsCliked(!isCliked);
+		return onLike(e, item)
+		.then(() => {
+			setIsCliked(!isCliked);
+		})
+		.catch((err) => console.log(err) );
 	}
 
 	function handleDislike(e) {
-		onDislike(e, item);
+	return	onDislike(e, item)
+	.then(() => {
 		setIsCliked(!isCliked);
+	})
+	.catch((err) => console.log(err) );
 	}
 
 	// СЕТАПИМ isCliked ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИЛ ЛАЙК ИНАЧЕ НЕТ

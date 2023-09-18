@@ -75,7 +75,7 @@ class AuthApi {
 
 	// СТАВИМ ЛАЙК
 	addLike(id) {
-		return fetch(`${this.url}/documents/${id}`, {
+		return fetch(`${this.url}/documents/${id}/`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ class AuthApi {
 
 		// УДАЛЯЕМ ЛАЙК
 		removeLike(id) {
-			return fetch(`${this.url}/documents/${id}`, {
+			return fetch(`${this.url}/documents/${id}/`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',

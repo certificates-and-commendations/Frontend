@@ -66,8 +66,8 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 					(card) => card.id !== item.id
 				);
 				setFavoriteSamples(newSamples);
+				console.log('dislike ok')
 			})
-			.catch((err) => console.log(err));
 	};
 
 	const handleLike = (e, item) => {
@@ -77,6 +77,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 			.then((res) => {
 				const newSamples = samples.filter((card) => card.id === res.id);
 				setFavoriteSamples([...favoriteSamples, item]);
+				console.log('like ok')
 			})
 			.catch((err) => console.log(err));
 	};
