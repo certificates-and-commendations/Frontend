@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
 import templateImage from '../../../images/imageEditor/templateImage.svg'
 import textImage from '../../../images/imageEditor/textImage.svg'
+import textImageNoActive from '../../../images/imageEditor/textImage_no-active.svg'
 import elementImage from '../../../images/imageEditor/elementImage.svg'
+import elementImageNoActive from '../../../images/imageEditor/elementImage_no-active.svg'
 import downloadImage from '../../../images/imageEditor/downloadImage.svg'
 import TemplatesPanel from "./TemplatesPanel/TemplatesPanel";
 import TextPanel from "./TextPanel/TextPanel";
 import ElementsPanel from "./ElementsPanel/ElementsPanel";
 import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 
-function SidebarEditor() {
+function SidebarEditor({
+                           textPanelActive
+                       }) {
 
     const [activePanel, setActivePanel] = useState('panelTemplates');
     const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -16,13 +20,13 @@ function SidebarEditor() {
     const renderPanel = () => {
         switch (activePanel) {
             case 'panelTemplates':
-                return <TemplatesPanel />;
+                return <TemplatesPanel/>;
             case 'panelText':
-                return <TextPanel />;
+                return <TextPanel/>;
             case 'panelElements':
-                return <ElementsPanel />;
+                return <ElementsPanel/>;
             case 'panelDownloads':
-                return <DownloadsPanel />;
+                return <DownloadsPanel/>;
             default:
                 return null;
         }
@@ -37,34 +41,46 @@ function SidebarEditor() {
                             className="sidebar-navigate__button"
                             onClick={() => {
                                 setActivePanel('panelTemplates');
-                                setActiveClass('panelTemplates')}
+                                setActiveClass('panelTemplates')
+                            }
                             }
                         >
-                            <img src={templateImage} alt=" Кнопка для открытия панели с шаблонами." className="sidebar-navigate__icon"/>
+                            <img src={templateImage} alt=" Кнопка для открытия панели с шаблонами."
+                                 className="sidebar-navigate__icon"/>
                             Шаблоны
                         </button>
                     </li>
                     <li className={`sidebar-navigate__item ${activeClass === 'panelText' ? "sidebar-navigate__item_active" : ""}`}>
                         <button
-                            className="sidebar-navigate__button"
+                            className={!textPanelActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
                             onClick={() => {
                                 setActivePanel('panelText');
                                 setActiveClass('panelText');
                             }}
+                            disabled={!textPanelActive}
                         >
-                            <img src={textImage} alt=" Кнопка для открытия панели для создания текста." className="sidebar-navigate__icon"/>
+                            <img
+                                src={!textPanelActive ? textImageNoActive : textImage}
+                                alt=" Кнопка для открытия панели для создания текста."
+                                className='sidebar-navigate__icon'
+                            />
                             Текст
                         </button>
                     </li>
                     <li className={`sidebar-navigate__item ${activeClass === 'panelElements' ? "sidebar-navigate__item_active" : ""}`}>
                         <button
-                            className="sidebar-navigate__button"
+                            className={!textPanelActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
                             onClick={() => {
                                 setActivePanel('panelElements');
                                 setActiveClass('panelElements');
                             }}
+                            disabled={!textPanelActive}
                         >
-                            <img src={elementImage} alt=" Кнопка для открытия панели с элементами." className="sidebar-navigate__icon"/>
+                            <img
+                                src={!textPanelActive ? elementImageNoActive : elementImage}
+                                alt=" Кнопка для открытия панели с элементами."
+                                className="sidebar-navigate__icon"
+                            />
                             Элементы
                         </button>
                     </li>
@@ -76,7 +92,8 @@ function SidebarEditor() {
                                 setActiveClass('panelDownloads');
                             }}
                         >
-                            <img src={downloadImage} alt=" Кнопка открытия панели загрузок." className="sidebar-navigate__icon"/>
+                            <img src={downloadImage} alt=" Кнопка открытия панели загрузок."
+                                 className="sidebar-navigate__icon"/>
                             Загрузки
                         </button>
                     </li>

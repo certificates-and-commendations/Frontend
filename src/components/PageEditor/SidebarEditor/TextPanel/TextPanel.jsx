@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 
-function TextPanel(props) {
+function TextPanel({
+                       textPanelActive
+                   }) {
 
     const [btnClick, setBtnClick] = useState(true);
 
@@ -18,14 +20,16 @@ function TextPanel(props) {
             <div className="text-panel__block-button">
                 <button
                     className={`text-panel__button ${btnClick ? "text-panel__button_active" : ""}`}
-                    onClick={onClickBtnNotActive}>
+                    onClick={onClickBtnNotActive}
+                >
                     Текст
                 </button>
                 <button
                     className={`text-panel__button ${!btnClick ? "text-panel__button_active" : ""}`}
-                    onClick={onClickBtnActive}>Мои шрифты</button>
+                    onClick={onClickBtnActive}>Мои шрифты
+                </button>
             </div>
-            { btnClick ?
+            {btnClick ?
                 <div className="text-panel__block-result">
                     <button className="text-panel__h1">Создать заголовок</button>
                     <button className="text-panel__h2">Создать подзаголовок</button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './TextFunctions.css';
+import './PropertiesPanel.css';
 
 function TextFunctions(props) {
 	return (
@@ -29,12 +29,12 @@ function TextFunctions(props) {
     <option value="s2" >Arial</option>
     <option value="s3">Times New Roman</option>
     <option value="s4" >Roboto</option>
-   </select> 
+   </select>
    <div className="functions-quantity-block">
    <input className="functions-quantity-num" type="number" value="1" />
    <div className="functions-quantity-block_arrow">
-  <button className="functions-quantity-arrow-minus" type="button" aria-label="Кнопка увеличить"/>  
-  <button className="functions-quantity-arrow-plus" type="button" aria-label="Кнопка уменьшить"/> 
+  <button className="functions-quantity-arrow-minus" type="button" aria-label="Кнопка увеличить"/>
+  <button className="functions-quantity-arrow-plus" type="button" aria-label="Кнопка уменьшить"/>
   </div>
 </div>
 					<button

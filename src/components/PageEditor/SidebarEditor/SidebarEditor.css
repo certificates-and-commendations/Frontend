@@ -45,3 +45,21 @@
     border: 1px solid #2B2B2E;
     cursor: pointer;
 }
+
+.sidebar-navigate__button_no-active {
+    width: 96px;
+    height: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border-radius: 16px;
+    border: 1px solid #959596;
+    cursor: pointer;
+    color: #959596;
+}
+
+.sidebar-navigate__icon_no-active {
+
+}

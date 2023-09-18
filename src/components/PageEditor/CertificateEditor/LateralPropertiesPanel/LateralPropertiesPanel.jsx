@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FioTable from '../FioTable/FioTable';
+import FioTable from "../FioTable/FioTable";
 
 function LateralPropertiesPanel({
 	onSignatureUpload,
