@@ -17,7 +17,7 @@ import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import PageEditor from "../PageEditor/PageEditor";
+import PageEditor from '../PageEditor/PageEditor';
 import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
@@ -58,6 +58,8 @@ function App() {
 
 	const location = useLocation();
 	const navigate = useNavigate();
+
+	const isEditorPage = location.pathname === '/editor';
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
@@ -231,7 +233,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen && <Footer />}
+				{!isPageNotFoundOpen || (isEditorPage && <Footer />)}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"
