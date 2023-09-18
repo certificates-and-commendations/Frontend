@@ -18,7 +18,7 @@ function DownloadsPanel({
     function isImageSizeValid(file, callback) {
         const image = new Image();
         image.src = URL.createObjectURL(file);
-        image.onload = function () {
+        image.onload = () => {
             if (image.width === 600 && image.height === 850) {
                 callback(true);
             } else {
@@ -33,7 +33,7 @@ function DownloadsPanel({
         const validFiles = files.filter(isImageValid);
 
         if (validFiles.length === 0) {
-            alert('Загрузите изображение в формате JPEG или PNG.');
+            console.log('Загрузите изображение в формате JPEG или PNG.');
             return;
         }
 
@@ -51,7 +51,7 @@ function DownloadsPanel({
                 ]);
                 setSquareStates((prevStates) => [...prevStates, false]);
             } else {
-                alert('Загруженная грамота должна быть размером 600x850 px.');
+                console.log('Загруженная грамота должна быть размером 600x850 px.');
             }
         });
     };
