@@ -23,7 +23,7 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
 	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
-	const [isloggedIn, setIsloggedIn] = useState(true);
+	const [isloggedIn, setIsloggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
@@ -191,21 +191,14 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={
-							<ProtectedRouteElement
-								loggedIn={isloggedIn}
-								element={PageEditor}
-								diploma={diploma}
-							/>
-						}
+						element={<PageEditor diploma={diploma} loggedIn={isloggedIn} />}
 					/>
 					<Route
 						path="/samples"
 						element={
-							<ProtectedRouteElement
-								loggedIn={isloggedIn}
-								element={Samples}
+							<Samples
 								setDiploma={setDiploma}
+								loggedIn={isloggedIn}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
