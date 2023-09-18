@@ -249,6 +249,7 @@ function PageEditor() {
                 stamp={stamp}
                 stampPosition={stampPosition}
                 onStampDrag={handleStampDrag}
+                textPanelActive={textPanelActive}
             />
         </main>
     );

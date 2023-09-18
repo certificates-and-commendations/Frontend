@@ -44,13 +44,16 @@ function CertificateEditor({
                                onSignatureDrag,
                                stamp,
                                stampPosition,
-                               onStampDrag
+                               onStampDrag,
+                               textPanelActive
                            })
 
 {
     return (
         <section className="certificate-main" ref={certificateRef}>
-            <TextFunctions/>
+            <TextFunctions
+                textPanelActive={textPanelActive}
+            />
             <div className="certificate">
                 {uploadedCertificate && (
                     <img
