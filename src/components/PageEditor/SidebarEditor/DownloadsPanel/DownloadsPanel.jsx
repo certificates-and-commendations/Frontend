@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import squareCheck from "../../../../images/imageEditor/elements-panel__square-check.svg";
 import square from "../../../../images/imageEditor/elements-panel__square.svg";
 
-function DownloadsPanel() {
+function DownloadsPanel({
+                            setUploadedCertificate,
+                            setTextPanelActive
+                        }) {
 
     const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
     const [squareStates, setSquareStates] = useState([]);
@@ -59,6 +62,13 @@ function DownloadsPanel() {
             newStates[index] = !newStates[index];
             return newStates;
         });
+        if (squareStates[index]) {
+            setUploadedCertificate(null);
+            setTextPanelActive(false);
+        } else {
+            setUploadedCertificate([imageURLsDownloads[index]]);
+            setTextPanelActive(true);
+        }
     };
 
     return (

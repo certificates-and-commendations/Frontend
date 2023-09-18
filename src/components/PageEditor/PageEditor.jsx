@@ -207,7 +207,9 @@ function PageEditor() {
     return (
         <main className="main-content-editor">
             <SidebarEditor
+                setTextPanelActive={setTextPanelActive}
                 textPanelActive={textPanelActive}
+                setUploadedCertificate={setUploadedCertificate}
             />
             <CertificateEditor
                 setEditingTextIndex={setEditingTextIndex}
