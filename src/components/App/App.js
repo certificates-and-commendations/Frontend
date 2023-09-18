@@ -286,7 +286,7 @@ function App() {
 				{isRecoveryPopupOpen && (
 					<Recovery
 						title="Забыли пароль?"
-						buttonText="Отправить инструкцию"
+						buttonText="Отправить код"
 						popupName="recovery"
 						isOpened={isRecoveryPopupOpen}
 						onClose={() => closeAllPopups()}
