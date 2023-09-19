@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import CertificateEditor from '../PageEditor/CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -51,7 +50,6 @@ function App() {
 		status: true,
 		opened: false,
 	});
-
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
@@ -129,12 +127,12 @@ function App() {
 					}
 				})
 				.catch((err) => {
+					localStorage.clear('jwt');
 					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
 	}, []);
-
 
 	function timer() {
 		const startTime = new Date();
@@ -164,7 +162,7 @@ function App() {
 	// происходит закрытие InfoToolTip
 	useEffect(() => {
 		setTimeout(() => {
-			setInfoToolTip('');
+			setInfoToolTip({ text: '', status: true, opened: false });
 		}, 3000);
 	}, [infoToolTip]);
 

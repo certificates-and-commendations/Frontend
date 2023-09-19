@@ -132,9 +132,8 @@ function Samples({
 	};
 
 	useEffect(() => {
-		getAllSamples()
-	}, [])
-
+		getAllSamples();
+	}, []);
 
 	return (
 		<main className="samples">
