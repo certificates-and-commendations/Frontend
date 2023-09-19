@@ -142,10 +142,14 @@ function App() {
 			.then((res) => {
 				if (res.results) {
 					console.log(`шаблонов получили --> ${res.results.length}`)
+					console.log('массив', res.results)
 					setSamples(res.results);
 				}
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				console.log(err)
+				setSamples({results: []});
+			});
 	}, []);
 
 	function timer() {

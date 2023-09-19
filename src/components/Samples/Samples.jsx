@@ -34,30 +34,32 @@ function Samples({
 
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
-		if (samplesTemp.results.length > 0) {
-			const column1 = [];
-			const column2 = [];
-			const column3 = [];
+		const column1 = [];
+		const column2 = [];
+		const column3 = [];
 
-			for (let i = 0; i < samplesTemp.results.length; i++) {
+		if (samplesTemp.length > 0) {
+			for (let i = 0; i < samplesTemp.length; i++) {
 				const index = i % 3;
 
 				if (index === 0) {
-					column1.push(samplesTemp.results[i]);
+					column1.push(samplesTemp[i]);
 				} else if (index === 1) {
-					column2.push(samplesTemp.results[i]);
+					column2.push(samplesTemp[i]);
 				} else {
-					column3.push(samplesTemp.results[i]);
+					column3.push(samplesTemp[i]);
 				}
 			}
-
-			setSeparatedSamples({
-				column1,
-				column2,
-				column3,
-			});
 		}
+
+		// Обновите состояние с разделенными данными
+		setSeparatedSamples({
+			column1,
+			column2,
+			column3,
+		});
 	}, [samplesTemp]);
+
 
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
@@ -160,7 +162,9 @@ function Samples({
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					<div className="samples__container-inside">
+					{samplesTemp.length > 0 ? (
+						<>
+						<div className="samples__container-inside">
 						{separetedSamples.column1.map((item) => {
 							return (
 								<Sample
@@ -205,6 +209,8 @@ function Samples({
 							);
 						})}
 					</div>
+						</>
+					) : (<p>Упс пустой массив</p>)}
 				</div>
 			</div>
 		</main>
