@@ -169,6 +169,12 @@ function App() {
 			}
 		}, 1000);
 	}
+	// происходит закрытие InfoToolTip
+	useEffect(() => {
+        setTimeout(() => {
+            setInfoToolTip('');
+        }, 3000);
+      }, [infoToolTip]);
 
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
