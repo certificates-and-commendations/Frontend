@@ -59,6 +59,8 @@ function App() {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const isPageEditorRoute = location.pathname === '/editor';
+
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
@@ -231,7 +233,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen && <Footer />}
+				{!isPageEditorRoute && !isPageNotFoundOpen && <Footer />}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"
