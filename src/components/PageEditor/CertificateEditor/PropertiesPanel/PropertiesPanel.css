@@ -1,0 +1,195 @@
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+.functions {
+	border-radius: 32px;
+	background: var(--primary, #c3beff);
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	width: 830px;
+	margin: 24px 0 60px auto;
+}
+.functions_content {
+	margin: 0;
+	box-sizing: border-box;
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 16px;
+}
+.functions__button {
+	gap: 10px;
+	cursor: pointer;
+	display: flex;
+}
+.functions__button-nav {
+	display: flex;
+	gap: 8px;
+}
+.functions__button-nav1 {
+	display: flex;
+	gap: 8px;
+	margin: 0 auto 0 10px;
+}
+
+.functions__list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 188px;
+	gap: 4px;
+	border: none;
+	background: #c3beff;
+	appearance: none;
+	-webkit-appearance: none; /* Safari и Chrome */
+	-moz-appearance: none; /* Mozilla */
+	-ms-appearance: none; /* IE */
+	background-image: url(../../../../images/IconsFunctionsText/chevron-down.svg);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 0px) center;
+}
+
+.functions__button_forward {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_forward.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_back {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_back.svg) center
+		center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_delete {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_delete.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_check {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_check.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_strikethrough {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_strikethrough.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_underline {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_underline.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_italic {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_italic.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_bold {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_bold.svg) center
+		center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_align-center {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_align-center.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+.functions__button_color {
+	background: transparent
+		url(../../../../images/IconsFunctionsText/functions__button_color.svg)
+		center center / cover no-repeat;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.functions-quantity-block {
+	display: flex;
+}
+.functions-quantity-block_arrow {
+	display: flex;
+	flex-direction: column;
+	padding-left: 4px;
+}
+.functions-quantity-arrow-minus {
+	cursor: pointer;
+	border: none;
+	margin: 2px;
+	width: 19px;
+	height: 10px;
+	transform: rotate(180deg);
+	background: transparent
+		url(../../../../images/IconsFunctionsText/chevron-down.svg) center center /
+		cover no-repeat;
+}
+.functions-quantity-arrow-plus {
+	cursor: pointer;
+	border: none;
+	margin: 2px;
+	width: 19px;
+	height: 10px;
+	background: transparent
+		url(../../../../images/IconsFunctionsText/chevron-down.svg) center center /
+		cover no-repeat;
+}
+
+.functions-quantity-num {
+	border-radius: 4px;
+	border: 1px solid var(--text-100, #2b2b2e);
+	display: flex;
+	width: 28px;
+	height: 20px;
+	padding: 4px 8px;
+	justify-content: center;
+	align-items: center;
+	background: #c3beff;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.42px;
+}

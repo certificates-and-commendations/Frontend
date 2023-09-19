@@ -1,8 +1,13 @@
 .certificate {
-	position: relative;
 	display: flex;
 	max-width: 600px;
 	max-height: 850px;
+	margin: 0 auto;
+}
+.certificate-main {
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	margin: 0 auto;
 }
 

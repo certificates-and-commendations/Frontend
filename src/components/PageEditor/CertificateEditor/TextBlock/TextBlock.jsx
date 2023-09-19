@@ -132,8 +132,8 @@ function TextBlock({
 									: textAlignStyle === 'center'
 									? 'center'
 									: 'right',
-							width: widthInput + scrollbarWidth,
-							height: heightInput,
+							// width: widthInput + scrollbarWidth,
+							// height: heightInput,
 							color,
 						}}
 					>
