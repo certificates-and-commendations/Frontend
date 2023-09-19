@@ -50,7 +50,7 @@ function RegisterConfirmation({
 				});
 				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 				onClose();
-				navigate('/', { replace: true })
+				navigate('/', { replace: true });
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });

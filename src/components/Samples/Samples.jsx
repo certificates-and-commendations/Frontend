@@ -7,7 +7,13 @@ import Sample from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isLoggedIn }) {
+function Samples({
+	setDiploma,
+	favoriteSamples,
+	setFavoriteSamples,
+	samples,
+	isLoggedIn,
+}) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
@@ -16,6 +22,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isL
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
 	const [samplesTemp, setSamplesTemp] = useState(samples);
+
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
 		diplomas: false,
@@ -61,16 +68,12 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isL
 
 	const handleDislike = (e, item) => {
 		e.stopPropagation();
-		return authApi
-			.removeLike(item.id)
-			.then((res) => {
-				console.log(res);
-				const newSamples = favoriteSamples.filter(
-					(card) => card.id !== item.id
-				);
-				setFavoriteSamples(newSamples);
-				console.log('dislike ok')
-			})
+		return authApi.removeLike(item.id).then((res) => {
+			console.log(res);
+			const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
+			setFavoriteSamples(newSamples);
+			console.log('dislike ok');
+		});
 	};
 
 	const handleLike = (e, item) => {
@@ -80,7 +83,7 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isL
 			.then((res) => {
 				const newSamples = samples.filter((card) => card.id === res.id);
 				setFavoriteSamples([...favoriteSamples, item]);
-				console.log('like ok')
+				console.log('like ok');
 			})
 			.catch((err) => console.log(err));
 	};
@@ -110,8 +113,8 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isL
 	}, [checkboxValues]);
 
 	const useLocalArr = () => {
-		setSamplesTemp(temporarySamles)
-	}
+		setSamplesTemp(temporarySamles);
+	};
 
 	return (
 		<main className="samples">
@@ -157,56 +160,66 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples, isL
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samplesTemp.results.length > 0 ? (<>
-						<div className="samples__container-inside">
-							{separetedSamples.column1.map((item) => {
-								return (
-									<Sample
-										key={item.id}
-										isLoggedIn={isLoggedIn}
-										item={item}
-										onImageClick={handleImageClick}
-										onLike={handleLike}
-										onDislike={handleDislike}
-										favoriteSamples={favoriteSamples}
-									/>
-								);
-							})}
-						</div>
-						<div className="samples__container-inside">
-							{separetedSamples.column2.map((item) => {
-								return (
-									<Sample
-										key={item.id}
-										isLoggedIn={isLoggedIn}
-										item={item}
-										onImageClick={handleImageClick}
-										onLike={handleLike}
-										onDislike={handleDislike}
-										favoriteSamples={favoriteSamples}
-									/>
-								);
-							})}
-						</div>
-						<div className="samples__container-inside">
-							{separetedSamples.column3.map((item) => {
-								return (
-									<Sample
-										key={item.id}
-										isLoggedIn={isLoggedIn}
-										item={item}
-										onImageClick={handleImageClick}
-										onLike={handleLike}
-										onDislike={handleDislike}
-										favoriteSamples={favoriteSamples}
-									/>
-								);
-							})}
-						</div>
-					</>) : <>
-					<h3>Упс с на сервере пусто</h3>
-					<button style={{fontStyle: 'italic'}} type='button' onClick={useLocalArr}>Попробовать локальный массив ?</button>
-					</>}
+					{samplesTemp.results.length > 0 ? (
+						<>
+							<div className="samples__container-inside">
+								{separetedSamples.column1.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
+							<div className="samples__container-inside">
+								{separetedSamples.column2.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
+							<div className="samples__container-inside">
+								{separetedSamples.column3.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
+						</>
+					) : (
+						<>
+							<h3>Упс с на сервере пусто</h3>
+							<button
+								style={{ fontStyle: 'italic' }}
+								type="button"
+								onClick={useLocalArr}
+							>
+								Попробовать локальный массив ?
+							</button>
+						</>
+					)}
 				</div>
 			</div>
 		</main>

@@ -134,7 +134,7 @@ function App() {
 					}
 				})
 				.catch((err) => {
-					console.log('Token check', err)
+					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
@@ -145,9 +145,8 @@ function App() {
 		authApi
 			.getAllSamples()
 			.then((res) => {
-				console.log('Вернулось с бэка', res)
 				if (res.results) {
-					setSamples(res.results)
+					setSamples(res.results);
 				}
 			})
 			.catch((err) => console.log(err));

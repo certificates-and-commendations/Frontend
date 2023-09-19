@@ -1,7 +1,14 @@
 import { Link, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples, isLoggedIn }) {
+function Sample({
+	item,
+	onImageClick,
+	onLike,
+	onDislike,
+	favoriteSamples,
+	isLoggedIn,
+}) {
 	const [isCliked, setIsCliked] = useState(false);
 
 	function handleLike(e) {
@@ -28,11 +35,13 @@ function Sample({ item, onImageClick, onLike, onDislike, favoriteSamples, isLogg
 
 	return (
 		<div className="samples__div" key={item.id}>
-			{isLoggedIn && <button
-				type="button"
-				onClick={isCliked ? (e) => handleDislike(e) : (e) => handleLike(e)}
-				className={`samples__button-like${isCliked ? '_active' : ''}`}
-			/>}
+			{isLoggedIn && (
+				<button
+					type="button"
+					onClick={isCliked ? (e) => handleDislike(e) : (e) => handleLike(e)}
+					className={`samples__button-like${isCliked ? '_active' : ''}`}
+				/>
+			)}
 
 			<Link key={item.id} className="samples__link" to="/editor">
 				<img
