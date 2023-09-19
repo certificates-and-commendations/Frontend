@@ -40,7 +40,6 @@ function Samples({
 		getAllSamples(setSamplesTemp)
 		console.log('callGetSamples')
 	}
-	handleGetSamples()
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
 
@@ -66,6 +65,7 @@ function Samples({
 				column3,
 			});
 			console.log('Успешно разделен')
+			handleGetSamples()
 		} else console.log('Не разделен')
 
 	}, [samplesTemp]);
