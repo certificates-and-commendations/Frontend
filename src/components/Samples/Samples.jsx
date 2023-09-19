@@ -21,7 +21,10 @@ function Samples({
 	});
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
-	const [samplesTemp, setSamplesTemp] = useState(samples);
+	const [samplesTemp, setSamplesTemp] = useState(() => {
+		console.log('сетапим в samplesTemp', samples)
+		return samples
+	});
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
@@ -34,11 +37,12 @@ function Samples({
 
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
-		const column1 = [];
-		const column2 = [];
-		const column3 = [];
-
+		
 		if (samplesTemp.length > 0) {
+			const column1 = [];
+			const column2 = [];
+			const column3 = [];
+
 			for (let i = 0; i < samplesTemp.length; i++) {
 				const index = i % 3;
 
@@ -50,14 +54,14 @@ function Samples({
 					column3.push(samplesTemp[i]);
 				}
 			}
-		}
+			setSeparatedSamples({
+				column1,
+				column2,
+				column3,
+			});
+			console.log('Успешно разделен')
+		} else console.log('Не разделен')
 
-		// Обновите состояние с разделенными данными
-		setSeparatedSamples({
-			column1,
-			column2,
-			column3,
-		});
 	}, [samplesTemp]);
 
 
@@ -158,53 +162,53 @@ function Samples({
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samplesTemp.length > 0 ? (
+					{samples.length > 0 ? (
 						<>
-						<div className="samples__container-inside">
-						{separetedSamples.column1.map((item) => {
-							return (
-								<Sample
-									key={item.id}
-									isLoggedIn={isLoggedIn}
-									item={item}
-									onImageClick={handleImageClick}
-									onLike={handleLike}
-									onDislike={handleDislike}
-									favoriteSamples={favoriteSamples}
-								/>
-							);
-						})}
-					</div>
-					<div className="samples__container-inside">
-						{separetedSamples.column2.map((item) => {
-							return (
-								<Sample
-									key={item.id}
-									isLoggedIn={isLoggedIn}
-									item={item}
-									onImageClick={handleImageClick}
-									onLike={handleLike}
-									onDislike={handleDislike}
-									favoriteSamples={favoriteSamples}
-								/>
-							);
-						})}
-					</div>
-					<div className="samples__container-inside">
-						{separetedSamples.column3.map((item) => {
-							return (
-								<Sample
-									key={item.id}
-									isLoggedIn={isLoggedIn}
-									item={item}
-									onImageClick={handleImageClick}
-									onLike={handleLike}
-									onDislike={handleDislike}
-									favoriteSamples={favoriteSamples}
-								/>
-							);
-						})}
-					</div>
+							<div className="samples__container-inside">
+								{separetedSamples.column1.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
+							<div className="samples__container-inside">
+								{separetedSamples.column2.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
+							<div className="samples__container-inside">
+								{separetedSamples.column3.map((item) => {
+									return (
+										<Sample
+											key={item.id}
+											isLoggedIn={isLoggedIn}
+											item={item}
+											onImageClick={handleImageClick}
+											onLike={handleLike}
+											onDislike={handleDislike}
+											favoriteSamples={favoriteSamples}
+										/>
+									);
+								})}
+							</div>
 						</>
 					) : (<p>Упс пустой массив</p>)}
 				</div>

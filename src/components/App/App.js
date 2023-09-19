@@ -55,7 +55,7 @@ function App() {
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
-	const [samples, setSamples] = useState({ results: [] });
+	const [samples, setSamples] = useState([]);
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -148,7 +148,6 @@ function App() {
 			})
 			.catch((err) => {
 				console.log(err)
-				setSamples({results: []});
 			});
 	}, []);
 
