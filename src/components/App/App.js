@@ -141,18 +141,18 @@ function App() {
 			.getAllSamples()
 			.then((res) => {
 				if (res.results) {
-					console.log(`шаблонов получили --> ${res.results.length}`)
-					console.log('массив', res.results)
+					console.log(`шаблонов получили --> ${res.results.length}`);
+					console.log('массив', res.results);
 					setter(res.results);
 				}
 			})
 			.catch((err) => {
-				console.log(err)
+				console.log(err);
 			});
-	}
+	};
 
 	useEffect(() => {
-		getAllSamples(setSamples)
+		getAllSamples(setSamples);
 	}, []);
 
 	function timer() {

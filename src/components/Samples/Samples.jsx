@@ -13,7 +13,7 @@ function Samples({
 	setFavoriteSamples,
 	samples,
 	isLoggedIn,
-	getAllSamples
+	getAllSamples,
 }) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
@@ -23,8 +23,8 @@ function Samples({
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
 	const [samplesTemp, setSamplesTemp] = useState(() => {
-		console.log('сетапим в samplesTemp', samples)
-		return samples
+		console.log('сетапим в samplesTemp', samples);
+		return samples;
 	});
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
@@ -37,12 +37,11 @@ function Samples({
 	});
 
 	const handleGetSamples = () => {
-		getAllSamples(setSamplesTemp)
-		console.log('callGetSamples')
-	}
+		getAllSamples(setSamplesTemp);
+		console.log('callGetSamples');
+	};
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
-
 		if (samplesTemp.length > 0) {
 			const column1 = [];
 			const column2 = [];
@@ -64,12 +63,10 @@ function Samples({
 				column2,
 				column3,
 			});
-			console.log('Успешно разделен')
-			handleGetSamples()
-		} else console.log('Не разделен')
-
+			console.log('Успешно разделен');
+			handleGetSamples();
+		} else console.log('Не разделен');
 	}, [samplesTemp]);
-
 
 	const handleCheckboxClick = (name, isChecked) => {
 		setCheckboxValues({
@@ -216,7 +213,9 @@ function Samples({
 								})}
 							</div>
 						</>
-					) : (<p>Упс пустой массив</p>)}
+					) : (
+						<p>Упс пустой массив</p>
+					)}
 				</div>
 			</div>
 		</main>
