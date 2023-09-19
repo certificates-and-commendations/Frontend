@@ -160,66 +160,51 @@ function Samples({
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samplesTemp.results.length > 0 ? (
-						<>
-							<div className="samples__container-inside">
-								{separetedSamples.column1.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-							<div className="samples__container-inside">
-								{separetedSamples.column2.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-							<div className="samples__container-inside">
-								{separetedSamples.column3.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-						</>
-					) : (
-						<>
-							<h3>Упс с на сервере пусто</h3>
-							<button
-								style={{ fontStyle: 'italic' }}
-								type="button"
-								onClick={useLocalArr}
-							>
-								Попробовать локальный массив ?
-							</button>
-						</>
-					)}
+					<div className="samples__container-inside">
+						{separetedSamples.column1.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column2.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column3.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</main>
