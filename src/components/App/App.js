@@ -141,6 +141,7 @@ function App() {
 			.getAllSamples()
 			.then((res) => {
 				if (res.results) {
+					console.log(`шаблонов получили --> ${res.results.length}`)
 					setSamples(res.results);
 				}
 			})
@@ -174,10 +175,10 @@ function App() {
 	}
 	// происходит закрытие InfoToolTip
 	useEffect(() => {
-        setTimeout(() => {
-            setInfoToolTip('');
-        }, 3000);
-      }, [infoToolTip]);
+		setTimeout(() => {
+			setInfoToolTip('');
+		}, 3000);
+	}, [infoToolTip]);
 
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
