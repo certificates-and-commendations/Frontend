@@ -37,12 +37,13 @@ function TextBlock({
 	setTextBlockStyles,
 	textAlignStyle,
 	setTextAlignStyle,
+
 }) {
 	const [widthInput, setWidthInput] = useState(209);
 	const [heightInput, setHeightInput] = useState(17);
 	const textareaRef = useRef(null);
 	const [color, setColor] = useState('#000000');
-	const scrollbarWidth = 19;
+	const scrollbarWidth = 20;
 
 	const handleResizeMouseDown = (e) => {
 		e.stopPropagation(); // Предотвращаем всплытие события

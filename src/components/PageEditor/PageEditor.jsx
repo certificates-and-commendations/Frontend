@@ -3,6 +3,7 @@ import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
 import SidebarEditor from "./SidebarEditor/SidebarEditor";
 import CertificateEditor from "./CertificateEditor/CertificateEditor";
+import PropertiesPanel from "./CertificateEditor/PropertiesPanel/PropertiesPanel";
 
 function PageEditor() {
     const [font, setFont] = useState('Arial');
@@ -211,48 +212,53 @@ function PageEditor() {
                 textPanelActive={textPanelActive}
                 setUploadedCertificate={setUploadedCertificate}
             />
-            <CertificateEditor
-                setEditingTextIndex={setEditingTextIndex}
-                editingTextIndex={editingTextIndex}
-                font={font}
-                setFont={setFont}
-                fontSize={fontSize}
-                setFontSize={setFontSize}
-                onFontChange={handleFontChange}
-                onFontSizeChange={handleFontSizeChange}
-                textBlocks={textBlocks}
-                setTextBlocks={setTextBlocks}
-                certificateRef={certificateRef}
-                isVisible={showProperties}
-                setActiveTextIndex={setActiveTextIndex}
-                activeTextIndex={activeTextIndex}
-                setShowProperties={setShowProperties}
-                setTextDecorationStyle={setTextDecorationStyle}
-                setTextPosition={setTextPosition}
-                onTextClick={handleTextClick}
-                textBlockStyles={textBlockStyles}
-                setTextBlockStyles={setTextBlockStyles}
-                setTextAlignStyle={setTextAlignStyle}
-                handleTextChange={handleTextChange}
-                handleInputKeyDown={handleInputKeyDown}
-                onSignatureUpload={handleSignatureUpload}
-                onSavePDF={handleSavePDF}
-                onCertificateUpload={handleCertificateUpload}
-                showTable={showTable}
-                setShowTable={setShowTable}
-                tableData={tableData}
-                setTableData={setTableData}
-                onStampUpload={handleStampUpload}
-                onCreateJson={handleCreateJson}
-                uploadedCertificate={uploadedCertificate}
-                signature={signature}
-                signaturePosition={signaturePosition}
-                onSignatureDrag={handleSignatureDrag}
-                stamp={stamp}
-                stampPosition={stampPosition}
-                onStampDrag={handleStampDrag}
-                textPanelActive={textPanelActive}
-            />
+            <section className="certificate-main">
+                <PropertiesPanel
+                    textPanelActive={textPanelActive}
+                />
+                <CertificateEditor
+                    setEditingTextIndex={setEditingTextIndex}
+                    editingTextIndex={editingTextIndex}
+                    font={font}
+                    setFont={setFont}
+                    fontSize={fontSize}
+                    setFontSize={setFontSize}
+                    onFontChange={handleFontChange}
+                    onFontSizeChange={handleFontSizeChange}
+                    textBlocks={textBlocks}
+                    setTextBlocks={setTextBlocks}
+                    certificateRef={certificateRef}
+                    isVisible={showProperties}
+                    setActiveTextIndex={setActiveTextIndex}
+                    activeTextIndex={activeTextIndex}
+                    setShowProperties={setShowProperties}
+                    setTextDecorationStyle={setTextDecorationStyle}
+                    setTextPosition={setTextPosition}
+                    onTextClick={handleTextClick}
+                    textBlockStyles={textBlockStyles}
+                    setTextBlockStyles={setTextBlockStyles}
+                    setTextAlignStyle={setTextAlignStyle}
+                    handleTextChange={handleTextChange}
+                    handleInputKeyDown={handleInputKeyDown}
+                    onSignatureUpload={handleSignatureUpload}
+                    onSavePDF={handleSavePDF}
+                    onCertificateUpload={handleCertificateUpload}
+                    showTable={showTable}
+                    setShowTable={setShowTable}
+                    tableData={tableData}
+                    setTableData={setTableData}
+                    onStampUpload={handleStampUpload}
+                    onCreateJson={handleCreateJson}
+                    uploadedCertificate={uploadedCertificate}
+                    signature={signature}
+                    signaturePosition={signaturePosition}
+                    onSignatureDrag={handleSignatureDrag}
+                    stamp={stamp}
+                    stampPosition={stampPosition}
+                    onStampDrag={handleStampDrag}
+                    textPanelActive={textPanelActive}
+                />
+            </section>
         </main>
     );
 }

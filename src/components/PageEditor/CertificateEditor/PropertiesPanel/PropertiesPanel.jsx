@@ -1,7 +1,7 @@
 import React from 'react';
 import './PropertiesPanel.css';
 
-function TextFunctions({
+function PropertiesPanel({
                            textPanelActive
                        }) {
     return (
@@ -89,4 +89,4 @@ function TextFunctions({
     );
 }
 
-export default TextFunctions;
+export default PropertiesPanel;
