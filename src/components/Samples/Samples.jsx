@@ -23,8 +23,7 @@ function Samples({
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
 	const [samplesTemp, setSamplesTemp] = useState(() => {
-		console.log('сетапим в samplesTemp', samples)
-		return samples
+		return temporarySamles
 	});
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
