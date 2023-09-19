@@ -9,6 +9,8 @@ function DownloadsPanel({
 
     const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
     const [squareStates, setSquareStates] = useState([]);
+    const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
+
 
     function isImageValid(file) {
         const allowedFormats = ['image/jpeg', 'image/png'];
@@ -59,17 +61,28 @@ function DownloadsPanel({
     const handleClickSquareDownloads = (index) => {
         setSquareStates((prevStates) => {
             const newStates = [...prevStates];
-            newStates[index] = !newStates[index];
+
+            if (newStates[index]) {
+                newStates[index] = false;
+            } else {
+                newStates.fill(false);
+                newStates[index] = true;
+            }
+
             return newStates;
         });
-        if (squareStates[index]) {
+
+        if (activeCertificateIndex === index) {
+            setActiveCertificateIndex(null);
             setUploadedCertificate(null);
             setTextPanelActive(false);
         } else {
+            setActiveCertificateIndex(index);
             setUploadedCertificate([imageURLsDownloads[index]]);
             setTextPanelActive(true);
         }
     };
+
 
     return (
         <div className="elements-panel">
