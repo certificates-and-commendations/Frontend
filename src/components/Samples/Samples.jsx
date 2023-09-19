@@ -13,7 +13,6 @@ function Samples({
 	setFavoriteSamples,
 	samples,
 	isLoggedIn,
-	getAllSamples,
 }) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
@@ -36,10 +35,6 @@ function Samples({
 		is_horizontal: false,
 	});
 
-	const handleGetSamples = () => {
-		getAllSamples(setSamplesTemp);
-		console.log('callGetSamples');
-	};
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
 		if (samplesTemp.length > 0) {
@@ -64,7 +59,6 @@ function Samples({
 				column3,
 			});
 			console.log('Успешно разделен');
-			handleGetSamples();
 		} else console.log('Не разделен');
 	}, [samplesTemp]);
 
@@ -120,6 +114,27 @@ function Samples({
 			getFilteredSamples(checkboxValues);
 		}
 	}, [checkboxValues]);
+
+	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
+	const getAllSamples = () => {
+		authApi
+			.getAllSamples()
+			.then((res) => {
+				if (res.results) {
+					console.log(`шаблонов получили --> ${res.results.length}`);
+					console.log('массив', res.results);
+					setSamplesTemp(res.results);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	useEffect(() => {
+		getAllSamples()
+	}, [])
+
 
 	return (
 		<main className="samples">
