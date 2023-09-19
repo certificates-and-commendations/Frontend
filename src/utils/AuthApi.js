@@ -68,7 +68,6 @@ class AuthApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}
@@ -120,7 +119,6 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
 			},
 		}).then(handleResponse);
 	}
