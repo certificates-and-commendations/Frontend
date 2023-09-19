@@ -34,7 +34,7 @@
 }
 
 .options__item {
-	margin-left: 40px;
+	margin: 0 20px;
 }
 
 @keyframes file-infinite {
