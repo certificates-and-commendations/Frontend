@@ -73,17 +73,21 @@ class AuthApi {
 	}
 
 	// СТАВИМ ЛАЙК
-	addLike(id) {
+	addLike(item) {
 		console.log(
 			'ПРИ ПОЛУЧЕНИИ ЛАЙКЕ В ЗАГАЛОВКЕ',
 			`Authorization : Token ${token}`
 		);
-		return fetch(`${this.url}/documents/${id}/`, {
-			method: 'PUT',
+		return fetch(`${this.url}/users/favourite/`, {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
+			body: JSON.stringify({
+				title: item.title,
+				document: item,
+			}),
 		}).then(handleResponse);
 	}
 
@@ -93,7 +97,7 @@ class AuthApi {
 			'ПРИ ПОЛУЧЕНИИ ДИЗЛАЙКЕ В ЗАГАЛОВКЕ',
 			`Authorization : Token ${token}`
 		);
-		return fetch(`${this.url}/documents/${id}/`, {
+		return fetch(`${this.url}/users/favourite/${id}/`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',

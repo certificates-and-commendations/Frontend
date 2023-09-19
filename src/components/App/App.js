@@ -136,19 +136,23 @@ function App() {
 	}, []);
 
 	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
-	useEffect(() => {
+	const getAllSamples = (setter) => {
 		authApi
 			.getAllSamples()
 			.then((res) => {
 				if (res.results) {
 					console.log(`шаблонов получили --> ${res.results.length}`)
 					console.log('массив', res.results)
-					setSamples(res.results);
+					setter(res.results);
 				}
 			})
 			.catch((err) => {
 				console.log(err)
 			});
+	}
+
+	useEffect(() => {
+		getAllSamples(setSamples)
 	}, []);
 
 	function timer() {
@@ -213,6 +217,7 @@ function App() {
 								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
 								isLoggedIn={isLoggedIn}
+								getAllSamples={getAllSamples}
 							/>
 						}
 					/>

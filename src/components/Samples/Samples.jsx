@@ -13,6 +13,7 @@ function Samples({
 	setFavoriteSamples,
 	samples,
 	isLoggedIn,
+	getAllSamples
 }) {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
@@ -35,9 +36,14 @@ function Samples({
 		is_horizontal: false,
 	});
 
+	const handleGetSamples = () => {
+		getAllSamples(setSamplesTemp)
+		console.log('callGetSamples')
+	}
+	handleGetSamples()
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
-		
+
 		if (samplesTemp.length > 0) {
 			const column1 = [];
 			const column2 = [];
@@ -85,7 +91,7 @@ function Samples({
 	const handleLike = (e, item) => {
 		e.stopPropagation();
 		return authApi
-			.addLike(item.id)
+			.addLike(item)
 			.then((res) => {
 				const newSamples = samples.filter((card) => card.id === res.id);
 				setFavoriteSamples([...favoriteSamples, item]);
