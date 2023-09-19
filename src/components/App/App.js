@@ -129,7 +129,7 @@ function App() {
 					}
 				})
 				.catch((err) => {
-					console.log('Token check', err)
+					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
@@ -141,7 +141,7 @@ function App() {
 			.getAllSamples()
 			.then((res) => {
 				if (res.results) {
-					setSamples(res.results)
+					setSamples(res.results);
 				}
 			})
 			.catch((err) => console.log(err));

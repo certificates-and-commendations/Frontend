@@ -5,7 +5,7 @@
 
 .sidebar {
 	border-right: 1px solid #959596;
-	max-width: 144px;
+	/* max-width: 144px; */
 	display: flex;
 }
 
