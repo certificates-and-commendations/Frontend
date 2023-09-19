@@ -1,11 +1,22 @@
 import React, {useState} from 'react';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
+import downloadIcon from "../../../../images/imageEditor/download-icon.png";
 
 function ElementsPanel() {
 
     const [imageURLsElements, setImageURLsElements] = useState([]);
     const [squareStates, setSquareStates] = useState([]);
+
+    const [btnClick, setBtnClick] = useState(true);
+
+    const onClickBtnActive = () => {
+        setBtnClick(false);
+    }
+
+    const onClickBtnNotActive = () => {
+        setBtnClick(true);
+    }
 
     function isImageValid(file) {
         const allowedFormats = ['image/jpeg', 'image/png'];
@@ -39,42 +50,94 @@ function ElementsPanel() {
 
     return (
         <div className="elements-panel">
-            <div className="elements-panel__block-download">
-                <p className="elements-panel__paragraph">
-                    Вы можете загрузить подпись, печать в формате JPEG/PNG
-                    &nbsp;И&nbsp;таблицу&nbsp;Exel&nbsp;(с ФИО если нужно оформить несколько грамот)
-                </p>
-                <label htmlFor="fileElementsInput" className="elements-panel__btn-download">
-                    Загрузить файл
-                    <input
-                        type="file"
-                        id="fileElementsInput"
-                        className="elements-panel__input"
-                        multiple
-                        onChange={handleFileInputChangeElements}
-                    />
-                </label>
+            <div className="text-panel__block-button">
+                <button
+                    className={`text-panel__button ${btnClick ? "text-panel__button_active" : ""}`}
+                    onClick={onClickBtnNotActive}
+                >
+                    Элементы
+                </button>
+                <button
+                    className={`text-panel__button ${!btnClick ? "text-panel__button_active" : ""}`}
+                    onClick={onClickBtnActive}>
+                    Таблица
+                </button>
             </div>
-            <div className="elements-panel__loading-file">
-                {imageURLsElements.map((url, index) => (
-                    <div className="elements-panel__wrapper">
-                        <img
-                            key={index}
-                            src={url}
-                            alt={`Загруженное изображение ${index}`}
-                            className="elements-panel__loading-img"
-                        />
-                        <img
-                            src={squareStates[index] ? squareCheck : square}
-                            alt={squareStates[index] ? ' Квадрат с галочкой.' : ' Пустой квадрат.'}
-                            className="elements-panel__square"
-                            onClick={() => handleClickSquareElements(index)}
-                        />
+
+            {btnClick ? (
+                <>
+                    <div className="elements-panel__block-download">
+                        <p className="elements-panel__paragraph">
+                            Вы можете загрузить подпись, печать в формате JPEG/PNG.
+                        </p>
+                        <label htmlFor="fileElementsInput" className="elements-panel__btn-download">
+                            Загрузить файл
+                            <input
+                                type="file"
+                                id="fileElementsInput"
+                                className="elements-panel__input"
+                                multiple
+                                onChange={handleFileInputChangeElements}
+                            />
+                        </label>
                     </div>
-                ))}
-            </div>
+                    <div className="elements-panel__loading-file">
+                        {imageURLsElements.map((url, index) => (
+                            <div className="elements-panel__wrapper" key={index}>
+                                <img
+                                    src={url}
+                                    alt={`Загруженное изображение ${index}`}
+                                    className="elements-panel__loading-img"
+                                />
+                                <img
+                                    src={squareStates[index] ? squareCheck : square}
+                                    alt={squareStates[index] ? ' Квадрат с галочкой.' : ' Пустой квадрат.'}
+                                    className="elements-panel__square"
+                                    onClick={() => handleClickSquareElements(index)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="elements-panel__block-download">
+                        <p className="elements-panel__paragraph">
+                            Вы можете загрузить таблицу Exel (с ФИО если нужно оформить несколько грамот)
+                        </p>
+                        <label htmlFor="fileElementsInput" className="elements-panel__btn-download">
+                            Загрузить таблицу
+                            <input
+                                type="file"
+                                id="fileElementsInput"
+                                className="elements-panel__input"
+                                multiple
+                                onChange={handleFileInputChangeElements}
+                            />
+                        </label>
+                    </div>
+                    <div className="elements-panel__loading-file">
+                        {imageURLsElements.map((url, index) => (
+                            <div className="elements-panel__wrapper" key={index}>
+                                <img
+                                    src={url}
+                                    alt={`Загруженное изображение ${index}`}
+                                    className="elements-panel__loading-img"
+                                />
+                                <img
+                                    src={squareStates[index] ? squareCheck : square}
+                                    alt={squareStates[index] ? ' Квадрат с галочкой.' : ' Пустой квадрат.'}
+                                    className="elements-panel__square"
+                                    onClick={() => handleClickSquareElements(index)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
     );
 }
+
 
 export default ElementsPanel;
