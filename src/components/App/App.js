@@ -118,11 +118,6 @@ function App() {
 						// авторизуем пользователя
 						setIsLoggedIn(true);
 						setCurrentUser(res);
-						setInfoToolTip({
-							text: 'Успешно!',
-							status: true,
-							opened: true,
-						});
 						if (
 							location.pathname === '/editor' ||
 							location.pathname === '/' ||
