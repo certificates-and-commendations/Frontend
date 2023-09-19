@@ -145,7 +145,6 @@ function App() {
 		authApi
 			.getAllSamples()
 			.then((res) => {
-				console.log('Вернулось с бэка', res)
 				if (res.results) {
 					setSamples(res.results)
 				}

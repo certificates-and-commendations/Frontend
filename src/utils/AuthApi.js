@@ -15,7 +15,6 @@ class AuthApi {
 	}
 
 	tokenValidity() {
-		console.log('В ЗАГАЛОВКЕ ПРИ ПРОВЕРКЕ ТОКЕНА', `Authorization : Token ${token}`)
 		return fetch(`${this.url}/users/me/`, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -51,8 +50,6 @@ class AuthApi {
 	}
 
 	signIn(password, email) {
-		console.log('ПРИ ЛОГИНЕ ОТПРАВЛЯЕМ', password,
-			email,)
 		return fetch(`${this.url}/auth/token/login/`, {
 			method: 'POST',
 			headers: {
@@ -67,7 +64,6 @@ class AuthApi {
 
 	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
 	getAllSamples() {
-		console.log('ПРИ ПОЛУЧЕНИИ ШАБЛОНОВ В ЗАГАЛОВКЕ', `Authorization : Token ${token}`)
 		return fetch(`${this.url}/documents/`, {
 			method: 'GET',
 			headers: {
@@ -79,7 +75,6 @@ class AuthApi {
 
 	// СТАВИМ ЛАЙК
 	addLike(id) {
-		console.log('ПРИ ПОЛУЧЕНИИ ЛАЙКЕ В ЗАГАЛОВКЕ', `Authorization : Token ${token}`)
 		return fetch(`${this.url}/documents/${id}/`, {
 			method: 'PUT',
 			headers: {
@@ -91,8 +86,6 @@ class AuthApi {
 
 	// УДАЛЯЕМ ЛАЙК
 	removeLike(id) {
-
-		console.log('ПРИ ПОЛУЧЕНИИ ДИЗЛАЙКЕ В ЗАГАЛОВКЕ', `Authorization : Token ${token}`)
 		return fetch(`${this.url}/documents/${id}/`, {
 			method: 'DELETE',
 			headers: {
@@ -114,8 +107,6 @@ class AuthApi {
 		const queryString = queryParams.join('&');
 		const url = `${this.url}/documents/?${queryString}True`;
 
-		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ В ЗАГАЛОВКЕ', `Authorization : Token ${token}`)
-		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`)
 		return fetch(url, {
 			method: 'POST',
 			headers: {
