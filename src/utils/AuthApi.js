@@ -50,7 +50,6 @@ class AuthApi {
 	}
 
 	signIn(password, email) {
-		console.log('ПРИ ЛОГИНЕ ОТПРАВЛЯЕМ', password, email);
 		return fetch(`${this.url}/auth/token/login/`, {
 			method: 'POST',
 			headers: {
@@ -116,10 +115,6 @@ class AuthApi {
 		const queryString = queryParams.join('&');
 		const url = `${this.url}/documents/?${queryString}True`;
 
-		console.log(
-			'ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ В ЗАГАЛОВКЕ',
-			`Authorization : Token ${token}`
-		);
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
 			method: 'POST',
