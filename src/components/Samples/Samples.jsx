@@ -114,10 +114,6 @@ function Samples({
 		}
 	}, [checkboxValues]);
 
-	const useLocalArr = () => {
-		setSamplesTemp(temporarySamles);
-	};
-
 	return (
 		<main className="samples">
 			<h1 className="samples__title">Шаблоны</h1>
