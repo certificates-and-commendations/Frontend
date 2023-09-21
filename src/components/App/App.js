@@ -101,7 +101,7 @@ function App() {
 				document.removeEventListener('mousedown', closeByOverlay);
 			};
 		}
-	}, [isOpen, infoToolTip]);
+	}, [isOpen]);
 
 	React.useEffect(() => {
 		// настало время проверить токен

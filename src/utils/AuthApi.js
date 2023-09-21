@@ -8,6 +8,7 @@ const handleResponse = (res) => {
 };
 
 const token = localStorage.getItem('jwt');
+const currentUrl = window.location.origin;
 
 class AuthApi {
 	constructor(options) {
@@ -129,7 +130,7 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-	baseUrl: 'http://certificates.acceleratorpracticum.ru/api',
+	baseUrl: currentUrl === 'http://certificates.acceleratorpracticum.ru' ? 'http://certificates.acceleratorpracticum.ru/api' : 'http://185.93.111.238/api',
 });
 
 export default authApi;
