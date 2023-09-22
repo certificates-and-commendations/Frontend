@@ -2,18 +2,18 @@ import './Samples.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
-import Checkbox from './Checkbox/Checkbox';
-import Sample from './Sample/Sample';
+import { Checkbox } from './Checkbox/Checkbox';
+import { Sample } from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({
+export const Samples = ({
 	setDiploma,
 	favoriteSamples,
 	setFavoriteSamples,
 	samples,
 	isLoggedIn,
-}) {
+}) => {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
@@ -223,6 +223,4 @@ function Samples({
 			</div>
 		</main>
 	);
-}
-
-export default Samples;
+};

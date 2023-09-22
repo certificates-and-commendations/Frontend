@@ -12,7 +12,7 @@ import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
-import Samples from '../Samples/Samples';
+import { Samples } from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

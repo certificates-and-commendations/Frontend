@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import './Checkbox.css';
 
-function Checkbox({ text, onClick, name, state }) {
+export const Checkbox = ({ text, onClick, name, state }) => {
 	const [isChecked, setIsChecked] = useState(state[name]);
 
 	const checkboxClass = clsx('checkbox', {
@@ -26,6 +27,17 @@ function Checkbox({ text, onClick, name, state }) {
 			{text}
 		</label>
 	);
-}
+};
 
-export default Checkbox;
+Checkbox.propTypes = {
+	text: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired,
+	name: PropTypes.string.isRequired,
+	state: PropTypes.shape({
+		diplomas: PropTypes.bool.isRequired,
+		thanks: PropTypes.bool.isRequired,
+		certificates: PropTypes.bool.isRequired,
+		is_vertical: PropTypes.bool.isRequired,
+		is_horizontal: PropTypes.bool.isRequired,
+	}).isRequired,
+};
