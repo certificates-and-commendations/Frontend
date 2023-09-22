@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import CertificateEditor from '../PageEditor/CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -22,7 +21,6 @@ import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
-	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
@@ -51,7 +49,6 @@ function App() {
 		status: true,
 		opened: false,
 	});
-
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
@@ -104,7 +101,7 @@ function App() {
 				document.removeEventListener('mousedown', closeByOverlay);
 			};
 		}
-	}, [isOpen, infoToolTip]);
+	}, [isOpen]);
 
 	React.useEffect(() => {
 		// настало время проверить токен
@@ -129,12 +126,12 @@ function App() {
 					}
 				})
 				.catch((err) => {
+					localStorage.clear('jwt');
 					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
 	}, []);
-
 
 	function timer() {
 		const startTime = new Date();
@@ -164,7 +161,7 @@ function App() {
 	// происходит закрытие InfoToolTip
 	useEffect(() => {
 		setTimeout(() => {
-			setInfoToolTip('');
+			setInfoToolTip({ text: '', status: true, opened: false });
 		}, 3000);
 	}, [infoToolTip]);
 
