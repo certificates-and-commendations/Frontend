@@ -78,7 +78,7 @@ class AuthApi {
 			'ПРИ ПОЛУЧЕНИИ ЛАЙКЕ В ЗАГАЛОВКЕ',
 			`Authorization : Token ${token}`
 		);
-		return fetch(`${this.url}/users/favourite/`, {
+		return fetch(`${this.url}/documents/${item.id}/favourite/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
