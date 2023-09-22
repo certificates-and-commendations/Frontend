@@ -1,8 +1,13 @@
+import clsx from 'clsx';
 import React, { useState } from 'react';
 import './Checkbox.css';
 
 function Checkbox({ text, onClick, name, state }) {
 	const [isChecked, setIsChecked] = useState(state[name]);
+
+	const checkboxClass = clsx('checkbox', {
+		checkbox_checked: isChecked,
+	});
 
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
@@ -10,10 +15,7 @@ function Checkbox({ text, onClick, name, state }) {
 	};
 
 	return (
-		<label
-			htmlFor={`checkbox_${name}`}
-			className={`checkbox${isChecked ? '_checked' : ''}`}
-		>
+		<label htmlFor={`checkbox_${name}`} className={checkboxClass}>
 			<input
 				id={`checkbox_${name}`}
 				type="checkbox"

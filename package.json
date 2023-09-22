@@ -7,6 +7,7 @@
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
+		"clsx": "^2.0.0",
 		"html2canvas": "^1.4.1",
 		"html2pdf.js": "^0.10.1",
 		"husky": "^8.0.3",
@@ -91,7 +92,8 @@
 			}
 		],
 		"ignorePatterns": [
-			"build/"
+			"build/",
+			"HelperCLSX.js"
 		]
 	},
 	"browserslist": {

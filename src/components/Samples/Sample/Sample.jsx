@@ -1,5 +1,6 @@
 import { Link, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import clsx from 'clsx';
 
 function Sample({
 	item,
@@ -10,6 +11,9 @@ function Sample({
 	isLoggedIn,
 }) {
 	const [isCliked, setIsCliked] = useState(false);
+	const buttonClass = clsx('samples__button-like', {
+		'samples__button-like_active': isCliked,
+	});
 
 	function handleLike(e) {
 		return onLike(e, item)
@@ -39,7 +43,7 @@ function Sample({
 				<button
 					type="button"
 					onClick={isCliked ? (e) => handleDislike(e) : (e) => handleLike(e)}
-					className={`samples__button-like${isCliked ? '_active' : ''}`}
+					className={buttonClass}
 				/>
 			)}
 
