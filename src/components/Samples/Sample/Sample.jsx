@@ -1,15 +1,20 @@
-import { Link, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
-function Sample({
+export const Sample = ({
 	item,
 	onImageClick,
 	onLike,
 	onDislike,
 	favoriteSamples,
 	isLoggedIn,
-}) {
+}) => {
 	const [isCliked, setIsCliked] = useState(false);
+	const buttonClass = clsx('samples__button-like', {
+		'samples__button-like_active': isCliked,
+	});
 
 	function handleLike(e) {
 		return onLike(e, item)
@@ -39,10 +44,9 @@ function Sample({
 				<button
 					type="button"
 					onClick={isCliked ? (e) => handleDislike(e) : (e) => handleLike(e)}
-					className={`samples__button-like${isCliked ? '_active' : ''}`}
+					className={buttonClass}
 				/>
 			)}
-
 			<Link key={item.id} className="samples__link" to="/editor">
 				<img
 					onClick={(e) => onImageClick(e, item)}
@@ -53,6 +57,20 @@ function Sample({
 			</Link>
 		</div>
 	);
-}
+};
 
-export default Sample;
+Sample.propTypes = {
+	item: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		title: PropTypes.string.isRequired,
+		thumbnail: PropTypes.string.isRequired,
+		category: null,
+		color: null,
+		is_horizontal: PropTypes.bool.isRequired,
+	}).isRequired,
+	onImageClick: PropTypes.func.isRequired,
+	onLike: PropTypes.func.isRequired,
+	onDislike: PropTypes.func.isRequired,
+	favoriteSamples: PropTypes.shape([]).isRequired,
+	isLoggedIn: PropTypes.bool.isRequired,
+};

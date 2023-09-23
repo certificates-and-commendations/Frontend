@@ -1,0 +1,155 @@
+.samples {
+	display: flex;
+	flex-direction: column;
+	padding: 60px;
+	box-sizing: border-box;
+}
+
+.samples__main {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: 40px;
+}
+
+.samples__title {
+	color: var(--text-100, #2b2b2e);
+	/* Web/Bold/Title 2 */
+	font-family: Wix Madefor Display;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: 0.36px;
+}
+
+.samples__menu {
+	display: flex;
+	flex-direction: column;
+	min-width: 304px;
+}
+
+.samples__menu-title {
+	margin-top: 18px;
+}
+
+.samples__button {
+	display: flex;
+	padding: 12px 26px;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	border-radius: 12px;
+	border: 1px solid var(--text-50, #959596);
+	color: var(--text-50, #959596);
+	text-align: center;
+	/* Web/Regular/Caption */
+	font-family: Wix Madefor Display;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.42px;
+}
+
+.samples__button:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.samples__button_active {
+	background: var(--primary, #c3beff);
+}
+
+.samples__menu-continer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.samples__container {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: 28px;
+}
+
+.samples__link {
+	height: min-content;
+	position: relative;
+	/* Temporary */
+	break-inside: avoid;
+}
+
+.samples__image {
+	width: 100%;
+	height: 100%;
+	transition: transform 0.3s ease;
+}
+
+.samples__image:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+.samples__button-like {
+	/* background-image: url(../../images/heart.svg); */
+	background-image: url('https://pngicon.ru/file/uploads/like.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 0;
+	background-color: transparent;
+	z-index: 2;
+}
+
+.samples__button-like_active {
+	/* background-image: url(../../images/heart=active.svg); */
+	background-image: url('https://pngicon.ru/file/uploads/like.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 0;
+	background-color: transparent;
+	z-index: 99;
+}
+
+.samples__button-like:hover,
+.samples__button-like_active:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.samples__div {
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: min-content;
+	overflow: hidden;
+	border-radius: 12px;
+	/* border: 1px solid var(--text-100, #898990); */
+	display: block;
+}
+
+.samples__div:hover {
+	border: 1px solid var(--text-100, #898990);
+}
+
+.samples__container-inside {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}

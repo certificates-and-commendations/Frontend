@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import clsx from 'clsx';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import './Checkbox.css';
 
-function Checkbox({ text, onClick, name, state }) {
+export const Checkbox = ({ text, onClick, name, state }) => {
 	const [isChecked, setIsChecked] = useState(state[name]);
+
+	const checkboxClass = clsx('checkbox', {
+		checkbox_checked: isChecked,
+	});
 
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
@@ -10,10 +16,7 @@ function Checkbox({ text, onClick, name, state }) {
 	};
 
 	return (
-		<label
-			htmlFor={`checkbox_${name}`}
-			className={`checkbox${isChecked ? '_checked' : ''}`}
-		>
+		<label htmlFor={`checkbox_${name}`} className={checkboxClass}>
 			<input
 				id={`checkbox_${name}`}
 				type="checkbox"
@@ -24,6 +27,17 @@ function Checkbox({ text, onClick, name, state }) {
 			{text}
 		</label>
 	);
-}
+};
 
-export default Checkbox;
+Checkbox.propTypes = {
+	text: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired,
+	name: PropTypes.string.isRequired,
+	state: PropTypes.shape({
+		diplomas: PropTypes.bool.isRequired,
+		thanks: PropTypes.bool.isRequired,
+		certificates: PropTypes.bool.isRequired,
+		is_vertical: PropTypes.bool.isRequired,
+		is_horizontal: PropTypes.bool.isRequired,
+	}).isRequired,
+};

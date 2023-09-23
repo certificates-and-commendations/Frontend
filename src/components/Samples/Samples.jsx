@@ -2,18 +2,18 @@ import './Samples.css';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
-import Checkbox from './Checkbox/Checkbox';
-import Sample from './Sample/Sample';
+import { Checkbox } from './Checkbox/Checkbox';
+import { Sample } from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({
+export const Samples = ({
 	setDiploma,
 	favoriteSamples,
 	setFavoriteSamples,
 	samples,
 	isLoggedIn,
-}) {
+}) => {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
@@ -21,10 +21,7 @@ function Samples({
 	});
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
-	const [samplesTemp, setSamplesTemp] = useState(() => {
-		console.log('сетапим в samplesTemp', samples);
-		return samples;
-	});
+	const [samplesTemp, setSamplesTemp] = useState(temporarySamles.results);
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
@@ -37,29 +34,27 @@ function Samples({
 
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
 	useEffect(() => {
-		if (samplesTemp.length > 0) {
-			const column1 = [];
-			const column2 = [];
-			const column3 = [];
+		const column1 = [];
+		const column2 = [];
+		const column3 = [];
+		console.log('длина', samplesTemp.length);
+		for (let i = 0; i < samplesTemp.length; i++) {
+			const index = i % 3;
 
-			for (let i = 0; i < samplesTemp.length; i++) {
-				const index = i % 3;
-
-				if (index === 0) {
-					column1.push(samplesTemp[i]);
-				} else if (index === 1) {
-					column2.push(samplesTemp[i]);
-				} else {
-					column3.push(samplesTemp[i]);
-				}
+			if (index === 0) {
+				column1.push(samplesTemp[i]);
+			} else if (index === 1) {
+				column2.push(samplesTemp[i]);
+			} else {
+				column3.push(samplesTemp[i]);
 			}
-			setSeparatedSamples({
-				column1,
-				column2,
-				column3,
-			});
-			console.log('Успешно разделен');
-		} else console.log('Не разделен');
+		}
+		setSeparatedSamples({
+			column1,
+			column2,
+			column3,
+		});
+		console.log('Успешно разделен', separetedSamples);
 	}, [samplesTemp]);
 
 	const handleCheckboxClick = (name, isChecked) => {
@@ -116,24 +111,24 @@ function Samples({
 	}, [checkboxValues]);
 
 	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
-	const getAllSamples = () => {
-		authApi
-			.getAllSamples()
-			.then((res) => {
-				if (res.results) {
-					console.log(`шаблонов получили --> ${res.results.length}`);
-					console.log('массив', res.results);
-					setSamplesTemp(res.results);
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+	// const getAllSamples = () => {
+	// 	authApi
+	// 		.getAllSamples()
+	// 		.then((res) => {
+	// 			if (res.results) {
+	// 				console.log(`шаблонов получили --> ${res.results.length}`);
+	// 				console.log('массив', res.results);
+	// 				setSamplesTemp(res.results);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
 
-	useEffect(() => {
-		getAllSamples();
-	}, []);
+	// useEffect(() => {
+	// 	getAllSamples();
+	// }, []);
 
 	return (
 		<main className="samples">
@@ -179,61 +174,53 @@ function Samples({
 					<span className="samples__menu-title">Цвета</span>
 				</form>
 				<div className="samples__container">
-					{samples.length > 0 ? (
-						<>
-							<div className="samples__container-inside">
-								{separetedSamples.column1.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-							<div className="samples__container-inside">
-								{separetedSamples.column2.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-							<div className="samples__container-inside">
-								{separetedSamples.column3.map((item) => {
-									return (
-										<Sample
-											key={item.id}
-											isLoggedIn={isLoggedIn}
-											item={item}
-											onImageClick={handleImageClick}
-											onLike={handleLike}
-											onDislike={handleDislike}
-											favoriteSamples={favoriteSamples}
-										/>
-									);
-								})}
-							</div>
-						</>
-					) : (
-						<p>Упс пустой массив</p>
-					)}
+					<div className="samples__container-inside">
+						{separetedSamples.column1.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column2.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
+					<div className="samples__container-inside">
+						{separetedSamples.column3.map((item) => {
+							return (
+								<Sample
+									key={item.id}
+									isLoggedIn={isLoggedIn}
+									item={item}
+									onImageClick={handleImageClick}
+									onLike={handleLike}
+									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
+								/>
+							);
+						})}
+					</div>
 				</div>
 			</div>
 		</main>
 	);
-}
-
-export default Samples;
+};
