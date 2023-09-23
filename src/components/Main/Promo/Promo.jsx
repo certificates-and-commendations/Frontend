@@ -1,13 +1,10 @@
 import './Promo.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import mac from '../../../images/macBook.svg';
-import dipl from '../../../images/before-word-diploms.svg';
+import dipl from '../../../images/before-word-diplomas.svg';
 import sert from '../../../images/after-word-sertificates.svg';
 
 export default function Promo() {
-	const location = useLocation();
-	const isEditorPage = location.pathname === '/editor';
-
 	return (
 		<section className="promo">
 			<h1 className="promo__title">
@@ -19,12 +16,7 @@ export default function Promo() {
 				<img src={sert} alt="Шаблон грамоты" className="promo__image" />
 			</h1>
 			<Link className="promo__link" to="/editor">
-				<button
-					className={`promo__button ${
-						isEditorPage ? 'promo__button_active' : ''
-					}`}
-					type="button"
-				>
+				<button className="promo__button" type="button">
 					Онлайн-редактор
 				</button>
 			</Link>

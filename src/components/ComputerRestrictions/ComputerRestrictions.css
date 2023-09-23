@@ -3,6 +3,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	z-index: 1000;
 }
 
 .computer-restrictions__title {
@@ -43,6 +44,5 @@
 		width: 100%;
 		height: 100%;
 		background-color: white;
-		z-index: 10;
 	}
 }

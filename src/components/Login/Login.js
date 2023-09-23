@@ -30,11 +30,12 @@ function Login({
 				.signIn(formValue.password, formValue.email)
 				// eslint-disable-next-line consistent-return
 				.then((data) => {
-					if (data.token) {
+					if (data.auth_token) {
 						setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
-						localStorage.setItem('jwt', data.token);
+						localStorage.setItem('jwt', data.auth_token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
+						onClose();
 						navigate('/editor', { replace: true });
 						return data;
 					}

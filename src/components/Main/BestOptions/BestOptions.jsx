@@ -22,6 +22,19 @@ export default function BestOptions() {
 						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
 						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
 						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
 					</span>
 					<span>
 						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
@@ -29,6 +42,19 @@ export default function BestOptions() {
 						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
 						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
 						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert4} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert5} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert1} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert2} alt="Шаблон грамоты" className="options__item" />
+						<img src={vert3} alt="Шаблон грамоты" className="options__item" />
 					</span>
 				</div>
 
@@ -59,6 +85,51 @@ export default function BestOptions() {
 							alt="Сертификаты и грамоты"
 							className="options__item"
 						/>
+						<img
+							src={horiz1}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz5}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz2}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz3}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz4}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz5}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz1}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz2}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz3}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
 					</span>
 					<span>
 						<img
@@ -83,6 +154,51 @@ export default function BestOptions() {
 						/>
 						<img
 							src={horiz5}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz1}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz5}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz2}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz3}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz4}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz5}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz1}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz2}
+							alt="Сертификаты и грамоты"
+							className="options__item"
+						/>
+						<img
+							src={horiz3}
 							alt="Сертификаты и грамоты"
 							className="options__item"
 						/>

@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import CertificateEditor from '../CertificateEditor/CertificateEditor';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -17,16 +16,16 @@ import Samples from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import PageEditor from '../PageEditor/PageEditor';
 import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
-	// СТЕЙТ СОСТОЯНИЯ ЛОГИНА
-	const [isloggedIn, setIsloggedIn] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
-		useState(true);
+		useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
@@ -43,13 +42,13 @@ function App() {
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
-
+	// CТЕЙТ С СОЗДАННЫМИ ДОКУМЕНТАМИ
+	const [myDocuments, setMyDocuments] = useState([]);
 	const [infoToolTip, setInfoToolTip] = useState({
 		text: '',
 		status: true,
 		opened: false,
 	});
-
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
@@ -57,6 +56,8 @@ function App() {
 
 	const location = useLocation();
 	const navigate = useNavigate();
+
+	const isEditorPage = location.pathname === '/editor';
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
@@ -100,7 +101,7 @@ function App() {
 				document.removeEventListener('mousedown', closeByOverlay);
 			};
 		}
-	}, [isOpen, infoToolTip]);
+	}, [isOpen]);
 
 	React.useEffect(() => {
 		// настало время проверить токен
@@ -112,13 +113,8 @@ function App() {
 				.then((res) => {
 					if (res) {
 						// авторизуем пользователя
-						setIsloggedIn(true);
+						setIsLoggedIn(true);
 						setCurrentUser(res);
-						setInfoToolTip({
-							text: 'Успешно!',
-							status: true,
-							opened: true,
-						});
 						if (
 							location.pathname === '/editor' ||
 							location.pathname === '/' ||
@@ -130,19 +126,11 @@ function App() {
 					}
 				})
 				.catch((err) => {
-					setInfoToolTip({ text: err.message, status: false, opened: true });
+					localStorage.clear('jwt');
+					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
-	}, []);
-
-
-	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
-	useEffect(() => {
-		authApi
-			.getAllSamples()
-			.then((res) => setSamples(res))
-			.catch((err) => console.log(err));
 	}, []);
 
 	function timer() {
@@ -170,6 +158,12 @@ function App() {
 			}
 		}, 1000);
 	}
+	// происходит закрытие InfoToolTip
+	useEffect(() => {
+		setTimeout(() => {
+			setInfoToolTip({ text: '', status: true, opened: false });
+		}, 3000);
+	}, [infoToolTip]);
 
 	const a = {
 		a: { b: { c: 'e'}, e: 'f'}
@@ -188,8 +182,8 @@ function App() {
 					<Header
 						setIsLoginPopupOpen={setIsLoginPopupOpen}
 						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
-						isloggedIn={isloggedIn}
-						setIsLoggedIn={setIsloggedIn}
+						isloggedIn={isLoggedIn}
+						setIsLoggedIn={setIsLoggedIn}
 					/>
 				)}
 				<Routes>
@@ -199,20 +193,18 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={
-							<CertificateEditor diploma={diploma} loggedIn={isloggedIn} />
-						}
+						element={<PageEditor diploma={diploma} loggedIn={isLoggedIn} />}
 					/>
 					<Route
 						path="/samples"
 						element={
-							<ProtectedRouteElement
-								loggedIn={isloggedIn}
-								element={Samples}
+							<Samples
 								setDiploma={setDiploma}
+								loggedIn={isLoggedIn}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
 								samples={samples}
+								isLoggedIn={isLoggedIn}
 							/>
 						}
 					/>
@@ -221,10 +213,12 @@ function App() {
 						path="/profile"
 						element={
 							<ProtectedRouteElement
-								loggedIn={isloggedIn}
+								loggedIn={isLoggedIn}
 								element={Profile}
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
+								setFavoriteSamples={setFavoriteSamples}
+								myDocuments={myDocuments}
 							/>
 						}
 					/>
@@ -236,7 +230,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen && <Footer />}
+				{!isPageNotFoundOpen || !isEditorPage ? <Footer /> : null}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"
@@ -244,7 +238,7 @@ function App() {
 						popupName="register"
 						isOpened={isRegisterPopupOpen}
 						onClose={() => closeAllPopups()}
-						isloggedIn={isloggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						setTimeoutButton={setTimeoutButton}
@@ -265,7 +259,7 @@ function App() {
 						popupName="registerConfirmation"
 						isOpened={isRegisterConfirmationPopupOpen}
 						onClose={() => closeAllPopups()}
-						setIsloggedIn={setIsloggedIn}
+						setIsLoggedIn={setIsLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						setTimeoutButton={setTimeoutButton}
@@ -284,8 +278,8 @@ function App() {
 						isOpened={isLoginPopupOpen}
 						onClose={() => closeAllPopups()}
 						setIsRecoveryPopupOpen={setIsRecoveryPopupOpen}
-						setIsloggedIn={setIsloggedIn}
-						isloggedIn={isloggedIn}
+						setIsLoggedIn={setIsLoggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}
@@ -296,12 +290,12 @@ function App() {
 				{isRecoveryPopupOpen && (
 					<Recovery
 						title="Забыли пароль?"
-						buttonText="Отправить инструкцию"
+						buttonText="Отправить код"
 						popupName="recovery"
 						isOpened={isRecoveryPopupOpen}
 						onClose={() => closeAllPopups()}
 						setIsLoginPopupOpen={setIsLoginPopupOpen}
-						isloggedIn={isloggedIn}
+						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}

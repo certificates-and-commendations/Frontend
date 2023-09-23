@@ -8,4 +8,5 @@
 .properties__container {
 	flex: 0 0 300px;
 	margin-left: 20px;
+	display: none;
 }

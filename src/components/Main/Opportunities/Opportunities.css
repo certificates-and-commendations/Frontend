@@ -13,10 +13,12 @@
 }
 
 .cards {
+	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	padding-bottom: 85px;
+	max-width: 1110px;
 }
 
 .cards__item {
