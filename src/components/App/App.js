@@ -165,6 +165,16 @@ function App() {
 		}, 3000);
 	}, [infoToolTip]);
 
+	const a = {
+		a: { b: { c: 'e' }, e: 'f' },
+	};
+
+	function get(obj, path) {
+		console.log(obj[`${path}`]);
+	}
+
+	get(a, 'a.b');
+
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="App">
