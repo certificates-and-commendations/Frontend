@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 
-function TextPanel() {
+function TextPanel({
+                       onTextClick
+}) {
 
     const [btnClick, setBtnClick] = useState(true);
 
@@ -29,7 +31,12 @@ function TextPanel() {
             </div>
             {btnClick ?
                 <div className="text-panel__block-result">
-                    <button className="text-panel__h1">Создать заголовок</button>
+                    <button
+                        className="text-panel__h1"
+                        onClick={onTextClick}
+                    >
+                        Создать заголовок
+                    </button>
                     <button className="text-panel__h2">Создать подзаголовок</button>
                     <button className="text-panel__paragraph">Создать основной текст</button>
                 </div>

@@ -70,7 +70,7 @@ function StylePropertiesPanel({
 					: 'properties_hidden'
 			}`}
 		>
-			<button className="properties__button-move">Двигать панель</button>
+
 			<label
 				className="properties__label properties__label_fonts"
 				htmlFor={`fontSelect-${index}`}

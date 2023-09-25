@@ -19,7 +19,8 @@ function SidebarEditor({
                            setElementVisibility,
                            elementVisibility,
                            positions,
-                           setPositions
+                           setPositions,
+                           onTextClick
                        }) {
 
     const [activePanel, setActivePanel] = useState('panelTemplates');
@@ -30,7 +31,9 @@ function SidebarEditor({
             case 'panelTemplates':
                 return <TemplatesPanel/>;
             case 'panelText':
-                return <TextPanel/>;
+                return <TextPanel
+                    onTextClick={onTextClick}
+                />;
             case 'panelElements':
                 return <ElementsPanel
                     setElement={setElement}

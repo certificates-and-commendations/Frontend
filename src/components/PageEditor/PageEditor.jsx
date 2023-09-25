@@ -15,6 +15,7 @@ function PageEditor() {
     const [uploadedCertificate, setUploadedCertificate] = useState(null);
     const [showTable, setShowTable] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const [color, setColor] = useState('#000000');
     const [element, setElement] = useState([]);
     const [elementPosition, setElementPosition] = useState({x: 0, y: 0});
     const [textPosition, setTextPosition] = useState({x: 0, y: 0});
@@ -25,7 +26,7 @@ function PageEditor() {
     const [textBlockStyles, setTextBlockStyles] = useState([]);
     const [textPanelActive, setTextPanelActive] = useState(false);
     const [elementVisibility, setElementVisibility] = useState([]);
-    const initialPositions = element.map(() => ({ x: 0, y: 0 }));
+    const initialPositions = element.map(() => ({x: 0, y: 0}));
     const [positions, setPositions] = useState(initialPositions);
 
     const certificateRef = useRef(null);
@@ -64,38 +65,6 @@ function PageEditor() {
         const updatedTextBlocks = [...textBlocks];
         updatedTextBlocks[index].text = e.target.value;
         setTextBlocks(updatedTextBlocks);
-    };
-
-    const handleFontChange = (e) => {
-        setFont(e.target.value);
-        if (editingTextIndex !== null) {
-            const updatedTextBlocks = [...textBlocks];
-            updatedTextBlocks[editingTextIndex].fontFamily = e.target.value;
-            setTextBlocks(updatedTextBlocks);
-        }
-    };
-
-    const handleFontSizeChange = (e) => {
-        const updatedTextBlocks = [...textBlocks];
-
-        if (parseInt(e.target.value, 10) > 50) {
-            setFontSize(50);
-            updatedTextBlocks[editingTextIndex].fontSize = 50;
-        } else if (parseInt(e.target.value, 10) < 0) {
-            setFontSize(1);
-            updatedTextBlocks[editingTextIndex].fontSize = 1;
-        } else {
-            setFontSize(parseInt(e.target.value, 10));
-
-            if (editingTextIndex !== null) {
-                updatedTextBlocks[editingTextIndex].fontSize = parseInt(
-                    e.target.value,
-                    10
-                );
-
-                setTextBlocks(updatedTextBlocks);
-            }
-        }
     };
 
     const handleInputKeyDown = (e, index) => {
@@ -198,6 +167,10 @@ function PageEditor() {
         };
     };
 
+    const handleChangeComplete = (newColor) => {
+        setColor(newColor.hex); // Обновляем цвет при выборе
+    };
+
     return (
         <main className="main-content-editor">
             <SidebarEditor
@@ -210,10 +183,35 @@ function PageEditor() {
                 elementVisibility={elementVisibility}
                 positions={positions}
                 setPositions={setPositions}
+                onTextClick={handleTextClick}
             />
             <section className="certificate-main">
                 <PropertiesPanel
                     textPanelActive={textPanelActive}
+                    font={font}
+                    setFont={setFont}
+                    fontSize={fontSize}
+                    setFontSize={setFontSize}
+                    onSignatureUpload={handleSignatureUpload}
+                    onSavePDF={handleSavePDF}
+                    onCertificateUpload={handleCertificateUpload}
+                    editingTextIndex={editingTextIndex}
+                    showTable={showTable}
+                    setShowTable={setShowTable}
+                    tableData={tableData} // Передаем данные таблицы
+                    setTableData={setTableData} // Передаем функцию для обновления данных таблицы
+                    textBlocks={textBlocks}
+                    setTextBlocks={setTextBlocks}
+                    certificateRef={certificateRef}
+                    isVisible={elementVisibility}
+                    activeTextIndex={activeTextIndex}
+                    setActiveTextIndex={setActiveTextIndex}
+                    setTextDecorationStyle={setTextDecorationStyle}
+                    textBlockStyles={textBlockStyles}
+                    setTextBlockStyles={setTextBlockStyles}
+                    setTextAlignStyle={setTextAlignStyle}
+                    onChangeComplete={handleChangeComplete}
+                    color={color}
                 />
                 <CertificateEditor
                     setEditingTextIndex={setEditingTextIndex}
@@ -222,8 +220,6 @@ function PageEditor() {
                     setFont={setFont}
                     fontSize={fontSize}
                     setFontSize={setFontSize}
-                    onFontChange={handleFontChange}
-                    onFontSizeChange={handleFontSizeChange}
                     textBlocks={textBlocks}
                     setTextBlocks={setTextBlocks}
                     certificateRef={certificateRef}
@@ -234,6 +230,7 @@ function PageEditor() {
                     setTextDecorationStyle={setTextDecorationStyle}
                     setTextPosition={setTextPosition}
                     onTextClick={handleTextClick}
+                    color={color}
                     textBlockStyles={textBlockStyles}
                     setTextBlockStyles={setTextBlockStyles}
                     setTextAlignStyle={setTextAlignStyle}
