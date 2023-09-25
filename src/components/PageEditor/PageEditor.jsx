@@ -12,12 +12,11 @@ function PageEditor() {
     const [textBlocks, setTextBlocks] = useState([]);
     const [editingTextIndex, setEditingTextIndex] = useState(null);
     const [signature, setSignature] = useState(null);
-    const [signaturePosition, setSignaturePosition] = useState({x: 0, y: 0});
     const [uploadedCertificate, setUploadedCertificate] = useState(null);
     const [showTable, setShowTable] = useState([]);
     const [tableData, setTableData] = useState([]);
-    const [stamp, setStamp] = useState(null);
-    const [stampPosition, setStampPosition] = useState({x: 0, y: 0});
+    const [element, setElement] = useState([]);
+    const [elementPosition, setElementPosition] = useState({x: 0, y: 0});
     const [textPosition, setTextPosition] = useState({x: 0, y: 0});
     const [activeTextIndex, setActiveTextIndex] = useState(null);
     const [textDecorationStyle, setTextDecorationStyle] = useState('none');
@@ -25,6 +24,9 @@ function PageEditor() {
     const [pdfData, setPdfData] = useState(null);
     const [textBlockStyles, setTextBlockStyles] = useState([]);
     const [textPanelActive, setTextPanelActive] = useState(false);
+    const [elementVisibility, setElementVisibility] = useState([]);
+    const initialPositions = element.map(() => ({ x: 0, y: 0 }));
+    const [positions, setPositions] = useState(initialPositions);
 
     const certificateRef = useRef(null);
 
@@ -131,22 +133,18 @@ function PageEditor() {
             if (file.type === 'image/png') {
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    setStamp(event.target.result);
+                    setElement(event.target.result);
                 };
                 reader.readAsDataURL(file);
             } else {
-                setStamp(null);
+                setElement(null);
                 // alert('Пожалуйста, загрузите изображение в формате PNG.');
             }
         }
     };
 
-    const handleSignatureDrag = (e, data) => {
-        setSignaturePosition({x: data.x, y: data.y});
-    };
-
-    const handleStampDrag = (e, data) => {
-        setStampPosition({x: data.x, y: data.y});
+    const handleElementDrag = (e, data) => {
+        setElementPosition({x: data.x, y: data.y});
     };
 
     const handleCreateJson = () => {
@@ -166,16 +164,11 @@ function PageEditor() {
                 width: 600,
                 height: 850,
             }, // Подставьте URL фона
-            Stamp: {
-                url: stamp,
-                x: stampPosition.x,
-                y: stampPosition.y,
+            Element: {
+                url: element,
+                x: elementPosition.x,
+                y: elementPosition.y,
             },
-            Signature: {
-                url: signature,
-                x: signaturePosition.x,
-                y: signaturePosition.y,
-            }, // Подставьте URL печати
         };
         // console.log(jsonToSave)
         setPdfData(jsonToSave);
@@ -211,6 +204,12 @@ function PageEditor() {
                 setTextPanelActive={setTextPanelActive}
                 textPanelActive={textPanelActive}
                 setUploadedCertificate={setUploadedCertificate}
+                setElement={setElement}
+                element={element}
+                setElementVisibility={setElementVisibility}
+                elementVisibility={elementVisibility}
+                positions={positions}
+                setPositions={setPositions}
             />
             <section className="certificate-main">
                 <PropertiesPanel
@@ -251,12 +250,13 @@ function PageEditor() {
                     onCreateJson={handleCreateJson}
                     uploadedCertificate={uploadedCertificate}
                     signature={signature}
-                    signaturePosition={signaturePosition}
-                    onSignatureDrag={handleSignatureDrag}
-                    stamp={stamp}
-                    stampPosition={stampPosition}
-                    onStampDrag={handleStampDrag}
+                    element={element}
+                    elementPosition={elementPosition}
+                    onElementDrag={handleElementDrag}
                     textPanelActive={textPanelActive}
+                    elementVisibility={elementVisibility}
+                    positions={positions}
+                    setPositions={setPositions}
                 />
             </section>
         </main>

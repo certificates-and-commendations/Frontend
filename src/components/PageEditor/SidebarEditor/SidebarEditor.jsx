@@ -13,7 +13,13 @@ import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 function SidebarEditor({
                            setTextPanelActive,
                            textPanelActive,
-                           setUploadedCertificate
+                           setUploadedCertificate,
+                           setElement,
+                           element,
+                           setElementVisibility,
+                           elementVisibility,
+                           positions,
+                           setPositions
                        }) {
 
     const [activePanel, setActivePanel] = useState('panelTemplates');
@@ -26,7 +32,14 @@ function SidebarEditor({
             case 'panelText':
                 return <TextPanel/>;
             case 'panelElements':
-                return <ElementsPanel/>;
+                return <ElementsPanel
+                    setElement={setElement}
+                    element={element}
+                    setElementVisibility={setElementVisibility}
+                    elementVisibility={elementVisibility}
+                    positions={positions}
+                    setPositions={setPositions}
+                />;
             case 'panelDownloads':
                 return <DownloadsPanel
                     setTextPanelActive={setTextPanelActive}

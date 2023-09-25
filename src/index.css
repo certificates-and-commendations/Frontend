@@ -31,9 +31,6 @@
 /* TextBlock */
 @import url('./components/PageEditor/CertificateEditor/TextBlock/TextBlock.css');
 
-/* Signature */
-@import url('./components/PageEditor/CertificateEditor/Signature/Signature.css');
-
 /* StylePropertiesPanel */
 @import url('./components/PageEditor/CertificateEditor/StylePropertiesPanel/StylePropertiesPanel.css');
 
@@ -43,8 +40,8 @@
 /* FioTable */
 @import url('./components/PageEditor/CertificateEditor/FioTable/FioTable.css');
 
-/* Stamp */
-@import url('./components/PageEditor/CertificateEditor/Stamp/Stamp.css');
+/* ElementFiles */
+@import url('./components/PageEditor/CertificateEditor/ElementFiles/ElementFiles.css');
 
 body {
 	-webkit-font-smoothing: antialiased;

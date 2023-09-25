@@ -3,12 +3,12 @@ import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
 import downloadIcon from "../../../../images/imageEditor/download-icon.png";
 
-function ElementsPanel() {
+function ElementsPanel({setElement, element, positions, setPositions}) {
 
     const [imageURLsElements, setImageURLsElements] = useState([]);
     const [squareStates, setSquareStates] = useState([]);
-
     const [btnClick, setBtnClick] = useState(true);
+
 
     const onClickBtnActive = () => {
         setBtnClick(false);
@@ -23,6 +23,10 @@ function ElementsPanel() {
         return allowedFormats.includes(file.type);
     }
 
+    function generateUniqueId() {
+        return Math.random().toString(36).substr(2, 9);
+    }
+
     const handleFileInputChangeElements = (e) => {
         const files = Array.from(e.target.files);
 
@@ -33,19 +37,39 @@ function ElementsPanel() {
             return;
         }
 
-        setImageURLsElements((prevImageURLs) => [
-            ...prevImageURLs,
-            ...validFiles.map((file) => URL.createObjectURL(file)),
-        ]);
-        setSquareStates((prevStates) => [...prevStates, false]);
+        const newElements = validFiles.map((file) => ({
+            id: generateUniqueId(),
+            url: URL.createObjectURL(file),
+        }));
+
+        setImageURLsElements((prevImageURLs) => [...prevImageURLs, ...newElements]);
+        setSquareStates((prevStates) => [...prevStates, ...newElements.map(() => false)]);
     };
 
-    const handleClickSquareElements = (index) => {
-        setSquareStates((prevStates) => {
-            const newStates = [...prevStates];
-            newStates[index] = !newStates[index];
-            return newStates;
-        });
+    const handleClickSquareElements = (id) => {
+        const elementIndex = imageURLsElements.findIndex((elem) => elem.id === id);
+        if (elementIndex !== -1) {
+            const newSquareStates = [...squareStates];
+            newSquareStates[elementIndex] = !newSquareStates[elementIndex];
+            setSquareStates(newSquareStates);
+
+            if (newSquareStates[elementIndex]) {
+                const selectedElement = imageURLsElements.find((elem) => elem.id === id);
+                setElement((prevElement) => [...prevElement, selectedElement]);
+            } else {
+                setElement((prevElement) => {
+                    const updatedElement = [...prevElement];
+                    const removedIndex = updatedElement.findIndex((elem) => elem.id === id);
+                    if (removedIndex !== -1) {
+                        updatedElement.splice(removedIndex, 1);
+                        const newPositions = [...positions];
+                        newPositions.splice(removedIndex, 1); // Удалить соответствующую позицию
+                        setPositions(newPositions); // Обновить состояние позиций
+                    }
+                    return updatedElement;
+                });
+            }
+        }
     };
 
     return (
@@ -82,10 +106,10 @@ function ElementsPanel() {
                         </label>
                     </div>
                     <div className="elements-panel__loading-file">
-                        {imageURLsElements.map((url, index) => (
-                            <div className="elements-panel__wrapper" key={index}>
+                        {imageURLsElements.map((elem, index) => (
+                            <div className="elements-panel__wrapper" key={elem.id}>
                                 <img
-                                    src={url}
+                                    src={elem.url}
                                     alt={`Загруженное изображение ${index}`}
                                     className="elements-panel__loading-img"
                                 />
@@ -93,11 +117,12 @@ function ElementsPanel() {
                                     src={squareStates[index] ? squareCheck : square}
                                     alt={squareStates[index] ? ' Квадрат с галочкой.' : ' Пустой квадрат.'}
                                     className="elements-panel__square"
-                                    onClick={() => handleClickSquareElements(index)}
+                                    onClick={() => handleClickSquareElements(elem.id)}
                                 />
                             </div>
                         ))}
                     </div>
+
                 </>
             ) : (
                 <>
@@ -117,10 +142,10 @@ function ElementsPanel() {
                         </label>
                     </div>
                     <div className="elements-panel__loading-file">
-                        {imageURLsElements.map((url, index) => (
-                            <div className="elements-panel__wrapper" key={index}>
+                        {imageURLsElements.map((elem, index) => (
+                            <div className="elements-panel__wrapper" key={elem.id}>
                                 <img
-                                    src={url}
+                                    src={elem.url}
                                     alt={`Загруженное изображение ${index}`}
                                     className="elements-panel__loading-img"
                                 />

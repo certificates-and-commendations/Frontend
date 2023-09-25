@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 
-function TextPanel({
-                       textPanelActive
-                   }) {
+function TextPanel() {
 
     const [btnClick, setBtnClick] = useState(true);
 

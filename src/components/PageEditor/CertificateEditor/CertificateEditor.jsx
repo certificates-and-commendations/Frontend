@@ -1,9 +1,7 @@
 import React from 'react';
 import TextBlock from './TextBlock/TextBlock';
-import Signature from './Signature/Signature';
-import Stamp from './Stamp/Stamp';
 import LateralPropertiesPanel from './LateralPropertiesPanel/LateralPropertiesPanel';
-import PropertiesPanel from "./PropertiesPanel/PropertiesPanel";
+import ElementFiles from "./ElementFiles/ElementFiles";
 
 function CertificateEditor({
                                setEditingTextIndex,
@@ -29,7 +27,6 @@ function CertificateEditor({
                                textBlockStyles,
                                setTextBlockStyles,
                                setTextAlignStyle,
-                               onSignatureUpload,
                                onSavePDF,
                                onCertificateUpload,
                                showTable,
@@ -39,13 +36,14 @@ function CertificateEditor({
                                onStampUpload,
                                onCreateJson,
                                uploadedCertificate,
-                               signature,
-                               signaturePosition,
-                               onSignatureDrag,
-                               stamp,
-                               stampPosition,
-                               onStampDrag,
-                               textPanelActive
+                               element,
+                               elementPosition,
+                               onElementDrag,
+                               elementVisibility,
+                               setSquareStates,
+                               squareStates,
+                               positions,
+                               setPositions
                            }) {
     return (
         <div className="certificate">
@@ -92,7 +90,6 @@ function CertificateEditor({
 
             <div className="properties__container">
                 <LateralPropertiesPanel
-                    onSignatureUpload={onSignatureUpload}
                     onSavePDF={onSavePDF}
                     onCertificateUpload={onCertificateUpload}
                     showTable={showTable}
@@ -108,19 +105,16 @@ function CertificateEditor({
                     onCreateJson={onCreateJson}
                 />
             </div>
-
-            {signature && (
-                <Signature
-                    signature={signature}
-                    position={signaturePosition}
-                    onDrag={onSignatureDrag}
-                />
-            )}
-            {stamp && (
-                <Stamp
-                    stampImage={stamp}
-                    position={stampPosition}
-                    onDrag={onStampDrag}
+            {element && (
+                <ElementFiles
+                    element={element}
+                    elementPosition={elementPosition}
+                    onDrag={onElementDrag}
+                    elementVisibility={elementVisibility}
+                    setSquareStates={setSquareStates}
+                    squareStates={squareStates}
+                    positions={positions}
+                    setPositions={setPositions}
                 />
             )}
         </div>
