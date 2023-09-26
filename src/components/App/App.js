@@ -12,7 +12,7 @@ import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
-import Samples from '../Samples/Samples';
+import { Samples } from '../Samples/Samples';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,7 +21,7 @@ import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
@@ -164,6 +164,16 @@ function App() {
 			setInfoToolTip({ text: '', status: true, opened: false });
 		}, 3000);
 	}, [infoToolTip]);
+
+	const a = {
+		a: { b: { c: 'e' }, e: 'f' },
+	};
+
+	function get(obj, path) {
+		console.log(obj[`${path}`]);
+	}
+
+	get(a, 'a.b');
 
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
