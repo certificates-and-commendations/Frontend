@@ -4,6 +4,7 @@ import LateralPropertiesPanel from './LateralPropertiesPanel/LateralPropertiesPa
 import ElementFiles from "./ElementFiles/ElementFiles";
 
 function CertificateEditor({
+                               setCurrentIndex,
                                setEditingTextIndex,
                                editingTextIndex,
                                font,
@@ -59,6 +60,7 @@ function CertificateEditor({
                 <TextBlock
                     key={index}
                     index={index}
+                    setCurrentIndex={setCurrentIndex}
                     textBlock={textBlock}
                     setEditingTextIndex={setEditingTextIndex}
                     editingTextIndex={editingTextIndex}

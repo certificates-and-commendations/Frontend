@@ -4,6 +4,7 @@ import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
 function TextBlock({
                        index,
+                       setCurrentIndex,
                        textBlock,
                        editingTextIndex,
                        onTextChange,
@@ -40,6 +41,7 @@ function TextBlock({
             setWidthInput(textareaRef.current.clientWidth);
             setHeightInput(textareaRef.current.clientHeight);
         }
+        setCurrentIndex(index);
     };
 
     return (
@@ -74,7 +76,9 @@ function TextBlock({
                                         ? 'left'
                                         : textAlignStyle === 'center'
                                             ? 'center'
-                                            : 'right',
+                                            : textAlignStyle === 'right'
+                                                ? 'right'
+                                                : 'justify',
                                 width: widthInput + scrollbarWidth,
                                 height: heightInput,
                                 color,

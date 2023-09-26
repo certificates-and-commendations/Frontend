@@ -6,6 +6,7 @@ import CertificateEditor from "./CertificateEditor/CertificateEditor";
 import PropertiesPanel from "./CertificateEditor/PropertiesPanel/PropertiesPanel";
 
 function PageEditor() {
+    const [currentIndex, setCurrentIndex] = useState(null);
     const [font, setFont] = useState('Arial');
     const [fontSize, setFontSize] = useState(14);
     const [showProperties, setShowProperties] = useState(false);
@@ -212,8 +213,10 @@ function PageEditor() {
                     setTextAlignStyle={setTextAlignStyle}
                     onChangeComplete={handleChangeComplete}
                     color={color}
+                    currentIndex={currentIndex}
                 />
                 <CertificateEditor
+                    setCurrentIndex={setCurrentIndex}
                     setEditingTextIndex={setEditingTextIndex}
                     editingTextIndex={editingTextIndex}
                     font={font}

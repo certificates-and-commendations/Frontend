@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import './PropertiesPanel.css';
+import alignLeftIcon from '../../../../images/IconsFunctionsText/align-left-icon.svg';
+import alignCenterIcon from '../../../../images/IconsFunctionsText/align-center-icon.svg';
+import alignRightIcon from '../../../../images/IconsFunctionsText/align-right-icon.svg';
+import alignJustifyIcon from '../../../../images/IconsFunctionsText/align-justify-icon.svg';
 
 function PropertiesPanel({
                              textPanelActive,
@@ -18,8 +22,12 @@ function PropertiesPanel({
                              onChangeComplete,
                              color,
                              setFont,
-                             editingTextIndex
+                             editingTextIndex,
+                             currentIndex
                          }) {
+
+    const [align, setAlign] = useState('left');
+
     const handleFontChange = (e) => {
         setFont(e.target.value);
         if (editingTextIndex !== null) {
@@ -81,7 +89,7 @@ function PropertiesPanel({
         setTextBlocks(updatedTextBlocks);
     };
 
-    const handleTextDecorationChange = (currentIndex, style) => {
+    const handleTextDecorationChange = (style) => {
         const updatedStyles = [...textBlockStyles];
         updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
         if (style === 'none') {
@@ -96,20 +104,53 @@ function PropertiesPanel({
         setTextDecorationStyle(style);
     };
 
-    const handleTextAlignChange = (currentIndex, style) => {
+    const handleTextAlignChange = (indexText) => {
         const updatedStyles = [...textBlockStyles];
-        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
-        if (style === 'left') {
-            updatedStyles[currentIndex].isAlign = 'left';
-        } else if (style === 'center') {
-            updatedStyles[currentIndex].isAlign = 'center';
-        } else if (style === 'right') {
-            updatedStyles[currentIndex].isAlign = 'right';
+        updatedStyles[indexText] = { ...updatedStyles[indexText] };
+
+        switch (updatedStyles[indexText].isAlign) {
+            case 'left':
+                updatedStyles[indexText].isAlign = 'center';
+                setAlign('center');
+                break;
+            case 'center':
+                updatedStyles[indexText].isAlign = 'right';
+                setAlign('right');
+                break;
+            case 'right':
+                updatedStyles[indexText].isAlign = 'justify';
+                setAlign('justify');
+                break;
+            case 'justify':
+                updatedStyles[indexText].isAlign = 'left';
+                setAlign('left');
+                break;
+            default:
+                updatedStyles[indexText].isAlign = 'left'; // Если значение неизвестно, вернем в начальное состояние
+                break;
         }
 
         setTextBlockStyles(updatedStyles);
-        setTextAlignStyle(style);
+        setTextAlignStyle(updatedStyles[indexText].isAlign);
     };
+
+    const collectionPositionIcons = () => {
+        if (align === 'left') {
+            return alignLeftIcon;
+        }
+
+        if (align === 'center') {
+            return alignCenterIcon;
+        }
+
+        if (align === 'right') {
+            return alignRightIcon;
+        }
+
+        if (align === 'justify') {
+            return alignJustifyIcon;
+        }
+    }
 
     const handleBoldChange = () => {
         const updatedTextBlocks = [...textBlocks];
@@ -177,10 +218,11 @@ function PropertiesPanel({
                                 />
                             </div>
                         </label>
-                        <button
+                        <img
                             className="functions__button_align-center"
-                            type="button"
-                            aria-label="Кнопка для удаления"
+                            src={collectionPositionIcons()}
+                            aria-label=" Кнопка для расположения текста."
+                            onClick={() => handleTextAlignChange(currentIndex)}
                         />
                         <button
                             className="functions__button_bold"
