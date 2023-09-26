@@ -4,7 +4,7 @@ import { Sample } from './Sample';
 import './Sample.css';
 
 export default {
-	title: 'Sample',
+	title: 'UI/Sample',
 	component: Sample,
 	decorators: [
 		(Story) => (
@@ -66,7 +66,16 @@ SampleWithLike.args = {
 		color: null,
 		is_horizontal: true,
 	},
-	favoriteSamples: [],
+	favoriteSamples: [
+		{
+			id: 2,
+			title: 'horizotal template',
+			thumbnail: 'http://185.93.111.238/media/thumbnails/temp_uvALw2v.jpg',
+			category: null,
+			color: null,
+			is_horizontal: true,
+		},
+	],
 	isLoggedIn: true,
 };
 

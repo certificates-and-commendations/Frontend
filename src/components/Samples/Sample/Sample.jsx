@@ -71,13 +71,15 @@ Sample.propTypes = {
 	onImageClick: PropTypes.func.isRequired,
 	onLike: PropTypes.func.isRequired,
 	onDislike: PropTypes.func.isRequired,
-	favoriteSamples: PropTypes.arrayOf(PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		title: PropTypes.string.isRequired,
-		thumbnail: PropTypes.string.isRequired,
-		category: PropTypes.number,
-		color: PropTypes.number,
-		is_horizontal: PropTypes.bool.isRequired,
-	})).isRequired,
+	favoriteSamples: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			title: PropTypes.string.isRequired,
+			thumbnail: PropTypes.string.isRequired,
+			category: PropTypes.number,
+			color: PropTypes.number,
+			is_horizontal: PropTypes.bool.isRequired,
+		})
+	).isRequired,
 	isLoggedIn: PropTypes.bool.isRequired,
 };

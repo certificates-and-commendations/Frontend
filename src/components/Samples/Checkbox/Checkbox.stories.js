@@ -38,7 +38,21 @@ const Template = (args) => <Checkbox {...args} />;
 
 export const DefaultCheckbox = Template.bind({});
 DefaultCheckbox.args = {
-	text: 'Кнопка',
+	text: 'нопка',
+	onClick: () => console.log('Click'),
+	name: 'diplomas',
+	state: {
+		diplomas: false,
+		thanks: false,
+		certificates: false,
+		is_vertical: false,
+		is_horizontal: false,
+	},
+};
+
+export const ErrorCheckbox = Template.bind({});
+ErrorCheckbox.args = {
+	text: 'нопка',
 	onClick: () => console.log('Click'),
 	name: 'diplomas',
 	state: {
