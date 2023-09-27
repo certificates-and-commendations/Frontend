@@ -6,6 +6,9 @@ import alignCenterIcon from '../../../../images/IconsFunctionsText/align-center-
 import alignRightIcon from '../../../../images/IconsFunctionsText/align-right-icon.svg';
 import alignJustifyIcon from '../../../../images/IconsFunctionsText/align-justify-icon.svg';
 import buttonBold from '../../../../images/IconsFunctionsText/functions__button_bold.svg';
+import buttonItalic from '../../../../images/IconsFunctionsText/functions__button_italic.svg';
+import buttonUnderline from '../../../../images/IconsFunctionsText/functions__button_underline.svg';
+import buttonStrikethrough from '../../../../images/IconsFunctionsText/functions__button_strikethrough.svg';
 
 function PropertiesPanel({
                              textPanelActive,
@@ -31,6 +34,9 @@ function PropertiesPanel({
     const [align, setAlign] = useState('left');
     const [showColorPanel, setShowColorPanel] = useState(false);
     const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);
+    const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
+    const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
+    const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
 
     const handleClickColorPanel = () => {
         setShowColorPanel(!showColorPanel);
@@ -151,6 +157,7 @@ function PropertiesPanel({
         updatedTextBlocks[currentIndex] = {...updatedTextBlocks[currentIndex]};
         updatedTextBlocks[currentIndex].isItalic = !updatedTextBlocks[currentIndex].isItalic;
         setTextBlocks(updatedTextBlocks);
+        setTextItalicActiveMenu(!textItalicActiveMenu);
     };
 
     const handleTextDecorationChange = (style) => {
@@ -176,6 +183,10 @@ function PropertiesPanel({
             updatedStyles[currentIndex].isDecoration === 'underline' ? 'none' : 'underline';
 
         setTextBlockStyles(updatedStyles);
+        setTextUnderlineActiveMenu(!textUnderlineActiveMenu);
+        if (textStrikethroughActiveMenu) {
+            setTextStrikethroughActiveMenu(false);
+        }
     };
 
     const handleTextDecorationStrikethrough = () => {
@@ -186,6 +197,10 @@ function PropertiesPanel({
             updatedStyles[currentIndex].isDecoration === 'strikethrough' ? 'none' : 'strikethrough';
 
         setTextBlockStyles(updatedStyles);
+        setTextStrikethroughActiveMenu(!textStrikethroughActiveMenu);
+        if (textUnderlineActiveMenu) {
+            setTextUnderlineActiveMenu(false);
+        }
     };
 
     return (
@@ -272,26 +287,41 @@ function PropertiesPanel({
                                 backgroundColor: textBoldActiveMenu ? '#FFFFFF' : '#C3BEFF'
                             }}
                         >
-                            <img className="functions__img-bold" src={buttonBold} alt=""/>
+                            <img className="functions__img-bold" src={buttonBold} alt=" Картинка для выбора жирного текста."/>
                         </button>
                         <button
                             className="functions__button_italic"
                             type="button"
                             aria-label="Кнопка для удаления"
                             onClick={handleItalicChange}
-                        />
+                            style={{
+                                backgroundColor: textItalicActiveMenu ? '#FFFFFF' : '#C3BEFF'
+                            }}
+                        >
+                            <img className="functions__img-italic" src={buttonItalic} alt=" Картинка для выбора курсива для текста."/>
+                        </button>
                         <button
                             className="functions__button_underline"
                             type="button"
                             aria-label=" Кнопка для подчёркивания текста."
                             onClick={handleTextDecorationUnderline}
-                        />
+                            style={{
+                                backgroundColor: textUnderlineActiveMenu ? '#FFFFFF' : '#C3BEFF'
+                            }}
+                        >
+                            <img className="functions__img-underline" src={buttonUnderline} alt=" Картинка для подчёркнутого текста."/>
+                        </button>
                         <button
                             className="functions__button_strikethrough"
                             type="button"
                             aria-label="Кнопка для зачеркивания текста."
                             onClick={handleTextDecorationStrikethrough}
-                        />
+                            style={{
+                                backgroundColor: textStrikethroughActiveMenu ? '#FFFFFF' : '#C3BEFF'
+                            }}
+                        >
+                            <img className="functions__img-strikethrough" src={buttonStrikethrough} alt=" Картинка для зачёркнутого текста."/>
+                        </button>
                     </li>
                 }
 
