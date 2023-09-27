@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import {SketchPicker} from "react-color";
 import './PropertiesPanel.css';
 import alignLeftIcon from '../../../../images/IconsFunctionsText/align-left-icon.svg';
 import alignCenterIcon from '../../../../images/IconsFunctionsText/align-center-icon.svg';
 import alignRightIcon from '../../../../images/IconsFunctionsText/align-right-icon.svg';
 import alignJustifyIcon from '../../../../images/IconsFunctionsText/align-justify-icon.svg';
+import buttonBold from '../../../../images/IconsFunctionsText/functions__button_bold.svg';
 
 function PropertiesPanel({
                              textPanelActive,
@@ -27,6 +29,12 @@ function PropertiesPanel({
                          }) {
 
     const [align, setAlign] = useState('left');
+    const [showColorPanel, setShowColorPanel] = useState(false);
+    const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);
+
+    const handleClickColorPanel = () => {
+        setShowColorPanel(!showColorPanel);
+    }
 
     const handleFontChange = (e) => {
         setFont(e.target.value);
@@ -82,31 +90,9 @@ function PropertiesPanel({
         }
     };
 
-    const handleItalicChange = () => {
-        const updatedTextBlocks = [...textBlocks];
-        updatedTextBlocks[index] = {...updatedTextBlocks[index]};
-        updatedTextBlocks[index].isItalic = !updatedTextBlocks[index].isItalic;
-        setTextBlocks(updatedTextBlocks);
-    };
-
-    const handleTextDecorationChange = (style) => {
-        const updatedStyles = [...textBlockStyles];
-        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
-        if (style === 'none') {
-            updatedStyles[currentIndex].isDecoration = 'none';
-        } else if (style === 'underline') {
-            updatedStyles[currentIndex].isDecoration = 'underline';
-        } else if (style === 'strikethrough') {
-            updatedStyles[currentIndex].isDecoration = 'strikethrough';
-        }
-
-        setTextBlockStyles(updatedStyles);
-        setTextDecorationStyle(style);
-    };
-
     const handleTextAlignChange = (indexText) => {
         const updatedStyles = [...textBlockStyles];
-        updatedStyles[indexText] = { ...updatedStyles[indexText] };
+        updatedStyles[indexText] = {...updatedStyles[indexText]};
 
         switch (updatedStyles[indexText].isAlign) {
             case 'left':
@@ -154,9 +140,52 @@ function PropertiesPanel({
 
     const handleBoldChange = () => {
         const updatedTextBlocks = [...textBlocks];
-        updatedTextBlocks[index] = {...updatedTextBlocks[index]};
-        updatedTextBlocks[index].isBold = !updatedTextBlocks[index].isBold;
+        updatedTextBlocks[currentIndex] = {...updatedTextBlocks[currentIndex]};
+        updatedTextBlocks[currentIndex].isBold = !updatedTextBlocks[currentIndex].isBold;
         setTextBlocks(updatedTextBlocks);
+        setTextBoldActiveMenu(!textBoldActiveMenu);
+    };
+
+    const handleItalicChange = () => {
+        const updatedTextBlocks = [...textBlocks];
+        updatedTextBlocks[currentIndex] = {...updatedTextBlocks[currentIndex]};
+        updatedTextBlocks[currentIndex].isItalic = !updatedTextBlocks[currentIndex].isItalic;
+        setTextBlocks(updatedTextBlocks);
+    };
+
+    const handleTextDecorationChange = (style) => {
+        const updatedStyles = [...textBlockStyles];
+        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
+        if (style === 'none') {
+            updatedStyles[currentIndex].isDecoration = 'none';
+        } else if (style === 'underline') {
+            updatedStyles[currentIndex].isDecoration = 'underline';
+        } else if (style === 'strikethrough') {
+            updatedStyles[currentIndex].isDecoration = 'strikethrough';
+        }
+
+        setTextBlockStyles(updatedStyles);
+        setTextDecorationStyle(style);
+    };
+
+    const handleTextDecorationUnderline = () => {
+        const updatedStyles = [...textBlockStyles];
+        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
+
+        updatedStyles[currentIndex].isDecoration =
+            updatedStyles[currentIndex].isDecoration === 'underline' ? 'none' : 'underline';
+
+        setTextBlockStyles(updatedStyles);
+    };
+
+    const handleTextDecorationStrikethrough = () => {
+        const updatedStyles = [...textBlockStyles];
+        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
+
+        updatedStyles[currentIndex].isDecoration =
+            updatedStyles[currentIndex].isDecoration === 'strikethrough' ? 'none' : 'strikethrough';
+
+        setTextBlockStyles(updatedStyles);
     };
 
     return (
@@ -177,11 +206,20 @@ function PropertiesPanel({
 
                 {textPanelActive &&
                     <li className="functions__button functions__button-nav1">
+
                         <button
                             className="functions__button_color"
                             type="button"
                             aria-label="Кнопка для удаления"
+                            onClick={handleClickColorPanel}
+                            style={{ backgroundColor: color }}
                         />
+                        {
+                            showColorPanel &&
+                            <div className="functions__block-color">
+                                <SketchPicker color={color} onChangeComplete={onChangeComplete}/>
+                            </div>
+                        }
                         <select
                             id={`fontSelect-${index}`}
                             value={font}
@@ -221,28 +259,38 @@ function PropertiesPanel({
                         <img
                             className="functions__button_align-center"
                             src={collectionPositionIcons()}
+                            alt=" Кнопка для определения расположения текста."
                             aria-label=" Кнопка для расположения текста."
                             onClick={() => handleTextAlignChange(currentIndex)}
                         />
                         <button
                             className="functions__button_bold"
                             type="button"
-                            aria-label="Кнопка для удаления"
-                        />
+                            aria-label=" Кнопка для добавления стиля полужирный к тексту."
+                            onClick={handleBoldChange}
+                            style={{
+                                backgroundColor: textBoldActiveMenu ? '#FFFFFF' : '#C3BEFF'
+                            }}
+                        >
+                            <img className="functions__img-bold" src={buttonBold} alt=""/>
+                        </button>
                         <button
                             className="functions__button_italic"
                             type="button"
                             aria-label="Кнопка для удаления"
+                            onClick={handleItalicChange}
                         />
                         <button
                             className="functions__button_underline"
                             type="button"
-                            aria-label="Кнопка для удаления"
+                            aria-label=" Кнопка для подчёркивания текста."
+                            onClick={handleTextDecorationUnderline}
                         />
                         <button
                             className="functions__button_strikethrough"
                             type="button"
-                            aria-label="Кнопка для удаления"
+                            aria-label="Кнопка для зачеркивания текста."
+                            onClick={handleTextDecorationStrikethrough}
                         />
                     </li>
                 }

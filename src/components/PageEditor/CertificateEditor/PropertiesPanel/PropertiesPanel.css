@@ -36,7 +36,7 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .functions__button-nav1{
     display: flex;
-    gap: 8px;
+    gap: 16px;
     margin: 0 auto 0 10px;
  }
 
@@ -107,12 +107,20 @@ appearance: none;
     cursor: pointer;
 }
 .functions__button_bold{
-    background: transparent url(../../../../images/IconsFunctionsText/functions__button_bold.svg) center center / cover no-repeat;
+    position: relative;
     border: none;
+    border-radius: 4px;
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
+
+.functions__img-bold {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .functions__button_align-center{
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_align-center.svg) center center / cover no-repeat;
     border: none;
@@ -121,11 +129,17 @@ appearance: none;
     cursor: pointer;
 }
 .functions__button_color{
-    background: transparent url(../../../../images/IconsFunctionsText/functions__button_color.svg) center center / cover no-repeat;
+    border-radius: 5px;
     border: none;
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+
+.functions__block-color {
+    position: absolute;
+    top: 80px;
+    z-index: 1;
 }
 
 .functions-quantity-block {
