@@ -110,13 +110,17 @@ class AuthApi {
 	handleFilterSamples(obj) {
 		const queryParams = [];
 		Object.keys(obj).forEach((key) => {
-			if(obj[key]) {
-				queryParams.push(`category=${key}=`);
-			}
+			if (key === 'is_horizontal' && obj[key]) {
+				// Если ключ 'is_horizontal' равен true, добавляем его к queryParams без 'category'
+				queryParams.push(`${key}=true`);
+		} else if (obj[key]) {
+				// Если ключ не 'is_horizontal' и его значение равно true, добавляем его к queryParams с 'category'
+				queryParams.push(`category=${key}`);
+		}
 		});
 
 		const queryString = queryParams.join('&');
-		const url = `${this.url}/documents/?${queryString}True`;
+		const url = `${this.url}/documents/?${queryString}`;
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {

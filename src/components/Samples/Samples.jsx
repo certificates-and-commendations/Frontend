@@ -98,7 +98,9 @@ export const Samples = ({
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues);
 			console.log('После запроса фильтрации получили', samplesFromBack)
-			setSamplesTemp(samplesFromBack);
+			if (samplesFromBack.results) {
+				setSamplesTemp(samplesFromBack.results);
+			}
 		} catch (err) {
 			console.log(err);
 		}
