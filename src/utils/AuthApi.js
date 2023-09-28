@@ -75,7 +75,7 @@ class AuthApi {
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
-		console.log('Токен', localStorage.getItem('jwt'))
+		console.log('Токен', localStorage.getItem('jwt'));
 		if (localStorage.getItem('jwt')) {
 			return fetch(`${this.url}/documents/${item.id}/favourite/`, {
 				method: 'POST',
@@ -129,7 +129,7 @@ class AuthApi {
 		});
 
 		const queryString = queryParams.join('&');
-		const url = `${this.url}/documents/?${queryString}`;
+		const url = `${this.url}/documents/${queryString.length === 0 ? '' : `?${queryString}`}`;
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {

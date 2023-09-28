@@ -12,11 +12,6 @@ function Recovery({
 	isLoading,
 	setIsLoading,
 }) {
-	function goLogin() {
-		onClose();
-		setIsLoginPopupOpen(true);
-	}
-
 	function handleRecovery() {
 		// Пока что нет запроса на восстановление, но скоро будет (ждём бэкенд)
 	}
@@ -28,7 +23,6 @@ function Recovery({
 			isOpened={isOpened}
 			buttonText={buttonText}
 			onClose={onClose}
-			goLogin={() => goLogin()}
 			formValue={formValue}
 			setFormValue={setFormValue}
 			handleSubmittingAForm={() => handleRecovery()}
