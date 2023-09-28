@@ -12,13 +12,13 @@ function TextBlock({
                        setEditingTextIndex,
                        setFont,
                        setFontSize,
-                       color,
                        setActiveTextIndex,
                        setShowProperties,
                        setTextPosition,
                        textDecorationStyle,
                        textAlignStyle,
-                       setStylePanelActive
+                       setStylePanelActive,
+                       textBlockColors
                    }) {
     const [widthInput, setWidthInput] = useState(209);
     const [heightInput, setHeightInput] = useState(17);
@@ -82,7 +82,7 @@ function TextBlock({
                                                 : 'justify',
                                 width: widthInput + scrollbarWidth,
                                 height: heightInput,
-                                color,
+                                color: textBlockColors[index],
                             }}
                             className="certificate__input"
                         />
@@ -118,7 +118,7 @@ function TextBlock({
                                         : 'right',
                             // width: widthInput + scrollbarWidth,
                             // height: heightInput,
-                            color,
+                            color: textBlockColors[index],
                         }}
                     >
                         <p className="certificate__text-paragraph">{textBlock.text}</p>

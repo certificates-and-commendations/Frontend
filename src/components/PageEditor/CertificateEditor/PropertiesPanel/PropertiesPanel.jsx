@@ -30,19 +30,25 @@ function PropertiesPanel({
                              setTextBlockStyles,
                              setTextAlignStyle,
                              onChangeComplete,
-                             color,
                              setFont,
                              editingTextIndex,
                              currentIndex,
-                             onInputClickAccept
+                             onInputClickAccept,
+                             textBlockColors,
+                             setShowColorPanel,
+                             showColorPanel,
+                             setAlign,
+                             align,
+                             setTextBoldActiveMenu,
+                             textBoldActiveMenu,
+                             setTextItalicActiveMenu,
+                             textItalicActiveMenu,
+                             setTextUnderlineActiveMenu,
+                             textUnderlineActiveMenu,
+                             setTextStrikethroughActiveMenu,
+                             textStrikethroughActiveMenu
                          }) {
 
-    const [align, setAlign] = useState('left');
-    const [showColorPanel, setShowColorPanel] = useState(false);
-    const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);
-    const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
-    const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
-    const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
     const [fontSizeIncrease, setFontSizeIncrease] = useState(false);
     const [fontSizeReduce, setFontSizeReduce] = useState(false);
     const [fontOpen, setFontOpen] = useState(false);
@@ -247,12 +253,12 @@ function PropertiesPanel({
                             type="button"
                             aria-label="Кнопка для удаления"
                             onClick={handleClickColorPanel}
-                            style={{backgroundColor: color}}
+                            style={{backgroundColor: textBlockColors[activeTextIndex]}}
                         />
                         {
                             showColorPanel &&
                             <div className="functions__block-color">
-                                <SketchPicker color={color} onChangeComplete={onChangeComplete}/>
+                                <SketchPicker color={textBlockColors[activeTextIndex]} onChangeComplete={onChangeComplete}/>
                             </div>
                         }
                         <div className="function__block-font" ref={fontSelectRef}>

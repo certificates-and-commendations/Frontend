@@ -16,7 +16,7 @@ function PageEditor() {
     const [uploadedCertificate, setUploadedCertificate] = useState(null);
     const [showTable, setShowTable] = useState([]);
     const [tableData, setTableData] = useState([]);
-    const [color, setColor] = useState('#000000');
+    const [textBlockColors, setTextBlockColors] = useState([]);
     const [element, setElement] = useState([]);
     const [elementPosition, setElementPosition] = useState({x: 0, y: 0});
     const [textPosition, setTextPosition] = useState({x: 0, y: 0});
@@ -28,6 +28,12 @@ function PageEditor() {
     const [panelSidebarActive, setPanelSidebarActive] = useState(false);
     const [stylePanelActive, setStylePanelActive] = useState(false);
     const [elementVisibility, setElementVisibility] = useState([]);
+    const [showColorPanel, setShowColorPanel] = useState(false);
+    const [align, setAlign] = useState('left');
+    const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
+    const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
+    const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
+
     const initialPositions = element.map(() => ({x: 0, y: 0}));
     const [positions, setPositions] = useState(initialPositions);
 
@@ -36,6 +42,12 @@ function PageEditor() {
     const handleTextClick = (e) => {
         setFontSize(14);
         setFont('Arial');
+        setShowColorPanel(false);
+        setAlign('left');
+        setTextBoldActiveMenu(false);
+        setTextItalicActiveMenu(false);
+        setTextUnderlineActiveMenu(false)
+        setTextStrikethroughActiveMenu(false)
 
         if (!editingTextIndex) {
             setTextBlocks([
@@ -48,13 +60,14 @@ function PageEditor() {
                     fontSize: 14,
                 },
             ]);
+            setTextBlockColors([...textBlockColors, '#000000']);
             setTextBlockStyles([
                 ...textBlockStyles,
                 {
                     isItalic: false,
                     isBold: false,
                     isDecoration: 'none',
-                    isAlign: 'left',
+                    isAlign: 'left'
                 },
             ]);
             setEditingTextIndex(textBlocks.length);
@@ -135,8 +148,15 @@ function PageEditor() {
     };
 
     const handleChangeComplete = (newColor) => {
-        setColor(newColor.hex); // Обновляем цвет при выборе
+        // Обновляем цвет только для активного текстового блока
+        const updatedTextBlockColors = [...textBlockColors];
+        updatedTextBlockColors[activeTextIndex] = newColor.hex;
+        setTextBlockColors(updatedTextBlockColors);
+
+        // Не обновляем текущий цвет через setColor
+        // setColor(newColor.hex);
     };
+
 
     return (
         <main className="main-content-editor">
@@ -176,9 +196,21 @@ function PageEditor() {
                     setTextBlockStyles={setTextBlockStyles}
                     setTextAlignStyle={setTextAlignStyle}
                     onChangeComplete={handleChangeComplete}
-                    color={color}
+                    textBlockColors={textBlockColors}
                     currentIndex={currentIndex}
                     onInputClickAccept={handleInputClickAccept}
+                    setShowColorPanel={setShowColorPanel}
+                    showColorPanel={showColorPanel}
+                    setAlign={setAlign}
+                    align={align}
+                    setTextBoldActiveMenu={setTextBoldActiveMenu}
+                    textBoldActiveMenu={textBoldActiveMenu}
+                    setTextItalicActiveMenu={setTextItalicActiveMenu}
+                    textItalicActiveMenu={textItalicActiveMenu}
+                    setTextUnderlineActiveMenu={setTextUnderlineActiveMenu}
+                    textUnderlineActiveMenu={textUnderlineActiveMenu}
+                    setTextStrikethroughActiveMenu={setTextStrikethroughActiveMenu}
+                    textStrikethroughActiveMenu={textStrikethroughActiveMenu}
                 />
                 <CertificateEditor
                     setCurrentIndex={setCurrentIndex}
@@ -198,7 +230,6 @@ function PageEditor() {
                     setTextDecorationStyle={setTextDecorationStyle}
                     setTextPosition={setTextPosition}
                     onTextClick={handleTextClick}
-                    color={color}
                     textBlockStyles={textBlockStyles}
                     setTextBlockStyles={setTextBlockStyles}
                     setTextAlignStyle={setTextAlignStyle}
@@ -219,6 +250,7 @@ function PageEditor() {
                     positions={positions}
                     setPositions={setPositions}
                     setStylePanelActive={setStylePanelActive}
+                    textBlockColors={textBlockColors}
                 />
             </section>
         </main>
