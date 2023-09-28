@@ -46,6 +46,7 @@ function CertificateEditor({
                                positions,
                                setPositions,
                                color,
+                               setStylePanelActive
                            }) {
     return (
         <div className="certificate">
@@ -89,6 +90,7 @@ function CertificateEditor({
                     textAlignStyle={textBlockStyles[index].isAlign}
                     setTextAlignStyle={setTextAlignStyle}
                     color={color}
+                    setStylePanelActive={setStylePanelActive}
                 />
             ))}
 

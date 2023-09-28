@@ -25,7 +25,8 @@ function PageEditor() {
     const [textAlignStyle, setTextAlignStyle] = useState('left');
     const [pdfData, setPdfData] = useState(null);
     const [textBlockStyles, setTextBlockStyles] = useState([]);
-    const [textPanelActive, setTextPanelActive] = useState(false);
+    const [panelSidebarActive, setPanelSidebarActive] = useState(false);
+    const [stylePanelActive, setStylePanelActive] = useState(false);
     const [elementVisibility, setElementVisibility] = useState([]);
     const initialPositions = element.map(() => ({x: 0, y: 0}));
     const [positions, setPositions] = useState(initialPositions);
@@ -59,6 +60,7 @@ function PageEditor() {
             setEditingTextIndex(textBlocks.length);
             setActiveTextIndex(textBlocks.length);
             setShowProperties(true);
+            setStylePanelActive(true);
         }
     };
 
@@ -81,45 +83,14 @@ function PageEditor() {
 
     const handleInputKeyDown = (e, index) => {
         if (e.key === 'Enter') {
+            setStylePanelActive(false);
             handleInputAccept(index);
         }
     };
 
     const handleInputClickAccept = (index) => {
-        debugger
+        setStylePanelActive(false);
         handleInputAccept(index);
-    };
-
-    const handleSignatureUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            if (file.type === 'image/png') {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    setSignature(event.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                setSignature(null);
-                // alert('Пожалуйста, загрузите изображение в формате PNG.');
-            }
-        }
-    };
-
-    const handleStampUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            if (file.type === 'image/png') {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    setElement(event.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                setElement(null);
-                // alert('Пожалуйста, загрузите изображение в формате PNG.');
-            }
-        }
     };
 
     const handleElementDrag = (e, data) => {
@@ -163,20 +134,6 @@ function PageEditor() {
         pdf.save('certificate.pdf');
     };
 
-    const handleCertificateUpload = (uploadedImage) => {
-        const img = new Image();
-        img.src = uploadedImage;
-        img.onload = () => {
-            if (img.width === 600 && img.height === 850) {
-                setUploadedCertificate(uploadedImage);
-            } else {
-                // alert(
-                // 	'Загруженная грамота должна быть размером 600x850 пикселей. Загрузка отменена.'
-                // );
-            }
-        };
-    };
-
     const handleChangeComplete = (newColor) => {
         setColor(newColor.hex); // Обновляем цвет при выборе
     };
@@ -184,8 +141,8 @@ function PageEditor() {
     return (
         <main className="main-content-editor">
             <SidebarEditor
-                setTextPanelActive={setTextPanelActive}
-                textPanelActive={textPanelActive}
+                setPanelSidebarActive={setPanelSidebarActive}
+                panelSidebarActive={panelSidebarActive}
                 setUploadedCertificate={setUploadedCertificate}
                 setElement={setElement}
                 element={element}
@@ -197,19 +154,17 @@ function PageEditor() {
             />
             <section className="certificate-main">
                 <PropertiesPanel
-                    textPanelActive={textPanelActive}
+                    stylePanelActive={stylePanelActive}
                     font={font}
                     setFont={setFont}
                     fontSize={fontSize}
                     setFontSize={setFontSize}
-                    onSignatureUpload={handleSignatureUpload}
                     onSavePDF={handleSavePDF}
-                    onCertificateUpload={handleCertificateUpload}
                     editingTextIndex={editingTextIndex}
                     showTable={showTable}
                     setShowTable={setShowTable}
-                    tableData={tableData} // Передаем данные таблицы
-                    setTableData={setTableData} // Передаем функцию для обновления данных таблицы
+                    tableData={tableData}
+                    setTableData={setTableData}
                     textBlocks={textBlocks}
                     setTextBlocks={setTextBlocks}
                     certificateRef={certificateRef}
@@ -249,24 +204,21 @@ function PageEditor() {
                     setTextAlignStyle={setTextAlignStyle}
                     handleTextChange={handleTextChange}
                     onInputKeyDown={handleInputKeyDown}
-                    onSignatureUpload={handleSignatureUpload}
                     onSavePDF={handleSavePDF}
-                    onCertificateUpload={handleCertificateUpload}
                     showTable={showTable}
                     setShowTable={setShowTable}
                     tableData={tableData}
                     setTableData={setTableData}
-                    onStampUpload={handleStampUpload}
                     onCreateJson={handleCreateJson}
                     uploadedCertificate={uploadedCertificate}
                     signature={signature}
                     element={element}
                     elementPosition={elementPosition}
                     onElementDrag={handleElementDrag}
-                    textPanelActive={textPanelActive}
                     elementVisibility={elementVisibility}
                     positions={positions}
                     setPositions={setPositions}
+                    setStylePanelActive={setStylePanelActive}
                 />
             </section>
         </main>

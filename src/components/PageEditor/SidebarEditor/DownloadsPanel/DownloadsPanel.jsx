@@ -4,7 +4,7 @@ import square from "../../../../images/imageEditor/elements-panel__square.svg";
 
 function DownloadsPanel({
                             setUploadedCertificate,
-                            setTextPanelActive
+                            setPanelSidebarActive
                         }) {
 
     const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
@@ -75,11 +75,11 @@ function DownloadsPanel({
         if (activeCertificateIndex === index) {
             setActiveCertificateIndex(null);
             setUploadedCertificate(null);
-            setTextPanelActive(false);
+            setPanelSidebarActive(false);
         } else {
             setActiveCertificateIndex(index);
             setUploadedCertificate([imageURLsDownloads[index]]);
-            setTextPanelActive(true);
+            setPanelSidebarActive(true);
         }
     };
 

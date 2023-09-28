@@ -17,7 +17,8 @@ function TextBlock({
                        setShowProperties,
                        setTextPosition,
                        textDecorationStyle,
-                       textAlignStyle
+                       textAlignStyle,
+                       setStylePanelActive
                    }) {
     const [widthInput, setWidthInput] = useState(209);
     const [heightInput, setHeightInput] = useState(17);
@@ -93,6 +94,7 @@ function TextBlock({
                         onDoubleClick={() => {
                             setEditingTextIndex(index);
                             setShowProperties(true);
+                            setStylePanelActive(true);
                             setActiveTextIndex(index);
                             setFontSize(textBlock.fontSize);
                             setFont(textBlock.fontFamily);

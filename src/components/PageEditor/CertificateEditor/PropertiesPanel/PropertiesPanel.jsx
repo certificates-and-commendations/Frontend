@@ -17,7 +17,7 @@ import buttonArrowUpFont from '../../../../images/IconsFunctionsText/chevron-up-
 import buttonArrowDownFont from '../../../../images/IconsFunctionsText/chevron-down-font.svg';
 
 function PropertiesPanel({
-                             textPanelActive,
+                             stylePanelActive,
                              font,
                              fontSize,
                              setFontSize,
@@ -240,7 +240,7 @@ function PropertiesPanel({
                     />
                 </li>
 
-                {textPanelActive &&
+                {stylePanelActive &&
                     <li className="functions__button functions__button-nav1">
                         <button
                             className="functions__button_color"
@@ -262,7 +262,7 @@ function PropertiesPanel({
                                 onChange={handleFontChange}
                                 onClick={handleOpenFontList}
                                 className="functions__list"
-                                style={{ background: fontOpen ? '#FFFFFF' : '#C3BEFF' }}
+                                style={{background: fontOpen ? '#FFFFFF' : '#C3BEFF'}}
                             >
                                 <option
                                     value="Arial"
@@ -281,7 +281,7 @@ function PropertiesPanel({
                                 className="functions__img-arrow-up-font"
                                 src={fontOpen ? buttonArrowUpFont : buttonArrowDownFont}
                                 alt=" Кнопка для открытия с выбором шрифтов."
-                                style={{ background: fontOpen ? '#FFFFFF' : '#C3BEFF' }}
+                                style={{background: fontOpen ? '#FFFFFF' : '#C3BEFF'}}
                             />
                         </div>
                         <label
@@ -371,19 +371,21 @@ function PropertiesPanel({
                 }
 
                 <li className="functions__button">
-                    {textPanelActive &&
-                        <button
-                            className="functions__button_accept"
-                            type="button"
-                            aria-label=" Кнопка для принятие текста."
-                            onClick={(e) => onInputClickAccept(activeTextIndex)}
-                        />
+                    {stylePanelActive &&
+                        <>
+                            <button
+                                className="functions__button_accept"
+                                type="button"
+                                aria-label=" Кнопка для принятие текста."
+                                onClick={(e) => onInputClickAccept(activeTextIndex)}
+                            />
+                            <button
+                                className="functions__button_delete"
+                                type="button"
+                                aria-label="Кнопка для удаления"
+                            />
+                        </>
                     }
-                    <button
-                        className="functions__button_delete"
-                        type="button"
-                        aria-label="Кнопка для удаления"
-                    />
                 </li>
             </ul>
         </section>

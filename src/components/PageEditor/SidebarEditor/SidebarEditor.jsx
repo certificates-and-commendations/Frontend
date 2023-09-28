@@ -11,8 +11,8 @@ import ElementsPanel from "./ElementsPanel/ElementsPanel";
 import DownloadsPanel from "./DownloadsPanel/DownloadsPanel";
 
 function SidebarEditor({
-                           setTextPanelActive,
-                           textPanelActive,
+                           setPanelSidebarActive,
+                           panelSidebarActive,
                            setUploadedCertificate,
                            setElement,
                            element,
@@ -45,7 +45,7 @@ function SidebarEditor({
                 />;
             case 'panelDownloads':
                 return <DownloadsPanel
-                    setTextPanelActive={setTextPanelActive}
+                    setPanelSidebarActive={setPanelSidebarActive}
                     setUploadedCertificate={setUploadedCertificate}
                 />;
             default:
@@ -73,15 +73,15 @@ function SidebarEditor({
                     </li>
                     <li className={`sidebar-navigate__item ${activeClass === 'panelText' ? "sidebar-navigate__item_active" : ""}`}>
                         <button
-                            className={!textPanelActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
+                            className={!panelSidebarActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
                             onClick={() => {
                                 setActivePanel('panelText');
                                 setActiveClass('panelText');
                             }}
-                            disabled={!textPanelActive}
+                            disabled={!panelSidebarActive}
                         >
                             <img
-                                src={!textPanelActive ? textImageNoActive : textImage}
+                                src={!panelSidebarActive ? textImageNoActive : textImage}
                                 alt=" Кнопка для открытия панели для создания текста."
                                 className='sidebar-navigate__icon'
                             />
@@ -90,15 +90,15 @@ function SidebarEditor({
                     </li>
                     <li className={`sidebar-navigate__item ${activeClass === 'panelElements' ? "sidebar-navigate__item_active" : ""}`}>
                         <button
-                            className={!textPanelActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
+                            className={!panelSidebarActive ? "sidebar-navigate__button_no-active" : "sidebar-navigate__button"}
                             onClick={() => {
                                 setActivePanel('panelElements');
                                 setActiveClass('panelElements');
                             }}
-                            disabled={!textPanelActive}
+                            disabled={!panelSidebarActive}
                         >
                             <img
-                                src={!textPanelActive ? elementImageNoActive : elementImage}
+                                src={!panelSidebarActive ? elementImageNoActive : elementImage}
                                 alt=" Кнопка для открытия панели с элементами."
                                 className="sidebar-navigate__icon"
                             />
