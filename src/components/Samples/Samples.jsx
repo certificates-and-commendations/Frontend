@@ -27,8 +27,8 @@ export const Samples = ({
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
-		diplomas: false,
-		thanks: false,
+		awards: false,
+		appreciations: false,
 		certificates: false,
 		is_vertical: false,
 		is_horizontal: false,
@@ -142,13 +142,13 @@ export const Samples = ({
 					<span className="samples__menu-title">Шаблоны</span>
 					<div className="samples__menu-continer">
 						<Checkbox
-							name="thanks"
+							name="appreciations"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Благодарности"
 						/>
 						<Checkbox
-							name="diplomas"
+							name="awards"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Грамоты"

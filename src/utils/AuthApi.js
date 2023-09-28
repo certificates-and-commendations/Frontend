@@ -110,13 +110,13 @@ class AuthApi {
 	handleFilterSamples(obj) {
 		const queryParams = [];
 		Object.keys(obj).forEach((key) => {
-			if (obj[key]) {
+			if(obj[key]) {
 				queryParams.push(`category=${key}=`);
 			}
 		});
 
 		const queryString = queryParams.join('&');
-		const url = `${this.url}/documents/?${queryString}True`;
+		const url = `${this.url}/documents/?${queryString}=True`;
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
