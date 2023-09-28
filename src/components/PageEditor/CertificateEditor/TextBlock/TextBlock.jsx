@@ -8,7 +8,7 @@ function TextBlock({
                        textBlock,
                        editingTextIndex,
                        onTextChange,
-                       onInputKeyDown,
+                       onInputAccept,
                        setEditingTextIndex,
                        setFont,
                        setFontSize,
@@ -54,7 +54,7 @@ function TextBlock({
                             value={textBlock.text}
                             onMouseDown={handleResizeMouseDown}
                             onChange={(e) => onTextChange(e, index)}
-                            onKeyDown={(e) => onInputKeyDown(e, index)}
+                            onKeyDown={(e) => onInputAccept(e, index)}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleTextareaClick();

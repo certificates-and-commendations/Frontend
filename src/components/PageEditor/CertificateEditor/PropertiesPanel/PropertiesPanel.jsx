@@ -33,7 +33,8 @@ function PropertiesPanel({
                              color,
                              setFont,
                              editingTextIndex,
-                             currentIndex
+                             currentIndex,
+                             onInputAccept
                          }) {
 
     const [align, setAlign] = useState('left');
@@ -372,9 +373,10 @@ function PropertiesPanel({
                 <li className="functions__button">
                     {textPanelActive &&
                         <button
-                            className="functions__button_check"
+                            className="functions__button_accept"
                             type="button"
-                            aria-label="Кнопка для проверки"
+                            aria-label=" Кнопка для принятие текста."
+                            onClick={(e) => onInputAccept(e, activeTextIndex)}
                         />
                     }
                     <button

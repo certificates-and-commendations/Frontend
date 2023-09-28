@@ -31,7 +31,7 @@ input[type="number"] {
     gap: 10px;
     cursor: pointer;
     display: flex;
-
+    align-items: center;
 }
 
 .functions__button-nav {
@@ -111,7 +111,7 @@ input[type="number"] {
     cursor: pointer;
 }
 
-.functions__button_check {
+.functions__button_accept {
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_check.svg) center center / cover no-repeat;
     border: none;
     width: 24px;

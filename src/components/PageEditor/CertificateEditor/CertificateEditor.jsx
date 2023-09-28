@@ -14,7 +14,7 @@ function CertificateEditor({
                                onFontChange,
                                onFontSizeChange,
                                handleTextChange,
-                               handleInputKeyDown,
+                               onInputAccept,
                                textBlocks,
                                setTextBlocks,
                                certificateRef,
@@ -45,7 +45,7 @@ function CertificateEditor({
                                squareStates,
                                positions,
                                setPositions,
-                               color
+                               color,
                            }) {
     return (
         <div className="certificate">
@@ -66,7 +66,7 @@ function CertificateEditor({
                     setEditingTextIndex={setEditingTextIndex}
                     editingTextIndex={editingTextIndex}
                     onTextChange={(e) => handleTextChange(e, index)}
-                    onInputKeyDown={(e) => handleInputKeyDown(e, index)}
+                    onInputAccept={(e) => onInputAccept(e, index)}
                     font={font}
                     setFont={setFont}
                     fontSize={fontSize}
