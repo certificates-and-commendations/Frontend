@@ -9,6 +9,10 @@ import buttonBold from '../../../../images/IconsFunctionsText/functions__button_
 import buttonItalic from '../../../../images/IconsFunctionsText/functions__button_italic.svg';
 import buttonUnderline from '../../../../images/IconsFunctionsText/functions__button_underline.svg';
 import buttonStrikethrough from '../../../../images/IconsFunctionsText/functions__button_strikethrough.svg';
+import buttonArrowUp from '../../../../images/IconsFunctionsText/chevron-up.svg';
+import buttonArrowUpActive from '../../../../images/IconsFunctionsText/chevron-up-active.svg';
+import buttonArrowDown from '../../../../images/IconsFunctionsText/chevron-down.svg';
+import buttonArrowDownActive from '../../../../images/IconsFunctionsText/chevron-down-active.svg';
 
 function PropertiesPanel({
                              textPanelActive,
@@ -37,6 +41,8 @@ function PropertiesPanel({
     const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
     const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
     const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
+    const [fontSizeIncrease, setFontSizeIncrease] = useState(false);
+    const [fontSizeReduce, setFontSizeReduce] = useState(false);
 
     const handleClickColorPanel = () => {
         setShowColorPanel(!showColorPanel);
@@ -75,6 +81,7 @@ function PropertiesPanel({
     };
 
     const handleFontSizeIncrease = () => {
+        setFontSizeIncrease(true);
         const updatedTextBlocks = [...textBlocks];
         const newFontSize = Math.min(updatedTextBlocks[editingTextIndex].fontSize + 1, 50);
         setFontSize(newFontSize);
@@ -83,9 +90,13 @@ function PropertiesPanel({
             updatedTextBlocks[editingTextIndex].fontSize = newFontSize;
             setTextBlocks(updatedTextBlocks);
         }
+        setTimeout(() => {
+            setFontSizeIncrease(false);
+        }, 150);
     };
 
     const handleFontSizeReduce = () => {
+        setFontSizeReduce(true);
         const updatedTextBlocks = [...textBlocks];
         const newFontSize = Math.max(updatedTextBlocks[editingTextIndex].fontSize - 1, 1);
         setFontSize(newFontSize);
@@ -94,6 +105,9 @@ function PropertiesPanel({
             updatedTextBlocks[editingTextIndex].fontSize = newFontSize;
             setTextBlocks(updatedTextBlocks);
         }
+        setTimeout(() => {
+            setFontSizeReduce(false);
+        }, 150);
     };
 
     const handleTextAlignChange = (indexText) => {
@@ -160,21 +174,6 @@ function PropertiesPanel({
         setTextItalicActiveMenu(!textItalicActiveMenu);
     };
 
-    const handleTextDecorationChange = (style) => {
-        const updatedStyles = [...textBlockStyles];
-        updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
-        if (style === 'none') {
-            updatedStyles[currentIndex].isDecoration = 'none';
-        } else if (style === 'underline') {
-            updatedStyles[currentIndex].isDecoration = 'underline';
-        } else if (style === 'strikethrough') {
-            updatedStyles[currentIndex].isDecoration = 'strikethrough';
-        }
-
-        setTextBlockStyles(updatedStyles);
-        setTextDecorationStyle(style);
-    };
-
     const handleTextDecorationUnderline = () => {
         const updatedStyles = [...textBlockStyles];
         updatedStyles[currentIndex] = {...updatedStyles[currentIndex]};
@@ -227,7 +226,7 @@ function PropertiesPanel({
                             type="button"
                             aria-label="Кнопка для удаления"
                             onClick={handleClickColorPanel}
-                            style={{ backgroundColor: color }}
+                            style={{backgroundColor: color}}
                         />
                         {
                             showColorPanel &&
@@ -257,16 +256,17 @@ function PropertiesPanel({
                                 onChange={handleFontSizeChange}
                             />
                             <div className="functions-quantity-block_arrow">
-                                <button
-                                    className="functions-quantity-arrow-minus"
-                                    type="button"
-                                    aria-label="Кнопка увеличить"
+                                <img
+                                    className="functions__img-arrow-up"
+                                    src={fontSizeIncrease ? buttonArrowUpActive : buttonArrowUp}
+                                    alt=" Кнопка для увеличения размера шрифта."
                                     onClick={handleFontSizeIncrease}
                                 />
-                                <button
-                                    className="functions-quantity-arrow-plus"
-                                    type="button"
-                                    aria-label="Кнопка уменьшить"
+
+                                <img
+                                    className="functions-quantity-arrow-down"
+                                    src={fontSizeReduce ? buttonArrowDownActive : buttonArrowDown}
+                                    alt=" Кнопка для уменьшения размера шрифта."
                                     onClick={handleFontSizeReduce}
                                 />
                             </div>
@@ -287,7 +287,8 @@ function PropertiesPanel({
                                 backgroundColor: textBoldActiveMenu ? '#FFFFFF' : '#C3BEFF'
                             }}
                         >
-                            <img className="functions__img-bold" src={buttonBold} alt=" Картинка для выбора жирного текста."/>
+                            <img className="functions__img-bold" src={buttonBold}
+                                 alt=" Картинка для выбора жирного текста."/>
                         </button>
                         <button
                             className="functions__button_italic"
@@ -298,7 +299,8 @@ function PropertiesPanel({
                                 backgroundColor: textItalicActiveMenu ? '#FFFFFF' : '#C3BEFF'
                             }}
                         >
-                            <img className="functions__img-italic" src={buttonItalic} alt=" Картинка для выбора курсива для текста."/>
+                            <img className="functions__img-italic" src={buttonItalic}
+                                 alt=" Картинка для выбора курсива для текста."/>
                         </button>
                         <button
                             className="functions__button_underline"
@@ -309,7 +311,8 @@ function PropertiesPanel({
                                 backgroundColor: textUnderlineActiveMenu ? '#FFFFFF' : '#C3BEFF'
                             }}
                         >
-                            <img className="functions__img-underline" src={buttonUnderline} alt=" Картинка для подчёркнутого текста."/>
+                            <img className="functions__img-underline" src={buttonUnderline}
+                                 alt=" Картинка для подчёркнутого текста."/>
                         </button>
                         <button
                             className="functions__button_strikethrough"
@@ -320,7 +323,8 @@ function PropertiesPanel({
                                 backgroundColor: textStrikethroughActiveMenu ? '#FFFFFF' : '#C3BEFF'
                             }}
                         >
-                            <img className="functions__img-strikethrough" src={buttonStrikethrough} alt=" Картинка для зачёркнутого текста."/>
+                            <img className="functions__img-strikethrough" src={buttonStrikethrough}
+                                 alt=" Картинка для зачёркнутого текста."/>
                         </button>
                     </li>
                 }

@@ -1,21 +1,23 @@
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
+
 input[type="number"] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 .functions {
     border-radius: 32px;
-background: var(--primary, #C3BEFF);
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: #C3BEFF;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     width: 830px;
     margin: 24px 0 60px auto;
 }
+
 .functions_content {
     margin: 0;
     box-sizing: border-box;
@@ -24,36 +26,38 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     justify-content: space-between;
     padding: 8px 16px;
 }
-.functions__button{
+
+.functions__button {
     gap: 10px;
     cursor: pointer;
     display: flex;
 
 }
-.functions__button-nav{
-   display: flex;
-   gap: 8px;
+
+.functions__button-nav {
+    display: flex;
+    gap: 8px;
 }
-.functions__button-nav1{
+
+.functions__button-nav1 {
     display: flex;
     align-items: center;
     gap: 16px;
     margin: 0 auto 0 10px;
- }
+}
 
-.functions__list{
-display: flex;
-justify-content: center;
-align-items: center;
-width: 188px;
-gap: 4px;
-border:none;
-background:  #C3BEFF;
-appearance: none;
+.functions__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 188px;
+    gap: 4px;
+    border: none;
+    background: #C3BEFF;
+    appearance: none;
     -webkit-appearance: none; /* Safari и Chrome */
     -moz-appearance: none; /* Mozilla */
     -ms-appearance: none; /* IE */
-    background-image: url(../../../../images/IconsFunctionsText/chevron-down.svg);
     background-repeat: no-repeat;
     background-position: calc(100% - 0px) center
 }
@@ -65,6 +69,7 @@ appearance: none;
     height: 24px;
     cursor: pointer;
 }
+
 .functions__button_back {
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_back.svg) center center / cover no-repeat;
     border: none;
@@ -72,6 +77,7 @@ appearance: none;
     height: 24px;
     cursor: pointer;
 }
+
 .functions__button_delete {
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_delete.svg) center center / cover no-repeat;
     border: none;
@@ -79,14 +85,16 @@ appearance: none;
     height: 24px;
     cursor: pointer;
 }
-.functions__button_check{
+
+.functions__button_check {
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_check.svg) center center / cover no-repeat;
     border: none;
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
-.functions__button_strikethrough{
+
+.functions__button_strikethrough {
     position: relative;
     border: none;
     border-radius: 4px;
@@ -101,7 +109,7 @@ appearance: none;
     left: 0;
 }
 
-.functions__button_underline{
+.functions__button_underline {
     position: relative;
     border: none;
     border-radius: 4px;
@@ -118,7 +126,7 @@ appearance: none;
     left: 0;
 }
 
-.functions__button_italic{
+.functions__button_italic {
     position: relative;
     border: none;
     border-radius: 4px;
@@ -133,7 +141,7 @@ appearance: none;
     left: 0;
 }
 
-.functions__button_bold{
+.functions__button_bold {
     position: relative;
     border: none;
     border-radius: 4px;
@@ -148,14 +156,15 @@ appearance: none;
     left: 0;
 }
 
-.functions__button_align-center{
+.functions__button_align-center {
     background: transparent url(../../../../images/IconsFunctionsText/functions__button_align-center.svg) center center / cover no-repeat;
     border: none;
     width: 24px;
     height: 24px;
     cursor: pointer;
 }
-.functions__button_color{
+
+.functions__button_color {
     border-radius: 5px;
     border: none;
     width: 24px;
@@ -170,44 +179,46 @@ appearance: none;
 }
 
 .functions-quantity-block {
-  display: flex;
+    display: flex;
+    align-items: center;
+    height: 28px;
 }
+
 .functions-quantity-block_arrow {
     display: flex;
     flex-direction: column;
-    padding-left: 4px;
+    padding-left: 8px;
 }
-.functions-quantity-arrow-minus{
+
+.functions__img-arrow-up {
     cursor: pointer;
-    border:none;
-    margin: 2px;
-    width: 19px;
-  height: 10px;
-  transform: rotate(180deg);
-    background: transparent url(../../../../images/IconsFunctionsText/chevron-down.svg) center center / cover no-repeat;
-  }
-.functions-quantity-arrow-plus {
-  cursor: pointer;
-  border:none;
-  margin: 2px;
-  width: 19px;
-height: 10px;
-  background: transparent url(../../../../images/IconsFunctionsText/chevron-down.svg) center center / cover no-repeat;
+    border: none;
+    width: 24px;
+    height: 16px;
+    margin: 0 0 -2px 0;
+}
+
+.functions-quantity-arrow-down {
+    cursor: pointer;
+    border: none;
+    width: 24px;
+    height: 16px;
+    margin: 0 0 -2px 0;
 }
 
 .functions-quantity-num {
     border-radius: 4px;
     border: 1px solid var(--text-100, #2B2B2E);
     display: flex;
-width: 28px;
-height: 20px;
-padding: 4px 8px;
-justify-content: center;
-align-items: center;
-background:  #C3BEFF;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-letter-spacing: -0.42px;
+    width: 28px;
+    height: 20px;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    background: #C3BEFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.42px;
 }
