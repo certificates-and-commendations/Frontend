@@ -101,7 +101,7 @@ class AuthApi {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 		}).then(handleResponse);
 	}
