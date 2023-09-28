@@ -106,17 +106,26 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
+	//  awards: false,
+	// 	appreciations: false,
+	// 	certificates: false,
+	// 	is_horizontal: false,
+	// 	is_vertical: false,
+
 	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
 	handleFilterSamples(obj) {
 		const queryParams = [];
 		Object.keys(obj).forEach((key) => {
 			if (key === 'is_horizontal' && obj[key]) {
 				// Если ключ 'is_horizontal' равен true, добавляем его к queryParams без 'category'
-				queryParams.push(`${key}=true`);
-		} else if (obj[key]) {
+				queryParams.push(`is_horizontal=true`);
+			} else if (key === 'is_vertical' && obj[key]) {
+				queryParams.push(`is_horizontal=false`);
+			}
+			else if (obj[key]) {
 				// Если ключ не 'is_horizontal' и его значение равно true, добавляем его к queryParams с 'category'
 				queryParams.push(`category=${key}`);
-		}
+			}
 		});
 
 		const queryString = queryParams.join('&');

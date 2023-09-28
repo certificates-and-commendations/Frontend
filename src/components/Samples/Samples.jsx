@@ -30,8 +30,8 @@ export const Samples = ({
 		awards: false,
 		appreciations: false,
 		certificates: false,
-		is_vertical: false,
 		is_horizontal: false,
+		is_vertical: false,
 	});
 
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
@@ -108,12 +108,7 @@ export const Samples = ({
 	// ПРИ ИЗМЕНЕНИИ ОБЬЕКТА НАСТРОЕК checkboxValues ОТПРАВЛЯЕМ ЗАБРОС НА БЭК
 	// И СЕТАПИМ ШАБЛОНЫ К ПОКАЗУ
 	useEffect(() => {
-		const allFalse = Object.values(checkboxValues).every(
-			(value) => value === false
-		);
-		if (!allFalse) {
-			getFilteredSamples(checkboxValues);
-		}
+		getFilteredSamples();
 	}, [checkboxValues]);
 
 	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ

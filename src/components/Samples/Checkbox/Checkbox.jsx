@@ -10,12 +10,11 @@ export const Checkbox = ({ text, onClick, name, state }) => {
 		checkbox_checked: isChecked,
 	});
 
-	const classsds = `checkbox ${isChecked ? 'checkbox_checked' : ''}`;
-
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
 		onClick(name, !isChecked);
 	};
+
 
 	return (
 		<label htmlFor={`checkbox_${name}`} className={checkboxClass}>
