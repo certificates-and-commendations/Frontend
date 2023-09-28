@@ -75,17 +75,20 @@ class AuthApi {
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
-		return fetch(`${this.url}/documents/${item.id}/favourite/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify({
-				title: item.title,
-				document: item,
-			}),
-		}).then(handleResponse);
+		console.log('Токен', localStorage.getItem('jwt'))
+		if (localStorage.getItem('jwt')) {
+			return fetch(`${this.url}/documents/${item.id}/favourite/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Token ${localStorage.getItem('jwt')}`,
+				},
+				body: JSON.stringify({
+					title: item.title,
+					document: item,
+				}),
+			}).then(handleResponse);
+		}
 	}
 
 	// УДАЛЯЕМ ЛАЙК
