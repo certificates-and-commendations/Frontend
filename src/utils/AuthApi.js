@@ -116,7 +116,7 @@ class AuthApi {
 		});
 
 		const queryString = queryParams.join('&');
-		const url = `${this.url}/documents/?${queryString}=True`;
+		const url = `${this.url}/documents/?${queryString}True`;
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
