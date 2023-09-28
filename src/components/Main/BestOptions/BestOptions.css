@@ -12,6 +12,8 @@
 
 .options__infinite {
 	overflow: hidden;
+	/*max-width: 1440px;*/
+	margin: 0 auto;
 }
 
 .options__infinite div {
@@ -32,7 +34,7 @@
 }
 
 .options__item {
-	margin-left: 40px;
+	margin: 0 20px;
 }
 
 @keyframes file-infinite {

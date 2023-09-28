@@ -10,6 +10,11 @@ function Login({
 	onClose,
 	setIsRecoveryPopupOpen,
 	setIsLoggedIn,
+	formValue,
+	setFormValue,
+	isLoading,
+	setIsLoading,
+	setInfoToolTip,
 }) {
 	const navigate = useNavigate();
 
@@ -18,22 +23,28 @@ function Login({
 		setIsRecoveryPopupOpen(true);
 	}
 
-	async function handleLoginUser(formValue, setFormValue) {
+	async function handleLoginUser() {
+		setIsLoading(true);
 		return (
 			authApi
 				.signIn(formValue.password, formValue.email)
 				// eslint-disable-next-line consistent-return
 				.then((data) => {
-					if (data.token) {
-						localStorage.setItem('jwt', data.token);
+					if (data.auth_token) {
+						setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
+						localStorage.setItem('jwt', data.auth_token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
+						onClose();
 						navigate('/editor', { replace: true });
 						return data;
 					}
 				})
 				.catch((err) => {
-					console.log(err);
+					setInfoToolTip({ text: err.message, status: false, opened: true });
+				})
+				.finally(() => {
+					setIsLoading(false);
 				})
 		);
 	}
@@ -46,9 +57,11 @@ function Login({
 			buttonText={buttonText}
 			onClose={onClose}
 			goRecovery={() => goRecovery()}
-			handleSubmittingAForm={(formValue, setFormValue) =>
-				handleLoginUser(formValue, setFormValue)
-			}
+			handleSubmittingAForm={() => handleLoginUser()}
+			formValue={formValue}
+			setFormValue={setFormValue}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
 		/>
 	);
 }

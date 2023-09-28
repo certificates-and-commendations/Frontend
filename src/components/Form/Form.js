@@ -1,6 +1,5 @@
 import './Form.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
 import authApi from '../../utils/AuthApi';
@@ -14,17 +13,24 @@ function Form({
 	goRecovery,
 	goLogin,
 	handleSubmittingAForm,
+	formValue,
+	setFormValue,
+	timeoutButton,
+	timer,
+	setIsLoading,
+	isLoading,
+	setInfoToolTip,
 }) {
-	const navigate = useNavigate();
-	const [formValue, setFormValue] = useState({
-		email: '',
-		password: '',
-	});
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const isFormFieldsValid =
 		popupName === 'recovery'
 			? !formErrorMessage.email &&
 			  !(formValue.email === '' || formValue.email === undefined)
+			: popupName === 'registerConfirmation'
+			? !(formValue.first === '' || formValue.first === undefined) &&
+			  !(formValue.second === '' || formValue.second === undefined) &&
+			  !(formValue.thirst === '' || formValue.thirst === undefined) &&
+			  !(formValue.fourth === '' || formValue.fourth === undefined)
 			: !formErrorMessage.email &&
 			  !formErrorMessage.password &&
 			  !(formValue.email === '' || formValue.email === undefined) &&
@@ -64,14 +70,48 @@ function Form({
 		}
 	}
 
+	function handleChangeNumber(e) {
+		const { name, value } = e.target;
+		if (!/[^\d]/g.test(value)) {
+			if (e.target.nextSibling) {
+				e.target.nextSibling.focus();
+			}
+		}
+		setFormValue({
+			...formValue,
+			[name]: value.substring(0, 1).replace(/[^\d]/g, ''),
+		});
+	}
+
 	function handleSubmit(e) {
 		e.preventDefault();
 		// На восстановление пароля нету метода на сервере, поэтому функции на отправку формы Recovery нет
-		handleSubmittingAForm(formValue, setFormValue).catch((err) => {
-			console.log(err);
-		});
-		// Вся информация из инпутов хранится в переменной "formValue", будем её передавать уже в запросы
-		// Узнаем пути у бэкендеров, затем продолжим
+		handleSubmittingAForm();
+	}
+
+	function reloadTimer() {
+		setIsLoading(true);
+		authApi
+			.signUp(formValue.password, formValue.email)
+			.then((response) => {
+				try {
+					if (response.status === 200) {
+						return response;
+					}
+				} catch (e) {
+					return e;
+				}
+			})
+			.then(() => {
+				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
+				timer();
+			})
+			.catch((err) => {
+				setInfoToolTip({ text: err.message, status: false, opened: true });
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	}
 
 	return (
@@ -91,20 +131,29 @@ function Form({
 				</div>
 				<p
 					className={
-						popupName === 'recovery'
-							? 'popup__text'
+						popupName === 'recovery' || popupName === 'registerConfirmation'
+							? popupName === 'registerConfirmation'
+								? 'popup__text popup__text_confirmation'
+								: 'popup__text'
 							: 'popup__text popup__text_invisible'
 					}
 				>
-					Введите email, связанный с вашим аккаунтом, и мы отправим инструкцию
-					для восстановления пароля.
+					{popupName === 'recovery'
+						? 'Введите email, связанный с вашим аккаунтом, и мы отправим инструкцию для восстановления пароля.'
+						: `Введите код, отправленный на почту ${formValue.email}`}
 				</p>
 				<form
 					className={`popup__form popup__form_${popupName}`}
 					name={`popup__form_${popupName}`}
 					onSubmit={handleSubmit}
 				>
-					<fieldset className="popup__fieldset">
+					<fieldset
+						className={
+							popupName === 'registerConfirmation'
+								? 'popup__fieldset popup__fieldset_invisible'
+								: 'popup__fieldset'
+						}
+					>
 						<span className="popup__input-text popup__input-text_email">
 							Email
 						</span>
@@ -115,10 +164,11 @@ function Form({
 							id="email"
 							minLength="2"
 							maxLength="40"
-							required
+							required={popupName !== 'registerConfirmation'}
 							placeholder="Введите корректный email"
 							onChange={handleChangeEmail}
 							value={formValue.email}
+							disabled={isLoading}
 						/>
 						<span
 							className={
@@ -131,8 +181,8 @@ function Form({
 					</fieldset>
 					<fieldset
 						className={
-							popupName === 'recovery'
-								? 'popup__fieldeset popup__fieldset_invisible'
+							popupName === 'recovery' || popupName === 'registerConfirmation'
+								? 'popup__fieldset popup__fieldset_invisible'
 								: 'popup__fieldset'
 						}
 					>
@@ -146,10 +196,16 @@ function Form({
 							id="password"
 							minLength="8"
 							maxLength="50"
-							required
 							placeholder="Пароль"
+							required={
+								!(
+									popupName === 'registerConfirmation' ||
+									popupName === 'recovery'
+								)
+							}
 							onChange={handleChangePassword}
 							value={formValue.password}
+							disabled={isLoading}
 						/>
 						<span
 							className={
@@ -171,14 +227,97 @@ function Form({
 							Забыли пароль?
 						</button>
 					</fieldset>
+					<fieldset
+						className={
+							popupName === 'registerConfirmation'
+								? 'popup__fieldset popup__fieldset-confirmation'
+								: 'popup__fieldset popup__fieldset_invisible'
+						}
+					>
+						{/* <span className="popup__input-text popup__input-text_password">
+							Пароль
+						</span> */}
+						<input
+							type="text"
+							name="first"
+							className="popup__input popup__input_number"
+							id="first"
+							minLength="1"
+							maxLength="1"
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
+							onChange={handleChangeNumber}
+							value={formValue.first}
+							disabled={isLoading}
+						/>
+						<input
+							type="text"
+							name="second"
+							className="popup__input popup__input_number"
+							id="second"
+							minLength="1"
+							maxLength="1"
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
+							onChange={handleChangeNumber}
+							value={formValue.second}
+							disabled={isLoading}
+						/>
+						<input
+							type="text"
+							name="thirst"
+							className="popup__input popup__input_number"
+							id="thirst"
+							minLength="1"
+							maxLength="1"
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
+							onChange={handleChangeNumber}
+							value={formValue.thirst}
+							disabled={isLoading}
+						/>
+						<input
+							type="text"
+							name="fourth"
+							className="popup__input popup__input_number"
+							id="fourth"
+							minLength="1"
+							maxLength="1"
+							required={
+								!(
+									popupName === 'register' ||
+									popupName === 'login' ||
+									popupName === 'recovery'
+								)
+							}
+							onChange={handleChangeNumber}
+							value={formValue.fourth}
+							disabled={isLoading}
+						/>
+					</fieldset>
 					<button
 						type="submit"
 						className={
-							isFormFieldsValid
-								? 'popup__submit-button'
-								: 'popup__submit-button popup__submit-button_disabled'
+							!isFormFieldsValid || isLoading
+								? 'popup__submit-button popup__submit-button_disabled'
+								: 'popup__submit-button'
 						}
-						disabled={!isFormFieldsValid}
+						disabled={!isFormFieldsValid || isLoading}
 					>
 						{buttonText}
 					</button>
@@ -192,6 +331,22 @@ function Form({
 						}
 					>
 						Назад к странице «Вход»
+					</button>
+					<button
+						type="button"
+						onClick={reloadTimer}
+						className={
+							popupName === 'registerConfirmation'
+								? timeoutButton
+									? 'popup__timeout-button popup__timeout-button_active'
+									: isLoading
+									? 'popup__timeout-button popup__timeout-button_disabled'
+									: 'popup__timeout-button'
+								: 'popup__timeout-button popup__timeout-button_invisible'
+						}
+						disabled={timeoutButton || isLoading}
+					>
+						{timeoutButton || 'Отправить повторно'}
 					</button>
 				</form>
 			</div>

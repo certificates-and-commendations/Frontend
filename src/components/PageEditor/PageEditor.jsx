@@ -1,14 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
-import charter from '../../images/charter.jpg';
-import TextBlock from '../TextBlock/TextBlock';
-import Signature from '../Signature/Signature';
-import Stamp from '../Stamp/Stamp';
-import LateralPropertiesPanel from '../LateralPropertiesPanel/LateralPropertiesPanel';
-import Header from '../Header/Header';
+import SidebarEditor from './SidebarEditor/SidebarEditor';
+import CertificateEditor from './CertificateEditor/CertificateEditor';
 
-function CertificateEditor({ diploma }) {
+function PageEditor() {
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
 	const [showProperties, setShowProperties] = useState(false);
@@ -27,6 +23,7 @@ function CertificateEditor({ diploma }) {
 	const [textAlignStyle, setTextAlignStyle] = useState('left');
 	const [pdfData, setPdfData] = useState(null);
 	const [textBlockStyles, setTextBlockStyles] = useState([]);
+	const [textPanelActive, setTextPanelActive] = useState(false);
 
 	const certificateRef = useRef(null);
 
@@ -207,93 +204,57 @@ function CertificateEditor({ diploma }) {
 		};
 	};
 
-	console.log(textPosition);
-
 	return (
-		<section className="certificate" ref={certificateRef}>
-			{uploadedCertificate ? (
-				<img
-					src={uploadedCertificate}
-					alt="Uploaded Certificate"
-					className="certificate__image"
-					onClick={handleTextClick}
-				/>
-			) : (
-				<img
-					src={charter}
-					alt="Certificate"
-					className="certificate__image"
-					onClick={handleTextClick}
-				/>
-			)}
-			{textBlocks.map((textBlock, index) => (
-				<TextBlock
-					key={index}
-					index={index}
-					textBlock={textBlock}
-					setEditingTextIndex={setEditingTextIndex}
-					editingTextIndex={editingTextIndex}
-					onTextChange={(e) => handleTextChange(e, index)}
-					onInputKeyDown={(e) => handleInputKeyDown(e, index)}
-					font={font}
-					setFont={setFont}
-					fontSize={fontSize}
-					setFontSize={setFontSize}
-					onFontChange={handleFontChange}
-					onFontSizeChange={handleFontSizeChange}
-					textBlocks={textBlocks}
-					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
-					isVisible={showProperties}
-					setActiveTextIndex={setActiveTextIndex}
-					activeTextIndex={activeTextIndex}
-					setShowProperties={setShowProperties}
-					setTextDecorationStyle={setTextDecorationStyle}
-					textDecorationStyle={textBlockStyles[index].isDecoration}
-					setTextPosition={setTextPosition}
-					onTextClick={handleTextClick}
-					textBlockStyles={textBlockStyles}
-					setTextBlockStyles={setTextBlockStyles}
-					textAlignStyle={textBlockStyles[index].isAlign}
-					setTextAlignStyle={setTextAlignStyle}
-				/>
-			))}
-
-			<div className="properties__container">
-				<LateralPropertiesPanel
-					onSignatureUpload={handleSignatureUpload}
-					onSavePDF={handleSavePDF}
-					onCertificateUpload={handleCertificateUpload}
-					showTable={showTable}
-					setShowTable={setShowTable}
-					tableData={tableData} // Передаем данные таблицы
-					setTableData={setTableData} // Передаем функцию для обновления данных таблицы
-					textBlocks={textBlocks}
-					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
-					onStampUpload={handleStampUpload}
-					activeTextIndex={activeTextIndex}
-					setActiveTextIndex={setActiveTextIndex}
-					onCreateJson={handleCreateJson}
-				/>
-			</div>
-
-			{signature && (
-				<Signature
-					signature={signature}
-					position={signaturePosition}
-					onDrag={handleSignatureDrag}
-				/>
-			)}
-			{stamp && (
-				<Stamp
-					stampImage={stamp}
-					position={stampPosition}
-					onDrag={handleStampDrag}
-				/>
-			)}
-		</section>
+		<main className="main-content-editor">
+			<SidebarEditor
+				setTextPanelActive={setTextPanelActive}
+				textPanelActive={textPanelActive}
+				setUploadedCertificate={setUploadedCertificate}
+			/>
+			<CertificateEditor
+				setEditingTextIndex={setEditingTextIndex}
+				editingTextIndex={editingTextIndex}
+				font={font}
+				setFont={setFont}
+				fontSize={fontSize}
+				setFontSize={setFontSize}
+				onFontChange={handleFontChange}
+				onFontSizeChange={handleFontSizeChange}
+				textBlocks={textBlocks}
+				setTextBlocks={setTextBlocks}
+				certificateRef={certificateRef}
+				isVisible={showProperties}
+				setActiveTextIndex={setActiveTextIndex}
+				activeTextIndex={activeTextIndex}
+				setShowProperties={setShowProperties}
+				setTextDecorationStyle={setTextDecorationStyle}
+				setTextPosition={setTextPosition}
+				onTextClick={handleTextClick}
+				textBlockStyles={textBlockStyles}
+				setTextBlockStyles={setTextBlockStyles}
+				setTextAlignStyle={setTextAlignStyle}
+				handleTextChange={handleTextChange}
+				handleInputKeyDown={handleInputKeyDown}
+				onSignatureUpload={handleSignatureUpload}
+				onSavePDF={handleSavePDF}
+				onCertificateUpload={handleCertificateUpload}
+				showTable={showTable}
+				setShowTable={setShowTable}
+				tableData={tableData}
+				setTableData={setTableData}
+				onStampUpload={handleStampUpload}
+				onCreateJson={handleCreateJson}
+				uploadedCertificate={uploadedCertificate}
+				signature={signature}
+				signaturePosition={signaturePosition}
+				onSignatureDrag={handleSignatureDrag}
+				stamp={stamp}
+				stampPosition={stampPosition}
+				onStampDrag={handleStampDrag}
+				textPanelActive={textPanelActive}
+			/>
+		</main>
 	);
 }
 
-export default CertificateEditor;
+export default PageEditor;
