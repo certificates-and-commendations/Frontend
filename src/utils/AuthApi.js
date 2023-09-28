@@ -120,7 +120,7 @@ class AuthApi {
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
-			method: 'POST',
+			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
 			},
