@@ -46,20 +46,45 @@ input[type="number"] {
     margin: 0 auto 0 10px;
 }
 
+.function__block-font {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.functions__img-arrow-up-font {
+    position: absolute;
+    right: 8px;
+    background: #FFFFFF;
+    pointer-events: none;
+}
+
 .functions__list {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 188px;
+    max-width: 204px;
+    min-width: 190px;
+    padding: 8px;
     gap: 4px;
     border: none;
-    background: #C3BEFF;
+    border-radius: 4px;
     appearance: none;
+    cursor: pointer;
     -webkit-appearance: none; /* Safari и Chrome */
     -moz-appearance: none; /* Mozilla */
     -ms-appearance: none; /* IE */
     background-repeat: no-repeat;
     background-position: calc(100% - 0px) center
+}
+
+.functions__list:focus {
+    outline: none;
+}
+
+.function__option {
+    background: #FFFFFF;
 }
 
 .functions__button_forward {

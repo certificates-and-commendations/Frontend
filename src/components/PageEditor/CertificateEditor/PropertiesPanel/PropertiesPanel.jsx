@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {SketchPicker} from "react-color";
 import './PropertiesPanel.css';
 import alignLeftIcon from '../../../../images/IconsFunctionsText/align-left-icon.svg';
@@ -13,10 +13,11 @@ import buttonArrowUp from '../../../../images/IconsFunctionsText/chevron-up.svg'
 import buttonArrowUpActive from '../../../../images/IconsFunctionsText/chevron-up-active.svg';
 import buttonArrowDown from '../../../../images/IconsFunctionsText/chevron-down.svg';
 import buttonArrowDownActive from '../../../../images/IconsFunctionsText/chevron-down-active.svg';
+import buttonArrowUpFont from '../../../../images/IconsFunctionsText/chevron-up-font.svg';
+import buttonArrowDownFont from '../../../../images/IconsFunctionsText/chevron-down-font.svg';
 
 function PropertiesPanel({
                              textPanelActive,
-                             index,
                              font,
                              fontSize,
                              setFontSize,
@@ -43,6 +44,21 @@ function PropertiesPanel({
     const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
     const [fontSizeIncrease, setFontSizeIncrease] = useState(false);
     const [fontSizeReduce, setFontSizeReduce] = useState(false);
+    const [fontOpen, setFontOpen] = useState(false);
+    const fontSelectRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (fontSelectRef.current && !fontSelectRef.current.contains(event.target)) {
+                setFontOpen(false);
+            }
+        }
+
+        window.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            window.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleClickColorPanel = () => {
         setShowColorPanel(!showColorPanel);
@@ -56,6 +72,11 @@ function PropertiesPanel({
             setTextBlocks(updatedTextBlocks);
         }
     };
+
+    const handleOpenFontList = (fontIndex) => {
+        setFontOpen(!fontOpen)
+    };
+
 
     const handleFontSizeChange = (e) => {
         const updatedTextBlocks = [...textBlocks];
@@ -220,7 +241,6 @@ function PropertiesPanel({
 
                 {textPanelActive &&
                     <li className="functions__button functions__button-nav1">
-
                         <button
                             className="functions__button_color"
                             type="button"
@@ -234,22 +254,42 @@ function PropertiesPanel({
                                 <SketchPicker color={color} onChangeComplete={onChangeComplete}/>
                             </div>
                         }
-                        <select
-                            id={`fontSelect-${index}`}
-                            value={font}
-                            onChange={handleFontChange}
-                            className="functions__list"
-                        >
-                            <option value="Arial">Arial</option>
-                            <option value="Times New Roman">Times New Roman</option>
-                        </select>
+                        <div className="function__block-font" ref={fontSelectRef}>
+                            <select
+                                id={`fontSelect-${activeTextIndex}`}
+                                value={font}
+                                onChange={handleFontChange}
+                                onClick={handleOpenFontList}
+                                className="functions__list"
+                                style={{ background: fontOpen ? '#FFFFFF' : '#C3BEFF' }}
+                            >
+                                <option
+                                    value="Arial"
+                                    className="function__option"
+                                >
+                                    Arial
+                                </option>
+                                <option
+                                    value="Times New Roman"
+                                    className="function__option"
+                                >
+                                    Times New Roman
+                                </option>
+                            </select>
+                            <img
+                                className="functions__img-arrow-up-font"
+                                src={fontOpen ? buttonArrowUpFont : buttonArrowDownFont}
+                                alt=" Кнопка для открытия с выбором шрифтов."
+                                style={{ background: fontOpen ? '#FFFFFF' : '#C3BEFF' }}
+                            />
+                        </div>
                         <label
                             className="functions-quantity-block"
-                            htmlFor={`fontSizeSelect-${index}`}
+                            htmlFor={`fontSizeSelect-${activeTextIndex}`}
                         >
                             <input
                                 className="functions-quantity-num"
-                                id={`fontSizeSelect-${index}`}
+                                id={`fontSizeSelect-${activeTextIndex}`}
                                 type="number"
                                 value={fontSize}
                                 min={1}
