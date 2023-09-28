@@ -14,7 +14,7 @@ function CertificateEditor({
                                onFontChange,
                                onFontSizeChange,
                                handleTextChange,
-                               onInputAccept,
+                               onInputKeyDown,
                                textBlocks,
                                setTextBlocks,
                                certificateRef,
@@ -66,7 +66,7 @@ function CertificateEditor({
                     setEditingTextIndex={setEditingTextIndex}
                     editingTextIndex={editingTextIndex}
                     onTextChange={(e) => handleTextChange(e, index)}
-                    onInputAccept={(e) => onInputAccept(e, index)}
+                    onInputKeyDown={(e) => onInputKeyDown(e, index)}
                     font={font}
                     setFont={setFont}
                     fontSize={fontSize}

@@ -68,17 +68,26 @@ function PageEditor() {
         setTextBlocks(updatedTextBlocks);
     };
 
-    const handleInputAccept = (e, index) => {
-        if (e.key === 'Enter' || e.type === 'click') {
-            setEditingTextIndex(null);
-            const updatedTextBlocks = [...textBlocks];
-            updatedTextBlocks[index].text = textBlocks[index].text;
-            updatedTextBlocks[index].x = textPosition.x;
-            updatedTextBlocks[index].y = textPosition.y;
-            setTextBlocks(updatedTextBlocks);
-            setShowProperties(false);
-            setActiveTextIndex(null);
+    const handleInputAccept = (index) => {
+        setEditingTextIndex(null);
+        const updatedTextBlocks = [...textBlocks];
+        updatedTextBlocks[index].text = textBlocks[index].text;
+        updatedTextBlocks[index].x = textPosition.x;
+        updatedTextBlocks[index].y = textPosition.y;
+        setTextBlocks(updatedTextBlocks);
+        setShowProperties(false);
+        setActiveTextIndex(null);
+    };
+
+    const handleInputKeyDown = (e, index) => {
+        if (e.key === 'Enter') {
+            handleInputAccept(index);
         }
+    };
+
+    const handleInputClickAccept = (index) => {
+        debugger
+        handleInputAccept(index);
     };
 
     const handleSignatureUpload = (e) => {
@@ -214,7 +223,7 @@ function PageEditor() {
                     onChangeComplete={handleChangeComplete}
                     color={color}
                     currentIndex={currentIndex}
-                    onInputAccept={handleInputAccept}
+                    onInputClickAccept={handleInputClickAccept}
                 />
                 <CertificateEditor
                     setCurrentIndex={setCurrentIndex}
@@ -239,7 +248,7 @@ function PageEditor() {
                     setTextBlockStyles={setTextBlockStyles}
                     setTextAlignStyle={setTextAlignStyle}
                     handleTextChange={handleTextChange}
-                    onInputAccept={handleInputAccept}
+                    onInputKeyDown={handleInputKeyDown}
                     onSignatureUpload={handleSignatureUpload}
                     onSavePDF={handleSavePDF}
                     onCertificateUpload={handleCertificateUpload}

@@ -34,7 +34,7 @@ function PropertiesPanel({
                              setFont,
                              editingTextIndex,
                              currentIndex,
-                             onInputAccept
+                             onInputClickAccept
                          }) {
 
     const [align, setAlign] = useState('left');
@@ -376,7 +376,7 @@ function PropertiesPanel({
                             className="functions__button_accept"
                             type="button"
                             aria-label=" Кнопка для принятие текста."
-                            onClick={(e) => onInputAccept(e, activeTextIndex)}
+                            onClick={(e) => onInputClickAccept(activeTextIndex)}
                         />
                     }
                     <button
