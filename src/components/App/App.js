@@ -103,6 +103,27 @@ function App() {
 		}
 	}, [isOpen]);
 
+	const getAllSamples = () => {
+		return authApi
+			.getAllSamples()
+			.then((res) => {
+				if (res.results) {
+					setSamples(res.results);
+				}
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
+	};
+
+	useEffect(() => {
+		getAllSamples();
+	}, []);
+
 	React.useEffect(() => {
 		// настало время проверить токен
 		if (localStorage.getItem('jwt')) {
@@ -165,16 +186,6 @@ function App() {
 		}, 3000);
 	}, [infoToolTip]);
 
-	const a = {
-		a: { b: { c: 'e' }, e: 'f' },
-	};
-
-	function get(obj, path) {
-		console.log(obj[`${path}`]);
-	}
-
-	get(a, 'a.b');
-
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="App">
@@ -203,7 +214,7 @@ function App() {
 								loggedIn={isLoggedIn}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
-								samples={samples}
+								samples={samples.length > 0 ? samples : null}
 								isLoggedIn={isLoggedIn}
 							/>
 						}

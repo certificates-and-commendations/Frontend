@@ -21,7 +21,9 @@ export const Samples = ({
 	});
 
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
-	const [samplesTemp, setSamplesTemp] = useState(temporarySamles.results);
+	const [samplesTemp, setSamplesTemp] = useState(
+		samples || temporarySamles.results
+	);
 
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
@@ -37,10 +39,11 @@ export const Samples = ({
 		const column1 = [];
 		const column2 = [];
 		const column3 = [];
-		console.log('длина', samplesTemp.length);
+
+		// console.log('длина', samplesTemp.length, 'Массив', samplesTemp);
+
 		for (let i = 0; i < samplesTemp.length; i++) {
 			const index = i % 3;
-
 			if (index === 0) {
 				column1.push(samplesTemp[i]);
 			} else if (index === 1) {
@@ -54,7 +57,7 @@ export const Samples = ({
 			column2,
 			column3,
 		});
-		console.log('Успешно разделен', separetedSamples);
+		// console.log('Успешно разделен', separetedSamples);
 	}, [samplesTemp]);
 
 	const handleCheckboxClick = (name, isChecked) => {
