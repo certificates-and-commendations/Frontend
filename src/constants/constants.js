@@ -5,8 +5,7 @@ import sampleImageVertical from '../images/temporary.jpg';
 import sampleImageHorizontal from '../images/temporary_qwt3rXd.jpg';
 
 export const EMAIL_CHECKER = /[a-z0-9]+@[a-z]+\.[a-z]{2,}/;
-export const PASSWORD_CHECKER =
-	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}/;
+export const PASSWORD_CHECKER = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8}/;
 export const array = [
 	{
 		id: '1',

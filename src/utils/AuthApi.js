@@ -75,7 +75,7 @@ class AuthApi {
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
-		console.log('Токен', localStorage.getItem('jwt'))
+		console.log('Токен', localStorage.getItem('jwt'));
 		if (localStorage.getItem('jwt')) {
 			return fetch(`${this.url}/documents/${item.id}/favourite/`, {
 				method: 'POST',
@@ -113,10 +113,10 @@ class AuthApi {
 			if (key === 'is_horizontal' && obj[key]) {
 				// Если ключ 'is_horizontal' равен true, добавляем его к queryParams без 'category'
 				queryParams.push(`${key}=true`);
-		} else if (obj[key]) {
+			} else if (obj[key]) {
 				// Если ключ не 'is_horizontal' и его значение равно true, добавляем его к queryParams с 'category'
 				queryParams.push(`category=${key}`);
-		}
+			}
 		});
 
 		const queryString = queryParams.join('&');

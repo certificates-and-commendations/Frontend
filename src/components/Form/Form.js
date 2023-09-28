@@ -2,6 +2,7 @@ import './Form.css';
 import { useState } from 'react';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
+import eye from '../../images/default.svg';
 import authApi from '../../utils/AuthApi';
 
 function Form({
@@ -11,7 +12,6 @@ function Form({
 	buttonText,
 	onClose,
 	goRecovery,
-	goLogin,
 	handleSubmittingAForm,
 	formValue,
 	setFormValue,
@@ -22,6 +22,7 @@ function Form({
 	setInfoToolTip,
 }) {
 	const [formErrorMessage, setFormErrorMessage] = useState({});
+	const [passwordShowed, setPasswordShowed] = useState(false);
 	const isFormFieldsValid =
 		popupName === 'recovery'
 			? !formErrorMessage.email &&
@@ -65,7 +66,7 @@ function Form({
 				...formErrorMessage,
 				[name]: isValid
 					? ''
-					: 'Пароль должен содержать одно число, один спецсимвол, одну букву в нижнем и верхнем регистре, а также он должен быть не менее 8 символов',
+					: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.',
 			});
 		}
 	}
@@ -114,6 +115,10 @@ function Form({
 			});
 	}
 
+	function showPassword() {
+		setPasswordShowed(!passwordShowed);
+	}
+
 	return (
 		<section
 			className={
@@ -139,7 +144,7 @@ function Form({
 					}
 				>
 					{popupName === 'recovery'
-						? 'Введите email, связанный с вашим аккаунтом, и мы отправим инструкцию для восстановления пароля.'
+						? 'Введите email, на который придёт код для восстановления'
 						: `Введите код, отправленный на почту ${formValue.email}`}
 				</p>
 				<form
@@ -157,6 +162,14 @@ function Form({
 						<span className="popup__input-text popup__input-text_email">
 							Email
 						</span>
+						<span
+							className={
+								formErrorMessage.email === undefined ||
+								formErrorMessage.email === ''
+									? 'popup__input-error popup__input-error_invisible'
+									: 'popup__input-error'
+							}
+						>{`${formErrorMessage.email || ''}`}</span>
 						<input
 							type="email"
 							name="email"
@@ -170,14 +183,6 @@ function Form({
 							value={formValue.email}
 							disabled={isLoading}
 						/>
-						<span
-							className={
-								formErrorMessage.email === undefined ||
-								formErrorMessage.email === ''
-									? 'popup__input-error popup__input-error_invisible'
-									: 'popup__input-error'
-							}
-						>{`*${formErrorMessage.email || ''}`}</span>
 					</fieldset>
 					<fieldset
 						className={
@@ -189,24 +194,6 @@ function Form({
 						<span className="popup__input-text popup__input-text_password">
 							Пароль
 						</span>
-						<input
-							type="password"
-							name="password"
-							className="popup__input popup__input_password"
-							id="password"
-							minLength="8"
-							maxLength="50"
-							placeholder="Пароль"
-							required={
-								!(
-									popupName === 'registerConfirmation' ||
-									popupName === 'recovery'
-								)
-							}
-							onChange={handleChangePassword}
-							value={formValue.password}
-							disabled={isLoading}
-						/>
 						<span
 							className={
 								formErrorMessage.password === undefined ||
@@ -214,7 +201,36 @@ function Form({
 									? 'popup__input-error popup__input-error_invisible'
 									: 'popup__input-error'
 							}
-						>{`*${formErrorMessage.password || ''}`}</span>
+						>{`${formErrorMessage.password || ''}`}</span>
+						<div className="popup__input-relative">
+							<input
+								type={passwordShowed ? 'text' : 'password'}
+								name="password"
+								className="popup__input popup__input_password"
+								id="password"
+								minLength="6"
+								maxLength="8"
+								placeholder="Пароль"
+								required={
+									!(
+										popupName === 'registerConfirmation' ||
+										popupName === 'recovery'
+									)
+								}
+								onChange={handleChangePassword}
+								value={formValue.password}
+								disabled={isLoading}
+							/>
+							<button
+								type="button"
+								className={
+									passwordShowed
+										? 'popup__input-eye popup__input-eye_showed'
+										: 'popup__input-eye'
+								}
+								onClick={showPassword}
+							/>
+						</div>
 						<button
 							type="button"
 							onClick={goRecovery}
@@ -321,7 +337,7 @@ function Form({
 					>
 						{buttonText}
 					</button>
-					<button
+					{/* <button
 						type="button"
 						onClick={goLogin}
 						className={
@@ -331,7 +347,7 @@ function Form({
 						}
 					>
 						Назад к странице «Вход»
-					</button>
+					</button> */}
 					<button
 						type="button"
 						onClick={reloadTimer}

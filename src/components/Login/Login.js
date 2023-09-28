@@ -32,7 +32,7 @@ function Login({
 				.then((data) => {
 					if (data.auth_token) {
 						setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
-						console.log('Токен получен', data.auth_token)
+						console.log('Токен получен', data.auth_token);
 						localStorage.setItem('jwt', data.auth_token);
 						setIsLoggedIn(true);
 						setFormValue({ email: '', password: '' });
