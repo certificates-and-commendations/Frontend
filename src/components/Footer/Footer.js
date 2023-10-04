@@ -31,7 +31,7 @@ export default function Footer() {
 				<img
 				  className="footer__link-img"
 				  src={Twitter}
-				  alt="Логотип телеграма"
+				  alt="Логотип твитера"
 				/>
 				<span className="footer__link-text">Twitter</span>
 			  </a>
@@ -41,7 +41,7 @@ export default function Footer() {
 				<img
 				  className="footer__link-img"
 				  src={Facebook}
-				  alt="Логотип телеграма"
+				  alt="Логотип фейсбука"
 				/>
 				<span className="footer__link-text">Facebook</span>
 			  </a>
