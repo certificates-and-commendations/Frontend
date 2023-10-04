@@ -10,6 +10,12 @@
     padding: 0 0 28px 0;
 }
 
+.text-panel__block-download {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .text-panel__button {
     background: none;
     border: none;
@@ -92,4 +98,38 @@
     line-height: normal;
     white-space: nowrap;
     padding: 12px 24px;
+}
+
+.text-panel__font-block {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 288px;
+    height: auto;
+}
+
+.text-panel__wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(195, 190, 255, 0.50);
+    border-radius: 16px;
+    border: 1px solid #2B2B2E;
+
+}
+
+.text-panel__paragraph-font {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.text-panel__trash-font {
+    cursor: pointer;
 }
