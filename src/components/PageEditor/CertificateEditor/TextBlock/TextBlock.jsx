@@ -1,6 +1,5 @@
 import React, {useState, useRef} from 'react';
 import Draggable from 'react-draggable';
-import StylePropertiesPanel from '../StylePropertiesPanel/StylePropertiesPanel';
 
 function TextBlock({
                        index,

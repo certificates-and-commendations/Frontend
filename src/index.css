@@ -31,12 +31,6 @@
 /* TextBlock */
 @import url('./components/PageEditor/CertificateEditor/TextBlock/TextBlock.css');
 
-/* StylePropertiesPanel */
-@import url('./components/PageEditor/CertificateEditor/StylePropertiesPanel/StylePropertiesPanel.css');
-
-/* LateralPropertiesPanel */
-@import url('./components/PageEditor/CertificateEditor/LateralPropertiesPanel/LateralPropertiesPanel.css');
-
 /* FioTable */
 @import url('./components/PageEditor/CertificateEditor/FioTable/FioTable.css');
 

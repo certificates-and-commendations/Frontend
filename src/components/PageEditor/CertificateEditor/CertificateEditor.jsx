@@ -1,6 +1,5 @@
 import React from 'react';
 import TextBlock from './TextBlock/TextBlock';
-import LateralPropertiesPanel from './LateralPropertiesPanel/LateralPropertiesPanel';
 import ElementFiles from "./ElementFiles/ElementFiles";
 
 function CertificateEditor({
@@ -105,24 +104,6 @@ function CertificateEditor({
                     textPosition={textPosition}
                 />
             ))}
-
-            <div className="properties__container">
-                <LateralPropertiesPanel
-                    onSavePDF={onSavePDF}
-                    onCertificateUpload={onCertificateUpload}
-                    showTable={showTable}
-                    setShowTable={setShowTable}
-                    tableData={tableData} // Передаем данные таблицы
-                    setTableData={setTableData} // Передаем функцию для обновления данных таблицы
-                    textBlocks={textBlocks}
-                    setTextBlocks={setTextBlocks}
-                    certificateRef={certificateRef}
-                    onStampUpload={onStampUpload}
-                    activeTextIndex={activeTextIndex}
-                    setActiveTextIndex={setActiveTextIndex}
-                    onCreateJson={onCreateJson}
-                />
-            </div>
             {element && (
                 <ElementFiles
                     element={element}
