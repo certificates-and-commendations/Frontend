@@ -137,7 +137,7 @@
 .samples__div {
 	position: relative;
 	box-sizing: border-box;
-	width: 100%;
+	width: 300px;
 	height: min-content;
 	overflow: hidden;
 	border-radius: 12px;

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import squareCheck from "../../../../images/imageEditor/elements-panel__square-check.svg";
-import square from "../../../../images/imageEditor/elements-panel__square.svg";
+import React, { useState } from 'react';
+import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
+import square from '../../../../images/imageEditor/elements-panel__square.svg';
 
 function DownloadsPanel({
                             setUploadedCertificate,

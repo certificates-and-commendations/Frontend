@@ -1,27 +1,36 @@
 import './Samples.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import authApi from '../../utils/AuthApi';
-import Checkbox from './Checkbox/Checkbox';
-import Sample from './Sample/Sample';
+import { Checkbox } from './Checkbox/Checkbox';
+import { Sample } from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
 
-function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
+export const Samples = ({
+	setDiploma,
+	favoriteSamples,
+	setFavoriteSamples,
+	samples,
+	isLoggedIn,
+}) => {
 	const [separetedSamples, setSeparatedSamples] = useState({
 		column1: [],
 		column2: [],
 		column3: [],
 	});
+
 	// ВРЕМЕННЫЙ ОБЬЕКТ, ДАЛЬШЕ ШАБЛОНЫ К ПОКАЗУ БУДУТ БРАТЬСЯ ИЗ ПРОПСОВ
-	const [samplesTemp, setSamplesTemp] = useState(temporarySamles);
+	const [samplesTemp, setSamplesTemp] = useState(
+		samples || temporarySamles.results
+	);
+
 	// ОБЬЕКТ НАСТРОЕК , СОЖЕРЖИТ ВСЕ СОСТОЯНИЕ ЧЕКБОКСОВ-КНОПОК
 	const [checkboxValues, setCheckboxValues] = useState({
-		diplomas: false,
-		thanks: false,
+		awards: false,
+		appreciations: false,
 		certificates: false,
-		is_vertical: false,
 		is_horizontal: false,
+		is_vertical: false,
 	});
 
 	// РАЗДЕЛЯЕМ МАССИВ ШАБЛОНОВ НА ТРИ КОЛЛОНКИ
@@ -30,23 +39,24 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 		const column2 = [];
 		const column3 = [];
 
-		for (let i = 0; i < samplesTemp.results.length; i++) {
-			const index = i % 3;
+		// console.log('длина', samplesTemp.length, 'Массив', samplesTemp);
 
+		for (let i = 0; i < samplesTemp.length; i++) {
+			const index = i % 3;
 			if (index === 0) {
-				column1.push(samplesTemp.results[i]);
+				column1.push(samplesTemp[i]);
 			} else if (index === 1) {
-				column2.push(samplesTemp.results[i]);
+				column2.push(samplesTemp[i]);
 			} else {
-				column3.push(samplesTemp.results[i]);
+				column3.push(samplesTemp[i]);
 			}
 		}
-
 		setSeparatedSamples({
 			column1,
 			column2,
 			column3,
 		});
+		// console.log('Успешно разделен', separetedSamples);
 	}, [samplesTemp]);
 
 	const handleCheckboxClick = (name, isChecked) => {
@@ -57,28 +67,25 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	};
 
 	const handleDislike = (e, item) => {
-		const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
-		setFavoriteSamples(newSamples);
 		e.stopPropagation();
-		// return authApi.addLike(item)
-		// 	.then((res) => {
-		// 		const newSamples = samples.filter((card) => card.id === res.id)
-		// 		setSamples(newSamples)
-		// 	})
-		// 	.catch((err) => console.log(err))
-		console.log('Dislike', item);
+		return authApi.removeLike(item.id).then((res) => {
+			console.log(res);
+			const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
+			setFavoriteSamples(newSamples);
+			console.log('dislike ok');
+		});
 	};
 
 	const handleLike = (e, item) => {
-		setFavoriteSamples([...favoriteSamples, item]);
 		e.stopPropagation();
-		// return authApi.addLike(item)
-		// 	.then((res) => {
-		// 		const newSamples = samples.filter((card) => card.id === res.id)
-		// 		setSamples(newSamples)
-		// 	})
-		// 	.catch((err) => console.log(err))
-		console.log('Like', favoriteSamples);
+		return authApi
+			.addLike(item)
+			.then((res) => {
+				const newSamples = samples.filter((card) => card.id === res.id);
+				setFavoriteSamples([...favoriteSamples, item]);
+				console.log('like ok');
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const handleImageClick = (e, item) => {
@@ -89,7 +96,10 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	async function getFilteredSamples() {
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues);
-			setSamplesTemp(samplesFromBack);
+			console.log('После запроса фильтрации получили', samplesFromBack);
+			if (samplesFromBack.results) {
+				setSamplesTemp(samplesFromBack.results);
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -97,13 +107,28 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 	// ПРИ ИЗМЕНЕНИИ ОБЬЕКТА НАСТРОЕК checkboxValues ОТПРАВЛЯЕМ ЗАБРОС НА БЭК
 	// И СЕТАПИМ ШАБЛОНЫ К ПОКАЗУ
 	useEffect(() => {
-		const allFalse = Object.values(checkboxValues).every(
-			(value) => value === false
-		);
-		if (!allFalse) {
-			getFilteredSamples(checkboxValues);
-		}
+		getFilteredSamples();
 	}, [checkboxValues]);
+
+	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
+	// const getAllSamples = () => {
+	// 	authApi
+	// 		.getAllSamples()
+	// 		.then((res) => {
+	// 			if (res.results) {
+	// 				console.log(`шаблонов получили --> ${res.results.length}`);
+	// 				console.log('массив', res.results);
+	// 				setSamplesTemp(res.results);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// };
+
+	// useEffect(() => {
+	// 	getAllSamples();
+	// }, []);
 
 	return (
 		<main className="samples">
@@ -113,13 +138,13 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 					<span className="samples__menu-title">Шаблоны</span>
 					<div className="samples__menu-continer">
 						<Checkbox
-							name="thanks"
+							name="appreciations"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Благодарности"
 						/>
 						<Checkbox
-							name="diplomas"
+							name="awards"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
 							text="Грамоты"
@@ -154,10 +179,12 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
@@ -167,10 +194,12 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
@@ -180,10 +209,12 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 							return (
 								<Sample
 									key={item.id}
+									isLoggedIn={isLoggedIn}
 									item={item}
 									onImageClick={handleImageClick}
 									onLike={handleLike}
 									onDislike={handleDislike}
+									favoriteSamples={favoriteSamples}
 								/>
 							);
 						})}
@@ -192,6 +223,4 @@ function Samples({ setDiploma, favoriteSamples, setFavoriteSamples, samples }) {
 			</div>
 		</main>
 	);
-}
-
-export default Samples;
+};

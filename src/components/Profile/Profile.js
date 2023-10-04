@@ -2,11 +2,10 @@ import './Profile.css';
 import React from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import CenterSlider from '../CenterSlider/CenterSlider';
-import { array } from '../../constants/constants';
 
 function Profile({
 	setDiploma,
-	diplomas,
+	myDocuments,
 	templates,
 	favoriteSamples,
 	setFavoriteSamples,
@@ -30,7 +29,7 @@ function Profile({
 			</div>
 			<div className="profile__documents">
 				<h2 className="profile__subtitle">Созданные документы</h2>
-				<CenterSlider array={diplomas || array} setDiploma={setDiploma} />
+				<CenterSlider array={myDocuments} setDiploma={setDiploma} />
 			</div>
 		</main>
 	);

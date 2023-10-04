@@ -5,8 +5,7 @@ import sampleImageVertical from '../images/temporary.jpg';
 import sampleImageHorizontal from '../images/temporary_qwt3rXd.jpg';
 
 export const EMAIL_CHECKER = /[a-z0-9]+@[a-z]+\.[a-z]{2,}/;
-export const PASSWORD_CHECKER =
-	/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}/;
+export const PASSWORD_CHECKER = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,8}/;
 export const array = [
 	{
 		id: '1',
@@ -48,7 +47,7 @@ export const temporarySamles = {
 		{
 			id: 2,
 			title: 'horizotal template',
-			thumbnail: 'http://185.93.111.238/media/thumbnails/temp_uvALw2v.jpg',
+			thumbnail: sampleImageHorizontal,
 			category: null,
 			color: null,
 			is_horizontal: true,
@@ -56,7 +55,7 @@ export const temporarySamles = {
 		{
 			id: 1,
 			title: 'vertical template',
-			thumbnail: 'http://185.93.111.238/media/thumbnails/temp_JBxHVB7.jpg',
+			thumbnail: sampleImageVertical,
 			category: null,
 			color: null,
 			is_horizontal: false,

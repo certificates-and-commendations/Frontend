@@ -66,13 +66,11 @@
 }
 
 .popup__text {
-	margin: 6px 0 6px 0;
+	margin: 6px 0 0 0;
 	color: #2b2b2e;
-	font-size: 16px;
-	font-style: normal;
+	font-size: 24px;
 	font-weight: 400;
 	line-height: normal;
-	letter-spacing: -0.42px;
 	width: 402px;
 }
 
@@ -158,12 +156,10 @@ input[type='number']:focus {
 
 .popup__input-error {
 	display: inline-block;
-	margin: 20px 0 0 0;
-	font-size: 14px;
-	font-style: normal;
+	margin: 4px 0 16px 0;
+	font-size: 24px;
 	font-weight: 400;
 	line-height: normal;
-	letter-spacing: -0.24px;
 	color: #2b2b2e;
 	padding: 0;
 }
@@ -173,15 +169,13 @@ input[type='number']:focus {
 }
 
 .popup__clue {
-	height: 16px;
+	height: max-content;
 	padding: 0;
 	margin: 20px 0 0 0;
 	color: #2b2b2e;
-	font-size: 14px;
-	font-style: normal;
+	font-size: 24px;
 	font-weight: 400;
 	line-height: normal;
-	letter-spacing: -0.24px;
 	background-color: rgb(2, 2, 2, 0);
 	border: none;
 	cursor: pointer;
@@ -266,4 +260,23 @@ input[type='number']:focus {
 
 .popup__back-button_invisible {
 	display: none;
+}
+
+.popup__input-eye {
+	background-image: url(../../images/default.svg);
+	width: 24px;
+	height: 24px;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	right: 15px;
+	top: 24px;
+}
+
+.popup__input-eye_showed {
+	background-image: url(../../images/eye2.svg);
+}
+
+.popup__input-relative {
+	position: relative;
 }

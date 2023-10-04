@@ -37,37 +37,20 @@ function RegisterConfirmation({
 		return authApi
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
-				try {
-					if (response.status === 200) {
-						return response;
-					}
-				} catch (e) {
-					return e;
-				}
-			})
-			.then((response) => {
-				authApi
-					.signIn(formValue.password, formValue.email)
-					.then((data) => {
-						if (data.auth_token) {
-							setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
-							localStorage.setItem('jwt', data.auth_token);
-							setIsLoggedIn(true);
-							setFormValue({
-								email: '',
-								password: '',
-								first: '',
-								second: '',
-								thirst: '',
-								fourth: '',
-								code: '',
-							});
-							navigate('/editor', { replace: true });
-							return data;
-						}
-						return console.log(`Ошибка, токена нет! + ${data}`);
-					})
-					.catch((err) => {});
+				localStorage.setItem('jwt', response.Token);
+				setIsLoggedIn(true);
+				setFormValue({
+					email: '',
+					password: '',
+					first: '',
+					second: '',
+					thirst: '',
+					fourth: '',
+					code: '',
+				});
+				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
+				onClose();
+				navigate('/', { replace: true });
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });

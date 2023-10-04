@@ -21,15 +21,6 @@ function Register({
 		return authApi
 			.signUp(formValue.password, formValue.email)
 			.then((response) => {
-				try {
-					if (response.status === 200) {
-						return response;
-					}
-				} catch (e) {
-					return e;
-				}
-			})
-			.then((response) => {
 				setIsRegisterPopupOpen(false);
 				setIsRegisterConfirmationPopupOpen(true);
 				timer();
