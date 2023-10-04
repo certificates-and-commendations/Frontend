@@ -110,7 +110,7 @@
 
 .text-panel__wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 8px;
     padding: 12px 24px;
     background: rgba(195, 190, 255, 0.50);

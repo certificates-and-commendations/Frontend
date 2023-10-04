@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-font.svg';
+import authApi from "../../../../utils/AuthApi";
 
 function TextPanel({
                        onTextClick,
@@ -18,6 +19,15 @@ function TextPanel({
         setBtnClick(true);
     }
 
+    const handleFontPost = (obj) => {
+        debugger
+        return authApi.handleFontFamily(obj)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => console.log(err));
+    }
+
     const handleFontFileChange = (event) => {
         const selectedFiles = event.target.files;
         if (selectedFiles && selectedFiles.length > 0) {
@@ -27,9 +37,14 @@ function TextPanel({
             for (let i = 0; i < selectedFiles.length; i++) {
                 const file = selectedFiles[i];
                 const isDuplicate = newFontFiles.some((existingFile) => existingFile.name === file.name);
-
+                handleFontPost(file).then(res => {
+                    console.log(res)
+                })
                 if (!isDuplicate) {
                     newFontFiles.push(file);
+                    handleFontPost(file).then(res => {
+                        console.log(res)
+                    })
                 } else {
                     console.log(`Файл с именем ${file.name} уже существует.`);
                     // Здесь можно вывести сообщение об ошибке или выполнить другие действия
@@ -39,7 +54,6 @@ function TextPanel({
             setFontFiles(newFontFiles);
         }
     };
-
 
 
     const handleRemoveFont = (index) => {
@@ -79,13 +93,13 @@ function TextPanel({
                         className="text-panel__download-font"
                         htmlFor="fontUpload"
                     >
-                        <img src={downloadIcon} alt="" className="text-panel__download-icon" />
+                        <img src={downloadIcon} alt="" className="text-panel__download-icon"/>
                         Загрузить шрифт
                         <input
                             type="file"
                             id="fontUpload"
                             accept=".ttf"
-                            style={{ display: 'none' }}
+                            style={{display: 'none'}}
                             onChange={handleFontFileChange}
                             multiple
                         />
