@@ -37,7 +37,7 @@
 	border: none;
 	font-size: 24px;
 	font-weight: bold;
-	width: 451px;
+	width: 289px;
 	height: 66px;
 	padding: 0;
 	margin-top: 40px;
@@ -45,5 +45,6 @@
 
 .promo__button:hover {
 	cursor: pointer;
-	opacity: 0.7;
+	/*opacity: 0.7;*/
+	background-color: #D9EA7D;
 }
