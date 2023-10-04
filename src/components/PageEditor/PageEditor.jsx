@@ -19,8 +19,10 @@ function PageEditor() {
     const [textBlockColors, setTextBlockColors] = useState([]);
     const [element, setElement] = useState([]);
     const [elementPosition, setElementPosition] = useState({x: 0, y: 0});
-    const [textPosition, setTextPosition] = useState({x: 0, y: 0});
+    const [textPosition, setTextPosition] = useState([]);
+
     const [activeTextIndex, setActiveTextIndex] = useState(null);
+    const [borderTextIndex, setBorderTextIndex] = useState(null);
     const [textDecorationStyle, setTextDecorationStyle] = useState('none');
     const [textAlignStyle, setTextAlignStyle] = useState('left');
     const [pdfData, setPdfData] = useState(null);
@@ -33,11 +35,18 @@ function PageEditor() {
     const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
     const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
     const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] = useState(false);
+    const [isDedicated, setIsDedicated] = useState(false);
 
     const initialPositions = element.map(() => ({x: 0, y: 0}));
     const [positions, setPositions] = useState(initialPositions);
 
     const certificateRef = useRef(null);
+
+    console.log(textPosition)
+
+    function generateUniqueId() {
+        return Math.random().toString(36).substr(2, 9);
+    }
 
     const handleTextClick = (e) => {
         setFontSize(14);
@@ -49,10 +58,21 @@ function PageEditor() {
         setTextUnderlineActiveMenu(false)
         setTextStrikethroughActiveMenu(false)
 
+        const blockId = generateUniqueId();
+
         if (!editingTextIndex) {
+            setTextBlockColors([
+                ...textBlockColors,
+                {
+                    id: blockId,
+                    color: '#000000',
+                }
+            ]);
+
             setTextBlocks([
                 ...textBlocks,
                 {
+                    id: blockId,
                     text: '',
                     x: '',
                     y: '',
@@ -60,16 +80,23 @@ function PageEditor() {
                     fontSize: 14,
                 },
             ]);
-            setTextBlockColors([...textBlockColors, '#000000']);
             setTextBlockStyles([
                 ...textBlockStyles,
                 {
+                    id: blockId,
                     isItalic: false,
                     isBold: false,
                     isDecoration: 'none',
-                    isAlign: 'left'
+                    isAlign: 'left',
+                    isBorder: false
                 },
             ]);
+
+            setTextPosition([
+                ...textPosition,
+                { x: 0, y: 0 }, // Здесь вы можете установить начальные координаты
+            ]);
+
             setEditingTextIndex(textBlocks.length);
             setActiveTextIndex(textBlocks.length);
             setShowProperties(true);
@@ -83,13 +110,45 @@ function PageEditor() {
         setTextBlocks(updatedTextBlocks);
     };
 
+    const handleDeleteTextBlock = (idToDelete) => {
+        const updatedTextBlocks = textBlocks.filter((block) => block.id !== idToDelete);
+        setTextBlocks(updatedTextBlocks);
+
+        const updatedTextBlockStyles = updatedTextBlocks.map((block) => {
+            const styleIndex = textBlockStyles.findIndex((styleBlock) => styleBlock.id === block.id);
+            return textBlockStyles[styleIndex];
+        });
+        setTextBlockStyles(updatedTextBlockStyles);
+
+        const updatedPositions = textPosition.filter((position) => position.id !== idToDelete);
+
+        // Пересчитываем координаты для оставшихся блоков
+        const recalculatedPositions = updatedPositions.map((position) => {
+            return {
+                id: position.id,
+                x: position.x,
+                y: position.y
+            };
+        });
+        setTextPosition(recalculatedPositions);
+        debugger
+        // Удаляем цвет для удаленного блока
+        const updatedTextBlockColors = textBlockColors.filter((color) => color.id !== idToDelete);
+        setTextBlockColors(updatedTextBlockColors);
+    };
+
+
     const handleInputAccept = (index) => {
         setEditingTextIndex(null);
         const updatedTextBlocks = [...textBlocks];
-        updatedTextBlocks[index].text = textBlocks[index].text;
-        updatedTextBlocks[index].x = textPosition.x;
-        updatedTextBlocks[index].y = textPosition.y;
-        setTextBlocks(updatedTextBlocks);
+        const blockId = updatedTextBlocks[index].id; // Получаем ID блока
+        const blockIndex = updatedTextBlocks.findIndex((block) => block.id === blockId); // Находим индекс блока по ID
+        if (blockIndex !== -1) {
+            updatedTextBlocks[blockIndex].text = textBlocks[index].text;
+            updatedTextBlocks[blockIndex].x = textPosition.x;
+            updatedTextBlocks[blockIndex].y = textPosition.y;
+            setTextBlocks(updatedTextBlocks);
+        }
         setShowProperties(false);
         setActiveTextIndex(null);
     };
@@ -150,7 +209,7 @@ function PageEditor() {
     const handleChangeComplete = (newColor) => {
         // Обновляем цвет только для активного текстового блока
         const updatedTextBlockColors = [...textBlockColors];
-        updatedTextBlockColors[activeTextIndex] = newColor.hex;
+        updatedTextBlockColors[activeTextIndex].color = newColor.hex;
         setTextBlockColors(updatedTextBlockColors);
 
         // Не обновляем текущий цвет через setColor
@@ -211,6 +270,10 @@ function PageEditor() {
                     textUnderlineActiveMenu={textUnderlineActiveMenu}
                     setTextStrikethroughActiveMenu={setTextStrikethroughActiveMenu}
                     textStrikethroughActiveMenu={textStrikethroughActiveMenu}
+                    isDedicated={isDedicated}
+                    setIsDedicated={setIsDedicated}
+                    onDeleteTextBlock={handleDeleteTextBlock}
+                    borderTextIndex={borderTextIndex}
                 />
                 <CertificateEditor
                     setCurrentIndex={setCurrentIndex}
@@ -251,6 +314,9 @@ function PageEditor() {
                     setPositions={setPositions}
                     setStylePanelActive={setStylePanelActive}
                     textBlockColors={textBlockColors}
+                    setIsDedicated={setIsDedicated}
+                    setBorderTextIndex={setBorderTextIndex}
+                    textPosition={textPosition}
                 />
             </section>
         </main>

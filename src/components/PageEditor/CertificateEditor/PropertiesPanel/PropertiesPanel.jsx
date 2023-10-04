@@ -46,7 +46,11 @@ function PropertiesPanel({
                              setTextUnderlineActiveMenu,
                              textUnderlineActiveMenu,
                              setTextStrikethroughActiveMenu,
-                             textStrikethroughActiveMenu
+                             textStrikethroughActiveMenu,
+                             isDedicated,
+                             onDeleteTextBlock,
+                             setIsDedicated,
+                             borderTextIndex
                          }) {
 
     const [fontSizeIncrease, setFontSizeIncrease] = useState(false);
@@ -253,12 +257,13 @@ function PropertiesPanel({
                             type="button"
                             aria-label="Кнопка для удаления"
                             onClick={handleClickColorPanel}
-                            style={{backgroundColor: textBlockColors[activeTextIndex]}}
+                            style={{backgroundColor: textBlockColors[activeTextIndex].color}}
                         />
                         {
                             showColorPanel &&
                             <div className="functions__block-color">
-                                <SketchPicker color={textBlockColors[activeTextIndex]} onChangeComplete={onChangeComplete}/>
+                                <SketchPicker color={textBlockColors[activeTextIndex].color}
+                                              onChangeComplete={onChangeComplete}/>
                             </div>
                         }
                         <div className="function__block-font" ref={fontSelectRef}>
@@ -378,19 +383,23 @@ function PropertiesPanel({
 
                 <li className="functions__button">
                     {stylePanelActive &&
-                        <>
-                            <button
-                                className="functions__button_accept"
-                                type="button"
-                                aria-label=" Кнопка для принятие текста."
-                                onClick={(e) => onInputClickAccept(activeTextIndex)}
-                            />
-                            <button
-                                className="functions__button_delete"
-                                type="button"
-                                aria-label="Кнопка для удаления"
-                            />
-                        </>
+                        <button
+                            className="functions__button_accept"
+                            type="button"
+                            aria-label=" Кнопка для принятие текста."
+                            onClick={(e) => onInputClickAccept(activeTextIndex)}
+                        />
+                    }
+                    {isDedicated &&
+                        <button
+                            className="functions__button_delete"
+                            type="button"
+                            aria-label="Кнопка для удаления"
+                            onClick={() => {
+                                onDeleteTextBlock(borderTextIndex);
+                                setIsDedicated(false);
+                            }}
+                        />
                     }
                 </li>
             </ul>

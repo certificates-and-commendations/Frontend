@@ -24,6 +24,7 @@ function CertificateEditor({
                                setShowProperties,
                                setTextDecorationStyle,
                                setTextPosition,
+                               textPosition,
                                onTextClick,
                                textBlockStyles,
                                setTextBlockStyles,
@@ -46,7 +47,11 @@ function CertificateEditor({
                                positions,
                                setPositions,
                                setStylePanelActive,
-                               textBlockColors
+                               textBlockColors,
+                               setClickTextBlockActive,
+                               clickTextBlockActive,
+                               setIsDedicated,
+                               setBorderTextIndex
                            }) {
     return (
         <div className="certificate">
@@ -91,6 +96,13 @@ function CertificateEditor({
                     setTextAlignStyle={setTextAlignStyle}
                     setStylePanelActive={setStylePanelActive}
                     textBlockColors={textBlockColors}
+                    setClickTextBlockActive={setClickTextBlockActive}
+                    clickTextBlockActive={clickTextBlockActive}
+                    setIsDedicated={setIsDedicated}
+                    setBorderTextIndex={setBorderTextIndex}
+                    setPositions={setPositions}
+                    positions={positions}
+                    textPosition={textPosition}
                 />
             ))}
 

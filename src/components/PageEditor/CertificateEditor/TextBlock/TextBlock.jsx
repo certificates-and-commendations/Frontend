@@ -15,27 +15,48 @@ function TextBlock({
                        setActiveTextIndex,
                        setShowProperties,
                        setTextPosition,
+                       textPosition,
                        textDecorationStyle,
                        textAlignStyle,
                        setStylePanelActive,
-                       textBlockColors
+                       textBlockColors,
+                       activeTextIndex,
+                       textBlocks,
+                       setTextBlocks,
+                       setIsDedicated,
+                       setBorderTextIndex,
+                       setPositions,
+                       positions
                    }) {
     const [widthInput, setWidthInput] = useState(209);
     const [heightInput, setHeightInput] = useState(17);
+    const [isDragging, setIsDragging] = useState(false);
     const textareaRef = useRef(null);
     const scrollbarWidth = 20;
 
     const handleResizeMouseDown = (e) => {
-        e.stopPropagation(); // Предотвращаем всплытие события
+        e.stopPropagation();
     };
 
     const handleDragStop = (e, data) => {
-        setTextPosition({x: data.x, y: data.y});
-        // data.x и data.y содержат конечные координаты блока после перемещения
-        // console.log('Конечные координаты x:', data.x);
-        // console.log('Конечные координаты y:', data.y);
-        // Здесь вы можете выполнить дополнительные действия с полученными координатами
+        const newPositionText = [...textPosition];
+        const copyTextBlocks = [...textBlocks];
+
+        newPositionText[index] = {
+            id: copyTextBlocks[index].id,
+            x: data.x,
+            y: data.y
+        };
+
+        setTextPosition(newPositionText);
+
+        const newTextBlocks = [...textBlocks];
+        newTextBlocks[index].x = data.x;
+        newTextBlocks[index].y = data.y;
+        setTextBlocks(newTextBlocks);
     };
+
+
 
     const handleTextareaClick = () => {
         if (textareaRef.current) {
@@ -45,9 +66,42 @@ function TextBlock({
         setCurrentIndex(index);
     };
 
+    const handleClickBlockText = (blockId) => {
+        // Создаем копию textBlocks для изменений
+        const updatedTextBlocks = textBlocks.map((block) => {
+            if (block.id === blockId) {
+                setBorderTextIndex(block.id);
+                // Устанавливаем isBorder в противоположное значение для выбранного блока
+                return {...block, isBorder: !block.isBorder};
+            }
+            return block;
+        });
+
+        // Обновляем состояние textBlocks
+        setTextBlocks(updatedTextBlocks);
+
+        // Устанавливаем isDedicated в противоположное значение
+        setIsDedicated(!textBlock.isBorder);
+
+        console.log(textBlocks);
+    };
+
     return (
         // <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
-        <Draggable bounds="parent" onStop={handleDragStop}>
+        <Draggable
+            bounds="parent"
+            onStop={(e, data) => {
+                // eslint-disable-next-line no-undef
+                handleDragStop(e, data)
+                e.stopPropagation();
+            }}
+            position={textPosition[index]}
+            onDrag={(e, {x, y}) => {
+                const newPositions = [...textPosition];
+                newPositions[index] = {x, y};
+                setPositions(newPositions);
+            }}
+        >
             <div className="certificate__text-field">
                 {editingTextIndex === index ? (
                     <>
@@ -82,7 +136,7 @@ function TextBlock({
                                                 : 'justify',
                                 width: widthInput + scrollbarWidth,
                                 height: heightInput,
-                                color: textBlockColors[index],
+                                color: textBlockColors[index].color,
                             }}
                             className="certificate__input"
                         />
@@ -91,6 +145,8 @@ function TextBlock({
                 ) : (
                     <div
                         className="certificate__text-block"
+                        role="button"
+                        tabIndex="0"
                         onDoubleClick={() => {
                             setEditingTextIndex(index);
                             setShowProperties(true);
@@ -118,10 +174,19 @@ function TextBlock({
                                         : 'right',
                             // width: widthInput + scrollbarWidth,
                             // height: heightInput,
-                            color: textBlockColors[index],
+                            color: textBlockColors[index].color,
+                            border: textBlock.isBorder ? '3px solid #C3BEFF' : 'none'
                         }}
                     >
-                        <p className="certificate__text-paragraph">{textBlock.text}</p>
+                        <p
+                            className="certificate__text-paragraph"
+                            onContextMenu={(e) => {
+                                e.preventDefault()
+                                handleClickBlockText(textBlock.id)
+                            }}
+                        >
+                            {textBlock.text}
+                        </p>
                     </div>
                 )}
             </div>

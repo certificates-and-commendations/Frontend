@@ -30,6 +30,10 @@
 	left: 50%;
 }
 
+.certificate__text-block {
+	padding: 5px;
+}
+
 .certificate__input {
 	max-width: inherit;
 	max-height: inherit;
@@ -48,4 +52,8 @@
 	margin: 0;
 	text-wrap: normal;
 	overflow-wrap: anywhere;
+}
+
+.certificate__text-paragraph_active-border {
+	border: solid 1px #000000;
 }
