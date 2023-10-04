@@ -139,6 +139,18 @@ class AuthApi {
 			},
 		}).then(handleResponse);
 	}
+
+	handleFontFamily(fontUrl) {
+		return fetch(`${this.url}/font/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: {
+				font_file: JSON.stringify(fontUrl)
+			}
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
