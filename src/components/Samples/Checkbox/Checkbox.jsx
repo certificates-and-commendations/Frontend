@@ -15,7 +15,6 @@ export const Checkbox = ({ text, onClick, name, state }) => {
 		onClick(name, !isChecked);
 	};
 
-
 	return (
 		<label htmlFor={`checkbox_${name}`} className={checkboxClass}>
 			<input
