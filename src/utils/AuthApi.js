@@ -142,14 +142,12 @@ class AuthApi {
 	}
 
 	handleFontFamily(fontUrl) {
+		const formData = new FormData();
+		formData.append('font_file', fontUrl);
+
 		return fetch(`${this.url}/font/`, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: {
-				font_file: fontUrl,
-			},
+			body: formData,
 		}).then(handleResponse);
 	}
 }
