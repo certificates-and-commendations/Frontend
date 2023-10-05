@@ -9,7 +9,7 @@ export default function Landingsamples() {
 	return (
 		<section className="landing-samples">
 			<h2 className="landing-samples__title">
-				Наши шаблоны для всех типов документов
+				Шаблоны для всех типов документов
 			</h2>
 			<h3 className="landing-samples__description">
 				Выберите макет, заполните индивидуальные данные, отправьте его по почте
