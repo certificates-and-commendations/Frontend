@@ -38,6 +38,7 @@ function PageEditor() {
 	const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] =
 		useState(false);
 	const [isDedicated, setIsDedicated] = useState(false);
+	const [fontResult, setFontResult] = useState([]);
 
 	const initialPositions = element.map(() => ({ x: 0, y: 0 }));
 	const [positions, setPositions] = useState(initialPositions);
@@ -238,6 +239,8 @@ function PageEditor() {
 				positions={positions}
 				setPositions={setPositions}
 				onTextClick={handleTextClick}
+				setFontResult={setFontResult}
+				fontResult={fontResult}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
@@ -282,6 +285,7 @@ function PageEditor() {
 					setIsDedicated={setIsDedicated}
 					onDeleteTextBlock={handleDeleteTextBlock}
 					borderTextIndex={borderTextIndex}
+					fontResult={fontResult}
 				/>
 				<CertificateEditor
 					setCurrentIndex={setCurrentIndex}

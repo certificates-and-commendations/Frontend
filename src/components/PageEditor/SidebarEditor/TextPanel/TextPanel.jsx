@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
 import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-font.svg';
 import authApi from '../../../../utils/AuthApi';
 import FontFaceStyles from "./FontFaceStyles/FontFaceStyles";
 
-function TextPanel({onTextClick, activeTextIndex}) {
+function TextPanel({
+                       onTextClick,
+                       activeTextIndex,
+                       setFontResult,
+                       fontResult
+                   }) {
     const [btnClick, setBtnClick] = useState(true);
     const [fontFiles, setFontFiles] = useState([]);
-    const [fontResult, setFontResult] = useState([]);
-
 
     const onClickBtnActive = () => {
         setBtnClick(false);
@@ -56,9 +58,9 @@ function TextPanel({onTextClick, activeTextIndex}) {
 
 
     const handleRemoveFont = (index) => {
-        const updatedFontFiles = [...fontFiles];
+        const updatedFontFiles = [...fontResult];
         updatedFontFiles.splice(index, 1);
-        setFontFiles(updatedFontFiles);
+        setFontResult(updatedFontFiles);
     };
 
     return (
@@ -128,7 +130,7 @@ function TextPanel({onTextClick, activeTextIndex}) {
                                         className="text-panel__trash-font"
                                         onClick={() => handleRemoveFont(index)}
                                     />
-                                    <FontFaceStyles fontResult={fontResult} />
+                                    <FontFaceStyles fontResult={fontResult}/>
                                 </div>
                             ))}
                         </div>
