@@ -26,7 +26,7 @@ function TextBlock({
                        setBorderTextIndex,
                    }) {
     const [widthInput, setWidthInput] = useState(209);
-    const [heightInput, setHeightInput] = useState(17);
+    const [heightInput, setHeightInput] = useState('auto');
     const textareaRef = useRef(null);
     const scrollbarWidth = 10;
 
