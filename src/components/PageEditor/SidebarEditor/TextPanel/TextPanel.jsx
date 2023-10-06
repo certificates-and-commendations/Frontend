@@ -96,11 +96,6 @@ function TextPanel({
             ) : (
                 <div className="text-panel__block-download">
                     <label className="text-panel__download-font" htmlFor="fontUpload">
-                        <img
-                            src={downloadIcon}
-                            alt=""
-                            className="text-panel__download-icon"
-                        />
                         Загрузить шрифт
                         <input
                             type="file"

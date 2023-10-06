@@ -5,7 +5,7 @@ import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor() {
+function PageEditor({ samples }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
@@ -241,6 +241,7 @@ function PageEditor() {
 				onTextClick={handleTextClick}
 				setFontResult={setFontResult}
 				fontResult={fontResult}
+				samples={samples}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
