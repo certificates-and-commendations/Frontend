@@ -49,8 +49,8 @@ function PageEditor({ samples }) {
 		return Math.random().toString(36).substr(2, 9);
 	}
 
-	const handleTextClick = (e) => {
-		setFontSize(14);
+	const handleTextClick = (size) => {
+		setFontSize(size);
 		setFont('Arial');
 		setShowColorPanel(false);
 		setAlign('left');
@@ -78,7 +78,7 @@ function PageEditor({ samples }) {
 					x: '',
 					y: '',
 					fontFamily: 'Arial',
-					fontSize: 14,
+					fontSize: size
 				},
 			]);
 			setTextBlockStyles([
@@ -95,7 +95,7 @@ function PageEditor({ samples }) {
 
 			setTextPosition([
 				...textPosition,
-				{ x: 0, y: 0 }, // Здесь вы можете установить начальные координаты
+				{ x: 0, y: 0 },
 			]);
 
 			setEditingTextIndex(textBlocks.length);
@@ -129,7 +129,6 @@ function PageEditor({ samples }) {
 			(position) => position.id !== idToDelete
 		);
 
-		// Пересчитываем координаты для оставшихся блоков
 		const recalculatedPositions = updatedPositions.map((position) => {
 			return {
 				id: position.id,
@@ -138,8 +137,6 @@ function PageEditor({ samples }) {
 			};
 		});
 		setTextPosition(recalculatedPositions);
-		debugger;
-		// Удаляем цвет для удаленного блока
 		const updatedTextBlockColors = textBlockColors.filter(
 			(color) => color.id !== idToDelete
 		);
@@ -149,10 +146,10 @@ function PageEditor({ samples }) {
 	const handleInputAccept = (index) => {
 		setEditingTextIndex(null);
 		const updatedTextBlocks = [...textBlocks];
-		const blockId = updatedTextBlocks[index].id; // Получаем ID блока
+		const blockId = updatedTextBlocks[index].id;
 		const blockIndex = updatedTextBlocks.findIndex(
 			(block) => block.id === blockId
-		); // Находим индекс блока по ID
+		);
 		if (blockIndex !== -1) {
 			updatedTextBlocks[blockIndex].text = textBlocks[index].text;
 			updatedTextBlocks[blockIndex].x = textPosition.x;
@@ -217,13 +214,9 @@ function PageEditor({ samples }) {
 	};
 
 	const handleChangeComplete = (newColor) => {
-		// Обновляем цвет только для активного текстового блока
 		const updatedTextBlockColors = [...textBlockColors];
 		updatedTextBlockColors[activeTextIndex].color = newColor.hex;
 		setTextBlockColors(updatedTextBlockColors);
-
-		// Не обновляем текущий цвет через setColor
-		// setColor(newColor.hex);
 	};
 
 	return (

@@ -6,7 +6,6 @@ import FontFaceStyles from "./FontFaceStyles/FontFaceStyles";
 
 function TextPanel({
                        onTextClick,
-                       activeTextIndex,
                        setFontResult,
                        fontResult
                    }) {
@@ -85,11 +84,26 @@ function TextPanel({
             </div>
             {btnClick ? (
                 <div className="text-panel__block-result">
-                    <button className="text-panel__h1" onClick={onTextClick}>
+                    <button className="text-panel__h1" onClick={() => {
+                        onTextClick(28)
+                    }}
+                    >
                         Создать заголовок
                     </button>
-                    <button className="text-panel__h2">Создать подзаголовок</button>
-                    <button className="text-panel__paragraph">
+                    <button
+                        className="text-panel__h2"
+                        onClick={() => {
+                            onTextClick(24)
+                        }}
+                    >
+                        Создать подзаголовок
+                    </button>
+                    <button
+                        className="text-panel__paragraph"
+                        onClick={() => {
+                            onTextClick(16)
+                        }}
+                    >
                         Создать основной текст
                     </button>
                 </div>

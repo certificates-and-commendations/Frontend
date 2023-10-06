@@ -20,19 +20,15 @@ function TextBlock({
                        textAlignStyle,
                        setStylePanelActive,
                        textBlockColors,
-                       activeTextIndex,
                        textBlocks,
                        setTextBlocks,
                        setIsDedicated,
                        setBorderTextIndex,
-                       setPositions,
-                       positions,
                    }) {
     const [widthInput, setWidthInput] = useState(209);
     const [heightInput, setHeightInput] = useState(17);
-    const [isDragging, setIsDragging] = useState(false);
     const textareaRef = useRef(null);
-    const scrollbarWidth = 20;
+    const scrollbarWidth = 10;
 
     const handleResizeMouseDown = (e) => {
         e.stopPropagation();

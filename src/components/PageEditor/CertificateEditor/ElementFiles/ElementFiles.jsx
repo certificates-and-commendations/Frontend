@@ -24,7 +24,7 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 							top: '50%',
 							left: '50%',
 							width: '100px',
-							height: '100px',
+
 						}}
 					>
 						<img
