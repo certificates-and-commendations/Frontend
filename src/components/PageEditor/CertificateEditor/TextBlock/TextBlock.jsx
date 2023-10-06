@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Draggable from 'react-draggable';
 import iconHand from '../../../../images/IconsFunctionsText/properties__button-hand.svg'
+import FontFaceStyles from "../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles";
 
 function TextBlock({
                        index,
@@ -20,19 +21,16 @@ function TextBlock({
                        textAlignStyle,
                        setStylePanelActive,
                        textBlockColors,
-                       activeTextIndex,
                        textBlocks,
                        setTextBlocks,
                        setIsDedicated,
                        setBorderTextIndex,
-                       setPositions,
-                       positions,
+                       fontResult
                    }) {
     const [widthInput, setWidthInput] = useState(209);
-    const [heightInput, setHeightInput] = useState(17);
-    const [isDragging, setIsDragging] = useState(false);
+    const [heightInput, setHeightInput] = useState('auto');
     const textareaRef = useRef(null);
-    const scrollbarWidth = 20;
+    const scrollbarWidth = 10;
 
     const handleResizeMouseDown = (e) => {
         e.stopPropagation();
@@ -138,6 +136,7 @@ function TextBlock({
                         }}
                         className="certificate__input"
                     />
+                        <FontFaceStyles fontResult={fontResult}/>
                         <button className="certificate__button-move">
                             <img
                                 src={iconHand}
@@ -159,7 +158,6 @@ function TextBlock({
                             setFont(textBlock.fontFamily);
                         }}
                         style={{
-                            fontFamily: textBlock.fontFamily,
                             fontSize: textBlock.fontSize,
                             fontStyle: textBlock.isItalic ? 'italic' : 'normal',
                             fontWeight: textBlock.isBold ? 'bold' : 'normal',
@@ -181,15 +179,19 @@ function TextBlock({
                             border: textBlock.isBorder ? '3px solid #C3BEFF' : 'none',
                         }}
                     >
-                        <p
+                        <pre
                             className="certificate__text-paragraph"
                             onContextMenu={(e) => {
                                 e.preventDefault();
                                 handleClickBlockText(textBlock.id);
                             }}
+                            style={{
+                                fontFamily: textBlock.fontFamily,
+                            }}
                         >
                             {textBlock.text}
-                        </p>
+                        </pre>
+                        <FontFaceStyles fontResult={fontResult}/>
                     </div>
                 )}
             </div>

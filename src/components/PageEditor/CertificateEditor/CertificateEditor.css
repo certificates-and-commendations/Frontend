@@ -28,7 +28,6 @@
 	position: absolute;
 	box-sizing: border-box;
 	max-width: 100%;
-	max-height: 200px;
 	top: 50%;
 	left: 50%;
 }
