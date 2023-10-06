@@ -3,7 +3,7 @@ import searchPanelImg from '../../../../images/imageEditor/search-panel__image.s
 import templatesImage1 from '../../../../images/imageEditor/templatesImage1.png';
 import certificateImage1 from '../../../../images/imageEditor/certificateImage1.png';
 
-function TemplatesPanel(props) {
+function TemplatesPanel({ samples }) {
 	return (
 		<>
 			<div className="search-panel">
@@ -22,62 +22,15 @@ function TemplatesPanel(props) {
 			</div>
 			<div className="templates-image">
 				<ul className="templates-image__list">
-					<li className="templates-image__item">
-						<img
-							src={templatesImage1}
-							alt="Шаблон 1"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={templatesImage1}
-							alt="Шаблон 2"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={certificateImage1}
-							alt="Сертификат 1"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={certificateImage1}
-							alt="Сертификат 2"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={templatesImage1}
-							alt="Шаблон 1"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={templatesImage1}
-							alt="Шаблон 2"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={certificateImage1}
-							alt="Сертификат 1"
-							className="templates-image__img"
-						/>
-					</li>
-					<li className="templates-image__item">
-						<img
-							src={certificateImage1}
-							alt="Сертификат 2"
-							className="templates-image__img"
-						/>
-					</li>
+					{ samples.map((item) => (
+						<li className={item.is_horizontal ? "templates-image__img-horizontal" : "templates-image__img-vertical" }  key={item.id}>
+							<img
+								src={item.thumbnail}
+								alt="Шаблон 1"
+								className="templates-image__img"
+							/>
+						</li>
+					))}
 				</ul>
 			</div>
 		</>

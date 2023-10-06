@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import Draggable from 'react-draggable';
+import iconHand from '../../../../images/IconsFunctionsText/properties__button-hand.svg'
 
 function TextBlock({
                        index,
@@ -96,48 +97,53 @@ function TextBlock({
             onDrag={(e, {x, y}) => {
                 const newPositions = [...textPosition];
                 newPositions[index] = {x, y};
-                setPositions(newPositions);
+                setTextPosition(newPositions);
             }}
         >
             <div className="certificate__text-field">
                 {editingTextIndex === index ? (
                     <>
-						<textarea
-                            value={textBlock.text}
-                            onMouseDown={handleResizeMouseDown}
-                            onChange={(e) => onTextChange(e, index)}
-                            onKeyDown={(e) => onInputKeyDown(e, index)}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleTextareaClick();
-                            }}
-                            ref={textareaRef}
-                            style={{
-                                fontFamily: textBlock.fontFamily,
-                                fontSize: textBlock.fontSize,
-                                fontStyle: textBlock.isItalic ? 'italic' : 'normal',
-                                fontWeight: textBlock.isBold ? 'bold' : 'normal',
-                                textDecoration:
-                                    textDecorationStyle === 'underline'
-                                        ? 'underline'
-                                        : textDecorationStyle === 'strikethrough'
-                                            ? 'line-through'
-                                            : 'none',
-                                textAlign:
-                                    textAlignStyle === 'left'
-                                        ? 'left'
-                                        : textAlignStyle === 'center'
-                                            ? 'center'
-                                            : textAlignStyle === 'right'
-                                                ? 'right'
-                                                : 'justify',
-                                width: widthInput + scrollbarWidth,
-                                height: heightInput,
-                                color: textBlockColors[index].color,
-                            }}
-                            className="certificate__input"
-                        />
-                        <button className="properties__button-move">Двигать панель</button>
+                    <textarea
+                        value={textBlock.text}
+                        onMouseDown={handleResizeMouseDown}
+                        onChange={(e) => onTextChange(e, index)}
+                        onKeyDown={(e) => onInputKeyDown(e, index)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleTextareaClick();
+                        }}
+                        ref={textareaRef}
+                        style={{
+                            fontFamily: textBlock.fontFamily,
+                            fontSize: textBlock.fontSize,
+                            fontStyle: textBlock.isItalic ? 'italic' : 'normal',
+                            fontWeight: textBlock.isBold ? 'bold' : 'normal',
+                            textDecoration:
+                                textDecorationStyle === 'underline'
+                                    ? 'underline'
+                                    : textDecorationStyle === 'strikethrough'
+                                        ? 'line-through'
+                                        : 'none',
+                            textAlign:
+                                textAlignStyle === 'left'
+                                    ? 'left'
+                                    : textAlignStyle === 'center'
+                                        ? 'center'
+                                        : textAlignStyle === 'right'
+                                            ? 'right'
+                                            : 'justify',
+                            width: widthInput + scrollbarWidth,
+                            height: heightInput,
+                            color: textBlockColors[index].color,
+                        }}
+                        className="certificate__input"
+                    />
+                        <button className="certificate__button-move">
+                            <img
+                                src={iconHand}
+                                alt=" Рука-кнопка для передвижения текста."
+                                className="certificate__img-hand"/>
+                        </button>
                     </>
                 ) : (
                     <div

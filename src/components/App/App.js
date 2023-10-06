@@ -204,7 +204,7 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={<PageEditor diploma={diploma} loggedIn={isLoggedIn} />}
+						element={<PageEditor samples={samples} loggedIn={isLoggedIn} />}
 					/>
 					<Route
 						path="/samples"

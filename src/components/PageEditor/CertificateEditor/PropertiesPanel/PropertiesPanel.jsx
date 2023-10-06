@@ -291,8 +291,20 @@ function PropertiesPanel({
                                 onChange={handleFontChange}
                                 onClick={handleOpenFontList}
                                 className="functions__list"
-                                style={{background: fontOpen ? '#FFFFFF' : '#C3BEFF'}}
+                                style={{background: fontOpen ? '#C3BEFF' : '#FFFFFF'}}
                             >
+                                <option
+                                    value="Arial"
+                                    className="function__option"
+                                >
+                                    Arial
+                                </option>
+                                <option
+                                    value="Times New Roman"
+                                    className="function__option"
+                                >
+                                    Times New Roman
+                                </option>
                                 {
                                     fontResult.map(elem => (
                                         <option
@@ -309,7 +321,7 @@ function PropertiesPanel({
                                 className="functions__img-arrow-up-font"
                                 src={fontOpen ? buttonArrowUpFont : buttonArrowDownFont}
                                 alt=" Кнопка для открытия с выбором шрифтов."
-                                style={{background: fontOpen ? '#FFFFFF' : '#C3BEFF'}}
+                                style={{background: fontOpen ? '#C3BEFF' : '#FFFFFF'}}
                             />
                         </div>
                         <label
@@ -353,7 +365,7 @@ function PropertiesPanel({
                             aria-label=" Кнопка для добавления стиля полужирный к тексту."
                             onClick={handleBoldChange}
                             style={{
-                                backgroundColor: textBoldActiveMenu ? '#FFFFFF' : '#C3BEFF',
+                                backgroundColor: textBoldActiveMenu ? '#C3BEFF' : '#FFFFFF',
                             }}
                         >
                             <img
@@ -368,7 +380,7 @@ function PropertiesPanel({
                             aria-label="Кнопка для удаления"
                             onClick={handleItalicChange}
                             style={{
-                                backgroundColor: textItalicActiveMenu ? '#FFFFFF' : '#C3BEFF',
+                                backgroundColor: textItalicActiveMenu ? '#C3BEFF' : '#FFFFFF',
                             }}
                         >
                             <img
@@ -384,8 +396,7 @@ function PropertiesPanel({
                             onClick={handleTextDecorationUnderline}
                             style={{
                                 backgroundColor: textUnderlineActiveMenu
-                                    ? '#FFFFFF'
-                                    : '#C3BEFF',
+                                    ? '#C3BEFF' : '#FFFFFF',
                             }}
                         >
                             <img
@@ -401,8 +412,7 @@ function PropertiesPanel({
                             onClick={handleTextDecorationStrikethrough}
                             style={{
                                 backgroundColor: textStrikethroughActiveMenu
-                                    ? '#FFFFFF'
-                                    : '#C3BEFF',
+                                    ? '#C3BEFF' : '#FFFFFF',
                             }}
                         >
                             <img
@@ -412,7 +422,8 @@ function PropertiesPanel({
                             />
                         </button>
                     </li>
-                )}
+                )
+                }
 
                 <li className="functions__button">
                     {stylePanelActive && (
@@ -437,7 +448,8 @@ function PropertiesPanel({
                 </li>
             </ul>
         </section>
-    );
+    )
+        ;
 }
 
 export default PropertiesPanel;

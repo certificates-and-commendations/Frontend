@@ -22,7 +22,8 @@ function SidebarEditor({
                            setPositions,
                            onTextClick,
                            fontResult,
-                           setFontResult
+                           setFontResult,
+                           samples
                        }) {
     const [activePanel, setActivePanel] = useState('panelTemplates');
     const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -30,7 +31,7 @@ function SidebarEditor({
     const renderPanel = () => {
         switch (activePanel) {
             case 'panelTemplates':
-                return <TemplatesPanel/>;
+                return <TemplatesPanel samples={samples}/>;
             case 'panelText':
                 return <TextPanel
                     onTextClick={onTextClick}

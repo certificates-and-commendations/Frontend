@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Draggable from 'react-draggable';
 
 function ElementFiles({ element, onDrag, positions, setPositions }) {
@@ -9,6 +9,7 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					bounds="parent"
 					position={positions[index]}
 					onDrag={(e, { x, y }) => {
+						console.log(positions)
 						const newPositions = [...positions];
 						newPositions[index] = { x, y };
 						setPositions(newPositions);

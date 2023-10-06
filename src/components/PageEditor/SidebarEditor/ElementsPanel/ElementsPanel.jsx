@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
-import downloadIcon from '../../../../images/imageEditor/download-icon.png';
 
 function ElementsPanel({ setElement, element, positions, setPositions }) {
 	const [imageURLsElements, setImageURLsElements] = useState([]);
