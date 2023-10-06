@@ -17,10 +17,8 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					}}
 					key={elem.id}
 				>
-					<img
-						src={elem.url}
-						alt="Элемент"
-						className="element-files__certificate"
+					<button
+						className="element-files__certificate-btn"
 						style={{
 							position: 'absolute',
 							top: '50%',
@@ -28,7 +26,13 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 							width: '100px',
 							height: '100px',
 						}}
-					/>
+					>
+						<img
+							src={elem.url}
+							alt="Элемент"
+							className="element-files__certificate-img"
+						/>
+					</button>
 				</Draggable>
 			))}
 		</>
