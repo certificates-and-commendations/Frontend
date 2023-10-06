@@ -59,7 +59,6 @@ function CertificateEditor({
                     src={uploadedCertificate}
                     alt="Uploaded Certificate"
                     className="certificate__image"
-                    onClick={onTextClick}
                 />
             )}
             {textBlocks.map((textBlock, index) => (

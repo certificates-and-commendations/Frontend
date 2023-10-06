@@ -155,7 +155,6 @@ function TextBlock({
                             setFont(textBlock.fontFamily);
                         }}
                         style={{
-                            fontFamily: textBlock.fontFamily,
                             fontSize: textBlock.fontSize,
                             fontStyle: textBlock.isItalic ? 'italic' : 'normal',
                             fontWeight: textBlock.isBold ? 'bold' : 'normal',
@@ -177,15 +176,18 @@ function TextBlock({
                             border: textBlock.isBorder ? '3px solid #C3BEFF' : 'none',
                         }}
                     >
-                        <p
+                        <pre
                             className="certificate__text-paragraph"
                             onContextMenu={(e) => {
                                 e.preventDefault();
                                 handleClickBlockText(textBlock.id);
                             }}
+                            style={{
+                                fontFamily: textBlock.fontFamily,
+                            }}
                         >
                             {textBlock.text}
-                        </p>
+                        </pre>
                     </div>
                 )}
             </div>
