@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Draggable from 'react-draggable';
 import iconHand from '../../../../images/IconsFunctionsText/properties__button-hand.svg'
+import FontFaceStyles from "../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles";
 
 function TextBlock({
                        index,
@@ -24,6 +25,7 @@ function TextBlock({
                        setTextBlocks,
                        setIsDedicated,
                        setBorderTextIndex,
+                       fontResult
                    }) {
     const [widthInput, setWidthInput] = useState(209);
     const [heightInput, setHeightInput] = useState('auto');
@@ -134,6 +136,7 @@ function TextBlock({
                         }}
                         className="certificate__input"
                     />
+                        <FontFaceStyles fontResult={fontResult}/>
                         <button className="certificate__button-move">
                             <img
                                 src={iconHand}
@@ -188,6 +191,7 @@ function TextBlock({
                         >
                             {textBlock.text}
                         </pre>
+                        <FontFaceStyles fontResult={fontResult}/>
                     </div>
                 )}
             </div>

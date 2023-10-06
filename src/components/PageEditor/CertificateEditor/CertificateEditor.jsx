@@ -28,14 +28,6 @@ function CertificateEditor({
                                textBlockStyles,
                                setTextBlockStyles,
                                setTextAlignStyle,
-                               onSavePDF,
-                               onCertificateUpload,
-                               showTable,
-                               setShowTable,
-                               tableData,
-                               setTableData,
-                               onStampUpload,
-                               onCreateJson,
                                uploadedCertificate,
                                element,
                                elementPosition,
@@ -51,6 +43,7 @@ function CertificateEditor({
                                clickTextBlockActive,
                                setIsDedicated,
                                setBorderTextIndex,
+                               fontResult
                            }) {
     return (
         <div className="certificate">
@@ -101,6 +94,7 @@ function CertificateEditor({
                     setPositions={setPositions}
                     positions={positions}
                     textPosition={textPosition}
+                    fontResult={fontResult}
                 />
             ))}
             {element && (

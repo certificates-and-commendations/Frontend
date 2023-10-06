@@ -323,6 +323,7 @@ function PageEditor({ samples }) {
 					setIsDedicated={setIsDedicated}
 					setBorderTextIndex={setBorderTextIndex}
 					textPosition={textPosition}
+					fontResult={fontResult}
 				/>
 			</section>
 		</main>
