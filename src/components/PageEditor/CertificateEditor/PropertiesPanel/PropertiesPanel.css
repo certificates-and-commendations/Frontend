@@ -83,6 +83,7 @@ input[type='number'] {
 }
 
 .function__option {
+	width: 10px;
 	background: #ffffff;
 }
 

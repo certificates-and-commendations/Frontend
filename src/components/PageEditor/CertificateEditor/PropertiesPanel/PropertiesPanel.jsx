@@ -311,7 +311,7 @@ function PropertiesPanel({
                                             value={fontResult.font}
                                             className="function__option"
                                         >
-                                            {elem.font}
+                                            { elem.font.length > 15 ? `${elem.font.slice(0, 15)}...` : elem.font }
                                         </option>
                                     ))
                                 }
