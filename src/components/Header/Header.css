@@ -40,19 +40,22 @@
 	background-color: #dbe5f2;
 	border: none;
 	font-size: 16px;
-	letter-spacing: -0.24px;
+	letter-spacing: 1px;
 	box-sizing: border-box;
 	height: 44px;
 }
 
 .header__item_active {
-	border: 1px solid var(--text-100, #2b2b2e);
-	background-color: #c3beff;
+	/*border: 1px solid var(--text-100, #2b2b2e);*/
+	background-color: #665DCF;
+	color: #FFFFFF
 }
 
 .header__item:hover {
 	cursor: pointer;
-	opacity: 0.7;
+	/*opacity: 0.9;*/
+	background-color: #C3BEFF;
+	color: #FFFFFF
 }
 
 .header__logo {
@@ -60,9 +63,9 @@
 	align-self: center;
 }
 
-.header__item_color_yellow {
+/*.header__item_color_yellow {
 	background-color: #e9f993;
-}
+}*/
 
 .header__profile {
 	display: flex;
