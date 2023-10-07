@@ -3,57 +3,105 @@ import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
+import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor() {
+function PageEditor({ samples }) {
+	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
 	const [showProperties, setShowProperties] = useState(false);
 	const [textBlocks, setTextBlocks] = useState([]);
 	const [editingTextIndex, setEditingTextIndex] = useState(null);
 	const [signature, setSignature] = useState(null);
-	const [signaturePosition, setSignaturePosition] = useState({ x: 0, y: 0 });
 	const [uploadedCertificate, setUploadedCertificate] = useState(null);
 	const [showTable, setShowTable] = useState([]);
 	const [tableData, setTableData] = useState([]);
-	const [stamp, setStamp] = useState(null);
-	const [stampPosition, setStampPosition] = useState({ x: 0, y: 0 });
-	const [textPosition, setTextPosition] = useState({ x: 0, y: 0 });
+	const [textBlockColors, setTextBlockColors] = useState([]);
+	const [element, setElement] = useState([]);
+	const [elementPosition, setElementPosition] = useState({ x: 0, y: 0 });
+	const [textPosition, setTextPosition] = useState([]);
+
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
+	const [borderTextIndex, setBorderTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 	const [textAlignStyle, setTextAlignStyle] = useState('left');
 	const [pdfData, setPdfData] = useState(null);
 	const [textBlockStyles, setTextBlockStyles] = useState([]);
-	const [textPanelActive, setTextPanelActive] = useState(false);
+	const [panelSidebarActive, setPanelSidebarActive] = useState(false);
+	const [stylePanelActive, setStylePanelActive] = useState(false);
+	const [elementVisibility, setElementVisibility] = useState([]);
+	const [showColorPanel, setShowColorPanel] = useState(false);
+	const [align, setAlign] = useState('left');
+	const [textBoldActiveMenu, setTextBoldActiveMenu] = useState(false);
+	const [textItalicActiveMenu, setTextItalicActiveMenu] = useState(false);
+	const [textUnderlineActiveMenu, setTextUnderlineActiveMenu] = useState(false);
+	const [textStrikethroughActiveMenu, setTextStrikethroughActiveMenu] =
+		useState(false);
+	const [isDedicated, setIsDedicated] = useState(false);
+	const [fontResult, setFontResult] = useState([]);
+
+	const initialPositions = element.map(() => ({ x: 0, y: 0 }));
+	const [positions, setPositions] = useState(initialPositions);
 
 	const certificateRef = useRef(null);
 
-	const handleTextClick = (e) => {
-		setFontSize(14);
+	function generateUniqueId() {
+		return Math.random().toString(36).substr(2, 9);
+	}
+
+	const handleTextClick = (size) => {
+		setFontSize(size);
 		setFont('Arial');
+		setShowColorPanel(false);
+		setAlign('left');
+		setTextBoldActiveMenu(false);
+		setTextItalicActiveMenu(false);
+		setTextUnderlineActiveMenu(false);
+		setTextStrikethroughActiveMenu(false);
+
+		const blockId = generateUniqueId();
 
 		if (!editingTextIndex) {
+			setTextBlockColors([
+				...textBlockColors,
+				{
+					id: blockId,
+					color: '#000000',
+				},
+			]);
+
 			setTextBlocks([
 				...textBlocks,
 				{
+					id: blockId,
 					text: '',
 					x: '',
 					y: '',
 					fontFamily: 'Arial',
-					fontSize: 14,
+					fontSize: size
 				},
 			]);
 			setTextBlockStyles([
 				...textBlockStyles,
 				{
+					id: blockId,
 					isItalic: false,
 					isBold: false,
 					isDecoration: 'none',
 					isAlign: 'left',
+					isBorder: false,
 				},
 			]);
+
+			setTextPosition([
+				...textPosition,
+				{ x: 0, y: 0 },
+			]);
+
 			setEditingTextIndex(textBlocks.length);
 			setActiveTextIndex(textBlocks.length);
 			setShowProperties(true);
+			setStylePanelActive(true);
 		}
 	};
 
@@ -63,89 +111,69 @@ function PageEditor() {
 		setTextBlocks(updatedTextBlocks);
 	};
 
-	const handleFontChange = (e) => {
-		setFont(e.target.value);
-		if (editingTextIndex !== null) {
-			const updatedTextBlocks = [...textBlocks];
-			updatedTextBlocks[editingTextIndex].fontFamily = e.target.value;
-			setTextBlocks(updatedTextBlocks);
-		}
+	const handleDeleteTextBlock = (idToDelete) => {
+		const updatedTextBlocks = textBlocks.filter(
+			(block) => block.id !== idToDelete
+		);
+		setTextBlocks(updatedTextBlocks);
+
+		const updatedTextBlockStyles = updatedTextBlocks.map((block) => {
+			const styleIndex = textBlockStyles.findIndex(
+				(styleBlock) => styleBlock.id === block.id
+			);
+			return textBlockStyles[styleIndex];
+		});
+		setTextBlockStyles(updatedTextBlockStyles);
+
+		const updatedPositions = textPosition.filter(
+			(position) => position.id !== idToDelete
+		);
+
+		const recalculatedPositions = updatedPositions.map((position) => {
+			return {
+				id: position.id,
+				x: position.x,
+				y: position.y,
+			};
+		});
+		setTextPosition(recalculatedPositions);
+		const updatedTextBlockColors = textBlockColors.filter(
+			(color) => color.id !== idToDelete
+		);
+		setTextBlockColors(updatedTextBlockColors);
 	};
 
-	const handleFontSizeChange = (e) => {
+	const handleInputAccept = (index) => {
+		setEditingTextIndex(null);
 		const updatedTextBlocks = [...textBlocks];
-
-		if (parseInt(e.target.value, 10) > 50) {
-			setFontSize(50);
-			updatedTextBlocks[editingTextIndex].fontSize = 50;
-		} else if (parseInt(e.target.value, 10) < 0) {
-			setFontSize(1);
-			updatedTextBlocks[editingTextIndex].fontSize = 1;
-		} else {
-			setFontSize(parseInt(e.target.value, 10));
-
-			if (editingTextIndex !== null) {
-				updatedTextBlocks[editingTextIndex].fontSize = parseInt(
-					e.target.value,
-					10
-				);
-
-				setTextBlocks(updatedTextBlocks);
-			}
+		const blockId = updatedTextBlocks[index].id;
+		const blockIndex = updatedTextBlocks.findIndex(
+			(block) => block.id === blockId
+		);
+		if (blockIndex !== -1) {
+			updatedTextBlocks[blockIndex].text = textBlocks[index].text;
+			updatedTextBlocks[blockIndex].x = textPosition.x;
+			updatedTextBlocks[blockIndex].y = textPosition.y;
+			setTextBlocks(updatedTextBlocks);
 		}
+		setShowProperties(false);
+		setActiveTextIndex(null);
 	};
 
 	const handleInputKeyDown = (e, index) => {
 		if (e.key === 'Enter') {
-			setEditingTextIndex(null);
-			const updatedTextBlocks = [...textBlocks];
-			updatedTextBlocks[index].text = e.target.value;
-			updatedTextBlocks[index].x = textPosition.x;
-			updatedTextBlocks[index].y = textPosition.y;
-			setTextBlocks(updatedTextBlocks);
-			setShowProperties(false);
-			setActiveTextIndex(null);
+			setStylePanelActive(false);
+			handleInputAccept(index);
 		}
 	};
 
-	const handleSignatureUpload = (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			if (file.type === 'image/png') {
-				const reader = new FileReader();
-				reader.onload = (event) => {
-					setSignature(event.target.result);
-				};
-				reader.readAsDataURL(file);
-			} else {
-				setSignature(null);
-				// alert('Пожалуйста, загрузите изображение в формате PNG.');
-			}
-		}
+	const handleInputClickAccept = (index) => {
+		setStylePanelActive(false);
+		handleInputAccept(index);
 	};
 
-	const handleStampUpload = (e) => {
-		const file = e.target.files[0];
-		if (file) {
-			if (file.type === 'image/png') {
-				const reader = new FileReader();
-				reader.onload = (event) => {
-					setStamp(event.target.result);
-				};
-				reader.readAsDataURL(file);
-			} else {
-				setStamp(null);
-				// alert('Пожалуйста, загрузите изображение в формате PNG.');
-			}
-		}
-	};
-
-	const handleSignatureDrag = (e, data) => {
-		setSignaturePosition({ x: data.x, y: data.y });
-	};
-
-	const handleStampDrag = (e, data) => {
-		setStampPosition({ x: data.x, y: data.y });
+	const handleElementDrag = (e, data) => {
+		setElementPosition({ x: data.x, y: data.y });
 	};
 
 	const handleCreateJson = () => {
@@ -165,16 +193,11 @@ function PageEditor() {
 				width: 600,
 				height: 850,
 			}, // Подставьте URL фона
-			Stamp: {
-				url: stamp,
-				x: stampPosition.x,
-				y: stampPosition.y,
+			Element: {
+				url: element,
+				x: elementPosition.x,
+				y: elementPosition.y,
 			},
-			Signature: {
-				url: signature,
-				x: signaturePosition.x,
-				y: signaturePosition.y,
-			}, // Подставьте URL печати
 		};
 		// console.log(jsonToSave)
 		setPdfData(jsonToSave);
@@ -190,69 +213,119 @@ function PageEditor() {
 		pdf.save('certificate.pdf');
 	};
 
-	const handleCertificateUpload = (uploadedImage) => {
-		const img = new Image();
-		img.src = uploadedImage;
-		img.onload = () => {
-			if (img.width === 600 && img.height === 850) {
-				setUploadedCertificate(uploadedImage);
-			} else {
-				// alert(
-				// 	'Загруженная грамота должна быть размером 600x850 пикселей. Загрузка отменена.'
-				// );
-			}
-		};
+	const handleChangeComplete = (newColor) => {
+		const updatedTextBlockColors = [...textBlockColors];
+		updatedTextBlockColors[activeTextIndex].color = newColor.hex;
+		setTextBlockColors(updatedTextBlockColors);
 	};
 
 	return (
 		<main className="main-content-editor">
 			<SidebarEditor
-				setTextPanelActive={setTextPanelActive}
-				textPanelActive={textPanelActive}
+				setPanelSidebarActive={setPanelSidebarActive}
+				panelSidebarActive={panelSidebarActive}
 				setUploadedCertificate={setUploadedCertificate}
-			/>
-			<CertificateEditor
-				setEditingTextIndex={setEditingTextIndex}
-				editingTextIndex={editingTextIndex}
-				font={font}
-				setFont={setFont}
-				fontSize={fontSize}
-				setFontSize={setFontSize}
-				onFontChange={handleFontChange}
-				onFontSizeChange={handleFontSizeChange}
-				textBlocks={textBlocks}
-				setTextBlocks={setTextBlocks}
-				certificateRef={certificateRef}
-				isVisible={showProperties}
-				setActiveTextIndex={setActiveTextIndex}
-				activeTextIndex={activeTextIndex}
-				setShowProperties={setShowProperties}
-				setTextDecorationStyle={setTextDecorationStyle}
-				setTextPosition={setTextPosition}
+				setElement={setElement}
+				element={element}
+				setElementVisibility={setElementVisibility}
+				elementVisibility={elementVisibility}
+				positions={positions}
+				setPositions={setPositions}
 				onTextClick={handleTextClick}
-				textBlockStyles={textBlockStyles}
-				setTextBlockStyles={setTextBlockStyles}
-				setTextAlignStyle={setTextAlignStyle}
-				handleTextChange={handleTextChange}
-				handleInputKeyDown={handleInputKeyDown}
-				onSignatureUpload={handleSignatureUpload}
-				onSavePDF={handleSavePDF}
-				onCertificateUpload={handleCertificateUpload}
-				showTable={showTable}
-				setShowTable={setShowTable}
-				tableData={tableData}
-				setTableData={setTableData}
-				onStampUpload={handleStampUpload}
-				onCreateJson={handleCreateJson}
-				uploadedCertificate={uploadedCertificate}
-				signature={signature}
-				signaturePosition={signaturePosition}
-				onSignatureDrag={handleSignatureDrag}
-				stamp={stamp}
-				stampPosition={stampPosition}
-				onStampDrag={handleStampDrag}
-				textPanelActive={textPanelActive}
+				setFontResult={setFontResult}
+				fontResult={fontResult}
+				samples={samples}
 			/>
+			<section className="certificate-main">
+				<PropertiesPanel
+					stylePanelActive={stylePanelActive}
+					font={font}
+					setFont={setFont}
+					fontSize={fontSize}
+					setFontSize={setFontSize}
+					onSavePDF={handleSavePDF}
+					editingTextIndex={editingTextIndex}
+					showTable={showTable}
+					setShowTable={setShowTable}
+					tableData={tableData}
+					setTableData={setTableData}
+					textBlocks={textBlocks}
+					setTextBlocks={setTextBlocks}
+					certificateRef={certificateRef}
+					isVisible={elementVisibility}
+					activeTextIndex={activeTextIndex}
+					setActiveTextIndex={setActiveTextIndex}
+					setTextDecorationStyle={setTextDecorationStyle}
+					textBlockStyles={textBlockStyles}
+					setTextBlockStyles={setTextBlockStyles}
+					setTextAlignStyle={setTextAlignStyle}
+					onChangeComplete={handleChangeComplete}
+					textBlockColors={textBlockColors}
+					currentIndex={currentIndex}
+					onInputClickAccept={handleInputClickAccept}
+					setShowColorPanel={setShowColorPanel}
+					showColorPanel={showColorPanel}
+					setAlign={setAlign}
+					align={align}
+					setTextBoldActiveMenu={setTextBoldActiveMenu}
+					textBoldActiveMenu={textBoldActiveMenu}
+					setTextItalicActiveMenu={setTextItalicActiveMenu}
+					textItalicActiveMenu={textItalicActiveMenu}
+					setTextUnderlineActiveMenu={setTextUnderlineActiveMenu}
+					textUnderlineActiveMenu={textUnderlineActiveMenu}
+					setTextStrikethroughActiveMenu={setTextStrikethroughActiveMenu}
+					textStrikethroughActiveMenu={textStrikethroughActiveMenu}
+					isDedicated={isDedicated}
+					setIsDedicated={setIsDedicated}
+					onDeleteTextBlock={handleDeleteTextBlock}
+					borderTextIndex={borderTextIndex}
+					fontResult={fontResult}
+				/>
+				<CertificateEditor
+					setCurrentIndex={setCurrentIndex}
+					setEditingTextIndex={setEditingTextIndex}
+					editingTextIndex={editingTextIndex}
+					font={font}
+					setFont={setFont}
+					fontSize={fontSize}
+					setFontSize={setFontSize}
+					textBlocks={textBlocks}
+					setTextBlocks={setTextBlocks}
+					certificateRef={certificateRef}
+					isVisible={showProperties}
+					setActiveTextIndex={setActiveTextIndex}
+					activeTextIndex={activeTextIndex}
+					setShowProperties={setShowProperties}
+					setTextDecorationStyle={setTextDecorationStyle}
+					setTextPosition={setTextPosition}
+					onTextClick={handleTextClick}
+					textBlockStyles={textBlockStyles}
+					setTextBlockStyles={setTextBlockStyles}
+					setTextAlignStyle={setTextAlignStyle}
+					handleTextChange={handleTextChange}
+					onInputKeyDown={handleInputKeyDown}
+					onSavePDF={handleSavePDF}
+					showTable={showTable}
+					setShowTable={setShowTable}
+					tableData={tableData}
+					setTableData={setTableData}
+					onCreateJson={handleCreateJson}
+					uploadedCertificate={uploadedCertificate}
+					signature={signature}
+					element={element}
+					elementPosition={elementPosition}
+					onElementDrag={handleElementDrag}
+					elementVisibility={elementVisibility}
+					positions={positions}
+					setPositions={setPositions}
+					setStylePanelActive={setStylePanelActive}
+					textBlockColors={textBlockColors}
+					setIsDedicated={setIsDedicated}
+					setBorderTextIndex={setBorderTextIndex}
+					textPosition={textPosition}
+					fontResult={fontResult}
+				/>
+			</section>
 		</main>
 	);
 }

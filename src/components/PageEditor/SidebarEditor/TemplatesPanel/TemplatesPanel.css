@@ -2,7 +2,7 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 24px 24px 20px 20px;
+	padding: 24px 0 20px 0;
 }
 
 .search-panel__search-input {
@@ -46,11 +46,21 @@
 }
 
 .templates-image {
-	padding: 0 20px 20px 20px;
+	padding: 0 0 20px 0;
+}
+
+.templates-image__img-vertical {
+	width: 134px;
+	cursor: pointer;
+}
+
+.templates-image__img-horizontal {
+	width: 133px;
+	cursor: pointer;
 }
 
 .templates-image__img {
 	width: 100%;
 	height: 100%;
-	cursor: pointer;
+	border-radius: 6px;
 }

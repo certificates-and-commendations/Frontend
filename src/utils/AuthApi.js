@@ -140,6 +140,16 @@ class AuthApi {
 			},
 		}).then(handleResponse);
 	}
+
+	handleFontFamily(fontUrl) {
+		const formData = new FormData();
+		formData.append('font_file', fontUrl);
+
+		return fetch(`${this.url}/font/`, {
+			method: 'POST',
+			body: formData,
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
