@@ -5,6 +5,8 @@ import { Checkbox } from './Checkbox/Checkbox';
 import { Sample } from './Sample/Sample';
 // ВРЕМЕННЫЙ МАССИВ ШАБЛОНОВ
 import { temporarySamles } from '../../constants/constants';
+// ФИЛЬТР ЦВЕТА
+import ColorFilter from './ColorFilter/ColorFilter';
 
 export const Samples = ({
 	setDiploma,
@@ -171,7 +173,9 @@ export const Samples = ({
 							text="Вертикальнаяы"
 						/>
 					</div>
-					<span className="samples__menu-title">Цвета</span>
+					<ColorFilter
+						colors={['red', 'blue', 'green', 'orange', 'light green']}
+					/>
 				</form>
 				<div className="samples__container">
 					<div className="samples__container-inside">
