@@ -19,6 +19,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import PageEditor from '../PageEditor/PageEditor';
 import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
+import TablePopup from '../TablePopup/TablePopup';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +30,7 @@ function App() {
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
+	const [isTablePopupOpen, setIsTablePopupOpen] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [formValue, setFormValue] = useState({
 		email: '',
@@ -73,13 +75,15 @@ function App() {
 			fourth: '',
 			code: '',
 		});
+		setIsTablePopupOpen(false);
 	}
 
 	const isOpen =
 		isRegisterPopupOpen ||
 		isRegisterConfirmationPopupOpen ||
 		isLoginPopupOpen ||
-		isRecoveryPopupOpen;
+		isRecoveryPopupOpen ||
+		isTablePopupOpen;
 
 	React.useEffect(() => {
 		function closeByEscape(evt) {
@@ -322,6 +326,13 @@ function App() {
 						onClose={() => {
 							setInfoToolTip({ text: '', status: true, opened: false });
 						}}
+					/>
+				)}
+				{isTablePopupOpen && (
+					<TablePopup
+						isOpened={isTablePopupOpen}
+						popupName="TablePopup"
+						onClose={() => closeAllPopups()}
 					/>
 				)}
 				<ComputerRestrictions />
