@@ -121,15 +121,16 @@ class AuthApi {
 				queryParams.push(`is_horizontal=true`);
 			} else if (key === 'is_vertical' && obj[key]) {
 				queryParams.push(`is_horizontal=false`);
-			}
-			else if (obj[key]) {
+			} else if (obj[key]) {
 				// Если ключ не 'is_horizontal' и его значение равно true, добавляем его к queryParams с 'category'
 				queryParams.push(`category=${key}`);
 			}
 		});
 
 		const queryString = queryParams.join('&');
-		const url = `${this.url}/documents/${queryString.length === 0 ? '' : `?${queryString}`}`;
+		const url = `${this.url}/documents/${
+			queryString.length === 0 ? '' : `?${queryString}`
+		}`;
 
 		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
