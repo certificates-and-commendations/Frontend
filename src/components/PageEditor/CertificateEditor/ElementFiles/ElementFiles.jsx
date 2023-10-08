@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Draggable from 'react-draggable';
 
 function ElementFiles({ element, onDrag, positions, setPositions }) {
@@ -9,6 +9,7 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					bounds="parent"
 					position={positions[index]}
 					onDrag={(e, { x, y }) => {
+						console.log(positions)
 						const newPositions = [...positions];
 						newPositions[index] = { x, y };
 						setPositions(newPositions);
@@ -16,18 +17,22 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					}}
 					key={elem.id}
 				>
-					<img
-						src={elem.url}
-						alt="Элемент"
-						className="element-files__certificate"
+					<button
+						className="element-files__certificate-btn"
 						style={{
 							position: 'absolute',
 							top: '50%',
 							left: '50%',
 							width: '100px',
-							height: '100px',
+
 						}}
-					/>
+					>
+						<img
+							src={elem.url}
+							alt="Элемент"
+							className="element-files__certificate-img"
+						/>
+					</button>
 				</Draggable>
 			))}
 		</>

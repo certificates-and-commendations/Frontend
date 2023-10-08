@@ -1,6 +1,6 @@
 .elements-panel {
 	max-width: 288px;
-	padding: 0 20px;
+	padding: 0;
 }
 
 .elements-panel__block-download {
@@ -49,7 +49,6 @@
 .elements-panel__wrapper {
 	position: relative;
 	max-width: 124px;
-	max-height: 124px;
 }
 
 .elements-panel__loading-img {

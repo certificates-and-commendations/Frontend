@@ -25,13 +25,6 @@ function FioTable({
 		updatedData[index] = updatedRow;
 		setTableData(updatedData);
 	};
-
-	const deleteRow = (index) => {
-		const updatedData = [...tableData];
-		updatedData.splice(index, 1);
-		setTableData(updatedData);
-	};
-
 	const handleSaveAllPDFs = async () => {
 		onCreateJson();
 		const scale = 3;
@@ -71,6 +64,13 @@ function FioTable({
 		// Сохраняем объединенный PDF файл
 		pdf.save('certificates.pdf');
 	};
+	const deleteRow = (index) => {
+		const updatedData = [...tableData];
+		updatedData.splice(index, 1);
+		setTableData(updatedData);
+	};
+
+
 
 	return (
 		<div className="table-container">

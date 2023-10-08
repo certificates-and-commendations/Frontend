@@ -13,6 +13,7 @@ function TextPanel({
 	const [btnClick, setBtnClick] = useState(true);
 	const [fontFiles, setFontFiles] = useState([]);
 
+
 	const onClickBtnActive = () => {
 		setBtnClick(false);
 	};
@@ -60,82 +61,94 @@ function TextPanel({
 		setFontResult(updatedFontFiles);
 	};
 
-	return (
-		<div className="text-panel">
-			<div className="text-panel__block-button">
-				<button
-					className={`text-panel__button ${
-						btnClick ? 'text-panel__button_active' : ''
-					}`}
-					onClick={onClickBtnNotActive}
-				>
-					Текст
-				</button>
-				<button
-					className={`text-panel__button ${
-						!btnClick ? 'text-panel__button_active' : ''
-					}`}
-					onClick={onClickBtnActive}
-				>
-					Мои шрифты
-				</button>
-			</div>
-			{btnClick ? (
-				<div className="text-panel__block-result">
-					<button className="text-panel__h1" onClick={onTextClick}>
-						Создать заголовок
-					</button>
-					<button className="text-panel__h2">Создать подзаголовок</button>
-					<button className="text-panel__paragraph">
-						Создать основной текст
-					</button>
-				</div>
-			) : (
-				<div className="text-panel__block-download">
-					<label className="text-panel__download-font" htmlFor="fontUpload">
-						<img
-							src={downloadIcon}
-							alt=""
-							className="text-panel__download-icon"
-						/>
-						Загрузить шрифт
-						<input
-							type="file"
-							id="fontUpload"
-							name="font_file"
-							accept=".ttf"
-							style={{ display: 'none' }}
-							onChange={handleFontFileChange}
-							multiple
-						/>
-					</label>
-					{fontFiles.length > 0 && (
-						<div className="text-panel__font-block">
-							{fontResult.map((file, index) => (
-								<div className="text-panel__wrapper" key={file.id}>
-									<p
-										className="text-panel__paragraph-font"
-										style={{
-											fontFamily: `${file.font}, Arial`,
-										}}
-									>
-										{file.font}
-									</p>
-									<img
-										src={trashFont}
-										alt="Кнопка удаления шрифта."
-										className="text-panel__trash-font"
-										onClick={() => handleRemoveFont(index)}
-									/>
-									<FontFaceStyles fontResult={fontResult} />
-								</div>
-							))}
-						</div>
-					)}
-				</div>
-			)}
-		</div>
-	);
+
+
+    return (
+        <div className="text-panel">
+            <div className="text-panel__block-button">
+                <button
+                    className={`text-panel__button ${
+                        btnClick ? 'text-panel__button_active' : ''
+                    }`}
+                    onClick={onClickBtnNotActive}
+                >
+                    Текст
+                </button>
+                <button
+                    className={`text-panel__button ${
+                        !btnClick ? 'text-panel__button_active' : ''
+                    }`}
+                    onClick={onClickBtnActive}
+                >
+                    Мои шрифты
+                </button>
+            </div>
+            {btnClick ? (
+                <div className="text-panel__block-result">
+                    <button className="text-panel__h1" onClick={() => {
+                        onTextClick(28)
+                    }}
+                    >
+                        Создать заголовок
+                    </button>
+                    <button
+                        className="text-panel__h2"
+                        onClick={() => {
+                            onTextClick(24)
+                        }}
+                    >
+                        Создать подзаголовок
+                    </button>
+                    <button
+                        className="text-panel__paragraph"
+                        onClick={() => {
+                            onTextClick(16)
+                        }}
+                    >
+                        Создать основной текст
+                    </button>
+                </div>
+            ) : (
+                <div className="text-panel__block-download">
+                    <label className="text-panel__download-font" htmlFor="fontUpload">
+                        Загрузить шрифт
+                        <input
+                            type="file"
+                            id="fontUpload"
+                            name="font_file"
+                            accept=".ttf"
+                            style={{display: 'none'}}
+                            onChange={handleFontFileChange}
+                            multiple
+                        />
+                    </label>
+                    {fontFiles.length > 0 && (
+                        <div className="text-panel__font-block">
+                            {fontResult.map((file, index) => (
+                                <div className="text-panel__wrapper" key={file.id}>
+                                    <p
+                                        className="text-panel__paragraph-font"
+                                        style={{
+                                            fontFamily: `${file.font}, Arial`,
+                                        }}
+                                    >
+                                        {file.font}
+                                    </p>
+                                    <img
+                                        src={trashFont}
+                                        alt="Кнопка удаления шрифта."
+                                        className="text-panel__trash-font"
+                                        onClick={() => handleRemoveFont(index)}
+                                    />
+                                    <FontFaceStyles fontResult={fontResult}/>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default TextPanel;
