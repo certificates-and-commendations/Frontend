@@ -48,7 +48,7 @@ function Form({
 			const isValid = EMAIL_CHECKER.test(value);
 			setFormErrorMessage({
 				...formErrorMessage,
-				[name]: isValid ? '' : 'Некорректный формат email',
+				[name]: isValid ? '' : 'Некорректный формат электронной почты',
 			});
 		}
 	}
@@ -160,7 +160,7 @@ function Form({
 						}
 					>
 						<span className="popup__input-text popup__input-text_email">
-							Email
+							Электронная почта
 						</span>
 						<span
 							className={
@@ -178,7 +178,7 @@ function Form({
 							minLength="2"
 							maxLength="40"
 							required={popupName !== 'registerConfirmation'}
-							placeholder="Введите корректный email"
+							placeholder="Введите корректный формат электронной почты"
 							onChange={handleChangeEmail}
 							value={formValue.email}
 							disabled={isLoading}
