@@ -323,9 +323,9 @@ function PropertiesPanel({
                                             </li>
                                         ))
                                     }
-                                    <FontFaceStyles fontResult={fontResult}/>
                                 </ul>
                             )}
+                            <FontFaceStyles fontResult={fontResult}/>
                             <img
                                 className="functions__img-arrow-up-font"
                                 src={fontOpen ? buttonArrowUpFont : buttonArrowDownFont}
