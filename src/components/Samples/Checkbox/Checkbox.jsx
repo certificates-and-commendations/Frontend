@@ -6,14 +6,14 @@ import './Checkbox.css';
 export const Checkbox = ({ text, onClick, name, state }) => {
 	const [isChecked, setIsChecked] = useState(state[name]);
 
-	const checkboxClass = clsx('checkbox', {
-		checkbox_checked: isChecked,
-	});
-
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
 		onClick(name, !isChecked);
 	};
+
+	const checkboxClass = clsx('checkbox', {
+		checkbox_checked: isChecked,
+	});
 
 	return (
 		<label htmlFor={`checkbox_${name}`} className={checkboxClass}>
