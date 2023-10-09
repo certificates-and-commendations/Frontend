@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import templateImage from '../../../images/imageEditor/templateImage.svg';
 import textImage from '../../../images/imageEditor/textImage.svg';
 import textImageNoActive from '../../../images/imageEditor/textImage_no-active.svg';
@@ -11,6 +11,7 @@ import ElementsPanel from './ElementsPanel/ElementsPanel';
 import DownloadsPanel from './DownloadsPanel/DownloadsPanel';
 
 function SidebarEditor({
+
                            setPanelSidebarActive,
                            panelSidebarActive,
                            setUploadedCertificate,
@@ -61,111 +62,111 @@ function SidebarEditor({
         }
     };
 
-    return (
-        <aside className="sidebar">
-            <nav className="sidebar-navigate">
-                <ul className="sidebar-navigate__items">
-                    <li
-                        className={`sidebar-navigate__item ${
-                            activeClass === 'panelTemplates'
-                                ? 'sidebar-navigate__item_active'
-                                : ''
-                        }`}
-                    >
-                        <button
-                            className="sidebar-navigate__button"
-                            onClick={() => {
-                                setActivePanel('panelTemplates');
-                                setActiveClass('panelTemplates');
-                            }}
-                        >
-                            <img
-                                src={templateImage}
-                                alt=" Кнопка для открытия панели с шаблонами."
-                                className="sidebar-navigate__icon"
-                            />
-                            Шаблоны
-                        </button>
-                    </li>
-                    <li
-                        className={`sidebar-navigate__item ${
-                            activeClass === 'panelText' ? 'sidebar-navigate__item_active' : ''
-                        }`}
-                    >
-                        <button
-                            className={
-                                !panelSidebarActive
-                                    ? 'sidebar-navigate__button_no-active'
-                                    : 'sidebar-navigate__button'
-                            }
-                            onClick={() => {
-                                setActivePanel('panelText');
-                                setActiveClass('panelText');
-                            }}
-                            disabled={!panelSidebarActive}
-                        >
-                            <img
-                                src={!panelSidebarActive ? textImageNoActive : textImage}
-                                alt=" Кнопка для открытия панели для создания текста."
-                                className="sidebar-navigate__icon"
-                            />
-                            Текст
-                        </button>
-                    </li>
-                    <li
-                        className={`sidebar-navigate__item ${
-                            activeClass === 'panelElements'
-                                ? 'sidebar-navigate__item_active'
-                                : ''
-                        }`}
-                    >
-                        <button
-                            className={
-                                !panelSidebarActive
-                                    ? 'sidebar-navigate__button_no-active'
-                                    : 'sidebar-navigate__button'
-                            }
-                            onClick={() => {
-                                setActivePanel('panelElements');
-                                setActiveClass('panelElements');
-                            }}
-                            disabled={!panelSidebarActive}
-                        >
-                            <img
-                                src={!panelSidebarActive ? elementImageNoActive : elementImage}
-                                alt=" Кнопка для открытия панели с элементами."
-                                className="sidebar-navigate__icon"
-                            />
-                            Элементы
-                        </button>
-                    </li>
-                    <li
-                        className={`sidebar-navigate__item ${
-                            activeClass === 'panelDownloads'
-                                ? 'sidebar-navigate__item_active'
-                                : ''
-                        }`}
-                    >
-                        <button
-                            className="sidebar-navigate__button"
-                            onClick={() => {
-                                setActivePanel('panelDownloads');
-                                setActiveClass('panelDownloads');
-                            }}
-                        >
-                            <img
-                                src={downloadImage}
-                                alt=" Кнопка открытия панели загрузок."
-                                className="sidebar-navigate__icon"
-                            />
-                            Загрузки
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-            <section className="panel-container">{renderPanel()}</section>
-        </aside>
-    );
+	return (
+		<aside className="sidebar">
+			<nav className="sidebar-navigate">
+				<ul className="sidebar-navigate__items">
+					<li
+						className={`sidebar-navigate__item ${
+							activeClass === 'panelTemplates'
+								? 'sidebar-navigate__item_active'
+								: ''
+						}`}
+					>
+						<button
+							className="sidebar-navigate__button"
+							onClick={() => {
+								setActivePanel('panelTemplates');
+								setActiveClass('panelTemplates');
+							}}
+						>
+							<img
+								src={templateImage}
+								alt=" Кнопка для открытия панели с шаблонами."
+								className="sidebar-navigate__icon"
+							/>
+							Шаблоны
+						</button>
+					</li>
+					<li
+						className={`sidebar-navigate__item ${
+							activeClass === 'panelText' ? 'sidebar-navigate__item_active' : ''
+						}`}
+					>
+						<button
+							className={
+								!panelSidebarActive
+									? 'sidebar-navigate__button_no-active'
+									: 'sidebar-navigate__button'
+							}
+							onClick={() => {
+								setActivePanel('panelText');
+								setActiveClass('panelText');
+							}}
+							disabled={!panelSidebarActive}
+						>
+							<img
+								src={!panelSidebarActive ? textImageNoActive : textImage}
+								alt=" Кнопка для открытия панели для создания текста."
+								className="sidebar-navigate__icon"
+							/>
+							Текст
+						</button>
+					</li>
+					<li
+						className={`sidebar-navigate__item ${
+							activeClass === 'panelElements'
+								? 'sidebar-navigate__item_active'
+								: ''
+						}`}
+					>
+						<button
+							className={
+								!panelSidebarActive
+									? 'sidebar-navigate__button_no-active'
+									: 'sidebar-navigate__button'
+							}
+							onClick={() => {
+								setActivePanel('panelElements');
+								setActiveClass('panelElements');
+							}}
+							disabled={!panelSidebarActive}
+						>
+							<img
+								src={!panelSidebarActive ? elementImageNoActive : elementImage}
+								alt=" Кнопка для открытия панели с элементами."
+								className="sidebar-navigate__icon"
+							/>
+							Элементы
+						</button>
+					</li>
+					<li
+						className={`sidebar-navigate__item ${
+							activeClass === 'panelDownloads'
+								? 'sidebar-navigate__item_active'
+								: ''
+						}`}
+					>
+						<button
+							className="sidebar-navigate__button"
+							onClick={() => {
+								setActivePanel('panelDownloads');
+								setActiveClass('panelDownloads');
+							}}
+						>
+							<img
+								src={downloadImage}
+								alt=" Кнопка открытия панели загрузок."
+								className="sidebar-navigate__icon"
+							/>
+							Загрузки
+						</button>
+					</li>
+				</ul>
+			</nav>
+			<section className="panel-container">{renderPanel()}</section>
+		</aside>
+	);
 }
 
 export default SidebarEditor;

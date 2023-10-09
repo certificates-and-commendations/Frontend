@@ -1,9 +1,10 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import Draggable from 'react-draggable';
 import iconHand from '../../../../images/IconsFunctionsText/properties__button-hand.svg'
 import FontFaceStyles from "../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles";
 
 function TextBlock({
+
                        index,
                        setCurrentIndex,
                        textBlock,
@@ -32,55 +33,56 @@ function TextBlock({
     const textareaRef = useRef(null);
     const scrollbarWidth = 10;
 
-    const handleResizeMouseDown = (e) => {
-        e.stopPropagation();
-    };
+	const handleResizeMouseDown = (e) => {
+		e.stopPropagation();
+	};
 
-    const handleDragStop = (e, data) => {
-        const newPositionText = [...textPosition];
-        const copyTextBlocks = [...textBlocks];
+	const handleDragStop = (e, data) => {
+		const newPositionText = [...textPosition];
+		const copyTextBlocks = [...textBlocks];
 
-        newPositionText[index] = {
-            id: copyTextBlocks[index].id,
-            x: data.x,
-            y: data.y,
-        };
+		newPositionText[index] = {
+			id: copyTextBlocks[index].id,
+			x: data.x,
+			y: data.y,
+		};
 
-        setTextPosition(newPositionText);
+		setTextPosition(newPositionText);
 
-        const newTextBlocks = [...textBlocks];
-        newTextBlocks[index].x = data.x;
-        newTextBlocks[index].y = data.y;
-        setTextBlocks(newTextBlocks);
-    };
+		const newTextBlocks = [...textBlocks];
+		newTextBlocks[index].x = data.x;
+		newTextBlocks[index].y = data.y;
+		setTextBlocks(newTextBlocks);
+	};
 
-    const handleTextareaClick = () => {
-        if (textareaRef.current) {
-            setWidthInput(textareaRef.current.clientWidth);
-            setHeightInput(textareaRef.current.clientHeight);
-        }
-        setCurrentIndex(index);
-    };
+	const handleTextareaClick = () => {
+		if (textareaRef.current) {
+			setWidthInput(textareaRef.current.clientWidth);
+			setHeightInput(textareaRef.current.clientHeight);
+		}
+		setCurrentIndex(index);
+	};
 
-    const handleClickBlockText = (blockId) => {
-        // Создаем копию textBlocks для изменений
-        const updatedTextBlocks = textBlocks.map((block) => {
-            if (block.id === blockId) {
-                setBorderTextIndex(block.id);
-                // Устанавливаем isBorder в противоположное значение для выбранного блока
-                return {...block, isBorder: !block.isBorder};
-            }
-            return block;
-        });
+	const handleClickBlockText = (blockId) => {
+		// Создаем копию textBlocks для изменений
+		const updatedTextBlocks = textBlocks.map((block) => {
+			if (block.id === blockId) {
+				setBorderTextIndex(block.id);
+				// Устанавливаем isBorder в противоположное значение для выбранного блока
+				return { ...block, isBorder: !block.isBorder };
+			}
+			return block;
+		});
 
-        // Обновляем состояние textBlocks
-        setTextBlocks(updatedTextBlocks);
+		// Обновляем состояние textBlocks
+		setTextBlocks(updatedTextBlocks);
 
-        // Устанавливаем isDedicated в противоположное значение
-        setIsDedicated(!textBlock.isBorder);
+		// Устанавливаем isDedicated в противоположное значение
+		setIsDedicated(!textBlock.isBorder);
 
-        console.log(textBlocks);
-    };
+		console.log(textBlocks);
+	};
+
 
     return (
         // <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>

@@ -16,7 +16,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 13px;
-/*align-items: flex-start;*/
+	/*align-items: flex-start;*/
 }
 
 .footer__info {
@@ -41,7 +41,6 @@
 
 .footer__link {
 	text-decoration: none;
-
 }
 .footer__item {
 	align-self: center;
@@ -55,7 +54,7 @@
 }
 
 .footer__link-text {
-	color: #2B2B2E;
+	color: #2b2b2e;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;

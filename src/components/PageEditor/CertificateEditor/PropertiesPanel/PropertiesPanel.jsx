@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {SketchPicker} from 'react-color';
+import React, { useState, useEffect, useRef } from 'react';
+import { SketchPicker } from 'react-color';
 import './PropertiesPanel.css';
 import alignLeftIcon from '../../../../images/IconsFunctionsText/align-left-icon.svg';
 import alignCenterIcon from '../../../../images/IconsFunctionsText/align-center-icon.svg';
@@ -15,9 +15,10 @@ import buttonArrowDown from '../../../../images/IconsFunctionsText/chevron-down.
 import buttonArrowDownActive from '../../../../images/IconsFunctionsText/chevron-down-active.svg';
 import buttonArrowUpFont from '../../../../images/IconsFunctionsText/chevron-up-font.svg';
 import buttonArrowDownFont from '../../../../images/IconsFunctionsText/chevron-down-font.svg';
-import FontFaceStyles from "../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles";
+import FontFaceStyles from '../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles';
 
 function PropertiesPanel({
+
                              stylePanelActive,
                              font,
                              fontSize,

@@ -47,15 +47,15 @@
 
 .header__item_active {
 	/*border: 1px solid var(--text-100, #2b2b2e);*/
-	background-color: #665DCF;
-	color: #FFFFFF
+	background-color: #665dcf;
+	color: #ffffff;
 }
 
 .header__item:hover {
 	cursor: pointer;
 	/*opacity: 0.9;*/
-	background-color: #C3BEFF;
-	color: #FFFFFF
+	background-color: #c3beff;
+	color: #ffffff;
 }
 
 .header__logo {

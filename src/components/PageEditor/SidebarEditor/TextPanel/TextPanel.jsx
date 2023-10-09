@@ -1,58 +1,58 @@
 import React, {useState} from 'react';
 import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-font.svg';
 import authApi from '../../../../utils/AuthApi';
-import FontFaceStyles from "./FontFaceStyles/FontFaceStyles";
+import FontFaceStyles from './FontFaceStyles/FontFaceStyles';
 
 function TextPanel({
-                       onTextClick,
-                       setFontResult,
-                       fontResult
-                   }) {
-    const [btnClick, setBtnClick] = useState(true);
-    const [fontFiles, setFontFiles] = useState([]);
-
-    const onClickBtnActive = () => {
-        setBtnClick(false);
-    };
-
-    const onClickBtnNotActive = () => {
-        setBtnClick(true);
-    };
-
-    const handleFontPost = (formData) => {
-        return authApi
-            .handleFontFamily(formData)
-            .then((res) => {
-                console.log(res)
-                setFontResult((prevFontResult) => [...prevFontResult, res]);
-            })
-            .catch((err) => console.log(err));
-    };
+	onTextClick,
+	activeTextIndex,
+	setFontResult,
+	fontResult,
+}) {
+	const [btnClick, setBtnClick] = useState(true);
+	const [fontFiles, setFontFiles] = useState([]);
 
 
-    const handleFontFileChange = (event) => {
-        const selectedFiles = event.target.files;
-        if (selectedFiles && selectedFiles.length > 0) {
-            const newFontFiles = [...fontFiles];
+	const onClickBtnActive = () => {
+		setBtnClick(false);
+	};
 
-            // Проверяем, нет ли уже файла с таким именем в списке
-            for (let i = 0; i < selectedFiles.length; i++) {
-                const file = selectedFiles[i];
-                const isDuplicate = newFontFiles.some(
-                    (existingFile) => existingFile.name === file.name
-                );
-                if (!isDuplicate) {
-                    newFontFiles.push(file);
-                    handleFontPost(file)
-                        .catch((err) => console.log(err))
-                } else {
-                    console.log(`Файл с именем ${file.name} уже существует.`);
-                }
-            }
+	const onClickBtnNotActive = () => {
+		setBtnClick(true);
+	};
 
-            setFontFiles(newFontFiles);
-        }
-    };
+	const handleFontPost = (formData) => {
+		return authApi
+			.handleFontFamily(formData)
+			.then((res) => {
+				console.log(res);
+				setFontResult((prevFontResult) => [...prevFontResult, res]);
+			})
+			.catch((err) => console.log(err));
+	};
+
+	const handleFontFileChange = (event) => {
+		const selectedFiles = event.target.files;
+		if (selectedFiles && selectedFiles.length > 0) {
+			const newFontFiles = [...fontFiles];
+
+			// Проверяем, нет ли уже файла с таким именем в списке
+			for (let i = 0; i < selectedFiles.length; i++) {
+				const file = selectedFiles[i];
+				const isDuplicate = newFontFiles.some(
+					(existingFile) => existingFile.name === file.name
+				);
+				if (!isDuplicate) {
+					newFontFiles.push(file);
+					handleFontPost(file).catch((err) => console.log(err));
+				} else {
+					console.log(`Файл с именем ${file.name} уже существует.`);
+				}
+			}
+
+			setFontFiles(newFontFiles);
+		}
+	};
 
 
     const handleRemoveFont = (id) => {

@@ -3,6 +3,7 @@ import TextBlock from './TextBlock/TextBlock';
 import ElementFiles from './ElementFiles/ElementFiles';
 
 function CertificateEditor({
+
                                setCurrentIndex,
                                setEditingTextIndex,
                                editingTextIndex,
