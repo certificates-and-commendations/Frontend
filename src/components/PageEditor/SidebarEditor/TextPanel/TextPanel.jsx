@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import downloadIcon from '../../../../images/imageEditor/download-icon.png';
+import React, {useState} from 'react';
 import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-font.svg';
 import authApi from '../../../../utils/AuthApi';
 import FontFaceStyles from './FontFaceStyles/FontFaceStyles';
@@ -55,13 +54,17 @@ function TextPanel({
 		}
 	};
 
-	const handleRemoveFont = (index) => {
-		const updatedFontFiles = [...fontResult];
-		updatedFontFiles.splice(index, 1);
-		setFontResult(updatedFontFiles);
-	};
 
+    const handleRemoveFont = (id) => {
+        const updatedFontFiles = fontResult.filter(elem => elem.id !== id);
+        setFontResult(updatedFontFiles);
 
+        authApi.handleDeleteFontFamily(id)
+            .then(res => console.log(res))
+            .catch(err => {
+                console.log(err);
+            })
+    };
 
     return (
         <div className="text-panel">
@@ -138,7 +141,7 @@ function TextPanel({
                                         src={trashFont}
                                         alt="Кнопка удаления шрифта."
                                         className="text-panel__trash-font"
-                                        onClick={() => handleRemoveFont(index)}
+                                        onClick={() => handleRemoveFont(file.id)}
                                     />
                                     <FontFaceStyles fontResult={fontResult}/>
                                 </div>

@@ -80,16 +80,16 @@ function PropertiesPanel({
         setShowColorPanel(!showColorPanel);
     };
 
-    const handleFontChange = (e) => {
-        setFont(e.target.value);
+    const handleFontChange = (fontName) => {
+        setFont(fontName);
         if (editingTextIndex !== null) {
             const updatedTextBlocks = [...textBlocks];
-            updatedTextBlocks[editingTextIndex].fontFamily = e.target.value;
+            updatedTextBlocks[editingTextIndex].fontFamily = fontName;
             setTextBlocks(updatedTextBlocks);
         }
     };
 
-    const handleOpenFontList = (fontIndex) => {
+    const handleOpenFontList = () => {
         setFontOpen(!fontOpen);
     };
 
@@ -285,39 +285,48 @@ function PropertiesPanel({
                                 />
                             </div>
                         )}
-                        <div className="function__block-font" ref={fontSelectRef}>
-                            <select
-                                id={`fontSelect-${activeTextIndex}`}
-                                value={font}
-                                onChange={handleFontChange}
-                                onClick={handleOpenFontList}
-                                className="functions__list"
-                                style={{background: fontOpen ? '#C3BEFF' : '#FFFFFF'}}
+                        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                        <div
+                            className="function__block-font"
+                            onClick={handleOpenFontList}
+                            ref={fontSelectRef}
+                        >
+                            <span
+                                className="functions__dropdown-trigger"
                             >
-                                <option
-                                    value="Arial"
-                                    className="function__option"
+                                { font.length > 15 ? `${font.slice(0, 15)}...` : font }
+                            </span>
+                            {fontOpen && (
+                                <ul
+                                    className={`functions__list ${fontOpen ? 'open' : ''}`}
+                                    style={{background: fontOpen ? '#C3BEFF' : '#FFFFFF'}}
                                 >
-                                    Arial
-                                </option>
-                                <option
-                                    value="Times New Roman"
-                                    className="function__option"
-                                >
-                                    Times New Roman
-                                </option>
-                                {
-                                    fontResult.map(elem => (
-                                        <option
-                                            value={fontResult.font}
-                                            className="function__option"
-                                        >
-                                            { elem.font.length > 15 ? `${elem.font.slice(0, 15)}...` : elem.font }
-                                        </option>
-                                    ))
-                                }
-                                <FontFaceStyles fontResult={fontResult}/>
-                            </select>
+                                    <li
+                                        className="function__option"
+                                        onClick={() => handleFontChange("Arial")}
+                                    >
+                                        Arial
+                                    </li>
+                                    <li
+                                        className="function__option"
+                                        onClick={() => handleFontChange("Times New Roman")}
+                                    >
+                                        Times New Roman
+                                    </li>
+                                    {
+                                        fontResult.map(elem => (
+                                            <li
+                                                className={`function__option ${elem.font.length > 15 ? 'truncate-text' : ''}`}
+                                                onClick={() => handleFontChange(elem.font)}
+                                                key={elem.font}
+                                            >
+                                                {elem.font}
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            )}
+                            <FontFaceStyles fontResult={fontResult}/>
                             <img
                                 className="functions__img-arrow-up-font"
                                 src={fontOpen ? buttonArrowUpFont : buttonArrowDownFont}

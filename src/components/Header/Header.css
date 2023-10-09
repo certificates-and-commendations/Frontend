@@ -5,8 +5,7 @@
 	padding-top: 40px;
 	padding-right: 64px;
 	align-items: center;
-	max-width: 1320px;
-	margin: 0 auto;
+	position: relative;
 }
 
 .header_section_main {

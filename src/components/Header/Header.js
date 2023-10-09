@@ -4,6 +4,7 @@ import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import HeaderNav from '../HeaderNav/HeaderNav';
 import Logo from '../Logo/Logo';
 import avatar from '../../images/avatar.png';
+import ButtonDowload from './ButtonDowload/ButtonDowload';
 
 export default function Header({
 	setIsLoginPopupOpen,
@@ -13,7 +14,8 @@ export default function Header({
 }) {
 	const location = useLocation();
 	// ПРОВЕРЯЕМ НА ГЛАВНОЙ ЛИ МЫ СТРАНИЦЕ , ПОКА НЕ ГОТОВ MAIN , ОТКЛЮЧИЛ ПРОВЕРКУ
-	const isMainPage = false; // location.pathname === '/'
+	const isMainPage = location.pathname === '/';
+	const isEditorPage = location.pathname === '/editor';
 
 	function LogOut() {
 		setIsLoggedIn(false);
@@ -28,6 +30,8 @@ export default function Header({
 				</Link>
 				{!isMainPage && <HeaderNav />}
 			</div>
+
+			{isEditorPage && <ButtonDowload />}
 
 			{isloggedIn ? (
 				<div className="header__profile">
