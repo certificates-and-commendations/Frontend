@@ -1,6 +1,8 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import JsPDF from 'jspdf';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -64,6 +66,9 @@ function App() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const isEditorOpen = location.pathname === '/editor';
+
+	const isEditorPage = location.pathname === '/editor';
+	const certificateRef = useRef(null);
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
@@ -233,6 +238,42 @@ function App() {
 		}, 3000);
 	}, [infoToolTip]);
 
+	// const handleCreateJson = () => {
+	// 	// Создание JSON объекта
+	// 	const jsonToSave = {
+	// 		text_field: textBlocks.map((block) => ({
+	// 			text: block.text,
+	// 			x: block.x,
+	// 			y: block.y,
+	// 			fontFamily: block.fontFamily,
+	// 			fontSize: block.fontSize,
+	// 			italic: block.isItalic,
+	// 			textDecoration: block.isDecoration,
+	// 			fontWeight: block.isBold,
+	// 		})),
+	// 		background: {
+	// 			width: 600,
+	// 			height: 850,
+	// 		}, // Подставьте URL фона
+	// 		Element: {
+	// 			url: element,
+	// 			x: elementPosition.x,
+	// 			y: elementPosition.y,
+	// 		},
+	// 	};
+	//
+	// 	setPdfData(jsonToSave);
+	// };
+
+	const handleSavePDF = async () => {
+		const scale = 3; // Увеличение разрешения в 3 раза
+		const canvas = await html2canvas(certificateRef.current, { scale });
+		const imgData = canvas.toDataURL('image/png');
+		const pdf = new JsPDF();
+		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
+		pdf.save('certificate.pdf');
+	};
+
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="App">
@@ -242,6 +283,7 @@ function App() {
 						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
 						isloggedIn={isLoggedIn}
 						setIsLoggedIn={setIsLoggedIn}
+						onSavePDF={handleSavePDF}
 					/>
 				)}
 				<Routes>
@@ -253,9 +295,10 @@ function App() {
 						path="/editor"
 						element={
 							<PageEditor
-								documentById={documentById || {}}
 								samples={samples}
 								loggedIn={isLoggedIn}
+								documentById={documentById || {}}
+								certificateRef={certificateRef}
 							/>
 						}
 					/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import TextBlock from './TextBlock/TextBlock';
 import ElementFiles from './ElementFiles/ElementFiles';
+import image from '../../../images/imageEditor/certificateImage1.png';
 
 function CertificateEditor({
 	setCurrentIndex,
@@ -46,7 +47,7 @@ function CertificateEditor({
 	fontResult,
 }) {
 	return (
-		<div className="certificate">
+		<div className="certificate" ref={certificateRef}>
 			{uploadedCertificate && (
 				<img
 					src={uploadedCertificate}

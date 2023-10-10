@@ -171,14 +171,46 @@ class AuthApi {
 	}
 
 	handleDeleteFontFamily(id) {
-		debugger
 		return fetch(`${this.url}/font/${id}/`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		});
+		}).then(handleResponse);
+	}
+
+	handleLoadingDocument(fileArray) {
+		// загрузка грамот и их сохранение
+		const file = fileArray.file.name;
+		const base64 = fileArray.base64;
+
+		return fetch(`${this.url}/documents/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title: file,
+				background: base64,
+			}),
+		}).then(handleResponse);
+	}
+
+	handleCreateDocument(fileArray) {
+		// создание готовой грамоты
+		const file = fileArray.file.name;
+		const base64 = fileArray.base64;
+
+		return fetch(`${this.url}/documents/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title: file,
+				background: base64,
+			}),
+		}).then(handleResponse);
 	}
 
 	handleGetUsersDocument() {
