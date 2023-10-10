@@ -1,11 +1,11 @@
 .elements-panel__btn-download {
-    border-radius: 16px;
-    border: 1px solid #665DCF;
-    color: #665DCF;
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 1px;
+	border-radius: 16px;
+	border: 1px solid #665dcf;
+	color: #665dcf;
+	text-align: center;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: 1px;
 }

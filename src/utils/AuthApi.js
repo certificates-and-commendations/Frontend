@@ -106,12 +106,6 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	//  awards: false,
-	// 	appreciations: false,
-	// 	certificates: false,
-	// 	is_horizontal: false,
-	// 	is_vertical: false,
-
 	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
 	handleFilterSamples(obj) {
 		const queryParams = [];
