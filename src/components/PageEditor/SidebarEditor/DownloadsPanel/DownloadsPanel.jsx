@@ -3,8 +3,13 @@ import squareCheck from '../../../../images/imageEditor/elements-panel__square-c
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import authApi from '../../../../utils/AuthApi';
 
-function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
-	const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
+function DownloadsPanel({
+	setUploadedCertificate,
+	setPanelSidebarActive,
+	setImageURLsDownloads,
+	imageURLsDownloads,
+	setBackground,
+}) {
 	const [squareStates, setSquareStates] = useState([]);
 	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
 
@@ -58,6 +63,7 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 
 				Promise.all(base64Images).then((base64DataArray) => {
 					const newCertificates = base64DataArray.map((base64) => {
+						setBackground(base64);
 						return authApi
 							.handleLoadingDocument({
 								file: files[base64DataArray.indexOf(base64)],
@@ -105,7 +111,7 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 			setPanelSidebarActive(false);
 		} else {
 			setActiveCertificateIndex(index);
-			setUploadedCertificate([imageURLsDownloads[index].background]);
+			setUploadedCertificate([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
 	};

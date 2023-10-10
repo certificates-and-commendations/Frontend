@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
 
-function ElementsPanel({ setElement, element, positions, setPositions }) {
-	const [imageURLsElements, setImageURLsElements] = useState([]);
+function ElementsPanel({
+	setElement,
+	element,
+	positions,
+	setPositions,
+	setImageURLsElements,
+	imageURLsElements,
+}) {
 	const [squareStates, setSquareStates] = useState([]);
 	const [btnClick, setBtnClick] = useState(true);
 
@@ -24,7 +30,16 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 		return Math.random().toString(36).substr(2, 9);
 	}
 
-	const handleFileInputChangeElements = (e) => {
+	async function convertFileToBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		});
+	}
+
+	const handleFileInputChangeElements = async (e) => {
 		const files = Array.from(e.target.files);
 
 		const validFiles = files.filter(isImageValid);
@@ -34,10 +49,15 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 			return;
 		}
 
-		const newElements = validFiles.map((file) => ({
-			id: generateUniqueId(),
-			url: URL.createObjectURL(file),
-		}));
+		const newElements = await Promise.all(
+			validFiles.map(async (file, index) => {
+				const id = generateUniqueId();
+				const url = URL.createObjectURL(file);
+				const base64 = await convertFileToBase64(file);
+				const position = positions[index];
+				return { id, url, base64, position };
+			})
+		);
 
 		setImageURLsElements((prevImageURLs) => [...prevImageURLs, ...newElements]);
 		setSquareStates((prevStates) => [

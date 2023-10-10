@@ -68,6 +68,16 @@ function App() {
 	const isEditorOpen = location.pathname === '/editor';
 
 	const isEditorPage = location.pathname === '/editor';
+
+	// стейты редактора
+	const [textBlocks, setTextBlocks] = useState([]);
+	const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
+	const [imageURLsElements, setImageURLsElements] = useState([]);
+	const [uploadedCertificate, setUploadedCertificate] = useState(null);
+	const [textPosition, setTextPosition] = useState([]);
+	const [textBlockStyles, setTextBlockStyles] = useState([]);
+	const [textBlockColors, setTextBlockColors] = useState([]);
+	const [background, setBackground] = useState('');
 	const certificateRef = useRef(null);
 
 	function closeAllPopups() {
@@ -102,11 +112,13 @@ function App() {
 				closeAllPopups();
 			}
 		}
+
 		function closeByOverlay(evt) {
 			if (!evt.target.closest('.popup *') && !infoToolTip.opened) {
 				closeAllPopups();
 			}
 		}
+
 		if (isOpen) {
 			// навешиваем только при открытии
 			document.addEventListener('keydown', closeByEscape);
@@ -231,6 +243,7 @@ function App() {
 			}
 		}, 1000);
 	}
+
 	// происходит закрытие InfoToolTip
 	useEffect(() => {
 		setTimeout(() => {
@@ -238,32 +251,41 @@ function App() {
 		}, 3000);
 	}, [infoToolTip]);
 
-	// const handleCreateJson = () => {
-	// 	// Создание JSON объекта
-	// 	const jsonToSave = {
-	// 		text_field: textBlocks.map((block) => ({
-	// 			text: block.text,
-	// 			x: block.x,
-	// 			y: block.y,
-	// 			fontFamily: block.fontFamily,
-	// 			fontSize: block.fontSize,
-	// 			italic: block.isItalic,
-	// 			textDecoration: block.isDecoration,
-	// 			fontWeight: block.isBold,
-	// 		})),
-	// 		background: {
-	// 			width: 600,
-	// 			height: 850,
-	// 		}, // Подставьте URL фона
-	// 		Element: {
-	// 			url: element,
-	// 			x: elementPosition.x,
-	// 			y: elementPosition.y,
-	// 		},
-	// 	};
-	//
-	// 	setPdfData(jsonToSave);
-	// };
+	const handleCreateJson = () => {
+		const textDataArray = textBlocks.map((block, index) => ({
+			text: block.text,
+			font: {
+				font: block.fontFamily,
+				is_bold: textBlockStyles[index].isBold,
+				is_italic: textBlockStyles[index].isItalic,
+			},
+			coordinate_y: parseInt(textPosition[index].y, 10),
+			coordinate_x: parseInt(textPosition[index].x, 10),
+			font_size: block.fontSize,
+			font_color: textBlockColors[index].color,
+			text_decoration: textBlockStyles[index].isDecoration,
+			align: textBlockStyles[index].isAlign,
+		}));
+
+		const elementsDataArray = imageURLsElements.map((img, index) => ({
+			image: img.base64,
+			coordinate_x: img.position.x,
+			coordinate_y: img.position.y,
+		}));
+
+		// Создание JSON объекта
+		const jsonToSave = {
+			title: uploadedCertificate.map((elem) => elem.title),
+			background,
+			texts: textDataArray,
+			Element: elementsDataArray,
+		};
+
+		authApi
+			.handleCreateDocument(jsonToSave)
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
+	};
 
 	const handleSavePDF = async () => {
 		const scale = 3; // Увеличение разрешения в 3 раза
@@ -272,6 +294,7 @@ function App() {
 		const pdf = new JsPDF();
 		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
 		pdf.save('certificate.pdf');
+		handleCreateJson();
 	};
 
 	return (
@@ -299,6 +322,21 @@ function App() {
 								loggedIn={isLoggedIn}
 								documentById={documentById || {}}
 								certificateRef={certificateRef}
+								setTextBlocks={setTextBlocks}
+								textBlocks={textBlocks}
+								setImageURLsDownloads={setImageURLsDownloads}
+								imageURLsDownloads={imageURLsDownloads}
+								setImageURLsElements={setImageURLsElements}
+								imageURLsElements={imageURLsElements}
+								setUploadedCertificate={setUploadedCertificate}
+								uploadedCertificate={uploadedCertificate}
+								setTextPosition={setTextPosition}
+								textPosition={textPosition}
+								setTextBlockStyles={setTextBlockStyles}
+								textBlockStyles={textBlockStyles}
+								setTextBlockColors={setTextBlockColors}
+								textBlockColors={textBlockColors}
+								setBackground={setBackground}
 							/>
 						}
 					/>

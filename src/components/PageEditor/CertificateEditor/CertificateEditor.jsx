@@ -45,12 +45,13 @@ function CertificateEditor({
 	setIsDedicated,
 	setBorderTextIndex,
 	fontResult,
+	updateElementPosition,
 }) {
 	return (
 		<div className="certificate" ref={certificateRef}>
 			{uploadedCertificate && (
 				<img
-					src={uploadedCertificate}
+					src={uploadedCertificate.map((activeImg) => activeImg.background)}
 					alt="Uploaded Certificate"
 					className="certificate__image"
 				/>
@@ -108,6 +109,7 @@ function CertificateEditor({
 					squareStates={squareStates}
 					positions={positions}
 					setPositions={setPositions}
+					updateElementPosition={updateElementPosition}
 				/>
 			)}
 		</div>

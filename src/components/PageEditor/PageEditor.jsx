@@ -3,28 +3,41 @@ import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor({ samples, certificateRef }) {
+function PageEditor({
+	samples,
+	certificateRef,
+	setTextBlocks,
+	textBlocks,
+	setImageURLsDownloads,
+	imageURLsDownloads,
+	setImageURLsElements,
+	imageURLsElements,
+	setUploadedCertificate,
+	uploadedCertificate,
+	setTextPosition,
+	textPosition,
+	setTextBlockStyles,
+	textBlockStyles,
+	setTextBlockColors,
+	textBlockColors,
+	setBackground,
+}) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
 	const [showProperties, setShowProperties] = useState(false);
-	const [textBlocks, setTextBlocks] = useState([]);
 	const [editingTextIndex, setEditingTextIndex] = useState(null);
 	const [signature, setSignature] = useState(null);
-	const [uploadedCertificate, setUploadedCertificate] = useState(null);
 	const [showTable, setShowTable] = useState([]);
 	const [tableData, setTableData] = useState([]);
-	const [textBlockColors, setTextBlockColors] = useState([]);
 	const [element, setElement] = useState([]);
 	const [elementPosition, setElementPosition] = useState({ x: 0, y: 0 });
-	const [textPosition, setTextPosition] = useState([]);
 
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [borderTextIndex, setBorderTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 	const [textAlignStyle, setTextAlignStyle] = useState('left');
 	const [pdfData, setPdfData] = useState(null);
-	const [textBlockStyles, setTextBlockStyles] = useState([]);
 	const [panelSidebarActive, setPanelSidebarActive] = useState(false);
 	const [stylePanelActive, setStylePanelActive] = useState(false);
 	const [elementVisibility, setElementVisibility] = useState([]);
@@ -175,6 +188,17 @@ function PageEditor({ samples, certificateRef }) {
 		setTextBlockColors(updatedTextBlockColors);
 	};
 
+	const updateElementPosition = (id, newPosition) => {
+		const updatedElements = imageURLsElements.map((elem) => {
+			if (elem.id === id) {
+				return { ...elem, position: newPosition };
+			}
+			return elem;
+		});
+
+		setImageURLsElements(updatedElements);
+	};
+
 	return (
 		<main className="main-content-editor">
 			<SidebarEditor
@@ -191,6 +215,11 @@ function PageEditor({ samples, certificateRef }) {
 				setFontResult={setFontResult}
 				fontResult={fontResult}
 				samples={samples}
+				setImageURLsDownloads={setImageURLsDownloads}
+				imageURLsDownloads={imageURLsDownloads}
+				setImageURLsElements={setImageURLsElements}
+				imageURLsElements={imageURLsElements}
+				setBackground={setBackground}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
@@ -276,6 +305,7 @@ function PageEditor({ samples, certificateRef }) {
 					textPosition={textPosition}
 					fontResult={fontResult}
 					certificateRef={certificateRef}
+					updateElementPosition={updateElementPosition}
 				/>
 			</section>
 		</main>
