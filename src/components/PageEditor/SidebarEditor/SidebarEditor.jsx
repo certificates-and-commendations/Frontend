@@ -12,6 +12,7 @@ import DownloadsPanel from './DownloadsPanel/DownloadsPanel';
 
 function SidebarEditor({
 
+
                            setPanelSidebarActive,
                            panelSidebarActive,
                            setUploadedCertificate,
@@ -29,38 +30,40 @@ function SidebarEditor({
     const [activePanel, setActivePanel] = useState('panelTemplates');
     const [activeClass, setActiveClass] = useState('panelTemplates');
 
-    const renderPanel = () => {
-        switch (activePanel) {
-            case 'panelTemplates':
-                return <TemplatesPanel samples={samples}/>;
-            case 'panelText':
-                return <TextPanel
-                    onTextClick={onTextClick}
-                    setFontResult={setFontResult}
-                    fontResult={fontResult}
-                />;
-            case 'panelElements':
-                return (
-                    <ElementsPanel
-                        setElement={setElement}
-                        element={element}
-                        setElementVisibility={setElementVisibility}
-                        elementVisibility={elementVisibility}
-                        positions={positions}
-                        setPositions={setPositions}
-                    />
-                );
-            case 'panelDownloads':
-                return (
-                    <DownloadsPanel
-                        setPanelSidebarActive={setPanelSidebarActive}
-                        setUploadedCertificate={setUploadedCertificate}
-                    />
-                );
-            default:
-                return null;
-        }
-    };
+	const renderPanel = () => {
+		switch (activePanel) {
+			case 'panelTemplates':
+				return <TemplatesPanel samples={samples} />;
+			case 'panelText':
+				return (
+					<TextPanel
+						onTextClick={onTextClick}
+						setFontResult={setFontResult}
+						fontResult={fontResult}
+					/>
+				);
+			case 'panelElements':
+				return (
+					<ElementsPanel
+						setElement={setElement}
+						element={element}
+						setElementVisibility={setElementVisibility}
+						elementVisibility={elementVisibility}
+						positions={positions}
+						setPositions={setPositions}
+					/>
+				);
+			case 'panelDownloads':
+				return (
+					<DownloadsPanel
+						setPanelSidebarActive={setPanelSidebarActive}
+						setUploadedCertificate={setUploadedCertificate}
+					/>
+				);
+			default:
+				return null;
+		}
+	};
 
 	return (
 		<aside className="sidebar">

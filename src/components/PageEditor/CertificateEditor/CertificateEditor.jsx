@@ -112,6 +112,7 @@ function CertificateEditor({
             )}
         </div>
     );
+
 }
 
 export default CertificateEditor;

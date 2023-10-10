@@ -19,6 +19,7 @@ import FontFaceStyles from '../../SidebarEditor/TextPanel/FontFaceStyles/FontFac
 
 function PropertiesPanel({
 
+
                              stylePanelActive,
                              font,
                              fontSize,
@@ -460,6 +461,7 @@ function PropertiesPanel({
         </section>
     )
         ;
+
 }
 
 export default PropertiesPanel;
