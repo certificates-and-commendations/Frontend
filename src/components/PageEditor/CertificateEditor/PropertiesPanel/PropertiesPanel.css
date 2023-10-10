@@ -50,6 +50,8 @@ input[type='number'] {
 	display: flex;
 	align-items: center;
 	border-radius: 4px;
+	min-width: 190px;
+	min-height: 30px;
 }
 
 .functions__img-arrow-up-font {
@@ -60,22 +62,29 @@ input[type='number'] {
 }
 
 .functions__list {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	max-width: 204px;
-	min-width: 190px;
+	position: absolute;
+	top: 35px;
+	left: 0;
+	width: 190px;
+	padding: 0;
+	z-index: 1;
+}
+
+.function__option {
+	display: none;
+}
+
+.function__option li {
 	padding: 8px;
-	gap: 4px;
-	border: none;
-	border-radius: 4px;
-	appearance: none;
 	cursor: pointer;
-	-webkit-appearance: none; /* Safari и Chrome */
-	-moz-appearance: none; /* Mozilla */
-	-ms-appearance: none; /* IE */
-	background-repeat: no-repeat;
-	background-position: calc(100% - 0px) center;
+}
+
+.function__option:hover {
+	background: #665DCF;
+}
+
+.functions__list.open .function__option {
+	display: block;
 }
 
 .functions__list:focus {
@@ -83,8 +92,11 @@ input[type='number'] {
 }
 
 .function__option {
-	width: 10px;
 	background: #ffffff;
+	width: 190px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .functions__button_forward {

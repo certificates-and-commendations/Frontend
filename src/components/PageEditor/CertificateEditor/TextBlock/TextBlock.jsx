@@ -4,33 +4,35 @@ import iconHand from '../../../../images/IconsFunctionsText/properties__button-h
 import FontFaceStyles from '../../SidebarEditor/TextPanel/FontFaceStyles/FontFaceStyles';
 
 function TextBlock({
-	index,
-	setCurrentIndex,
-	textBlock,
-	editingTextIndex,
-	onTextChange,
-	onInputKeyDown,
-	setEditingTextIndex,
-	setFont,
-	setFontSize,
-	setActiveTextIndex,
-	setShowProperties,
-	setTextPosition,
-	textPosition,
-	textDecorationStyle,
-	textAlignStyle,
-	setStylePanelActive,
-	textBlockColors,
-	textBlocks,
-	setTextBlocks,
-	setIsDedicated,
-	setBorderTextIndex,
-	fontResult,
-}) {
-	const [widthInput, setWidthInput] = useState(209);
-	const [heightInput, setHeightInput] = useState('auto');
-	const textareaRef = useRef(null);
-	const scrollbarWidth = 10;
+
+
+                       index,
+                       setCurrentIndex,
+                       textBlock,
+                       editingTextIndex,
+                       onTextChange,
+                       onInputKeyDown,
+                       setEditingTextIndex,
+                       setFont,
+                       setFontSize,
+                       setActiveTextIndex,
+                       setShowProperties,
+                       setTextPosition,
+                       textPosition,
+                       textDecorationStyle,
+                       textAlignStyle,
+                       setStylePanelActive,
+                       textBlockColors,
+                       textBlocks,
+                       setTextBlocks,
+                       setIsDedicated,
+                       setBorderTextIndex,
+                       fontResult
+                   }) {
+    const [widthInput, setWidthInput] = useState(209);
+    const [heightInput, setHeightInput] = useState('auto');
+    const textareaRef = useRef(null);
+    const scrollbarWidth = 10;
 
 	const handleResizeMouseDown = (e) => {
 		e.stopPropagation();

@@ -23,8 +23,8 @@
 	right: 0;
 	bottom: 0;
 	z-index: -1;
-	background: #000000;
-	opacity: 0.5;
+	opacity: 0.7;
+	background: var(--text-100, #2b2b2e);
 }
 
 .popup_opened {
@@ -271,6 +271,7 @@ input[type='number']:focus {
 	position: absolute;
 	right: 15px;
 	top: 24px;
+	background-color: rgb(2, 2, 2, 0);
 }
 
 .popup__input-eye_showed {

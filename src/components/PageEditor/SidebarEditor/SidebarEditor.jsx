@@ -11,22 +11,24 @@ import ElementsPanel from './ElementsPanel/ElementsPanel';
 import DownloadsPanel from './DownloadsPanel/DownloadsPanel';
 
 function SidebarEditor({
-	setPanelSidebarActive,
-	panelSidebarActive,
-	setUploadedCertificate,
-	setElement,
-	element,
-	setElementVisibility,
-	elementVisibility,
-	positions,
-	setPositions,
-	onTextClick,
-	fontResult,
-	setFontResult,
-	samples,
-}) {
-	const [activePanel, setActivePanel] = useState('panelTemplates');
-	const [activeClass, setActiveClass] = useState('panelTemplates');
+
+
+                           setPanelSidebarActive,
+                           panelSidebarActive,
+                           setUploadedCertificate,
+                           setElement,
+                           element,
+                           setElementVisibility,
+                           elementVisibility,
+                           positions,
+                           setPositions,
+                           onTextClick,
+                           fontResult,
+                           setFontResult,
+                           samples
+                       }) {
+    const [activePanel, setActivePanel] = useState('panelTemplates');
+    const [activeClass, setActiveClass] = useState('panelTemplates');
 
 	const renderPanel = () => {
 		switch (activePanel) {

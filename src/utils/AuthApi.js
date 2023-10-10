@@ -144,6 +144,16 @@ class AuthApi {
 			body: formData,
 		}).then(handleResponse);
 	}
+
+	handleDeleteFontFamily(id) {
+		return fetch(`${this.url}/font/${id}/`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+		})
+	}
 }
 
 const authApi = new AuthApi({
