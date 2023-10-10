@@ -152,6 +152,7 @@ class AuthApi {
 	}
 
 	handleDeleteFontFamily(id) {
+		debugger;
 		return fetch(`${this.url}/font/${id}/`, {
 			method: 'DELETE',
 			headers: {
