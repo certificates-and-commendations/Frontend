@@ -178,10 +178,16 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	handleCreateDocument(fileArray) {
+	handleCreateDocument(textData) {
+		debugger;
 		// создание готовой грамоты
-		const file = fileArray.file.name;
-		const base64 = fileArray.base64;
+		const title = textData.title.join('');
+
+		const background = textData.background;
+
+		const texts = textData.texts;
+
+		const Elements = textData.Element;
 
 		return fetch(`${this.url}/documents/`, {
 			method: 'POST',
@@ -189,8 +195,10 @@ class AuthApi {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				title: file,
-				background: base64,
+				title,
+				background,
+				texts,
+				elements: Elements,
 			}),
 		}).then(handleResponse);
 	}
