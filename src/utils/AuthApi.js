@@ -152,7 +152,7 @@ class AuthApi {
 				'Content-Type': 'application/json',
 				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		})
+		});
 	}
 }
 
