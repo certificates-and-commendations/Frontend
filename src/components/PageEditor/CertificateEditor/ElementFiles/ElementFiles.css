@@ -1,12 +1,12 @@
 .element-files__certificate-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
 }
 
 .element-files__certificate-img {
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
 }

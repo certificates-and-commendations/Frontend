@@ -22,8 +22,15 @@ function TemplatesPanel({ samples }) {
 			</div>
 			<div className="templates-image">
 				<ul className="templates-image__list">
-					{ samples.map((item) => (
-						<li className={item.is_horizontal ? "templates-image__img-horizontal" : "templates-image__img-vertical" }  key={item.id}>
+					{samples.map((item) => (
+						<li
+							className={
+								item.is_horizontal
+									? 'templates-image__img-horizontal'
+									: 'templates-image__img-vertical'
+							}
+							key={item.id}
+						>
 							<img
 								src={item.thumbnail}
 								alt="Шаблон 1"

@@ -12,7 +12,7 @@ input[type='number'] {
 
 .functions {
 	border-radius: 32px;
-	background: #FFFFFF;
+	background: #ffffff;
 	width: 862px;
 	margin: 24px 0 60px auto;
 }
@@ -80,7 +80,7 @@ input[type='number'] {
 }
 
 .function__option:hover {
-	background: #665DCF;
+	background: #665dcf;
 }
 
 .functions__list.open .function__option {
@@ -262,7 +262,7 @@ input[type='number'] {
 	padding: 4px 8px;
 	justify-content: center;
 	align-items: center;
-	background: #FFFFFF;
+	background: #ffffff;
 	font-size: 16px;
 	font-style: normal;
 	font-weight: 400;

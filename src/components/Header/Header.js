@@ -4,13 +4,14 @@ import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import HeaderNav from '../HeaderNav/HeaderNav';
 import Logo from '../Logo/Logo';
 import avatar from '../../images/avatar.png';
-import ButtonDowload from './ButtonDowload/ButtonDowload';
+import ButtonDowload from './ButtonDowload/ButtonDownload';
 
 export default function Header({
 	setIsLoginPopupOpen,
 	setIsRegisterPopupOpen,
 	isloggedIn,
 	setIsLoggedIn,
+	onSavePDF,
 }) {
 	const location = useLocation();
 	// ПРОВЕРЯЕМ НА ГЛАВНОЙ ЛИ МЫ СТРАНИЦЕ , ПОКА НЕ ГОТОВ MAIN , ОТКЛЮЧИЛ ПРОВЕРКУ
@@ -31,7 +32,7 @@ export default function Header({
 				{!isMainPage && <HeaderNav />}
 			</div>
 
-			{isEditorPage && <ButtonDowload />}
+			{isEditorPage && <ButtonDowload onSavePDF={onSavePDF} />}
 
 			{isloggedIn ? (
 				<div className="header__profile">

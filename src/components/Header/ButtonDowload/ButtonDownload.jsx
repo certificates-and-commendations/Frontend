@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import './ButtonDowload.css';
+import './ButtonDownload.css';
 import downloadIcon from '../../../images/download-b.svg';
 import printerIcon from '../../../images/printer-b.svg';
 import mailIcon from '../../../images/mail-b.svg';
 
-function ButtonDowload({ onDownload, onPrint, onMail }) {
+function ButtonDownload({ onSavePDF, onPrint, onMail }) {
 	const [isActive, setIsActive] = useState(false);
 
 	const buttonClass = clsx('button-download', {
@@ -18,7 +18,7 @@ function ButtonDowload({ onDownload, onPrint, onMail }) {
 
 	function handleDownload() {
 		console.log('Download');
-		onDownload();
+		onSavePDF();
 	}
 
 	function handlePrint() {
@@ -86,4 +86,4 @@ function ButtonDowload({ onDownload, onPrint, onMail }) {
 	);
 }
 
-export default ButtonDowload;
+export default ButtonDownload;

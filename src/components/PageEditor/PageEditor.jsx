@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
-import html2canvas from 'html2canvas';
-import JsPDF from 'jspdf';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor({ samples }) {
+function PageEditor({ samples, certificateRef }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
@@ -43,8 +41,6 @@ function PageEditor({ samples }) {
 	const initialPositions = element.map(() => ({ x: 0, y: 0 }));
 	const [positions, setPositions] = useState(initialPositions);
 
-	const certificateRef = useRef(null);
-
 	function generateUniqueId() {
 		return Math.random().toString(36).substr(2, 9);
 	}
@@ -78,7 +74,7 @@ function PageEditor({ samples }) {
 					x: '',
 					y: '',
 					fontFamily: 'Arial',
-					fontSize: size
+					fontSize: size,
 				},
 			]);
 			setTextBlockStyles([
@@ -93,10 +89,7 @@ function PageEditor({ samples }) {
 				},
 			]);
 
-			setTextPosition([
-				...textPosition,
-				{ x: 0, y: 0 },
-			]);
+			setTextPosition([...textPosition, { x: 0, y: 0 }]);
 
 			setEditingTextIndex(textBlocks.length);
 			setActiveTextIndex(textBlocks.length);
@@ -176,43 +169,6 @@ function PageEditor({ samples }) {
 		setElementPosition({ x: data.x, y: data.y });
 	};
 
-	const handleCreateJson = () => {
-		// Создание JSON объекта
-		const jsonToSave = {
-			text_field: textBlocks.map((block) => ({
-				text: block.text,
-				x: block.x,
-				y: block.y,
-				fontFamily: block.fontFamily,
-				fontSize: block.fontSize,
-				italic: block.isItalic,
-				textDecoration: block.isDecoration,
-				fontWeight: block.isBold,
-			})),
-			background: {
-				width: 600,
-				height: 850,
-			}, // Подставьте URL фона
-			Element: {
-				url: element,
-				x: elementPosition.x,
-				y: elementPosition.y,
-			},
-		};
-		// console.log(jsonToSave)
-		setPdfData(jsonToSave);
-	};
-
-	const handleSavePDF = async () => {
-		handleCreateJson();
-		const scale = 3; // Увеличение разрешения в 3 раза
-		const canvas = await html2canvas(certificateRef.current, { scale });
-		const imgData = canvas.toDataURL('image/png');
-		const pdf = new JsPDF();
-		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
-		pdf.save('certificate.pdf');
-	};
-
 	const handleChangeComplete = (newColor) => {
 		const updatedTextBlockColors = [...textBlockColors];
 		updatedTextBlockColors[activeTextIndex].color = newColor.hex;
@@ -243,7 +199,6 @@ function PageEditor({ samples }) {
 					setFont={setFont}
 					fontSize={fontSize}
 					setFontSize={setFontSize}
-					onSavePDF={handleSavePDF}
 					editingTextIndex={editingTextIndex}
 					showTable={showTable}
 					setShowTable={setShowTable}
@@ -251,7 +206,6 @@ function PageEditor({ samples }) {
 					setTableData={setTableData}
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
 					isVisible={elementVisibility}
 					activeTextIndex={activeTextIndex}
 					setActiveTextIndex={setActiveTextIndex}
@@ -291,7 +245,6 @@ function PageEditor({ samples }) {
 					setFontSize={setFontSize}
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
 					isVisible={showProperties}
 					setActiveTextIndex={setActiveTextIndex}
 					activeTextIndex={activeTextIndex}
@@ -304,12 +257,10 @@ function PageEditor({ samples }) {
 					setTextAlignStyle={setTextAlignStyle}
 					handleTextChange={handleTextChange}
 					onInputKeyDown={handleInputKeyDown}
-					onSavePDF={handleSavePDF}
 					showTable={showTable}
 					setShowTable={setShowTable}
 					tableData={tableData}
 					setTableData={setTableData}
-					onCreateJson={handleCreateJson}
 					uploadedCertificate={uploadedCertificate}
 					signature={signature}
 					element={element}
@@ -324,6 +275,7 @@ function PageEditor({ samples }) {
 					setBorderTextIndex={setBorderTextIndex}
 					textPosition={textPosition}
 					fontResult={fontResult}
+					certificateRef={certificateRef}
 				/>
 			</section>
 		</main>
