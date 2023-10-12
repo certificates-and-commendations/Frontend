@@ -156,7 +156,7 @@ class AuthApi {
 	}
 
 	handleGetUsersDocument() {
-		return fetch(`${this.url}/users/favourite/`, {
+		return fetch(`${this.url}/profile/profile/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
@@ -165,7 +165,7 @@ class AuthApi {
 	}
 
 	handleGetUsersDocumentById(id) {
-		return fetch(`${this.url}/documents/${id}/`, {
+		return fetch(`${this.url}/profile/${id}/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
