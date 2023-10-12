@@ -152,7 +152,25 @@ class AuthApi {
 				'Content-Type': 'application/json',
 				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		})
+		});
+	}
+
+	handleGetUsersDocument() {
+		return fetch(`${this.url}/users/favourite/`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+		});
+	}
+
+	handleGetUsersDocumentById(id) {
+		return fetch(`${this.url}/documents/${id}/`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+		});
 	}
 }
 
