@@ -245,7 +245,13 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={<PageEditor samples={samples} loggedIn={isLoggedIn} />}
+						element={
+							<PageEditor
+								documentById={documentById}
+								samples={samples}
+								loggedIn={isLoggedIn}
+							/>
+						}
 					/>
 					<Route
 						path="/samples"
