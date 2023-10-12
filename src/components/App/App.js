@@ -45,13 +45,13 @@ function App() {
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
 	// CТЕЙТ С СОЗДАННЫМИ ДОКУМЕНТАМИ
-	const [myDocuments, setMyDocuments] = useState([]);
+	const [myDocuments, setMyDocuments] = useState(null);
 	const [infoToolTip, setInfoToolTip] = useState({
 		text: '',
 		status: true,
 		opened: false,
 	});
-	const [documentById, setDocumentById] = useState({});
+	const [documentById, setDocumentById] = useState(null);
 	// СТЕЙТ С МАССИВОМ СОХРАНЕНЫХ ШАБЛОНОВ ПОЛЬЗОВАТЕЛЯ
 	const [favoriteSamples, setFavoriteSamples] = useState([]);
 	// СТЕЙТ С МАССИВОМ ШАБЛОНОВ
@@ -245,7 +245,13 @@ function App() {
 					{/* Роут для Editor */}
 					<Route
 						path="/editor"
-						element={<PageEditor samples={samples} loggedIn={isLoggedIn} />}
+						element={
+							<PageEditor
+								documentById={documentById || {}}
+								samples={samples}
+								loggedIn={isLoggedIn}
+							/>
+						}
 					/>
 					<Route
 						path="/samples"
@@ -270,7 +276,7 @@ function App() {
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
-								myDocuments={myDocuments}
+								myDocuments={myDocuments || []}
 								onGetUsersDocument={getUsersDocument}
 								onGetUsersDocumentById={getUsersDocumentById}
 							/>
