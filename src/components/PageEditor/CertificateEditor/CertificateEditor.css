@@ -37,7 +37,9 @@
 }
 
 .certificate__text-block:hover .certificate__text-paragraph:hover {
-	cursor: url(../../../images/IconsFunctionsText/certificate__cursor-text.svg) 8 8, auto;
+	cursor:
+		url(../../../images/IconsFunctionsText/certificate__cursor-text.svg) 8 8,
+		auto;
 }
 
 .certificate__input {

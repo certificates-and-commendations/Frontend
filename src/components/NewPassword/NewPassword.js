@@ -1,20 +1,19 @@
-import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
+import Form from '../Form/Form';
 
-function Recovery({
+function NewPassword({
 	popupName,
 	title,
 	isOpened,
 	buttonText,
 	onClose,
-	setIsLoginPopupOpen,
 	formValue,
 	setFormValue,
+	setIsNewPasswordPopupOpen,
 	isLoading,
 	setIsLoading,
+	setInfoToolTip,
 }) {
-	function handleRecovery() {}
-
 	return (
 		<Form
 			popupName={popupName}
@@ -24,9 +23,10 @@ function Recovery({
 			onClose={onClose}
 			formValue={formValue}
 			setFormValue={setFormValue}
-			handleSubmittingAForm={() => handleRecovery()}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
 		/>
 	);
 }
 
-export default Recovery;
+export default NewPassword;

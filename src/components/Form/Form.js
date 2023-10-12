@@ -2,7 +2,6 @@ import './Form.css';
 import { useState } from 'react';
 import { EMAIL_CHECKER, PASSWORD_CHECKER } from '../../constants/constants';
 import x from '../../images/x.svg';
-import eye from '../../images/default.svg';
 import authApi from '../../utils/AuthApi';
 
 function Form({
@@ -32,6 +31,14 @@ function Form({
 			  !(formValue.second === '' || formValue.second === undefined) &&
 			  !(formValue.thirst === '' || formValue.thirst === undefined) &&
 			  !(formValue.fourth === '' || formValue.fourth === undefined)
+			: popupName === 'NewPassword'
+			? !formErrorMessage.password &&
+			  !formErrorMessage.checkPassword &&
+			  !(formValue.password === '' || formValue.password === undefined) &&
+			  !(
+					formValue.checkPassword === '' ||
+					formValue.checkPassword === undefined
+			  )
 			: !formErrorMessage.email &&
 			  !formErrorMessage.password &&
 			  !(formValue.email === '' || formValue.email === undefined) &&
@@ -62,11 +69,34 @@ function Form({
 
 		if (value.length > 0) {
 			const isValid = PASSWORD_CHECKER.test(value);
+			const checkPasswords =
+				name === 'password'
+					? value === formValue.checkPassword
+					: value === formValue.password;
 			setFormErrorMessage({
 				...formErrorMessage,
-				[name]: isValid
-					? ''
-					: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.',
+				password:
+					popupName === 'NewPassword'
+						? isValid && checkPasswords
+							? ''
+							: formErrorMessage.password
+						: formErrorMessage.password,
+				checkPassword:
+					popupName === 'NewPassword'
+						? isValid && checkPasswords
+							? ''
+							: formErrorMessage.checkPassword
+						: formErrorMessage.checkPassword,
+				[name]:
+					popupName === 'NewPassword'
+						? isValid
+							? checkPasswords
+								? ''
+								: 'Пароли не совпадают.'
+							: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.'
+						: isValid
+						? ''
+						: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.',
 			});
 		}
 	}
@@ -86,7 +116,6 @@ function Form({
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		// На восстановление пароля нету метода на сервере, поэтому функции на отправку формы Recovery нет
 		handleSubmittingAForm();
 	}
 
@@ -154,7 +183,8 @@ function Form({
 				>
 					<fieldset
 						className={
-							popupName === 'registerConfirmation'
+							popupName === 'registerConfirmation' ||
+							popupName === 'NewPassword'
 								? 'popup__fieldset popup__fieldset_invisible'
 								: 'popup__fieldset'
 						}
@@ -219,6 +249,60 @@ function Form({
 								}
 								onChange={handleChangePassword}
 								value={formValue.password}
+								disabled={isLoading}
+							/>
+							<button
+								type="button"
+								className={
+									passwordShowed
+										? 'popup__input-eye popup__input-eye_showed'
+										: 'popup__input-eye'
+								}
+								onClick={showPassword}
+							/>
+						</div>
+						<button
+							type="button"
+							onClick={goRecovery}
+							className={
+								popupName === 'login'
+									? 'popup__clue'
+									: 'popup__clue popup__clue_invisible'
+							}
+						>
+							Забыли пароль?
+						</button>
+					</fieldset>
+					<fieldset
+						className={
+							popupName === 'NewPassword'
+								? 'popup__fieldset'
+								: 'popup__fieldset popup__fieldset_invisible'
+						}
+					>
+						<span className="popup__input-text popup__input-text_password">
+							Повторите пароль
+						</span>
+						<span
+							className={
+								formErrorMessage.checkPassword === undefined ||
+								formErrorMessage.checkPassword === ''
+									? 'popup__input-error popup__input-error_invisible'
+									: 'popup__input-error'
+							}
+						>{`${formErrorMessage.checkPassword || ''}`}</span>
+						<div className="popup__input-relative">
+							<input
+								type={passwordShowed ? 'text' : 'password'}
+								name="checkPassword"
+								className="popup__input popup__input_password"
+								id="checkPassword"
+								minLength="6"
+								maxLength="8"
+								placeholder="Повторите пароль"
+								required={popupName === 'NewPassword'}
+								onChange={handleChangePassword}
+								value={formValue.checkPassword}
 								disabled={isLoading}
 							/>
 							<button
@@ -337,17 +421,6 @@ function Form({
 					>
 						{buttonText}
 					</button>
-					{/* <button
-						type="button"
-						onClick={goLogin}
-						className={
-							popupName === 'recovery'
-								? 'popup__back-button'
-								: 'popup__back-button popup__back-button_invisible'
-						}
-					>
-						Назад к странице «Вход»
-					</button> */}
 					<button
 						type="button"
 						onClick={reloadTimer}

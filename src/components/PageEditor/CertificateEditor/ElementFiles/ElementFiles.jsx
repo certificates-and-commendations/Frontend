@@ -9,7 +9,7 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					bounds="parent"
 					position={positions[index]}
 					onDrag={(e, { x, y }) => {
-						console.log(positions)
+						console.log(positions);
 						const newPositions = [...positions];
 						newPositions[index] = { x, y };
 						setPositions(newPositions);
@@ -24,7 +24,6 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 							top: '50%',
 							left: '50%',
 							width: '100px',
-
 						}}
 					>
 						<img

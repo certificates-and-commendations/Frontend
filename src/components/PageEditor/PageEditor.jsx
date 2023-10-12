@@ -78,7 +78,7 @@ function PageEditor({ samples }) {
 					x: '',
 					y: '',
 					fontFamily: 'Arial',
-					fontSize: size
+					fontSize: size,
 				},
 			]);
 			setTextBlockStyles([
@@ -93,10 +93,7 @@ function PageEditor({ samples }) {
 				},
 			]);
 
-			setTextPosition([
-				...textPosition,
-				{ x: 0, y: 0 },
-			]);
+			setTextPosition([...textPosition, { x: 0, y: 0 }]);
 
 			setEditingTextIndex(textBlocks.length);
 			setActiveTextIndex(textBlocks.length);

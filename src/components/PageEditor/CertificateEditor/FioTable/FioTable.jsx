@@ -70,8 +70,6 @@ function FioTable({
 		setTableData(updatedData);
 	};
 
-
-
 	return (
 		<div className="table-container">
 			<table className="fio-table">
