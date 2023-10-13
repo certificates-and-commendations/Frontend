@@ -13,13 +13,13 @@ function NewPassword({
 	isLoading,
 	setIsLoading,
 	setInfoToolTip,
+	setIsLoginPopupOpen,
 }) {
 	async function handleNewPassword() {
 		setIsLoading(true);
 		return authApi
 			.resetPassword(formValue.password, formValue.checkPassword)
 			.then((response) => {
-				console.log(response);
 				onClose();
 				setFormValue({
 					password: '',
@@ -31,6 +31,7 @@ function NewPassword({
 					checkPassword: '',
 				});
 				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
+				setIsLoginPopupOpen(true);
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });
