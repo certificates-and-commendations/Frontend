@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-font.svg';
 import authApi from '../../../../utils/AuthApi';
 import FontFaceStyles from './FontFaceStyles/FontFaceStyles';

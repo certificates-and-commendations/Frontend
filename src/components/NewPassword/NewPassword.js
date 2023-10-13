@@ -1,26 +1,25 @@
-import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
+import Form from '../Form/Form';
 
-function Recovery({
+function NewPassword({
 	popupName,
 	title,
 	isOpened,
 	buttonText,
 	onClose,
-	setIsRegistrationConfirmationPopupOpen,
 	formValue,
 	setFormValue,
+	setIsNewPasswordPopupOpen,
 	isLoading,
 	setIsLoading,
 	setInfoToolTip,
-	setItsResetPassword,
 }) {
-	async function handleRecovery() {
+	async function handleNewPassword() {
 		setIsLoading(true);
 		return authApi
-			.sendResetCode(formValue.email)
+			.resetPassword(formValue.password, formValue.NewPassword)
 			.then((response) => {
-				setItsResetPassword(true);
+				console.log(response);
 				onClose();
 				setFormValue({
 					password: '',
@@ -31,7 +30,7 @@ function Recovery({
 					code: '',
 					checkPassword: '',
 				});
-				setIsRegistrationConfirmationPopupOpen(true);
+				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });
@@ -50,9 +49,12 @@ function Recovery({
 			onClose={onClose}
 			formValue={formValue}
 			setFormValue={setFormValue}
-			handleSubmittingAForm={() => handleRecovery()}
+			isLoading={isLoading}
+			setIsLoading={setIsLoading}
+			setInfoToolTip={setInfoToolTip}
+			handleSubmittingAForm={() => handleNewPassword()}
 		/>
 	);
 }
 
-export default Recovery;
+export default NewPassword;

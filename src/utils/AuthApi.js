@@ -37,7 +37,7 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	registerConfirm(email, code) {
+	registerConfirm(email) {
 		return fetch(`${this.url}/auth/confirm/`, {
 			method: 'POST',
 			headers: {
@@ -45,7 +45,31 @@ class AuthApi {
 			},
 			body: JSON.stringify({
 				email,
-				code,
+			}),
+		}).then(handleResponse);
+	}
+
+	resetPassword(newPassword, reNewPassword) {
+		return fetch(`${this.url}/auth/reset_password/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				new_password: newPassword,
+				re_new_password: reNewPassword,
+			}),
+		}).then(handleResponse);
+	}
+
+	sendResetCode(email, code) {
+		return fetch(`${this.url}/auth/send_reset_code/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
 			}),
 		}).then(handleResponse);
 	}
@@ -153,6 +177,7 @@ class AuthApi {
 				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 		});
+
 	}
 
 	handleGetUsersDocument() {
@@ -179,6 +204,7 @@ const authApi = new AuthApi({
 		currentUrl === 'http://certificates.acceleratorpracticum.ru'
 			? 'http://certificates.acceleratorpracticum.ru/api'
 			: 'http://185.93.111.238/api',
+	// 'http://127.0.0.1:8000/api',
 });
 
 export default authApi;

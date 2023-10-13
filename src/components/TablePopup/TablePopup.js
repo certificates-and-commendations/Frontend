@@ -73,7 +73,7 @@ export default function TablePopup({ popupName, isOpened, array, onClose }) {
 					</div>
 					<form className="popup__table-form">
 						{Object.values(renderArray).map((item, key) => (
-							<div className="popup__table-body">
+							<div className="popup__table-body" key={key}>
 								<div className="popup__table-content popup__table-column">
 									{key + 1}
 								</div>

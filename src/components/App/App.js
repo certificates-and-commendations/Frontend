@@ -20,17 +20,19 @@ import PageEditor from '../PageEditor/PageEditor';
 import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import TablePopup from '../TablePopup/TablePopup';
+import NewPassword from '../NewPassword/NewPassword';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
+	const [isNewPasswordPopupOpen, setIsNewPasswordPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
 		useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
-	const [isTablePopupOpen, setIsTablePopupOpen] = useState(true);
+	const [isTablePopupOpen, setIsTablePopupOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [formValue, setFormValue] = useState({
 		email: '',
@@ -40,7 +42,9 @@ function App() {
 		thirst: '',
 		fourth: '',
 		code: '',
+		checkPassword: '',
 	});
+	const [itsResetPassword, setItsResetPassword] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
@@ -75,8 +79,10 @@ function App() {
 			thirst: '',
 			fourth: '',
 			code: '',
+			checkPassword: '',
 		});
 		setIsTablePopupOpen(false);
+		setIsNewPasswordPopupOpen(false);
 	}
 
 	const isOpen =
@@ -328,6 +334,8 @@ function App() {
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
 						setInfoToolTip={setInfoToolTip}
+						setIsNewPasswordPopupOpen={setIsNewPasswordPopupOpen}
+						itsResetPassword={itsResetPassword}
 					/>
 				)}
 				{isLoginPopupOpen && (
@@ -354,13 +362,16 @@ function App() {
 						popupName="recovery"
 						isOpened={isRecoveryPopupOpen}
 						onClose={() => closeAllPopups()}
-						setIsLoginPopupOpen={setIsLoginPopupOpen}
+						setIsRegisterConfirmationPopupOpen={
+							setIsRegisterConfirmationPopupOpen
+						}
 						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
 						setInfoToolTip={setInfoToolTip}
+						setItsResetPassword={setItsResetPassword}
 					/>
 				)}
 				{infoToolTip.opened && (
@@ -377,6 +388,21 @@ function App() {
 					<TablePopup
 						isOpened={isTablePopupOpen}
 						popupName="TablePopup"
+						onClose={() => closeAllPopups()}
+					/>
+				)}
+				{isNewPasswordPopupOpen && (
+					<NewPassword
+						title="Новый пароль"
+						buttonText="Отправить код"
+						setIsNewPasswordPopupOpen={setIsNewPasswordPopupOpen}
+						formValue={formValue}
+						setFormValue={setFormValue}
+						isLoading={isLoading}
+						setIsLoading={setIsLoading}
+						setInfoToolTip={setInfoToolTip}
+						isOpened={isNewPasswordPopupOpen}
+						popupName="NewPassword"
 						onClose={() => closeAllPopups()}
 					/>
 				)}
