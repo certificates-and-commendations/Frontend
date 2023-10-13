@@ -17,7 +17,7 @@ function NewPassword({
 	async function handleNewPassword() {
 		setIsLoading(true);
 		return authApi
-			.resetPassword(formValue.password, formValue.NewPassword)
+			.resetPassword(formValue.password, formValue.checkPassword)
 			.then((response) => {
 				console.log(response);
 				onClose();
