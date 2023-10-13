@@ -7,7 +7,7 @@ function Recovery({
 	isOpened,
 	buttonText,
 	onClose,
-	setIsRegistrationConfirmationPopupOpen,
+	setIsRegisterConfirmationPopupOpen,
 	formValue,
 	setFormValue,
 	isLoading,
@@ -31,7 +31,7 @@ function Recovery({
 					code: '',
 					checkPassword: '',
 				});
-				setIsRegistrationConfirmationPopupOpen(true);
+				setIsRegisterConfirmationPopupOpen(true);
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });
