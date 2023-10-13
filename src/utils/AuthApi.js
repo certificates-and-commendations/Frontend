@@ -178,7 +178,6 @@ class AuthApi {
 				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 		});
-
 	}
 
 	handleGetUsersDocument() {
