@@ -169,6 +169,7 @@ function App() {
 
 	useEffect(() => {
 		getAllSamples();
+		setIsPageNotFoundOpen(false);
 	}, []);
 
 	React.useEffect(() => {
