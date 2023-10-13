@@ -32,6 +32,7 @@ function App() {
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
 	const [isRecoveryPopupOpen, setIsRecoveryPopupOpen] = useState(false);
 	const [isPageNotFoundOpen, setIsPageNotFoundOpen] = useState(false);
+	const [isEditorOpen, setIsEditorOpen] = useState(false);
 	const [isTablePopupOpen, setIsTablePopupOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [formValue, setFormValue] = useState({
@@ -63,8 +64,6 @@ function App() {
 
 	const location = useLocation();
 	const navigate = useNavigate();
-
-	const isEditorPage = location.pathname === '/editor';
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
@@ -170,6 +169,7 @@ function App() {
 	useEffect(() => {
 		getAllSamples();
 		setIsPageNotFoundOpen(false);
+		setIsEditorOpen(false);
 	}, []);
 
 	React.useEffect(() => {
@@ -257,6 +257,7 @@ function App() {
 								documentById={documentById || {}}
 								samples={samples}
 								loggedIn={isLoggedIn}
+								setIsEditorOpen={setIsEditorOpen}
 							/>
 						}
 					/>
@@ -297,7 +298,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen || !isEditorPage ? <Footer /> : null}
+				{!isPageNotFoundOpen || !isEditorOpen ? <Footer /> : null}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"
@@ -405,6 +406,7 @@ function App() {
 						isOpened={isNewPasswordPopupOpen}
 						popupName="NewPassword"
 						onClose={() => closeAllPopups()}
+						setIsLoginPopupOpen={setIsLoginPopupOpen}
 					/>
 				)}
 				<ComputerRestrictions />

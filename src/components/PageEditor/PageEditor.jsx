@@ -1,11 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import JsPDF from 'jspdf';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor({ samples }) {
+function PageEditor({ samples, setIsEditorOpen }) {
+	useEffect(() => {
+		setIsEditorOpen(true);
+	});
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
