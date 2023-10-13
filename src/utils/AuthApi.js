@@ -130,12 +130,6 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	//  awards: false,
-	// 	appreciations: false,
-	// 	certificates: false,
-	// 	is_horizontal: false,
-	// 	is_vertical: false,
-
 	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
 	handleFilterSamples(obj) {
 		const queryParams = [];
@@ -181,6 +175,25 @@ class AuthApi {
 			headers: {
 				'Content-Type': 'application/json',
 				// Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+		});
+
+	}
+
+	handleGetUsersDocument() {
+		return fetch(`${this.url}/profile/profile/`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+		});
+	}
+
+	handleGetUsersDocumentById(id) {
+		return fetch(`${this.url}/profile/${id}/`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 		});
 	}

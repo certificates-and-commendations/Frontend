@@ -170,7 +170,7 @@ export const Samples = ({
 							name="is_vertical"
 							state={checkboxValues}
 							onClick={handleCheckboxClick}
-							text="Вертикальнаяы"
+							text="Вертикальная"
 						/>
 					</div>
 					<ColorFilter

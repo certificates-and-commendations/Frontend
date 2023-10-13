@@ -1,5 +1,5 @@
 import './Profile.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import CenterSlider from '../CenterSlider/CenterSlider';
 
@@ -9,8 +9,19 @@ function Profile({
 	templates,
 	favoriteSamples,
 	setFavoriteSamples,
+	onGetUsersDocument,
+	onGetUsersDocumentById,
 }) {
 	const currentUser = React.useContext(CurrentUserContext);
+
+	function getDocumentUsers() {
+		return onGetUsersDocument();
+	}
+
+	useEffect(() => {
+		// console.log(typeof onGetUsersDocument());
+		console.log(getDocumentUsers());
+	}, []);
 
 	return (
 		<main className="profile">
