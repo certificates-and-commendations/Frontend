@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { Link, useNavigate } from 'react-router-dom';
 import trash from '../../images/trash.svg';
+import authApi from '../../utils/AuthApi';
 
 export default function CenterSlider({
 	array,
@@ -25,8 +26,12 @@ export default function CenterSlider({
 	};
 
 	function onTemplateClick(item) {
-		setDiploma(item);
-		navigate('/editor');
+		if (isFavoriteSamples) {
+			navigate('/editor');
+			setDiploma(item);
+		} else {
+			return authApi.handleGetUsersDocumentById(item.id);
+		}
 	}
 
 	function onTrashClick(item) {
