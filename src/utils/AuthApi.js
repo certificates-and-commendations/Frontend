@@ -188,10 +188,10 @@ class AuthApi {
 
 const authApi = new AuthApi({
 	baseUrl:
-		// currentUrl === 'http://certificates.acceleratorpracticum.ru'
-		// 	? 'http://certificates.acceleratorpracticum.ru/api'
-		// 	: 'http://185.93.111.238/api',
-		'http://127.0.0.1:8000/api',
+		currentUrl === 'http://certificates.acceleratorpracticum.ru'
+			? 'http://certificates.acceleratorpracticum.ru/api'
+			: 'http://185.93.111.238/api',
+	// 'http://127.0.0.1:8000/api',
 });
 
 export default authApi;
