@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import './ButtonDowload.css';
 import downloadIcon from '../../../images/download-b.svg';
 import printerIcon from '../../../images/printer-b.svg';
@@ -85,5 +86,11 @@ function ButtonDowload({ onDownload, onPrint, onMail }) {
 		</div>
 	);
 }
+
+ButtonDowload.propTypes = {
+	onDownload: PropTypes.func.isRequired,
+	onPrint: PropTypes.func.isRequired,
+	onMail: PropTypes.func.isRequired,
+};
 
 export default ButtonDowload;

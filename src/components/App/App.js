@@ -233,6 +233,11 @@ function App() {
 		}, 3000);
 	}, [infoToolTip]);
 
+	useEffect(() => {
+		console.log(location.pathname);
+		console.log(isEditorPage);
+	}, [location]);
+
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
 			<div className="App">
@@ -296,7 +301,7 @@ function App() {
 						}
 					/>
 				</Routes>
-				{!isPageNotFoundOpen || !isEditorPage ? <Footer /> : null}
+				{!isPageNotFoundOpen && !isEditorPage ? <Footer /> : null}
 				{isRegisterPopupOpen && (
 					<Register
 						title="Регистрация"

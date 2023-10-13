@@ -4,7 +4,7 @@ import { Sample } from './Sample';
 import './Sample.css';
 
 export default {
-	title: 'UI/Sample',
+	title: 'UI/ Элемент Шаблон',
 	component: Sample,
 	decorators: [
 		(Story) => (
@@ -15,8 +15,8 @@ export default {
 	],
 	tags: ['autodocs'],
 	argTypes: {
-		onLike: { action: 'onLike' }, // Создаем action для onLike
-		onDislike: { action: 'onDislike' }, // Создаем action для onDislike
+		onLike: { action: 'onLike' },
+		onDislike: { action: 'onDislike' },
 		onImageClick: { action: 'onImageClick' },
 		item: {
 			type: 'object',
@@ -82,32 +82,26 @@ SampleWithLike.args = {
 SampleWithLike.story = {
 	parameters: {
 		actions: {
-			onLike: action('onLike'), // Используйте onLike action
+			onLike: action('onLike'),
 		},
 		onLoad: async (args) => {
-			const item = args.item; // Получаем данные item из аргументов
+			const item = args.item;
 
 			try {
-				// Выполняйте запрос к серверу с данными item
 				const response = await fetch(`http://185.93.111.238/api/documents/`, {
 					method: 'GET',
-					// body: JSON.stringify(item),
 					headers: {
 						'Content-Type': 'application/json',
 					},
 				});
 
 				if (response.ok) {
-					// Обработайте успешный ответ сервера
 					console.log('Успешно отправлено на сервер');
-					// Вызовите onLike action, чтобы записать событие в сторибук
 					action('onLike button clicked')(response);
 				} else {
-					// Обработайте ошибку
 					console.error('Ошибка при отправке на сервер');
 				}
 			} catch (error) {
-				// Обработайте ошибки при выполнении запроса
 				console.error('Произошла ошибка', error);
 			}
 		},

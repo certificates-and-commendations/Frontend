@@ -2,7 +2,7 @@ import { Checkbox } from './Checkbox';
 import './Checkbox.css';
 
 export default {
-	title: 'Кнопка фильтра',
+	title: 'UI/ Кнопка фильтра',
 	component: Checkbox,
 	tags: ['autodocs'],
 	argTypes: {
@@ -38,7 +38,7 @@ const Template = (args) => <Checkbox {...args} />;
 
 export const DefaultCheckbox = Template.bind({});
 DefaultCheckbox.args = {
-	text: 'нопка',
+	text: 'кнопка',
 	onClick: () => console.log('Click'),
 	name: 'diplomas',
 	state: {
@@ -52,7 +52,7 @@ DefaultCheckbox.args = {
 
 export const ErrorCheckbox = Template.bind({});
 ErrorCheckbox.args = {
-	text: 'нопка',
+	text: 'кнопка',
 	onClick: () => console.log('Click'),
 	name: 'diplomas',
 	state: {
