@@ -37,7 +37,7 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	registerConfirm(email) {
+	registerConfirm(email, code) {
 		return fetch(`${this.url}/auth/confirm/`, {
 			method: 'POST',
 			headers: {
@@ -45,6 +45,7 @@ class AuthApi {
 			},
 			body: JSON.stringify({
 				email,
+				code,
 			}),
 		}).then(handleResponse);
 	}
