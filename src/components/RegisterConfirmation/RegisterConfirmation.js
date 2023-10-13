@@ -18,6 +18,8 @@ function RegisterConfirmation({
 	isLoading,
 	setIsLoading,
 	setInfoToolTip,
+	setIsNewPasswordPopupOpen,
+	itsResetPassword,
 }) {
 	const navigate = useNavigate();
 
@@ -37,8 +39,16 @@ function RegisterConfirmation({
 		return authApi
 			.registerConfirm(formValue.email, formValue.code)
 			.then((response) => {
-				localStorage.setItem('jwt', response.Token);
-				setIsLoggedIn(true);
+				if (itsResetPassword) {
+					onClose();
+					setIsNewPasswordPopupOpen(true);
+				} else {
+					localStorage.setItem('jwt', response.Token);
+					setIsLoggedIn(true);
+					setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
+					onClose();
+					navigate('/', { replace: true });
+				}
 				setFormValue({
 					email: '',
 					password: '',
@@ -47,10 +57,8 @@ function RegisterConfirmation({
 					thirst: '',
 					fourth: '',
 					code: '',
+					checkPassword: '',
 				});
-				setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
-				onClose();
-				navigate('/', { replace: true });
 			})
 			.catch((err) => {
 				setInfoToolTip({ text: err.message, status: false, opened: true });
@@ -74,7 +82,6 @@ function RegisterConfirmation({
 			timeoutButton={timeoutButton}
 			timer={() => timer()}
 			setIsLoggedIn={setIsLoggedIn}
-			handleConfirmRegistrarion={() => handleConfirmRegistrarion()}
 			isLoading={isLoading}
 			setIsLoading={setIsLoading}
 			setInfoToolTip={setInfoToolTip}

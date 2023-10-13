@@ -93,7 +93,7 @@ function Form({
 							? checkPasswords
 								? ''
 								: 'Пароли не совпадают.'
-							: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.'
+							: 'От 8 до 15 символов, цифры, заглавные буквы, строчные буквы.'
 						: isValid
 						? ''
 						: 'От 6 до 8 символов, цифры, заглавные буквы, строчные буквы.',
@@ -238,8 +238,8 @@ function Form({
 								name="password"
 								className="popup__input popup__input_password"
 								id="password"
-								minLength="6"
-								maxLength="8"
+								minLength="8"
+								maxLength="15"
 								placeholder="Пароль"
 								required={
 									!(

@@ -7,13 +7,39 @@ function Recovery({
 	isOpened,
 	buttonText,
 	onClose,
-	setIsLoginPopupOpen,
+	setIsRegistrationConfirmationPopupOpen,
 	formValue,
 	setFormValue,
 	isLoading,
 	setIsLoading,
+	setInfoToolTip,
+	setItsResetPassword,
 }) {
-	function handleRecovery() {}
+	async function handleRecovery() {
+		setIsLoading(true);
+		return authApi
+			.sendResetCode(formValue.email)
+			.then((response) => {
+				setItsResetPassword(true);
+				onClose();
+				setFormValue({
+					password: '',
+					first: '',
+					second: '',
+					thirst: '',
+					fourth: '',
+					code: '',
+					checkPassword: '',
+				});
+				setIsRegistrationConfirmationPopupOpen(true);
+			})
+			.catch((err) => {
+				setInfoToolTip({ text: err.message, status: false, opened: true });
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
+	}
 
 	return (
 		<Form

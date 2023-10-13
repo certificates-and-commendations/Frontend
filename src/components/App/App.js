@@ -26,7 +26,7 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
-	const [isNewPasswordPopupOpen, setIsNewPasswordPopupOpen] = useState(true);
+	const [isNewPasswordPopupOpen, setIsNewPasswordPopupOpen] = useState(false);
 	const [isRegisterConfirmationPopupOpen, setIsRegisterConfirmationPopupOpen] =
 		useState(false);
 	const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -44,6 +44,7 @@ function App() {
 		code: '',
 		checkPassword: '',
 	});
+	const [itsResetPassword, setItsResetPassword] = useState(false);
 	const [currentUser, setCurrentUser] = useState({});
 	// СТЕЙТ С ВЫБРАНЫМ ШАБЛОНОМ ДЛЯ РАБОТЫ В РЕДАКТОРЕ
 	const [diploma, setDiploma] = useState({});
@@ -288,6 +289,8 @@ function App() {
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
 						setInfoToolTip={setInfoToolTip}
+						setIsNewPasswordPopupOpen={setIsNewPasswordPopupOpen}
+						itsResetPassword={itsResetPassword}
 					/>
 				)}
 				{isLoginPopupOpen && (
@@ -314,13 +317,16 @@ function App() {
 						popupName="recovery"
 						isOpened={isRecoveryPopupOpen}
 						onClose={() => closeAllPopups()}
-						setIsLoginPopupOpen={setIsLoginPopupOpen}
+						setIsRegisterConfirmationPopupOpen={
+							setIsRegisterConfirmationPopupOpen
+						}
 						isloggedIn={isLoggedIn}
 						formValue={formValue}
 						setFormValue={setFormValue}
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
 						setInfoToolTip={setInfoToolTip}
+						setItsResetPassword={setItsResetPassword}
 					/>
 				)}
 				{infoToolTip.opened && (
