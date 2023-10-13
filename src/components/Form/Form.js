@@ -297,8 +297,8 @@ function Form({
 								name="checkPassword"
 								className="popup__input popup__input_password"
 								id="checkPassword"
-								minLength="6"
-								maxLength="8"
+								minLength="8"
+								maxLength="15"
 								placeholder="Повторите пароль"
 								required={popupName === 'NewPassword'}
 								onChange={handleChangePassword}
