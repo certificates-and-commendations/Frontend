@@ -207,7 +207,10 @@ function Form({
 							id="email"
 							minLength="2"
 							maxLength="40"
-							required={popupName !== 'registerConfirmation'}
+							required={
+								popupName !== 'registerConfirmation' &&
+								popupName !== 'NewPassword'
+							}
 							placeholder="Введите корректный формат электронной почты"
 							onChange={handleChangeEmail}
 							value={formValue.email}
@@ -344,13 +347,7 @@ function Form({
 							id="first"
 							minLength="1"
 							maxLength="1"
-							required={
-								!(
-									popupName === 'register' ||
-									popupName === 'login' ||
-									popupName === 'recovery'
-								)
-							}
+							required={popupName === 'registerConfirmation'}
 							onChange={handleChangeNumber}
 							value={formValue.first}
 							disabled={isLoading}
@@ -362,13 +359,7 @@ function Form({
 							id="second"
 							minLength="1"
 							maxLength="1"
-							required={
-								!(
-									popupName === 'register' ||
-									popupName === 'login' ||
-									popupName === 'recovery'
-								)
-							}
+							required={popupName === 'registerConfirmation'}
 							onChange={handleChangeNumber}
 							value={formValue.second}
 							disabled={isLoading}
@@ -380,13 +371,7 @@ function Form({
 							id="thirst"
 							minLength="1"
 							maxLength="1"
-							required={
-								!(
-									popupName === 'register' ||
-									popupName === 'login' ||
-									popupName === 'recovery'
-								)
-							}
+							required={popupName === 'registerConfirmation'}
 							onChange={handleChangeNumber}
 							value={formValue.thirst}
 							disabled={isLoading}
@@ -398,13 +383,7 @@ function Form({
 							id="fourth"
 							minLength="1"
 							maxLength="1"
-							required={
-								!(
-									popupName === 'register' ||
-									popupName === 'login' ||
-									popupName === 'recovery'
-								)
-							}
+							required={popupName === 'registerConfirmation'}
 							onChange={handleChangeNumber}
 							value={formValue.fourth}
 							disabled={isLoading}
