@@ -197,13 +197,29 @@ class AuthApi {
 			},
 		});
 	}
+
+	handleUploadFile(thumbnail, title, category, color, isHorizontal) {
+		return fetch(`${this.url}/documents/upload/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title,
+				thumbnail,
+				category,
+				color,
+				is_horizontal: isHorizontal,
+			}),
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'http://certificates.acceleratorpracticum.ru'
 			? 'http://certificates.acceleratorpracticum.ru/api'
-			: currentUrl === 'localhost:3000'
+			: currentUrl === 'http://localhost:3000'
 			? 'http://127.0.0.1:8000/api'
 			: 'http://185.93.111.238/api',
 });

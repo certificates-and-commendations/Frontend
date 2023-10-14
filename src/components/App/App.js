@@ -256,6 +256,7 @@ function App() {
 								documentById={documentById || {}}
 								samples={samples}
 								loggedIn={isLoggedIn}
+								setIsTablePopupOpen={setIsTablePopupOpen}
 							/>
 						}
 					/>

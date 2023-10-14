@@ -24,6 +24,7 @@ function SidebarEditor({
 	fontResult,
 	setFontResult,
 	samples,
+	setIsTablePopupOpen,
 }) {
 	const [activePanel, setActivePanel] = useState('panelTemplates');
 	const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -49,6 +50,7 @@ function SidebarEditor({
 						elementVisibility={elementVisibility}
 						positions={positions}
 						setPositions={setPositions}
+						setIsTablePopupOpen={setIsTablePopupOpen}
 					/>
 				);
 			case 'panelDownloads':

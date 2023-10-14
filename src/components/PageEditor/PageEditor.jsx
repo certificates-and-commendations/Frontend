@@ -5,7 +5,7 @@ import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor({ samples }) {
+function PageEditor({ samples, setIsTablePopupOpen }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
@@ -232,6 +232,7 @@ function PageEditor({ samples }) {
 				setFontResult={setFontResult}
 				fontResult={fontResult}
 				samples={samples}
+				setIsTablePopupOpen={setIsTablePopupOpen}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
