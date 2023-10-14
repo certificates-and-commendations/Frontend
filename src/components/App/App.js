@@ -358,12 +358,18 @@ function App() {
 
 	const handleSavePDF = async () => {
 		const scale = 3; // Увеличение разрешения в 3 раза
-		const canvas = await html2canvas(certificateRef.current, { scale });
-		const imgData = canvas.toDataURL('image/png');
-		const pdf = new JsPDF();
-		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
-		pdf.save('certificate.pdf');
-		handleCreateJson();
+		html2canvas(certificateRef.current, {
+			scale,
+			allowTaint: true,
+			useCORS: true,
+			taintTest: false,
+		}).then((canvas) => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new JsPDF();
+			pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
+			pdf.save('certificate.pdf');
+			handleCreateJson();
+		});
 	};
 
 	return (
