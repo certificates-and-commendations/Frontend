@@ -54,7 +54,7 @@ function CertificateEditor({
 					return (
 						<img
 							key={index}
-							src={activeImg.background}
+							src={activeImg.background || activeImg}
 							alt="Uploaded Certificate"
 							className="certificate__image"
 						/>
