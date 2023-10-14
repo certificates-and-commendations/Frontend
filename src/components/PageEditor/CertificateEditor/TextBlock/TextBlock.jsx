@@ -78,12 +78,9 @@ function TextBlock({
 
 		// Устанавливаем isDedicated в противоположное значение
 		setIsDedicated(!textBlock.isBorder);
-
-		console.log(textBlocks);
 	};
 
 	return (
-		// <Draggable bounds="parent" defaultPosition={{ x: 0, y: 0 }} onStop={handleDragStop}>
 		<Draggable
 			bounds="parent"
 			onStop={(e, data) => {

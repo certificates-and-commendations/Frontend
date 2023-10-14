@@ -9,8 +9,9 @@ function ElementsPanel({
 	setPositions,
 	setImageURLsElements,
 	imageURLsElements,
+	setSquareStatesElementsPanel,
+	squareStatesElementsPanel,
 }) {
-	const [squareStates, setSquareStates] = useState([]);
 	const [btnClick, setBtnClick] = useState(true);
 
 	const onClickBtnActive = () => {
@@ -60,7 +61,7 @@ function ElementsPanel({
 		);
 
 		setImageURLsElements((prevImageURLs) => [...prevImageURLs, ...newElements]);
-		setSquareStates((prevStates) => [
+		setSquareStatesElementsPanel((prevStates) => [
 			...prevStates,
 			...newElements.map(() => false),
 		]);
@@ -69,9 +70,9 @@ function ElementsPanel({
 	const handleClickSquareElements = (id) => {
 		const elementIndex = imageURLsElements.findIndex((elem) => elem.id === id);
 		if (elementIndex !== -1) {
-			const newSquareStates = [...squareStates];
+			const newSquareStates = [...squareStatesElementsPanel];
 			newSquareStates[elementIndex] = !newSquareStates[elementIndex];
-			setSquareStates(newSquareStates);
+			setSquareStatesElementsPanel(newSquareStates);
 
 			if (newSquareStates[elementIndex]) {
 				const selectedElement = imageURLsElements.find(
@@ -146,9 +147,9 @@ function ElementsPanel({
 									className="elements-panel__loading-img"
 								/>
 								<img
-									src={squareStates[index] ? squareCheck : square}
+									src={squareStatesElementsPanel[index] ? squareCheck : square}
 									alt={
-										squareStates[index]
+										squareStatesElementsPanel[index]
 											? ' Квадрат с галочкой.'
 											: ' Пустой квадрат.'
 									}
