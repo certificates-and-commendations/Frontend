@@ -55,16 +55,12 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 	const handleTableInputChangeElements = (e) => {
 		const files = Array.from(e.target.files);
 		const validFiles = files.filter(isTableValid);
-		const formData = new FormData();
 
 		if (validFiles.length !== 1) {
 			console.log('Загрузите 1 файл формата CSV.');
 		} else {
-			console.log(validFiles[0]);
-			formData.append('csvFile', e.target.files[0], 'csvFile');
-			console.log(formData);
 			authApi
-				.handleUploadFile(formData)
+				.handleUploadFile(files)
 				.then((response) => {
 					console.log(response);
 				})

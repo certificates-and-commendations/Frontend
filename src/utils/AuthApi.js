@@ -198,18 +198,16 @@ class AuthApi {
 		});
 	}
 
-	handleUploadFile(thumbnail, title, category, color, isHorizontal) {
+	handleUploadFile(data) {
+		debugger;
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 			body: JSON.stringify({
-				title,
-				thumbnail,
-				category,
-				color,
-				is_horizontal: isHorizontal,
+				file: data[0],
 			}),
 		}).then(handleResponse);
 	}
@@ -218,7 +216,7 @@ class AuthApi {
 const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'http://certificates.acceleratorpracticum.ru'
-			? 'http://certificates.acceleratorpracticum.ru/api'
+			? ''
 			: currentUrl === 'http://localhost:3000'
 			? 'http://127.0.0.1:8000/api'
 			: 'http://185.93.111.238/api',
