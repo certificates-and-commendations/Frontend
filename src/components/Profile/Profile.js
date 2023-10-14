@@ -19,8 +19,7 @@ function Profile({
 	}
 
 	useEffect(() => {
-		// console.log(typeof onGetUsersDocument());
-		console.log(getDocumentUsers());
+		getDocumentUsers();
 	}, []);
 
 	return (
