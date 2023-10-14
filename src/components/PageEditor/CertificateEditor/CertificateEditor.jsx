@@ -49,13 +49,17 @@ function CertificateEditor({
 }) {
 	return (
 		<div className="certificate" ref={certificateRef}>
-			{uploadedCertificate && (
-				<img
-					src={uploadedCertificate.map((activeImg) => activeImg.background)}
-					alt="Uploaded Certificate"
-					className="certificate__image"
-				/>
-			)}
+			{uploadedCertificate &&
+				uploadedCertificate.map((activeImg, index) => {
+					return (
+						<img
+							key={index}
+							src={activeImg.background}
+							alt="Uploaded Certificate"
+							className="certificate__image"
+						/>
+					);
+				})}
 			{textBlocks.map((textBlock, index) => (
 				<TextBlock
 					key={index}

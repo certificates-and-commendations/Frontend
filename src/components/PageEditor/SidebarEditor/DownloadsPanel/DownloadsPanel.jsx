@@ -143,9 +143,11 @@ function DownloadsPanel({
 			</div>
 			<div className="elements-panel__loading-file elements-panel__loading-file_gap">
 				{imageURLsDownloads.map((item, index) => (
-					<div className="elements-panel__wrapper elements-panel__wrapper_size">
+					<div
+						className="elements-panel__wrapper elements-panel__wrapper_size"
+						key={item.id}
+					>
 						<img
-							key={item.id}
 							src={item.background}
 							alt={`Загруженное изображение ${item.title}`}
 							className="elements-panel__loading-img"
