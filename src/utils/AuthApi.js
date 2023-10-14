@@ -199,15 +199,17 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
+		const formData = new FormData();
+		formData.append('csvFile', data[0]);
 		debugger;
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
+				'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
 			body: JSON.stringify({
-				file: data[0],
+				file: formData,
 			}),
 		}).then(handleResponse);
 	}
@@ -215,11 +217,11 @@ class AuthApi {
 
 const authApi = new AuthApi({
 	baseUrl:
-		currentUrl === 'http://certificates.acceleratorpracticum.ru'
-			? ''
-			: currentUrl === 'http://localhost:3000'
+		currentUrl === 'https://certificates.acceleratorpracticum.ru'
+			? 'https://certificates.acceleratorpracticum.ru/api'
+			: currentUrl === 'localhost:3000'
 			? 'http://127.0.0.1:8000/api'
-			: 'http://185.93.111.238/api',
+			: 'https://185.93.111.238/api',
 });
 
 export default authApi;
