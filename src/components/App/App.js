@@ -10,7 +10,6 @@ import Recovery from '../Recovery/Recovery';
 import Main from '../Main/Main';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
-import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
@@ -23,6 +22,7 @@ import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import TablePopup from '../TablePopup/TablePopup';
 import NewPassword from '../NewPassword/NewPassword';
+import authApi from '../../utils/AuthApi';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);

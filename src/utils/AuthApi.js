@@ -180,6 +180,47 @@ class AuthApi {
 		});
 	}
 
+	handleCreateDocument(textData) {
+		// создание готовой грамоты
+		const title = textData.title.join('');
+
+		const background = textData.background;
+
+		const texts = textData.texts;
+
+		const Elements = textData.Element;
+
+		return fetch(`${this.url}/documents/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title,
+				background,
+				texts,
+				elements: Elements,
+			}),
+		}).then(handleResponse);
+	}
+
+	handleLoadingDocument(fileArray) {
+		// загрузка грамот и их сохранение
+		const file = fileArray.file.name;
+		const base64 = fileArray.base64;
+
+		return fetch(`${this.url}/documents/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title: file,
+				background: base64,
+			}),
+		}).then(handleResponse);
+	}
+
 	handleGetUsersDocument() {
 		return fetch(`${this.url}/profile/profile/`, {
 			headers: {
