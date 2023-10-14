@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
+import authApi from '../../../../utils/AuthApi';
 
 function DownloadsPanel({
 	setUploadedCertificate,
 	setPanelSidebarActive,
 	setImageURLsDownloads,
 	imageURLsDownloads,
+	setBackground,
 	setSquareStatesDownloadPanel,
 	squareStatesDownloadPanel,
 }) {
+	console.log(imageURLsDownloads);
 	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
 
 	function isImageValid(file) {
