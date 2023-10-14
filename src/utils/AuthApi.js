@@ -199,15 +199,17 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
+		const formData = new FormData();
+		formData.append('csvFile', data[0]);
 		debugger;
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
+				'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
 			body: JSON.stringify({
-				file: data[0],
+				file: formData,
 			}),
 		}).then(handleResponse);
 	}
