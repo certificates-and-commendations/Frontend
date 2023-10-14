@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function RegisterConfirmation({
 	popupName,
@@ -21,10 +20,9 @@ function RegisterConfirmation({
 	setInfoToolTip,
 	setIsNewPasswordPopupOpen,
 	itsResetPassword,
+	setCurrentUser,
 }) {
 	const navigate = useNavigate();
-
-	const setCurrentUser = useContext(CurrentUserContext);
 
 	useEffect(() => {
 		setFormValue({

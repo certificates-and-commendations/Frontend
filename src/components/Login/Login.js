@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Login({
 	popupName,
@@ -17,10 +16,9 @@ function Login({
 	isLoading,
 	setIsLoading,
 	setInfoToolTip,
+	setCurrentUser,
 }) {
 	const navigate = useNavigate();
-
-	const setCurrentUser = React.useContext(CurrentUserContext);
 
 	function goRecovery() {
 		onClose();
