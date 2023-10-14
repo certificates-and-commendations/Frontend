@@ -9,8 +9,9 @@ function DownloadsPanel({
 	setImageURLsDownloads,
 	imageURLsDownloads,
 	setBackground,
+	setSquareStatesDownloadPanel,
+	squareStatesDownloadPanel,
 }) {
-	const [squareStates, setSquareStates] = useState([]);
 	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
 
 	function isImageValid(file) {
@@ -78,7 +79,7 @@ function DownloadsPanel({
 								...prevImageURLsDownloads,
 								...certificateURLs,
 							]);
-							setSquareStates((prevStates) => [
+							setSquareStatesDownloadPanel((prevStates) => [
 								...prevStates,
 								...newCertificates.map(() => false),
 							]);
@@ -91,8 +92,8 @@ function DownloadsPanel({
 		});
 	};
 
-	const handleClickSquareDownloads = (index, id) => {
-		setSquareStates((prevStates) => {
+	const handleClickSquareDownloads = (index) => {
+		setSquareStatesDownloadPanel((prevStates) => {
 			const newStates = [...prevStates];
 
 			if (newStates[index]) {
@@ -105,12 +106,16 @@ function DownloadsPanel({
 			return newStates;
 		});
 
-		if (activeCertificateIndex === index) {
-			setActiveCertificateIndex(null);
+		if (index === 0 && squareStatesDownloadPanel[index]) {
+			setActiveCertificateIndex(index);
+			setUploadedCertificate(null);
+			setPanelSidebarActive(false);
+		} else if (index >= 1 && squareStatesDownloadPanel[index]) {
+			setActiveCertificateIndex(index);
 			setUploadedCertificate(null);
 			setPanelSidebarActive(false);
 		} else {
-			setActiveCertificateIndex(index);
+			setActiveCertificateIndex(null);
 			setUploadedCertificate([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
@@ -147,14 +152,14 @@ function DownloadsPanel({
 						/>
 						<img
 							key={index}
-							src={squareStates[index] ? squareCheck : square}
+							src={squareStatesDownloadPanel[index] ? squareCheck : square}
 							alt={
-								squareStates[index]
+								squareStatesDownloadPanel[index]
 									? ' Квадрат с галочкой.'
 									: ' Пустой квадрат.'
 							}
 							className="elements-panel__square elements-panel__square_margin"
-							onClick={() => handleClickSquareDownloads(index, item.id)}
+							onClick={() => handleClickSquareDownloads(index)}
 						/>
 					</div>
 				))}

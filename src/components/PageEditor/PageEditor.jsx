@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
@@ -21,6 +21,7 @@ function PageEditor({
 	setTextBlockColors,
 	textBlockColors,
 	setBackground,
+	dataDocumentId,
 }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
@@ -50,6 +51,12 @@ function PageEditor({
 		useState(false);
 	const [isDedicated, setIsDedicated] = useState(false);
 	const [fontResult, setFontResult] = useState([]);
+	const [squareStatesElementsPanel, setSquareStatesElementsPanel] = useState(
+		[]
+	);
+	const [squareStatesDownloadPanel, setSquareStatesDownloadPanel] = useState(
+		[]
+	);
 
 	const initialPositions = element.map(() => ({ x: 0, y: 0 }));
 	const [positions, setPositions] = useState(initialPositions);
@@ -57,6 +64,87 @@ function PageEditor({
 	function generateUniqueId() {
 		return Math.random().toString(36).substr(2, 9);
 	}
+
+	useEffect(() => {
+		if (dataDocumentId) {
+			const blockId = generateUniqueId();
+
+			const initialTextBlocks = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				text: textData.text,
+				fontFamily: textData.font.font,
+				fontSize: textData.font_size,
+				x: textData.coordinate_x,
+				y: textData.coordinate_y,
+			}));
+
+			const initialTextBlockColors = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				color: textData.font_color,
+			}));
+
+			const initialTextBlockStyles = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				isItalic: textData.font.is_italic,
+				isBold: textData.font.is_bold,
+				isDecoration: textData.text_decoration,
+				isAlign: textData.align,
+			}));
+
+			const initialTextPosition = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				x: textData.coordinate_x,
+				y: textData.coordinate_y,
+			}));
+
+			const initialElementPosition = dataDocumentId.elements.map((elem) => ({
+				x: elem.coordinate_x,
+				y: elem.coordinate_y,
+			}));
+
+			const initialElement = [];
+			const initialElementImagePanel = [];
+
+			dataDocumentId.elements.forEach((elem) => {
+				const newId = generateUniqueId();
+
+				initialElement.push({
+					id: newId,
+					url: elem.image,
+				});
+
+				initialElementImagePanel.push({
+					id: newId,
+					url: elem.image,
+					position: {
+						x: elem.coordinate_x,
+						y: elem.coordinate_y,
+					},
+				});
+			});
+
+			setTextBlocks(initialTextBlocks);
+			setTextBlockColors(initialTextBlockColors);
+			setTextBlockStyles(initialTextBlockStyles);
+			setTextPosition(initialTextPosition);
+			setPositions(initialElementPosition);
+			setElement(initialElement);
+			setImageURLsElements(initialElementImagePanel);
+			setSquareStatesElementsPanel(
+				Array(dataDocumentId.elements.length).fill(true)
+			);
+		}
+	}, [dataDocumentId]);
+
+	useEffect(() => {
+		if (dataDocumentId) {
+			setImageURLsDownloads([dataDocumentId]);
+			setUploadedCertificate([dataDocumentId]);
+			const newCertificates = [dataDocumentId.background];
+			setSquareStatesDownloadPanel(() => newCertificates.map(() => true));
+			setPanelSidebarActive(true);
+		}
+	}, [dataDocumentId]);
 
 	const handleTextClick = (size) => {
 		setFontSize(size);
@@ -220,6 +308,10 @@ function PageEditor({
 				setImageURLsElements={setImageURLsElements}
 				imageURLsElements={imageURLsElements}
 				setBackground={setBackground}
+				setSquareStatesElementsPanel={setSquareStatesElementsPanel}
+				squareStatesElementsPanel={squareStatesElementsPanel}
+				setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
+				squareStatesDownloadPanel={squareStatesDownloadPanel}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel

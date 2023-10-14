@@ -29,6 +29,10 @@ function SidebarEditor({
 	setImageURLsElements,
 	imageURLsElements,
 	setBackground,
+	setSquareStatesElementsPanel,
+	squareStatesElementsPanel,
+	setSquareStatesDownloadPanel,
+	squareStatesDownloadPanel,
 }) {
 	const [activePanel, setActivePanel] = useState('panelTemplates');
 	const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -56,6 +60,8 @@ function SidebarEditor({
 						setPositions={setPositions}
 						setImageURLsElements={setImageURLsElements}
 						imageURLsElements={imageURLsElements}
+						setSquareStatesElementsPanel={setSquareStatesElementsPanel}
+						squareStatesElementsPanel={squareStatesElementsPanel}
 					/>
 				);
 			case 'panelDownloads':
@@ -66,6 +72,8 @@ function SidebarEditor({
 						setImageURLsDownloads={setImageURLsDownloads}
 						imageURLsDownloads={imageURLsDownloads}
 						setBackground={setBackground}
+						setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
+						squareStatesDownloadPanel={squareStatesDownloadPanel}
 					/>
 				);
 			default:

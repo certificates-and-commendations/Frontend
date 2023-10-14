@@ -179,7 +179,6 @@ class AuthApi {
 	}
 
 	handleCreateDocument(textData) {
-		debugger;
 		// создание готовой грамоты
 		const title = textData.title.join('');
 
