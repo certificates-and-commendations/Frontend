@@ -12,6 +12,7 @@ function DownloadsPanel({
 	setSquareStatesDownloadPanel,
 	squareStatesDownloadPanel,
 }) {
+	console.log(imageURLsDownloads);
 	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
 
 	function isImageValid(file) {
@@ -49,43 +50,11 @@ function DownloadsPanel({
 
 		Promise.all(sizePromises).then((sizes) => {
 			if (sizes.every((valid) => valid)) {
-				// Конвертируем допустимые изображения в формате base64 перед отправкой
-				const base64Images = validFiles.map((file) => {
-					return new Promise((resolve) => {
-						const reader = new FileReader();
-						reader.readAsDataURL(file);
-						reader.onload = () => {
-							resolve(
-								`data:${file.type};base64,${reader.result.split(',')[1]}`
-							);
-						};
-					});
-				});
-
-				Promise.all(base64Images).then((base64DataArray) => {
-					const newCertificates = base64DataArray.map((base64) => {
-						setBackground(base64);
-						return authApi
-							.handleLoadingDocument({
-								file: files[base64DataArray.indexOf(base64)],
-								base64,
-							})
-							.then((res) => res);
-					});
-
-					Promise.all(newCertificates)
-						.then((certificateURLs) => {
-							setImageURLsDownloads((prevImageURLsDownloads) => [
-								...prevImageURLsDownloads,
-								...certificateURLs,
-							]);
-							setSquareStatesDownloadPanel((prevStates) => [
-								...prevStates,
-								...newCertificates.map(() => false),
-							]);
-						})
-						.catch((err) => console.log(err));
-				});
+				setImageURLsDownloads((prevImageURLs) => [
+					...prevImageURLs,
+					...validFiles.map((file) => URL.createObjectURL(file)),
+				]);
+				setSquareStatesDownloadPanel((prevStates) => [...prevStates, false]);
 			} else {
 				console.log('Загруженная грамота должна быть размером 600x850 px.');
 			}
@@ -148,8 +117,8 @@ function DownloadsPanel({
 						key={item.id}
 					>
 						<img
-							src={item.background}
-							alt={`Загруженное изображение ${item.title}`}
+							src={item.background || item}
+							alt={`Загруженное изображение ${item.title || item.name}`}
 							className="elements-panel__loading-img"
 						/>
 						<img

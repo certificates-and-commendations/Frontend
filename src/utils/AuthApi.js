@@ -50,6 +50,31 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
+	resetPassword(newPassword, reNewPassword) {
+		return fetch(`${this.url}/auth/reset_password/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				new_password: newPassword,
+				re_new_password: reNewPassword,
+			}),
+		}).then(handleResponse);
+	}
+
+	sendResetCode(email, code) {
+		return fetch(`${this.url}/auth/send_reset_code/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				email,
+			}),
+		}).then(handleResponse);
+	}
+
 	signIn(password, email) {
 		return fetch(`${this.url}/auth/token/login/`, {
 			method: 'POST',
@@ -106,12 +131,6 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	//  awards: false,
-	// 	appreciations: false,
-	// 	certificates: false,
-	// 	is_horizontal: false,
-	// 	is_vertical: false,
-
 	// ОТПРАВЛЯЕМ ЗАБРОС ФИЛЬТРАЦИИ ШАБЛОНОВ
 	handleFilterSamples(obj) {
 		const queryParams = [];
@@ -152,54 +171,13 @@ class AuthApi {
 	}
 
 	handleDeleteFontFamily(id) {
-		debugger;
 		return fetch(`${this.url}/font/${id}/`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
+				// Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		}).then(handleResponse);
-	}
-
-	handleLoadingDocument(fileArray) {
-		// загрузка грамот и их сохранение
-		const file = fileArray.file.name;
-		const base64 = fileArray.base64;
-
-		return fetch(`${this.url}/documents/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				title: file,
-				background: base64,
-			}),
-		}).then(handleResponse);
-	}
-
-	handleCreateDocument(textData) {
-		// создание готовой грамоты
-		const title = textData.title.join('');
-
-		const background = textData.background;
-
-		const texts = textData.texts;
-
-		const Elements = textData.Element;
-
-		return fetch(`${this.url}/documents/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				title,
-				background,
-				texts,
-				elements: Elements,
-			}),
-		}).then(handleResponse);
+		});
 	}
 }
 
@@ -207,7 +185,9 @@ const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'http://certificates.acceleratorpracticum.ru'
 			? 'http://certificates.acceleratorpracticum.ru/api'
-			: 'http://127.0.0.1:8000/api',
+			: currentUrl === 'http://localhost:3000'
+			? 'http://127.0.0.1:8000/api'
+			: 'http://185.93.111.238/api',
 });
 
 export default authApi;
