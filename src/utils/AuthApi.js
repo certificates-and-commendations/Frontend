@@ -197,6 +197,20 @@ class AuthApi {
 			},
 		});
 	}
+
+	handleUploadFile(data) {
+		debugger;
+		return fetch(`${this.url}/documents/upload/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
+			body: JSON.stringify({
+				file: data[0],
+			}),
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
