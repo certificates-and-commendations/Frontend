@@ -33,7 +33,7 @@ function Profile({
 				<CenterSlider
 					array={favoriteSamples}
 					setDiploma={setDiploma}
-					isFavoriteSamples
+					isFavoriteSamples="true"
 					setFavoriteSamples={setFavoriteSamples}
 				/>
 			</div>
