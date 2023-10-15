@@ -241,12 +241,7 @@ class AuthApi {
 }
 
 const authApi = new AuthApi({
-	baseUrl:
-		currentUrl === 'https://certificates.acceleratorpracticum.ru'
-			? 'https://certificates.acceleratorpracticum.ru/api'
-			: currentUrl === 'localhost:3000'
-			? 'http://127.0.0.1:8000/api'
-			: 'https://185.93.111.238/api',
+	baseUrl: 'http://127.0.0.1:8000/api',
 });
 
 export default authApi;

@@ -10,6 +10,8 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
+	padding: 0 10px;
+	width: 862px;
 }
 
 .certificate__container {

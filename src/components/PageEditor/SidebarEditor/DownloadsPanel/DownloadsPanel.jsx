@@ -8,13 +8,10 @@ function DownloadsPanel({
 	setPanelSidebarActive,
 	setImageURLsDownloads,
 	imageURLsDownloads,
-	setBackground,
 	setSquareStatesDownloadPanel,
 	squareStatesDownloadPanel,
+	setBackground,
 }) {
-	console.log(imageURLsDownloads);
-	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
-
 	function isImageValid(file) {
 		const allowedFormats = ['image/jpeg', 'image/png'];
 		return allowedFormats.includes(file.type);
@@ -50,11 +47,28 @@ function DownloadsPanel({
 
 		Promise.all(sizePromises).then((sizes) => {
 			if (sizes.every((valid) => valid)) {
-				setImageURLsDownloads((prevImageURLs) => [
-					...prevImageURLs,
-					...validFiles.map((file) => URL.createObjectURL(file)),
-				]);
-				setSquareStatesDownloadPanel((prevStates) => [...prevStates, false]);
+				const imageInfoArray = validFiles.map((file) => {
+					return new Promise((resolve) => {
+						const reader = new FileReader();
+						reader.onload = (event) => {
+							const background = event.target.result; // Сохраняем background в переменной
+							resolve({
+								background,
+								title: file.name,
+							});
+							setBackground(background);
+						};
+						reader.readAsDataURL(file);
+					});
+				});
+
+				Promise.all(imageInfoArray).then((imageInfo) => {
+					setImageURLsDownloads((prevImageURLs) => [
+						...prevImageURLs,
+						...imageInfo,
+					]);
+					setSquareStatesDownloadPanel((prevStates) => [...prevStates, false]);
+				});
 			} else {
 				console.log('Загруженная грамота должна быть размером 600x850 px.');
 			}
@@ -76,15 +90,12 @@ function DownloadsPanel({
 		});
 
 		if (index === 0 && squareStatesDownloadPanel[index]) {
-			setActiveCertificateIndex(index);
 			setUploadedCertificate(null);
 			setPanelSidebarActive(false);
 		} else if (index >= 1 && squareStatesDownloadPanel[index]) {
-			setActiveCertificateIndex(index);
 			setUploadedCertificate(null);
 			setPanelSidebarActive(false);
 		} else {
-			setActiveCertificateIndex(null);
 			setUploadedCertificate([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
@@ -114,7 +125,7 @@ function DownloadsPanel({
 				{imageURLsDownloads.map((item, index) => (
 					<div
 						className="elements-panel__wrapper elements-panel__wrapper_size"
-						key={item.id}
+						key={item.id || index}
 					>
 						<img
 							src={item.background || item}
