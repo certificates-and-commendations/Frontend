@@ -130,23 +130,6 @@ function App() {
 		}
 	}, [isOpen]);
 
-	const getAllSamples = () => {
-		return authApi
-			.getAllSamples()
-			.then((res) => {
-				if (res.results) {
-					setSamples(res.results);
-				}
-			})
-			.catch((err) => {
-				setInfoToolTip({
-					text: err.message,
-					status: false,
-					opened: true,
-				});
-			});
-	};
-
 	const getUsersDocument = () => {
 		return authApi
 			.handleGetUsersDocument()
@@ -182,12 +165,26 @@ function App() {
 			});
 	};
 
-	const getUsersSamples = () => {
+	const getAllSamples = () => {
 		return authApi
-			.getAllUserSamples()
+			.getAllSamples()
 			.then((res) => {
-				console.log('в ответе getUsersDocumentById получили', res);
-				setFavoriteSamples(res);
+				const mixedDocuments = res.results;
+				const favoriteSamplesLock = [];
+				const myDocumentsLock = [];
+
+				mixedDocuments.forEach((obj) => {
+					if (obj.is_favourite) {
+						favoriteSamples.push(obj);
+					} else {
+						myDocuments.push(obj);
+					}
+				});
+				setFavoriteSamples(favoriteSamples);
+				setMyDocuments(myDocuments);
+				if (res.results) {
+					setSamples(res.results);
+				}
 			})
 			.catch((err) => {
 				setInfoToolTip({
@@ -387,7 +384,6 @@ function App() {
 								myDocuments={myDocuments || []}
 								onGetUsersDocument={getUsersDocument}
 								onGetUsersDocumentById={getUsersDocumentById}
-								onGetFavouriteSamples={getUsersSamples}
 							/>
 						}
 					/>
