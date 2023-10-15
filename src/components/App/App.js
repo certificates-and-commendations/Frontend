@@ -182,6 +182,22 @@ function App() {
 			});
 	};
 
+	const getUsersSamples = () => {
+		return authApi
+			.getAllUserSamples()
+			.then((res) => {
+				console.log('в ответе getUsersDocumentById получили', res);
+				setFavoriteSamples(res);
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
+	};
+
 	useEffect(() => {
 		getAllSamples();
 		setIsPageNotFoundOpen(false);
@@ -371,6 +387,7 @@ function App() {
 								myDocuments={myDocuments || []}
 								onGetUsersDocument={getUsersDocument}
 								onGetUsersDocumentById={getUsersDocumentById}
+								onGetFavouriteSamples={getUsersSamples}
 							/>
 						}
 					/>
