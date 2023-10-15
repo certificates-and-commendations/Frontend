@@ -170,10 +170,8 @@ function App() {
 			.handleGetUsersDocumentById(id)
 			.then((res) => {
 				console.log('в ответе getUsersDocumentById получили', res);
-				if (res.results) {
-					setDocumentById(res.results);
-					navigate('/editor');
-				}
+				setDocumentById(res);
+				navigate('/editor');
 			})
 			.catch((err) => {
 				setInfoToolTip({
