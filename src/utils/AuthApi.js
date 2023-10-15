@@ -228,7 +228,7 @@ class AuthApi {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		});
+		}).then(handleResponse);
 	}
 
 	handleGetUsersDocumentById(id) {
@@ -237,7 +237,7 @@ class AuthApi {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		});
+		}).then(handleResponse);
 	}
 
 	handleUploadFile(data) {
