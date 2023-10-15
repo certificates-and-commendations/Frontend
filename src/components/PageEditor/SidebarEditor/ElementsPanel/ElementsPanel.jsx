@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
+import authApi from '../../../../utils/AuthApi';
 
 function ElementsPanel({
 	setElement,
@@ -24,6 +25,11 @@ function ElementsPanel({
 
 	function isImageValid(file) {
 		const allowedFormats = ['image/jpeg', 'image/png'];
+		return allowedFormats.includes(file.type);
+	}
+
+	function isTableValid(file) {
+		const allowedFormats = ['text/csv'];
 		return allowedFormats.includes(file.type);
 	}
 
@@ -65,6 +71,25 @@ function ElementsPanel({
 			...prevStates,
 			...newElements.map(() => false),
 		]);
+	};
+
+	const handleTableInputChangeElements = (e) => {
+		const files = Array.from(e.target.files);
+		const validFiles = files.filter(isTableValid);
+
+		if (validFiles.length !== 1) {
+			console.log('Загрузите 1 файл формата CSV.');
+		} else {
+			authApi
+				.handleUploadFile(files)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((err) => {
+					console.log(err);
+					// setInfoToolTip({ text: err.message, status: false, opened: true });
+				});
+		}
 	};
 
 	const handleClickSquareElements = (id) => {
@@ -176,7 +201,7 @@ function ElementsPanel({
 							id="fileElementsInput"
 							className="elements-panel__input"
 							multiple
-							onChange={handleFileInputChangeElements}
+							onChange={handleTableInputChangeElements}
 						/>
 					</label>
 				</div>

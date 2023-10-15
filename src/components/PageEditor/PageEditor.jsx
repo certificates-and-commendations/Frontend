@@ -23,6 +23,7 @@ function PageEditor({
 	setBackground,
 	dataDocumentId,
 }) {
+function PageEditor({ samples, setIsTablePopupOpen }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
@@ -303,6 +304,7 @@ function PageEditor({
 				setFontResult={setFontResult}
 				fontResult={fontResult}
 				samples={samples}
+				setIsTablePopupOpen={setIsTablePopupOpen}
 				setImageURLsDownloads={setImageURLsDownloads}
 				imageURLsDownloads={imageURLsDownloads}
 				setImageURLsElements={setImageURLsElements}

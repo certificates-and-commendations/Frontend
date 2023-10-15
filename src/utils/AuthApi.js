@@ -238,6 +238,22 @@ class AuthApi {
 			},
 		});
 	}
+
+	handleUploadFile(data) {
+		// const formData = new FormData();
+		// formData.append('csvFile', data[0]);
+		return fetch(`${this.url}/documents/upload/`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
+				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
+			},
+			body: JSON.stringify({
+				file: data[0],
+			}),
+		}).then(handleResponse);
+	}
 }
 
 const authApi = new AuthApi({
