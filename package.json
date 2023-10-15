@@ -84,6 +84,8 @@
 			"consistent-return": "off",
 			"jsx-a11y/control-has-associated-label": "off",
 			"prefer-destructuring": "off",
+			"import/no-named-as-default": "off",
+			"import/no-named-as-default-member": "off",
 			"import/no-extraneous-dependencies": [
 				"error",
 				{

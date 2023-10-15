@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
@@ -22,8 +22,8 @@ function PageEditor({
 	textBlockColors,
 	setBackground,
 	dataDocumentId,
+	setIsTablePopupOpen,
 }) {
-function PageEditor({ samples, setIsTablePopupOpen }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
