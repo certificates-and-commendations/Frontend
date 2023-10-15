@@ -194,6 +194,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 			body: JSON.stringify({
 				title,
