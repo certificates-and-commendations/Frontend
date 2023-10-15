@@ -21,8 +21,8 @@ function PageEditor({
 	setTextBlockColors,
 	textBlockColors,
 	setBackground,
-	dataDocumentId,
 	setIsTablePopupOpen,
+	documentById,
 }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
@@ -67,10 +67,8 @@ function PageEditor({
 	}
 
 	useEffect(() => {
-		if (dataDocumentId) {
-			const blockId = generateUniqueId();
-
-			const initialTextBlocks = dataDocumentId.texts.map((textData) => ({
+		if (documentById) {
+			const initialTextBlocks = documentById.texts.map((textData) => ({
 				id: textData.id,
 				text: textData.text,
 				fontFamily: textData.font.font,
@@ -79,12 +77,12 @@ function PageEditor({
 				y: textData.coordinate_y,
 			}));
 
-			const initialTextBlockColors = dataDocumentId.texts.map((textData) => ({
+			const initialTextBlockColors = documentById.texts.map((textData) => ({
 				id: textData.id,
 				color: textData.font_color,
 			}));
 
-			const initialTextBlockStyles = dataDocumentId.texts.map((textData) => ({
+			const initialTextBlockStyles = documentById.texts.map((textData) => ({
 				id: textData.id,
 				isItalic: textData.font.is_italic,
 				isBold: textData.font.is_bold,
@@ -92,13 +90,13 @@ function PageEditor({
 				isAlign: textData.align,
 			}));
 
-			const initialTextPosition = dataDocumentId.texts.map((textData) => ({
+			const initialTextPosition = documentById.texts.map((textData) => ({
 				id: textData.id,
 				x: textData.coordinate_x,
 				y: textData.coordinate_y,
 			}));
 
-			const initialElementPosition = dataDocumentId.elements.map((elem) => ({
+			const initialElementPosition = documentById.elements.map((elem) => ({
 				x: elem.coordinate_x,
 				y: elem.coordinate_y,
 			}));
@@ -106,7 +104,7 @@ function PageEditor({
 			const initialElement = [];
 			const initialElementImagePanel = [];
 
-			dataDocumentId.elements.forEach((elem) => {
+			documentById.elements.forEach((elem) => {
 				const newId = generateUniqueId();
 
 				initialElement.push({
@@ -132,20 +130,20 @@ function PageEditor({
 			setElement(initialElement);
 			setImageURLsElements(initialElementImagePanel);
 			setSquareStatesElementsPanel(
-				Array(dataDocumentId.elements.length).fill(true)
+				Array(documentById.elements.length).fill(true)
 			);
 		}
-	}, [dataDocumentId]);
+	}, [documentById]);
 
 	useEffect(() => {
-		if (dataDocumentId) {
-			setImageURLsDownloads([dataDocumentId]);
-			setUploadedCertificate([dataDocumentId]);
-			const newCertificates = [dataDocumentId.background];
+		if (documentById) {
+			setImageURLsDownloads([documentById]);
+			setUploadedCertificate([documentById]);
+			const newCertificates = [documentById.background];
 			setSquareStatesDownloadPanel(() => newCertificates.map(() => true));
 			setPanelSidebarActive(true);
 		}
-	}, [dataDocumentId]);
+	}, [documentById]);
 
 	const handleTextClick = (size) => {
 		setFontSize(size);
