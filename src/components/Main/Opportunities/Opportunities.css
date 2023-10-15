@@ -1,0 +1,50 @@
+.opportunities {
+	background-color: #dbe5f2;
+	border-radius: 32px;
+	margin: 140px 0;
+}
+
+.section-title {
+	font-size: 48px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0;
+	padding: 85px 0 48px;
+}
+
+.cards {
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding-bottom: 85px;
+	max-width: 1110px;
+}
+
+.cards__item {
+	background-color: #ffffff;
+	border-radius: 12px;
+	position: relative;
+	flex: 0 1 calc(100% / 3 - 10px * 2);
+	margin: 10px;
+	max-width: 357px;
+}
+
+.cards__image {
+	display: block;
+	width: 48px;
+	height: 48px;
+	padding: 20px;
+}
+
+.cards__title {
+	font-size: 24px;
+	margin: 0;
+	padding: 0 20px 8px;
+}
+
+.cards__description {
+	font-size: 16px;
+	margin: 0;
+	padding: 0 20px 20px;
+}

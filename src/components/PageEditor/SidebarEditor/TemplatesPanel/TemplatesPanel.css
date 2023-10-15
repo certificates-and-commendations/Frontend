@@ -1,0 +1,66 @@
+.search-panel {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 24px 0 20px 0;
+}
+
+.search-panel__search-input {
+	width: 250px;
+	height: 32px;
+	border-radius: 12px;
+	background: #ffffff;
+	padding: 0 0 0 40px;
+	border: none;
+}
+
+.search-panel__search-input::placeholder {
+	font-family:
+		Wix Madefor Display,
+		sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: -0.42px;
+}
+
+.search-panel__search-button {
+	position: absolute;
+	display: flex;
+	background: none;
+	border: none;
+	padding: 0 0 0 8px;
+	cursor: pointer;
+}
+
+.templates-image__list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 1fr auto;
+	column-gap: 24px;
+	row-gap: 20px;
+}
+
+.templates-image {
+	padding: 0 0 20px 0;
+}
+
+.templates-image__img-vertical {
+	width: 134px;
+	cursor: pointer;
+}
+
+.templates-image__img-horizontal {
+	width: 133px;
+	cursor: pointer;
+}
+
+.templates-image__img {
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+}

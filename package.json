@@ -2,26 +2,46 @@
 	"name": "frontend",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "/",
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
+		"clsx": "^2.0.0",
+		"html2canvas": "^1.4.1",
+		"html2pdf.js": "^0.10.1",
+		"husky": "^8.0.3",
+		"jspdf": "^2.5.1",
+		"puppeteer": "^21.3.8",
 		"react": "^18.2.0",
+		"react-color": "^2.19.3",
 		"react-dom": "^18.2.0",
+		"react-draggable": "^4.4.5",
+		"react-redux": "^8.1.2",
+		"react-router-dom": "^6.15.0",
 		"react-scripts": "5.0.1",
+		"react-slick": "^0.29.0",
+		"redux": "^4.2.1",
+		"slick-carousel": "^1.8.1",
+		"styled-components": "^6.0.8",
+		"uuid": "^9.0.0",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
 		"eject": "react-scripts eject",
 		"lint": "eslint . --ext .js,.jsx .",
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier . --write",
 		"prepare": "husky install",
 		"lint-staged": "lint-staged",
-		"commit": "cz"
+		"commit": "git add -A && npm run lint-staged && git add -A && cz",
+		"sb": "storybook dev -p 6006",
+		"build-sb": "storybook build"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -29,7 +49,8 @@
 			"react-app/jest",
 			"airbnb",
 			"airbnb/hooks",
-			"prettier"
+			"prettier",
+			"plugin:storybook/recommended"
 		],
 		"rules": {
 			"react/jsx-filename-extension": [
@@ -42,20 +63,35 @@
 				}
 			],
 			"react/react-in-jsx-scope": "off",
-      "import/prefer-default-export": "off",
-      "react/function-component-definition": "off",
-      "react/jsx-props-no-spreading": "off",
-      "react/no-unescaped-entities": "off",
-      "react/button-has-type": "off",
-      "react/prop-types": 0,
-      "react/no-array-index-key": "off",
-      "jsx-a11y/click-events-have-key-events": "off",
-      "jsx-a11y/no-noninteractive-element-interactions": "off",
-      "no-nested-ternary": "off",
-      "no-unused-vars": "off",
-      "no-plusplus": "off",
-      "no-await-in-loop": "off",
-      "arrow-body-style": "off"
+			"import/prefer-default-export": "off",
+			"react/function-component-definition": "off",
+			"react/jsx-props-no-spreading": "off",
+			"react/no-unescaped-entities": "off",
+			"react/button-has-type": "off",
+			"react/prop-types": "off",
+			"react/no-array-index-key": "off",
+			"jsx-a11y/click-events-have-key-events": "off",
+			"jsx-a11y/no-noninteractive-element-interactions": "off",
+			"no-nested-ternary": "off",
+			"no-unused-vars": "off",
+			"no-plusplus": "off",
+			"no-await-in-loop": "off",
+			"arrow-body-style": "off",
+			"no-debugger": "off",
+			"no-object-shorthand": "off",
+			"react-hooks/exhaustive-deps": "off",
+			"no-console": "off",
+			"consistent-return": "off",
+			"jsx-a11y/control-has-associated-label": "off",
+			"prefer-destructuring": "off",
+			"import/no-named-as-default": "off",
+			"import/no-named-as-default-member": "off",
+			"import/no-extraneous-dependencies": [
+				"error",
+				{
+					"devDependencies": true
+				}
+			]
 		},
 		"overrides": [
 			{
@@ -68,6 +104,10 @@
 					"import/no-extraneous-dependencies": "off"
 				}
 			}
+		],
+		"ignorePatterns": [
+			"build/",
+			"HelperCLSX.js"
 		]
 	},
 	"browserslist": {
@@ -83,22 +123,37 @@
 		]
 	},
 	"devDependencies": {
+		"@storybook/addon-essentials": "^7.4.4",
+		"@storybook/addon-interactions": "^7.4.4",
+		"@storybook/addon-links": "^7.4.4",
+		"@storybook/addon-onboarding": "^1.0.8",
+		"@storybook/blocks": "^7.4.4",
+		"@storybook/preset-create-react-app": "^7.4.4",
+		"@storybook/react": "^7.4.4",
+		"@storybook/react-webpack5": "^7.4.4",
+		"@storybook/testing-library": "^0.2.1",
+		"babel-plugin-named-exports-order": "^0.0.2",
 		"commitizen": "^4.3.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^9.0.0",
-		"husky": "^8.0.3",
+		"eslint-plugin-storybook": "^0.6.14",
+		"gh-pages": "^6.0.0",
 		"lint-staged": "^14.0.0",
-		"prettier": "^3.0.2"
+		"prettier": "^3.0.2",
+		"prop-types": "^15.8.1",
+		"storybook": "^7.4.4",
+		"webpack": "^5.88.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run lint-staged",
+			"pre-push": "echo pre-push"
+		}
 	},
 	"lint-staged": {
 		"*.{js,jsx}": "npm run lint",
 		"*.{js,jsx,css,md,html,json}": "npm run format"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint-staged"
-		}
 	},
 	"config": {
 		"commitizen": {

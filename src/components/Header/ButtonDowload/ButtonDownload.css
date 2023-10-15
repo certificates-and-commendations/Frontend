@@ -1,0 +1,75 @@
+.button__component {
+	position: absolute;
+	right: 420px;
+	z-index: 2;
+}
+
+.button-download {
+	border-radius: 16px;
+	border: 0;
+	background: url('../../../images/Property\ 1=download.svg');
+	background-position: center;
+	background-size: cover;
+	padding: 12px 24px;
+	width: 160px;
+	height: 44px;
+}
+
+.button-download_active {
+	background: url('../../../images/Property\ 1=not\ active.svg');
+	background-position: center;
+	background-size: cover;
+}
+
+.button-download:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.button-dowload__container {
+	margin-top: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	background-color: white;
+	border-radius: 10px;
+	padding: 5px;
+	border: 1px solid black;
+	width: 230px;
+	position: absolute;
+}
+
+.button-download__container_hidden {
+	display: none;
+}
+
+.button-dowload__option {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	align-content: center;
+	justify-items: center;
+}
+
+.button-dowload__option-text:hover {
+	cursor: pointer;
+	opacity: 0.7;
+}
+
+.button-dowload__option-img {
+	background-position: center;
+	background-size: cover;
+	width: 24px;
+	height: 24px;
+}
+
+.button-dowload__option-text {
+	font-family: Wix Madefor Display;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: 1px;
+	border: 0;
+	background-color: transparent;
+}

@@ -1,0 +1,47 @@
+.options {
+	padding-bottom: 140px;
+	background-color: #ffffff;
+}
+.options__title {
+	font-size: 48px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0;
+	padding: 0 0 48px;
+}
+
+.options__infinite {
+	overflow: hidden;
+	/*max-width: 1440px;*/
+	margin: 0 auto;
+}
+
+.options__infinite div {
+	display: flex;
+	width: 200%;
+	animation: file-infinite 27s linear infinite reverse;
+}
+
+.options__infinite div:last-child {
+	animation: file-infinite 27s linear infinite;
+	padding-top: 40px;
+}
+
+.options__infinite span {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.options__item {
+	margin: 0 20px;
+}
+
+@keyframes file-infinite {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
