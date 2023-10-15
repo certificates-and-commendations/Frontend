@@ -228,7 +228,7 @@ class AuthApi {
 	}
 
 	handleGetUsersDocument() {
-		return fetch(`${this.url}/profile/profile/`, {
+		return fetch(`${this.url}/profile/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
@@ -256,7 +256,9 @@ class AuthApi {
 				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
 				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
-			body: data[0],
+			body: {
+				file: data[0],
+			},
 		}).then(handleResponse);
 	}
 }
@@ -265,7 +267,7 @@ const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'https://certificates.acceleratorpracticum.ru'
 			? 'https://certificates.acceleratorpracticum.ru/api'
-			: currentUrl === 'localhost:3000'
+			: currentUrl === 'http://localhost:3000'
 			? 'http://127.0.0.1:8000/api'
 			: 'https://185.93.111.238/api',
 });
