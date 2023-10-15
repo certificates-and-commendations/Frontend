@@ -169,21 +169,18 @@ function App() {
 		return authApi
 			.getAllSamples()
 			.then((res) => {
-				const mixedDocuments = res.results;
-				const favoriteSamplesLock = [];
-				const myDocumentsLock = [];
-
-				mixedDocuments.forEach((obj) => {
-					if (obj.is_favourite) {
-						favoriteSamples.push(obj);
-					} else {
-						myDocuments.push(obj);
-					}
-				});
-				setFavoriteSamples(favoriteSamples);
-				setMyDocuments(myDocuments);
 				if (res.results) {
-					setSamples(res.results);
+					const { results } = res;
+					const favoriteSamplesLock = results.filter(
+						(item) => item.is_favourite === true
+					);
+					const myDocumentsLock = results.filter(
+						(item) => item.is_favourite === false
+					);
+
+					setFavoriteSamples(favoriteSamplesLock);
+					setMyDocuments(myDocumentsLock);
+					setSamples(results);
 				}
 			})
 			.catch((err) => {
