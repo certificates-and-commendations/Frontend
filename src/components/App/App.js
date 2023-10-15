@@ -395,6 +395,7 @@ function App() {
 							<PageEditor
 								samples={samples}
 								loggedIn={isLoggedIn}
+								setIsTablePopupOpen={setIsTablePopupOpen}
 								documentById={documentById || {}}
 								certificateRef={certificateRef}
 								setTextBlocks={setTextBlocks}
@@ -413,7 +414,6 @@ function App() {
 								textBlockColors={textBlockColors}
 								setBackground={setBackground}
 								dataDocumentId={dataDocumentId}
-								setIsTablePopupOpen={setIsTablePopupOpen}
 							/>
 						}
 					/>
