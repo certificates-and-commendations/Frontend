@@ -163,7 +163,7 @@ function ElementsPanel({
 			) : (
 				<div className="elements-panel__block-download">
 					<p className="elements-panel__paragraph">
-						Вы можете загрузить таблицу Exel (с ФИО если нужно оформить
+						Вы можете загрузить таблицу .CSV (с ФИО если нужно оформить
 						несколько грамот)
 					</p>
 					<label
