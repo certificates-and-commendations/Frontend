@@ -52,13 +52,11 @@ export default function CenterSlider({
 							onClick={() => onTrashClick(item)}
 						/>
 						<div
-							onClick={() => onTemplateClick()}
+							onClick={() => onTemplateClick(item)}
 							// src={isFavoriteSamples ? item.thumbnail : item.image}
 							alt={isFavoriteSamples ? item.title : item.name}
 							style={{
-								backgroundImage: `url(${
-									isFavoriteSamples ? item.thumbnail : item.image
-								})`,
+								backgroundImage: `url(${item.thumbnail})`,
 							}}
 							className={
 								isFavoriteSamples

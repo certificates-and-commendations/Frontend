@@ -214,7 +214,6 @@ function App() {
 				})
 				.catch((err) => {
 					localStorage.clear('jwt');
-					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
