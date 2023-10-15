@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
 
@@ -20,6 +20,7 @@ function RegisterConfirmation({
 	setInfoToolTip,
 	setIsNewPasswordPopupOpen,
 	itsResetPassword,
+	setCurrentUser,
 }) {
 	const navigate = useNavigate();
 
@@ -45,6 +46,9 @@ function RegisterConfirmation({
 				} else {
 					localStorage.setItem('jwt', response.Token);
 					setIsLoggedIn(true);
+					setCurrentUser({
+						email: formValue.email,
+					});
 					setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 					onClose();
 					navigate('/', { replace: true });

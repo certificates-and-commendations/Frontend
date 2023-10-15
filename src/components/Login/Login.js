@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import Form from '../Form/Form';
 import authApi from '../../utils/AuthApi';
 
@@ -15,6 +16,7 @@ function Login({
 	isLoading,
 	setIsLoading,
 	setInfoToolTip,
+	setCurrentUser,
 }) {
 	const navigate = useNavigate();
 
@@ -34,6 +36,9 @@ function Login({
 						setInfoToolTip({ text: 'Успешно!', status: true, opened: true });
 						localStorage.setItem('jwt', data.auth_token);
 						setIsLoggedIn(true);
+						setCurrentUser({
+							email: formValue.email,
+						});
 						setFormValue({ email: '', password: '' });
 						onClose();
 						navigate('/editor', { replace: true });

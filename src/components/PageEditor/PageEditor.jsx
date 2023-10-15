@@ -312,6 +312,7 @@ function PageEditor({
 				squareStatesElementsPanel={squareStatesElementsPanel}
 				setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
 				squareStatesDownloadPanel={squareStatesDownloadPanel}
+				setIsTablePopupOpen={setIsTablePopupOpen}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel

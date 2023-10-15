@@ -33,6 +33,7 @@ function SidebarEditor({
 	squareStatesElementsPanel,
 	setSquareStatesDownloadPanel,
 	squareStatesDownloadPanel,
+	setIsTablePopupOpen,
 }) {
 	const [activePanel, setActivePanel] = useState('panelTemplates');
 	const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -62,6 +63,7 @@ function SidebarEditor({
 						imageURLsElements={imageURLsElements}
 						setSquareStatesElementsPanel={setSquareStatesElementsPanel}
 						squareStatesElementsPanel={squareStatesElementsPanel}
+						setIsTablePopupOpen={setIsTablePopupOpen}
 					/>
 				);
 			case 'panelDownloads':

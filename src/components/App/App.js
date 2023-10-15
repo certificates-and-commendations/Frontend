@@ -426,6 +426,7 @@ function App() {
 						setInfoToolTip={setInfoToolTip}
 						setIsNewPasswordPopupOpen={setIsNewPasswordPopupOpen}
 						itsResetPassword={itsResetPassword}
+						setCurrentUser={setCurrentUser}
 					/>
 				)}
 				{isLoginPopupOpen && (
@@ -443,6 +444,7 @@ function App() {
 						isLoading={isLoading}
 						setIsLoading={setIsLoading}
 						setInfoToolTip={setInfoToolTip}
+						setCurrentUser={setCurrentUser}
 					/>
 				)}
 				{isRecoveryPopupOpen && (
