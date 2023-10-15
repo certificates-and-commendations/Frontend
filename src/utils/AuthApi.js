@@ -237,7 +237,7 @@ class AuthApi {
 
 	handleUploadFile(data) {
 		const formData = new FormData();
-		formData.append('csvFile', data[0]);
+		formData.append('csvFile', data[0], 'csvFile');
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
