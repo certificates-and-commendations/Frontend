@@ -98,16 +98,6 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	getAllUserSamples() {
-		return fetch(`${this.url}/profile/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('jwt')}`,
-			},
-		}).then(handleResponse);
-	}
-
 	// СТАВИМ ЛАЙК
 	addLike(item) {
 		if (localStorage.getItem('jwt')) {
@@ -246,9 +236,8 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
-		debugger;
-		// const formData = new FormData();
-		// formData.append('csvFile', data[0]);
+		const formData = new FormData();
+		formData.append('csvFile', data[0]);
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
@@ -256,9 +245,7 @@ class AuthApi {
 				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
 				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
-			body: {
-				file: data[0],
-			},
+			body: formData,
 		}).then(handleResponse);
 	}
 }

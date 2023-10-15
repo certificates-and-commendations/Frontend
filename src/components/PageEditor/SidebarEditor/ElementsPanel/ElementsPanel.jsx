@@ -74,7 +74,6 @@ function ElementsPanel({
 	};
 
 	const handleTableInputChangeElements = (e) => {
-		debugger;
 		const files = Array.from(e.target.files);
 		const validFiles = files.filter(isTableValid);
 

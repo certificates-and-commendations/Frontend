@@ -11,7 +11,6 @@ function Profile({
 	setFavoriteSamples,
 	onGetUsersDocument,
 	onGetUsersDocumentById,
-	onGetFavouriteSamples,
 }) {
 	const isFavoriteSamples = true;
 	const currentUser = React.useContext(CurrentUserContext);
@@ -22,7 +21,6 @@ function Profile({
 
 	useEffect(() => {
 		getDocumentUsers();
-		onGetFavouriteSamples();
 	}, []);
 
 	return (
