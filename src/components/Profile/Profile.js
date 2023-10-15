@@ -12,6 +12,7 @@ function Profile({
 	onGetUsersDocument,
 	onGetUsersDocumentById,
 }) {
+	const isFavoriteSamples = true;
 	const currentUser = React.useContext(CurrentUserContext);
 
 	function getDocumentUsers() {
@@ -33,13 +34,18 @@ function Profile({
 				<CenterSlider
 					array={favoriteSamples}
 					setDiploma={setDiploma}
-					isFavoriteSamples="true"
+					isFavoriteSamples={isFavoriteSamples}
 					setFavoriteSamples={setFavoriteSamples}
 				/>
 			</div>
 			<div className="profile__documents">
 				<h2 className="profile__subtitle">Созданные документы</h2>
-				<CenterSlider array={myDocuments} setDiploma={setDiploma} />
+				<CenterSlider
+					array={myDocuments}
+					setDiploma={setDiploma}
+					isFavoriteSamples={!isFavoriteSamples}
+					onGetUsersDocumentById={onGetUsersDocumentById}
+				/>
 			</div>
 		</main>
 	);
