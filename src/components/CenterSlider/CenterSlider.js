@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import trash from '../../images/trash.svg';
 import authApi from '../../utils/AuthApi';
 
@@ -10,6 +10,7 @@ export default function CenterSlider({
 	setDiploma,
 	isFavoriteSamples,
 	setFavoriteSamples,
+	onGetUsersDocumentById,
 }) {
 	const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ export default function CenterSlider({
 			navigate('/editor');
 			setDiploma(item);
 		} else {
-			return authApi.handleGetUsersDocumentById(item.id);
+			return onGetUsersDocumentById(item.id);
 		}
 	}
 
