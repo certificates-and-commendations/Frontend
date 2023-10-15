@@ -3,9 +3,16 @@ import square from '../../../../images/imageEditor/elements-panel__square.svg';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
 import authApi from '../../../../utils/AuthApi';
 
-function ElementsPanel({ setElement, element, positions, setPositions }) {
-	const [imageURLsElements, setImageURLsElements] = useState([]);
-	const [squareStates, setSquareStates] = useState([]);
+function ElementsPanel({
+	setElement,
+	element,
+	positions,
+	setPositions,
+	setImageURLsElements,
+	imageURLsElements,
+	setSquareStatesElementsPanel,
+	squareStatesElementsPanel,
+}) {
 	const [btnClick, setBtnClick] = useState(true);
 
 	const onClickBtnActive = () => {
@@ -30,7 +37,16 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 		return Math.random().toString(36).substr(2, 9);
 	}
 
-	const handleFileInputChangeElements = (e) => {
+	async function convertFileToBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = (error) => reject(error);
+		});
+	}
+
+	const handleFileInputChangeElements = async (e) => {
 		const files = Array.from(e.target.files);
 
 		const validFiles = files.filter(isImageValid);
@@ -40,13 +56,18 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 			return;
 		}
 
-		const newElements = validFiles.map((file) => ({
-			id: generateUniqueId(),
-			url: URL.createObjectURL(file),
-		}));
+		const newElements = await Promise.all(
+			validFiles.map(async (file, index) => {
+				const id = generateUniqueId();
+				const url = URL.createObjectURL(file);
+				const base64 = await convertFileToBase64(file);
+				const position = positions[index];
+				return { id, url, base64, position };
+			})
+		);
 
 		setImageURLsElements((prevImageURLs) => [...prevImageURLs, ...newElements]);
-		setSquareStates((prevStates) => [
+		setSquareStatesElementsPanel((prevStates) => [
 			...prevStates,
 			...newElements.map(() => false),
 		]);
@@ -74,9 +95,9 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 	const handleClickSquareElements = (id) => {
 		const elementIndex = imageURLsElements.findIndex((elem) => elem.id === id);
 		if (elementIndex !== -1) {
-			const newSquareStates = [...squareStates];
+			const newSquareStates = [...squareStatesElementsPanel];
 			newSquareStates[elementIndex] = !newSquareStates[elementIndex];
-			setSquareStates(newSquareStates);
+			setSquareStatesElementsPanel(newSquareStates);
 
 			if (newSquareStates[elementIndex]) {
 				const selectedElement = imageURLsElements.find(
@@ -151,9 +172,9 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 									className="elements-panel__loading-img"
 								/>
 								<img
-									src={squareStates[index] ? squareCheck : square}
+									src={squareStatesElementsPanel[index] ? squareCheck : square}
 									alt={
-										squareStates[index]
+										squareStatesElementsPanel[index]
 											? ' Квадрат с галочкой.'
 											: ' Пустой квадрат.'
 									}
@@ -167,7 +188,7 @@ function ElementsPanel({ setElement, element, positions, setPositions }) {
 			) : (
 				<div className="elements-panel__block-download">
 					<p className="elements-panel__paragraph">
-						Вы можете загрузить таблицу Excel (с ФИО если нужно оформить
+						Вы можете загрузить таблицу .CSV (с ФИО если нужно оформить
 						несколько грамот)
 					</p>
 					<label

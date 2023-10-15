@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import squareCheck from '../../../../images/imageEditor/elements-panel__square-check.svg';
 import square from '../../../../images/imageEditor/elements-panel__square.svg';
+import authApi from '../../../../utils/AuthApi';
 
-function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
-	const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
-	const [squareStates, setSquareStates] = useState([]);
-	const [activeCertificateIndex, setActiveCertificateIndex] = useState(null);
-
+function DownloadsPanel({
+	setUploadedCertificate,
+	setPanelSidebarActive,
+	setImageURLsDownloads,
+	imageURLsDownloads,
+	setSquareStatesDownloadPanel,
+	squareStatesDownloadPanel,
+	setBackground,
+}) {
 	function isImageValid(file) {
 		const allowedFormats = ['image/jpeg', 'image/png'];
 		return allowedFormats.includes(file.type);
@@ -42,11 +47,28 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 
 		Promise.all(sizePromises).then((sizes) => {
 			if (sizes.every((valid) => valid)) {
-				setImageURLsDownloads((prevImageURLs) => [
-					...prevImageURLs,
-					...validFiles.map((file) => URL.createObjectURL(file)),
-				]);
-				setSquareStates((prevStates) => [...prevStates, false]);
+				const imageInfoArray = validFiles.map((file) => {
+					return new Promise((resolve) => {
+						const reader = new FileReader();
+						reader.onload = (event) => {
+							const background = event.target.result; // Сохраняем background в переменной
+							resolve({
+								background,
+								title: file.name,
+							});
+							setBackground(background);
+						};
+						reader.readAsDataURL(file);
+					});
+				});
+
+				Promise.all(imageInfoArray).then((imageInfo) => {
+					setImageURLsDownloads((prevImageURLs) => [
+						...prevImageURLs,
+						...imageInfo,
+					]);
+					setSquareStatesDownloadPanel((prevStates) => [...prevStates, false]);
+				});
 			} else {
 				console.log('Загруженная грамота должна быть размером 600x850 px.');
 			}
@@ -54,7 +76,7 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 	};
 
 	const handleClickSquareDownloads = (index) => {
-		setSquareStates((prevStates) => {
+		setSquareStatesDownloadPanel((prevStates) => {
 			const newStates = [...prevStates];
 
 			if (newStates[index]) {
@@ -67,12 +89,13 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 			return newStates;
 		});
 
-		if (activeCertificateIndex === index) {
-			setActiveCertificateIndex(null);
+		if (index === 0 && squareStatesDownloadPanel[index]) {
+			setUploadedCertificate(null);
+			setPanelSidebarActive(false);
+		} else if (index >= 1 && squareStatesDownloadPanel[index]) {
 			setUploadedCertificate(null);
 			setPanelSidebarActive(false);
 		} else {
-			setActiveCertificateIndex(index);
 			setUploadedCertificate([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
@@ -99,18 +122,21 @@ function DownloadsPanel({ setUploadedCertificate, setPanelSidebarActive }) {
 				</label>
 			</div>
 			<div className="elements-panel__loading-file elements-panel__loading-file_gap">
-				{imageURLsDownloads.map((url, index) => (
-					<div className="elements-panel__wrapper elements-panel__wrapper_size">
+				{imageURLsDownloads.map((item, index) => (
+					<div
+						className="elements-panel__wrapper elements-panel__wrapper_size"
+						key={item.id || index}
+					>
 						<img
-							key={index}
-							src={url}
-							alt={`Загруженное изображение ${index}`}
+							src={item.background || item}
+							alt={`Загруженное изображение ${item.title || item.name}`}
 							className="elements-panel__loading-img"
 						/>
 						<img
-							src={squareStates[index] ? squareCheck : square}
+							key={index}
+							src={squareStatesDownloadPanel[index] ? squareCheck : square}
 							alt={
-								squareStates[index]
+								squareStatesDownloadPanel[index]
 									? ' Квадрат с галочкой.'
 									: ' Пустой квадрат.'
 							}

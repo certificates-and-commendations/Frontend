@@ -1,32 +1,45 @@
-import React, { useRef, useState } from 'react';
-import html2canvas from 'html2canvas';
-import JsPDF from 'jspdf';
+import React, { useEffect, useState } from 'react';
 import SidebarEditor from './SidebarEditor/SidebarEditor';
 import CertificateEditor from './CertificateEditor/CertificateEditor';
 import PropertiesPanel from './CertificateEditor/PropertiesPanel/PropertiesPanel';
 
-function PageEditor({ samples, setIsTablePopupOpen }) {
+function PageEditor({
+	samples,
+	certificateRef,
+	setTextBlocks,
+	textBlocks,
+	setImageURLsDownloads,
+	imageURLsDownloads,
+	setImageURLsElements,
+	imageURLsElements,
+	setUploadedCertificate,
+	uploadedCertificate,
+	setTextPosition,
+	textPosition,
+	setTextBlockStyles,
+	textBlockStyles,
+	setTextBlockColors,
+	textBlockColors,
+	setBackground,
+	dataDocumentId,
+	setIsTablePopupOpen,
+}) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
 	const [fontSize, setFontSize] = useState(14);
 	const [showProperties, setShowProperties] = useState(false);
-	const [textBlocks, setTextBlocks] = useState([]);
 	const [editingTextIndex, setEditingTextIndex] = useState(null);
 	const [signature, setSignature] = useState(null);
-	const [uploadedCertificate, setUploadedCertificate] = useState(null);
 	const [showTable, setShowTable] = useState([]);
 	const [tableData, setTableData] = useState([]);
-	const [textBlockColors, setTextBlockColors] = useState([]);
 	const [element, setElement] = useState([]);
 	const [elementPosition, setElementPosition] = useState({ x: 0, y: 0 });
-	const [textPosition, setTextPosition] = useState([]);
 
 	const [activeTextIndex, setActiveTextIndex] = useState(null);
 	const [borderTextIndex, setBorderTextIndex] = useState(null);
 	const [textDecorationStyle, setTextDecorationStyle] = useState('none');
 	const [textAlignStyle, setTextAlignStyle] = useState('left');
 	const [pdfData, setPdfData] = useState(null);
-	const [textBlockStyles, setTextBlockStyles] = useState([]);
 	const [panelSidebarActive, setPanelSidebarActive] = useState(false);
 	const [stylePanelActive, setStylePanelActive] = useState(false);
 	const [elementVisibility, setElementVisibility] = useState([]);
@@ -39,15 +52,100 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 		useState(false);
 	const [isDedicated, setIsDedicated] = useState(false);
 	const [fontResult, setFontResult] = useState([]);
+	const [squareStatesElementsPanel, setSquareStatesElementsPanel] = useState(
+		[]
+	);
+	const [squareStatesDownloadPanel, setSquareStatesDownloadPanel] = useState(
+		[]
+	);
 
 	const initialPositions = element.map(() => ({ x: 0, y: 0 }));
 	const [positions, setPositions] = useState(initialPositions);
 
-	const certificateRef = useRef(null);
-
 	function generateUniqueId() {
 		return Math.random().toString(36).substr(2, 9);
 	}
+
+	useEffect(() => {
+		if (dataDocumentId) {
+			const blockId = generateUniqueId();
+
+			const initialTextBlocks = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				text: textData.text,
+				fontFamily: textData.font.font,
+				fontSize: textData.font_size,
+				x: textData.coordinate_x,
+				y: textData.coordinate_y,
+			}));
+
+			const initialTextBlockColors = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				color: textData.font_color,
+			}));
+
+			const initialTextBlockStyles = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				isItalic: textData.font.is_italic,
+				isBold: textData.font.is_bold,
+				isDecoration: textData.text_decoration,
+				isAlign: textData.align,
+			}));
+
+			const initialTextPosition = dataDocumentId.texts.map((textData) => ({
+				id: textData.id,
+				x: textData.coordinate_x,
+				y: textData.coordinate_y,
+			}));
+
+			const initialElementPosition = dataDocumentId.elements.map((elem) => ({
+				x: elem.coordinate_x,
+				y: elem.coordinate_y,
+			}));
+
+			const initialElement = [];
+			const initialElementImagePanel = [];
+
+			dataDocumentId.elements.forEach((elem) => {
+				const newId = generateUniqueId();
+
+				initialElement.push({
+					id: newId,
+					url: elem.image,
+				});
+
+				initialElementImagePanel.push({
+					id: newId,
+					url: elem.image,
+					position: {
+						x: elem.coordinate_x,
+						y: elem.coordinate_y,
+					},
+				});
+			});
+
+			setTextBlocks(initialTextBlocks);
+			setTextBlockColors(initialTextBlockColors);
+			setTextBlockStyles(initialTextBlockStyles);
+			setTextPosition(initialTextPosition);
+			setPositions(initialElementPosition);
+			setElement(initialElement);
+			setImageURLsElements(initialElementImagePanel);
+			setSquareStatesElementsPanel(
+				Array(dataDocumentId.elements.length).fill(true)
+			);
+		}
+	}, [dataDocumentId]);
+
+	useEffect(() => {
+		if (dataDocumentId) {
+			setImageURLsDownloads([dataDocumentId]);
+			setUploadedCertificate([dataDocumentId]);
+			const newCertificates = [dataDocumentId.background];
+			setSquareStatesDownloadPanel(() => newCertificates.map(() => true));
+			setPanelSidebarActive(true);
+		}
+	}, [dataDocumentId]);
 
 	const handleTextClick = (size) => {
 		setFontSize(size);
@@ -173,47 +271,21 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 		setElementPosition({ x: data.x, y: data.y });
 	};
 
-	const handleCreateJson = () => {
-		// Создание JSON объекта
-		const jsonToSave = {
-			text_field: textBlocks.map((block) => ({
-				text: block.text,
-				x: block.x,
-				y: block.y,
-				fontFamily: block.fontFamily,
-				fontSize: block.fontSize,
-				italic: block.isItalic,
-				textDecoration: block.isDecoration,
-				fontWeight: block.isBold,
-			})),
-			background: {
-				width: 600,
-				height: 850,
-			}, // Подставьте URL фона
-			Element: {
-				url: element,
-				x: elementPosition.x,
-				y: elementPosition.y,
-			},
-		};
-		// console.log(jsonToSave)
-		setPdfData(jsonToSave);
-	};
-
-	const handleSavePDF = async () => {
-		handleCreateJson();
-		const scale = 3; // Увеличение разрешения в 3 раза
-		const canvas = await html2canvas(certificateRef.current, { scale });
-		const imgData = canvas.toDataURL('image/png');
-		const pdf = new JsPDF();
-		pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
-		pdf.save('certificate.pdf');
-	};
-
 	const handleChangeComplete = (newColor) => {
 		const updatedTextBlockColors = [...textBlockColors];
 		updatedTextBlockColors[activeTextIndex].color = newColor.hex;
 		setTextBlockColors(updatedTextBlockColors);
+	};
+
+	const updateElementPosition = (id, newPosition) => {
+		const updatedElements = imageURLsElements.map((elem) => {
+			if (elem.id === id) {
+				return { ...elem, position: newPosition };
+			}
+			return elem;
+		});
+
+		setImageURLsElements(updatedElements);
 	};
 
 	return (
@@ -233,6 +305,15 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 				fontResult={fontResult}
 				samples={samples}
 				setIsTablePopupOpen={setIsTablePopupOpen}
+				setImageURLsDownloads={setImageURLsDownloads}
+				imageURLsDownloads={imageURLsDownloads}
+				setImageURLsElements={setImageURLsElements}
+				imageURLsElements={imageURLsElements}
+				setBackground={setBackground}
+				setSquareStatesElementsPanel={setSquareStatesElementsPanel}
+				squareStatesElementsPanel={squareStatesElementsPanel}
+				setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
+				squareStatesDownloadPanel={squareStatesDownloadPanel}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
@@ -241,7 +322,6 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 					setFont={setFont}
 					fontSize={fontSize}
 					setFontSize={setFontSize}
-					onSavePDF={handleSavePDF}
 					editingTextIndex={editingTextIndex}
 					showTable={showTable}
 					setShowTable={setShowTable}
@@ -249,7 +329,6 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 					setTableData={setTableData}
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
 					isVisible={elementVisibility}
 					activeTextIndex={activeTextIndex}
 					setActiveTextIndex={setActiveTextIndex}
@@ -289,7 +368,6 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 					setFontSize={setFontSize}
 					textBlocks={textBlocks}
 					setTextBlocks={setTextBlocks}
-					certificateRef={certificateRef}
 					isVisible={showProperties}
 					setActiveTextIndex={setActiveTextIndex}
 					activeTextIndex={activeTextIndex}
@@ -302,12 +380,10 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 					setTextAlignStyle={setTextAlignStyle}
 					handleTextChange={handleTextChange}
 					onInputKeyDown={handleInputKeyDown}
-					onSavePDF={handleSavePDF}
 					showTable={showTable}
 					setShowTable={setShowTable}
 					tableData={tableData}
 					setTableData={setTableData}
-					onCreateJson={handleCreateJson}
 					uploadedCertificate={uploadedCertificate}
 					signature={signature}
 					element={element}
@@ -322,6 +398,8 @@ function PageEditor({ samples, setIsTablePopupOpen }) {
 					setBorderTextIndex={setBorderTextIndex}
 					textPosition={textPosition}
 					fontResult={fontResult}
+					certificateRef={certificateRef}
+					updateElementPosition={updateElementPosition}
 				/>
 			</section>
 		</main>

@@ -1,6 +1,8 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import JsPDF from 'jspdf';
 import Register from '../Register/Register';
 import RegisterConfirmation from '../RegisterConfirmation/RegisterConfirmation';
 import Login from '../Login/Login';
@@ -8,7 +10,6 @@ import Recovery from '../Recovery/Recovery';
 import Main from '../Main/Main';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
-import authApi from '../../utils/AuthApi';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import Profile from '../Profile/Profile';
@@ -21,6 +22,7 @@ import ComputerRestrictions from '../ComputerRestrictions/ComputerRestrictions';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import TablePopup from '../TablePopup/TablePopup';
 import NewPassword from '../NewPassword/NewPassword';
+import authApi from '../../utils/AuthApi';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,6 +67,88 @@ function App() {
 	const navigate = useNavigate();
 	const isEditorOpen = location.pathname === '/editor';
 
+	const isEditorPage = location.pathname === '/editor';
+
+	// CТЕЙТЫ РЕДАКТОРА
+	const [textBlocks, setTextBlocks] = useState([]);
+	const [imageURLsDownloads, setImageURLsDownloads] = useState([]);
+	const [imageURLsElements, setImageURLsElements] = useState([]);
+	const [uploadedCertificate, setUploadedCertificate] = useState(null);
+	const [textPosition, setTextPosition] = useState([]);
+	const [textBlockStyles, setTextBlockStyles] = useState([]);
+	const [textBlockColors, setTextBlockColors] = useState([]);
+	const [background, setBackground] = useState('');
+	const certificateRef = useRef(null);
+
+	const [dataDocumentId, setDataDocumentId] = useState({
+		id: 27,
+		user: 1,
+		title: 'новая пустая грамота.jpg',
+		background: 'http://127.0.0.1:8000/media/backgrounds/temp_KG3x6Qq.jpeg',
+		category: null,
+		color: null,
+		is_horizontal: false,
+		texts: [
+			{
+				id: 61,
+				text: '111111111111',
+				coordinate_y: -100,
+				coordinate_x: -228,
+				font: {
+					font: 'Arial',
+					is_bold: true,
+					is_italic: false,
+				},
+				font_size: 28,
+				font_color: '#ff0d0d',
+				text_decoration: 'underline',
+				align: 'center',
+			},
+			{
+				id: 62,
+				text: '22222222222',
+				coordinate_y: 55,
+				coordinate_x: 49,
+				font: {
+					font: 'Times New Roman',
+					is_bold: false,
+					is_italic: false,
+				},
+				font_size: 24,
+				font_color: '#1c09f6',
+				text_decoration: 'strikethrough',
+				align: 'right',
+			},
+			{
+				id: 63,
+				text: '3333333333333',
+				coordinate_y: 0,
+				coordinate_x: 0,
+				font: {
+					font: 'Arial',
+					is_bold: false,
+					is_italic: false,
+				},
+				font_size: 16,
+				font_color: '#000000',
+				text_decoration: 'none',
+				align: 'left',
+			},
+		],
+		elements: [
+			{
+				coordinate_y: 237,
+				coordinate_x: 125,
+				image: 'http://127.0.0.1:8000/media/elements/temp_ITYzvUW.png',
+			},
+			{
+				coordinate_y: 251,
+				coordinate_x: -218,
+				image: 'http://127.0.0.1:8000/media/elements/temp_zYUr6W4.png',
+			},
+		],
+	});
+
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
@@ -97,11 +181,13 @@ function App() {
 				closeAllPopups();
 			}
 		}
+
 		function closeByOverlay(evt) {
 			if (!evt.target.closest('.popup *') && !infoToolTip.opened) {
 				closeAllPopups();
 			}
 		}
+
 		if (isOpen) {
 			// навешиваем только при открытии
 			document.addEventListener('keydown', closeByEscape);
@@ -226,12 +312,65 @@ function App() {
 			}
 		}, 1000);
 	}
+
 	// происходит закрытие InfoToolTip
 	useEffect(() => {
 		setTimeout(() => {
 			setInfoToolTip({ text: '', status: true, opened: false });
 		}, 3000);
 	}, [infoToolTip]);
+
+	const handleCreateJson = () => {
+		const textDataArray = textBlocks.map((block, index) => ({
+			text: block.text,
+			font: {
+				font: block.fontFamily,
+				is_bold: textBlockStyles[index].isBold,
+				is_italic: textBlockStyles[index].isItalic,
+			},
+			coordinate_y: parseInt(textPosition[index].y, 10),
+			coordinate_x: parseInt(textPosition[index].x, 10),
+			font_size: block.fontSize,
+			font_color: textBlockColors[index].color,
+			text_decoration: textBlockStyles[index].isDecoration,
+			align: textBlockStyles[index].isAlign,
+		}));
+
+		const elementsDataArray = imageURLsElements.map((img, index) => ({
+			image: img.base64,
+			coordinate_x: img.position.x,
+			coordinate_y: img.position.y,
+		}));
+
+		// Создание JSON объекта
+		const jsonToSave = {
+			title: uploadedCertificate.map((elem) => elem.title),
+			background,
+			texts: textDataArray,
+			Element: elementsDataArray,
+		};
+
+		authApi
+			.handleCreateDocument(jsonToSave)
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
+	};
+
+	const handleSavePDF = async () => {
+		const scale = 3; // Увеличение разрешения в 3 раза
+		html2canvas(certificateRef.current, {
+			scale,
+			allowTaint: true,
+			useCORS: true,
+			taintTest: false,
+		}).then((canvas) => {
+			const imgData = canvas.toDataURL('image/png');
+			const pdf = new JsPDF();
+			pdf.addImage(imgData, 'PNG', 0, 0, 210, 300, '', 'FAST');
+			pdf.save('certificate.pdf');
+			handleCreateJson();
+		});
+	};
 
 	return (
 		<CurrentUserContext.Provider value={currentUser}>
@@ -242,6 +381,7 @@ function App() {
 						setIsRegisterPopupOpen={setIsRegisterPopupOpen}
 						isloggedIn={isLoggedIn}
 						setIsLoggedIn={setIsLoggedIn}
+						onSavePDF={handleSavePDF}
 					/>
 				)}
 				<Routes>
@@ -253,10 +393,27 @@ function App() {
 						path="/editor"
 						element={
 							<PageEditor
-								documentById={documentById || {}}
 								samples={samples}
 								loggedIn={isLoggedIn}
 								setIsTablePopupOpen={setIsTablePopupOpen}
+								documentById={documentById || {}}
+								certificateRef={certificateRef}
+								setTextBlocks={setTextBlocks}
+								textBlocks={textBlocks}
+								setImageURLsDownloads={setImageURLsDownloads}
+								imageURLsDownloads={imageURLsDownloads}
+								setImageURLsElements={setImageURLsElements}
+								imageURLsElements={imageURLsElements}
+								setUploadedCertificate={setUploadedCertificate}
+								uploadedCertificate={uploadedCertificate}
+								setTextPosition={setTextPosition}
+								textPosition={textPosition}
+								setTextBlockStyles={setTextBlockStyles}
+								textBlockStyles={textBlockStyles}
+								setTextBlockColors={setTextBlockColors}
+								textBlockColors={textBlockColors}
+								setBackground={setBackground}
+								dataDocumentId={dataDocumentId}
 							/>
 						}
 					/>

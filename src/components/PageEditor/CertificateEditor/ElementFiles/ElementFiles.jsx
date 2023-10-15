@@ -1,7 +1,13 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-function ElementFiles({ element, onDrag, positions, setPositions }) {
+function ElementFiles({
+	element,
+	onDrag,
+	positions,
+	setPositions,
+	updateElementPosition,
+}) {
 	return (
 		<>
 			{element.map((elem, index) => (
@@ -9,11 +15,10 @@ function ElementFiles({ element, onDrag, positions, setPositions }) {
 					bounds="parent"
 					position={positions[index]}
 					onDrag={(e, { x, y }) => {
-						console.log(positions);
 						const newPositions = [...positions];
 						newPositions[index] = { x, y };
 						setPositions(newPositions);
-						onDrag(e, { x, y }, elem.id);
+						updateElementPosition(elem.id, { x, y });
 					}}
 					key={elem.id}
 				>

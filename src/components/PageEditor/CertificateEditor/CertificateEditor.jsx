@@ -1,6 +1,7 @@
 import React from 'react';
 import TextBlock from './TextBlock/TextBlock';
 import ElementFiles from './ElementFiles/ElementFiles';
+import image from '../../../images/imageEditor/certificateImage1.png';
 
 function CertificateEditor({
 	setCurrentIndex,
@@ -44,16 +45,21 @@ function CertificateEditor({
 	setIsDedicated,
 	setBorderTextIndex,
 	fontResult,
+	updateElementPosition,
 }) {
 	return (
-		<div className="certificate">
-			{uploadedCertificate && (
-				<img
-					src={uploadedCertificate}
-					alt="Uploaded Certificate"
-					className="certificate__image"
-				/>
-			)}
+		<div className="certificate" ref={certificateRef}>
+			{uploadedCertificate &&
+				uploadedCertificate.map((activeImg, index) => {
+					return (
+						<img
+							key={index}
+							src={activeImg.background || activeImg}
+							alt="Uploaded Certificate"
+							className="certificate__image"
+						/>
+					);
+				})}
 			{textBlocks.map((textBlock, index) => (
 				<TextBlock
 					key={index}
@@ -107,6 +113,7 @@ function CertificateEditor({
 					squareStates={squareStates}
 					positions={positions}
 					setPositions={setPositions}
+					updateElementPosition={updateElementPosition}
 				/>
 			)}
 		</div>

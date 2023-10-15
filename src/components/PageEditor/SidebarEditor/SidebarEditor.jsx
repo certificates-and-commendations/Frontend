@@ -24,6 +24,15 @@ function SidebarEditor({
 	fontResult,
 	setFontResult,
 	samples,
+	setImageURLsDownloads,
+	imageURLsDownloads,
+	setImageURLsElements,
+	imageURLsElements,
+	setBackground,
+	setSquareStatesElementsPanel,
+	squareStatesElementsPanel,
+	setSquareStatesDownloadPanel,
+	squareStatesDownloadPanel,
 	setIsTablePopupOpen,
 }) {
 	const [activePanel, setActivePanel] = useState('panelTemplates');
@@ -50,6 +59,10 @@ function SidebarEditor({
 						elementVisibility={elementVisibility}
 						positions={positions}
 						setPositions={setPositions}
+						setImageURLsElements={setImageURLsElements}
+						imageURLsElements={imageURLsElements}
+						setSquareStatesElementsPanel={setSquareStatesElementsPanel}
+						squareStatesElementsPanel={squareStatesElementsPanel}
 						setIsTablePopupOpen={setIsTablePopupOpen}
 					/>
 				);
@@ -58,6 +71,11 @@ function SidebarEditor({
 					<DownloadsPanel
 						setPanelSidebarActive={setPanelSidebarActive}
 						setUploadedCertificate={setUploadedCertificate}
+						setImageURLsDownloads={setImageURLsDownloads}
+						imageURLsDownloads={imageURLsDownloads}
+						setBackground={setBackground}
+						setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
+						squareStatesDownloadPanel={squareStatesDownloadPanel}
 					/>
 				);
 			default:

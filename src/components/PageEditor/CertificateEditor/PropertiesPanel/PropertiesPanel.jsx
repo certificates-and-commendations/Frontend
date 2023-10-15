@@ -273,7 +273,8 @@ function PropertiesPanel({
 							aria-label="Кнопка для удаления"
 							onClick={handleClickColorPanel}
 							style={{
-								backgroundColor: textBlockColors[activeTextIndex].color,
+								backgroundColor:
+									textBlockColors[activeTextIndex]?.color || '#000000',
 							}}
 						/>
 						{showColorPanel && (

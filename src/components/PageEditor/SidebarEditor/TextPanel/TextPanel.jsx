@@ -3,12 +3,7 @@ import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-f
 import authApi from '../../../../utils/AuthApi';
 import FontFaceStyles from './FontFaceStyles/FontFaceStyles';
 
-function TextPanel({
-	onTextClick,
-	activeTextIndex,
-	setFontResult,
-	fontResult,
-}) {
+function TextPanel({ onTextClick, setFontResult, fontResult }) {
 	const [btnClick, setBtnClick] = useState(true);
 	const [fontFiles, setFontFiles] = useState([]);
 
@@ -24,7 +19,6 @@ function TextPanel({
 		return authApi
 			.handleFontFamily(formData)
 			.then((res) => {
-				console.log(res);
 				setFontResult((prevFontResult) => [...prevFontResult, res]);
 			})
 			.catch((err) => console.log(err));
