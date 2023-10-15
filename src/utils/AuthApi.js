@@ -232,7 +232,7 @@ class AuthApi {
 	}
 
 	handleGetUsersDocumentById(id) {
-		return fetch(`${this.url}/profile/${id}/`, {
+		return fetch(`${this.url}/documents/${id}/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,

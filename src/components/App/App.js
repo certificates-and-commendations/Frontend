@@ -80,8 +80,6 @@ function App() {
 	const [background, setBackground] = useState('');
 	const certificateRef = useRef(null);
 
-	const [dataDocumentId, setDataDocumentId] = useState(null);
-
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
@@ -174,6 +172,7 @@ function App() {
 				console.log('в ответе getUsersDocumentById получили', res);
 				if (res.results) {
 					setDocumentById(res.results);
+					navigate('/editor');
 				}
 			})
 			.catch((err) => {
@@ -345,7 +344,6 @@ function App() {
 								setTextBlockColors={setTextBlockColors}
 								textBlockColors={textBlockColors}
 								setBackground={setBackground}
-								dataDocumentId={dataDocumentId}
 							/>
 						}
 					/>
