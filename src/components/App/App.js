@@ -80,7 +80,74 @@ function App() {
 	const [background, setBackground] = useState('');
 	const certificateRef = useRef(null);
 
-	const [dataDocumentId, setDataDocumentId] = useState(null);
+	const [dataDocumentId, setDataDocumentId] = useState({
+		id: 27,
+		user: 1,
+		title: 'новая пустая грамота.jpg',
+		background: 'http://127.0.0.1:8000/media/backgrounds/temp_KG3x6Qq.jpeg',
+		category: null,
+		color: null,
+		is_horizontal: false,
+		texts: [
+			{
+				id: 61,
+				text: '111111111111',
+				coordinate_y: -100,
+				coordinate_x: -228,
+				font: {
+					font: 'Arial',
+					is_bold: true,
+					is_italic: false,
+				},
+				font_size: 28,
+				font_color: '#ff0d0d',
+				text_decoration: 'underline',
+				align: 'center',
+			},
+			{
+				id: 62,
+				text: '22222222222',
+				coordinate_y: 55,
+				coordinate_x: 49,
+				font: {
+					font: 'Times New Roman',
+					is_bold: false,
+					is_italic: false,
+				},
+				font_size: 24,
+				font_color: '#1c09f6',
+				text_decoration: 'strikethrough',
+				align: 'right',
+			},
+			{
+				id: 63,
+				text: '3333333333333',
+				coordinate_y: 0,
+				coordinate_x: 0,
+				font: {
+					font: 'Arial',
+					is_bold: false,
+					is_italic: false,
+				},
+				font_size: 16,
+				font_color: '#000000',
+				text_decoration: 'none',
+				align: 'left',
+			},
+		],
+		elements: [
+			{
+				coordinate_y: 237,
+				coordinate_x: 125,
+				image: 'http://127.0.0.1:8000/media/elements/temp_ITYzvUW.png',
+			},
+			{
+				coordinate_y: 251,
+				coordinate_x: -218,
+				image: 'http://127.0.0.1:8000/media/elements/temp_zYUr6W4.png',
+			},
+		],
+	});
 
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
