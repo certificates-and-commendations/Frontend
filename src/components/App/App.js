@@ -327,7 +327,7 @@ function App() {
 								samples={samples}
 								loggedIn={isLoggedIn}
 								setIsTablePopupOpen={setIsTablePopupOpen}
-								documentById={documentById || {}}
+								documentById={documentById}
 								certificateRef={certificateRef}
 								setTextBlocks={setTextBlocks}
 								textBlocks={textBlocks}
