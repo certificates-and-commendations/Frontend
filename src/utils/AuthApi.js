@@ -240,8 +240,6 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
-				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
-				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
 			body: data,
 		}).then(handleResponse);
