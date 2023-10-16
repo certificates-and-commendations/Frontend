@@ -23,6 +23,7 @@ function PageEditor({
 	setBackground,
 	setIsTablePopupOpen,
 	documentById,
+	background,
 }) {
 	const [currentIndex, setCurrentIndex] = useState(null);
 	const [font, setFont] = useState('Arial');
@@ -308,6 +309,7 @@ function PageEditor({
 				setImageURLsElements={setImageURLsElements}
 				imageURLsElements={imageURLsElements}
 				setBackground={setBackground}
+				background={background}
 				setSquareStatesElementsPanel={setSquareStatesElementsPanel}
 				squareStatesElementsPanel={squareStatesElementsPanel}
 				setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
