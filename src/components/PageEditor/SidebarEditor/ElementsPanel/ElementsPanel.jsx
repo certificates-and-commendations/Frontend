@@ -81,7 +81,7 @@ function ElementsPanel({
 			console.log('Загрузите 1 файл формата CSV.');
 		} else {
 			authApi
-				.handleUploadFile(files)
+				.handleUploadFile(files[0])
 				.then((response) => {
 					console.log(response);
 				})
