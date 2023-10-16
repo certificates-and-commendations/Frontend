@@ -38,6 +38,8 @@ export const Sample = ({
 	// 	setIsCliked(result);
 	// }, [favoriteSamples]);
 
+const hardCode = item.thumbnail.replace('http', 'https')
+
 	return (
 		<div className="samples__div" key={item.id}>
 			{isLoggedIn && (
@@ -52,7 +54,7 @@ export const Sample = ({
 					onClick={(e) => onImageClick(e, item)}
 					alt={item.title}
 					className="samples__image"
-					src={item.thumbnail}
+					src={hardCode}
 				/>
 			</Link>
 		</div>

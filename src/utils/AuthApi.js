@@ -154,7 +154,6 @@ class AuthApi {
 			queryString.length === 0 ? '' : `?${queryString}`
 		}`;
 
-		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
 			method: 'GET',
 			headers: {

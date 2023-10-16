@@ -120,7 +120,6 @@ function App() {
 		}
 
 		if (isOpen) {
-			// навешиваем только при открытии
 			document.addEventListener('keydown', closeByEscape);
 			document.addEventListener('mousedown', closeByOverlay);
 			return () => {
@@ -170,7 +169,6 @@ function App() {
 		return authApi
 			.handleGetUsersDocument()
 			.then((res) => {
-				console.log('в ответе getUsersDocument получили', res);
 				if (res.results) {
 					setMyDocuments(res.results);
 				}
@@ -188,7 +186,6 @@ function App() {
 		return authApi
 			.handleGetUsersDocumentById(id)
 			.then((res) => {
-				console.log('в ответе getUsersDocumentById получили', res);
 				setDocumentById(res);
 				navigate('/editor');
 			})
@@ -315,7 +312,7 @@ function App() {
 	};
 
 	const handleSavePDF = async () => {
-		const scale = 3; // Увеличение разрешения в 3 раза
+		const scale = 3;
 		html2canvas(certificateRef.current, {
 			scale,
 			allowTaint: true,

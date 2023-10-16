@@ -41,8 +41,6 @@ export const Samples = ({
 		const column2 = [];
 		const column3 = [];
 
-		// console.log('длина', samplesTemp.length, 'Массив', samplesTemp);
-
 		for (let i = 0; i < samplesTemp.length; i++) {
 			const index = i % 3;
 			if (index === 0) {
@@ -58,7 +56,6 @@ export const Samples = ({
 			column2,
 			column3,
 		});
-		// console.log('Успешно разделен', separetedSamples);
 	}, [samplesTemp]);
 
 	const handleCheckboxClick = (name, isChecked) => {
@@ -71,10 +68,8 @@ export const Samples = ({
 	const handleDislike = (e, item) => {
 		e.stopPropagation();
 		return authApi.removeLike(item.id).then((res) => {
-			console.log(res);
 			const newSamples = favoriteSamples.filter((card) => card.id !== item.id);
 			setFavoriteSamples(newSamples);
-			console.log('dislike ok');
 		});
 	};
 
@@ -85,7 +80,6 @@ export const Samples = ({
 			.then((res) => {
 				const newSamples = samples.filter((card) => card.id === res.id);
 				setFavoriteSamples([...favoriteSamples, item]);
-				console.log('like ok');
 			})
 			.catch((err) => console.log(err));
 	};
@@ -98,7 +92,6 @@ export const Samples = ({
 	async function getFilteredSamples() {
 		try {
 			const samplesFromBack = await authApi.handleFilterSamples(checkboxValues);
-			console.log('После запроса фильтрации получили', samplesFromBack);
 			if (samplesFromBack.results) {
 				setSamplesTemp(samplesFromBack.results);
 			}
@@ -111,26 +104,6 @@ export const Samples = ({
 	useEffect(() => {
 		getFilteredSamples();
 	}, [checkboxValues]);
-
-	// ПОЛУЧАЕМ ОДИН РАЗ МАССИВ ШАБЛОНОВ
-	// const getAllSamples = () => {
-	// 	authApi
-	// 		.getAllSamples()
-	// 		.then((res) => {
-	// 			if (res.results) {
-	// 				console.log(`шаблонов получили --> ${res.results.length}`);
-	// 				console.log('массив', res.results);
-	// 				setSamplesTemp(res.results);
-	// 			}
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// };
-
-	// useEffect(() => {
-	// 	getAllSamples();
-	// }, []);
 
 	return (
 		<main className="samples">
