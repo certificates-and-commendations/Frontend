@@ -10,7 +10,7 @@ export default function CenterSlider({
 	setDiploma,
 	isFavoriteSamples,
 	setFavoriteSamples,
-	onGetUsersDocumentById,
+onGetUsersDocumentById,
 }) {
 	const navigate = useNavigate();
 

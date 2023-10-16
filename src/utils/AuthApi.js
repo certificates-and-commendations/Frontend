@@ -94,15 +94,6 @@ class AuthApi {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-			},
-		}).then(handleResponse);
-	}
-
-	getAllUserSamples() {
-		return fetch(`${this.url}/profile/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
 		}).then(handleResponse);
@@ -228,7 +219,7 @@ class AuthApi {
 	}
 
 	handleGetUsersDocument() {
-		return fetch(`${this.url}/profile/profile/`, {
+		return fetch(`${this.url}/profile/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,

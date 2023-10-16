@@ -11,7 +11,7 @@ export const Sample = ({
 	favoriteSamples,
 	isLoggedIn,
 }) => {
-	const [isCliked, setIsCliked] = useState(false);
+	const [isCliked, setIsCliked] = useState(item.is_favourite);
 	const buttonClass = clsx('samples__button-like', {
 		'samples__button-like_active': isCliked,
 	});
@@ -32,11 +32,11 @@ export const Sample = ({
 			.catch((err) => console.log(err));
 	}
 
-	// СЕТАПИМ isCliked ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИЛ ЛАЙК ИНАЧЕ НЕТ
-	useEffect(() => {
-		const result = favoriteSamples.some((elem) => item.id === elem.id);
-		setIsCliked(result);
-	}, [favoriteSamples]);
+	// СЕТАПИМ isCliked ЕСЛИ НАШ ШАБЛОН ЕСТЬ В ИЗБРАНЫХ У ПОЛЬЗОВАТЕЛЯ СТАВИМ ЛАЙК ИНАЧЕ НЕТ
+	// useEffect(() => {
+	// 	const result = favoriteSamples.some((elem) => item.id === elem.id);
+	// 	setIsCliked(result);
+	// }, [favoriteSamples]);
 
 	return (
 		<div className="samples__div" key={item.id}>

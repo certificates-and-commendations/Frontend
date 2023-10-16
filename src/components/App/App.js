@@ -147,6 +147,25 @@ function App() {
 			});
 	};
 
+	const getAllUserDocuments = () => {
+		return authApi
+			.handleGetUsersDocument()
+			.then((res) => {
+				const mixedDocuments = res.results;
+				const favoriteSamplesLock = mixedDocuments.filter((item) => item.is_favourite === true );
+				const myDocumentsLock = mixedDocuments.filter((item) => item.is_favourite === false );
+				setFavoriteSamples(favoriteSamples);
+				setMyDocuments(myDocuments);
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
+	};
+
 	const getUsersDocument = () => {
 		return authApi
 			.handleGetUsersDocument()
@@ -172,22 +191,6 @@ function App() {
 				console.log('в ответе getUsersDocumentById получили', res);
 				setDocumentById(res);
 				navigate('/editor');
-			})
-			.catch((err) => {
-				setInfoToolTip({
-					text: err.message,
-					status: false,
-					opened: true,
-				});
-			});
-	};
-
-	const getUsersSamples = () => {
-		return authApi
-			.getAllUserSamples()
-			.then((res) => {
-				console.log('в ответе getUsersDocumentById получили', res);
-				setFavoriteSamples(res);
 			})
 			.catch((err) => {
 				setInfoToolTip({
@@ -385,9 +388,8 @@ function App() {
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
 								myDocuments={myDocuments || []}
-								onGetUsersDocument={getUsersDocument}
+								onGetUsersDocument={getAllUserDocuments}
 								onGetUsersDocumentById={getUsersDocumentById}
-								onGetFavouriteSamples={getUsersSamples}
 							/>
 						}
 					/>
