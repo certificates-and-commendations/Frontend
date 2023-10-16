@@ -25,7 +25,7 @@ import NewPassword from '../NewPassword/NewPassword';
 import authApi from '../../utils/AuthApi';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isNewPasswordPopupOpen, setIsNewPasswordPopupOpen] = useState(false);

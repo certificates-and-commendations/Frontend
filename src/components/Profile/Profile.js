@@ -16,12 +16,12 @@ function Profile({
 	const isFavoriteSamples = true;
 	const currentUser = React.useContext(CurrentUserContext);
 
-	function getDocumentUsers() {
-		return onGetUsersDocument();
-	}
+	// function getDocumentUsers() {
+	// 	return onGetUsersDocument();
+	// }
 
 	useEffect(() => {
-		getDocumentUsers();
+		onGetUsersDocument();
 	}, []);
 
 	return (
