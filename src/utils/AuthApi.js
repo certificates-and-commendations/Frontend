@@ -155,21 +155,12 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	handleFontFamily(csvFile) {
+	handleFontFamily(fontUrl) {
 		const formData = new FormData();
-
-		// Создайте файловый объект из .csv-файла
-		const file = new File([csvFile], 'names.csv', { type: 'text/csv' });
-
-		// Добавьте файловый объект к FormData
-		formData.append('csv_file', file);
+		formData.append('font_file', fontUrl);
 
 		return fetch(`${this.url}/font/`, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('jwt')}`,
-			},
 			body: formData,
 		}).then(handleResponse);
 	}
@@ -245,8 +236,6 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
-		const formData = new FormData();
-		formData.append('csvFile', data[0], 'csvFile');
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
@@ -254,7 +243,7 @@ class AuthApi {
 				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
 				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
-			body: formData,
+			body: data,
 		}).then(handleResponse);
 	}
 }
