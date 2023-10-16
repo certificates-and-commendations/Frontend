@@ -180,7 +180,7 @@ class AuthApi {
 		// создание готовой грамоты
 		const title = textData.title.join('');
 
-		const background = textData.background;
+		const background = textData.background.join('');
 
 		const texts = textData.texts;
 
@@ -236,18 +236,17 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	handleUploadFile(data) {
-		debugger;
-		// const formData = new FormData();
-		// formData.append('csvFile', data[0]);
+	handleUploadFile(data, boundary) {
+		const formData = new FormData();
+		formData.append('file', data, 'names.csv');
+
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
-				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
-				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
+				'Content-Type': `multipart/form-data; boundary=${boundary}`,
 			},
-			body: data[0],
+			body: formData,
 		}).then(handleResponse);
 	}
 }
@@ -256,7 +255,7 @@ const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'https://certificates.acceleratorpracticum.ru'
 			? 'https://certificates.acceleratorpracticum.ru/api'
-			: currentUrl === 'localhost:3000'
+			: currentUrl === 'http://localhost:3000'
 			? 'http://127.0.0.1:8000/api'
 			: 'https://185.93.111.238/api',
 });

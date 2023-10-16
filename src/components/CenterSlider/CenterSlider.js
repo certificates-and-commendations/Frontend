@@ -10,7 +10,8 @@ export default function CenterSlider({
 	setDiploma,
 	isFavoriteSamples,
 	setFavoriteSamples,
-onGetUsersDocumentById,
+	onGetUsersDocumentById,
+	setInfoToolTip,
 }) {
 	const navigate = useNavigate();
 
@@ -36,8 +37,24 @@ onGetUsersDocumentById,
 	}
 
 	function onTrashClick(item) {
-		const newSamples = array.filter((card) => card.id !== item.id);
-		setFavoriteSamples(newSamples);
+		return authApi
+			.removeLike()
+			.then((res) => {
+				const newSamples = array.filter((card) => card.id !== item.i);
+				setFavoriteSamples(newSamples);
+				setInfoToolTip({
+					text: 'Успешно',
+					status: true,
+					opened: true,
+				});
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
 	}
 
 	return (

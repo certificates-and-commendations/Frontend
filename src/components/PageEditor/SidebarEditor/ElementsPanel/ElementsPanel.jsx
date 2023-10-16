@@ -73,8 +73,11 @@ function ElementsPanel({
 		]);
 	};
 
+	const generateBoundary = () => {
+		return `---------------------------${Date.now().toString(16)}`;
+	};
+
 	const handleTableInputChangeElements = (e) => {
-		debugger;
 		const files = Array.from(e.target.files);
 		const validFiles = files.filter(isTableValid);
 
@@ -82,7 +85,7 @@ function ElementsPanel({
 			console.log('Загрузите 1 файл формата CSV.');
 		} else {
 			authApi
-				.handleUploadFile(files)
+				.handleUploadFile(files[0], generateBoundary)
 				.then((response) => {
 					console.log(response);
 				})

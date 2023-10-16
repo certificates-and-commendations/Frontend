@@ -284,16 +284,26 @@ function App() {
 			align: textBlockStyles[index].isAlign,
 		}));
 
-		const elementsDataArray = imageURLsElements.map((img, index) => ({
-			image: img.base64,
-			coordinate_x: img.position.x,
-			coordinate_y: img.position.y,
-		}));
+		const elementsDataArray = imageURLsElements.map((img, index) => {
+			if (img.position === undefined) {
+				return {
+					image: img.base64,
+					coordinate_x: 0,
+					coordinate_y: 0,
+				};
+			}
+
+			return {
+				image: img.base64,
+				coordinate_x: img.position.x,
+				coordinate_y: img.position.y,
+			};
+		});
 
 		// Создание JSON объекта
 		const jsonToSave = {
 			title: uploadedCertificate.map((elem) => elem.title),
-			background,
+			background: background.map((base64) => base64.background),
 			texts: textDataArray,
 			Element: elementsDataArray,
 		};
@@ -361,6 +371,7 @@ function App() {
 								setTextBlockColors={setTextBlockColors}
 								textBlockColors={textBlockColors}
 								setBackground={setBackground}
+								background={background}
 							/>
 						}
 					/>
@@ -390,6 +401,7 @@ function App() {
 								myDocuments={myDocuments || []}
 								onGetUsersDocument={getAllUserDocuments}
 								onGetUsersDocumentById={getUsersDocumentById}
+								setInfoToolTip={setInfoToolTip}
 							/>
 						}
 					/>
