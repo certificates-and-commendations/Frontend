@@ -153,8 +153,8 @@ function App() {
 				const mixedDocuments = res.results;
 				const favoriteSamplesLock = mixedDocuments.filter((item) => item.is_favourite === true );
 				const myDocumentsLock = mixedDocuments.filter((item) => item.is_favourite === false );
-				setFavoriteSamples(favoriteSamples);
-				setMyDocuments(myDocuments);
+				setFavoriteSamples(favoriteSamplesLock);
+				setMyDocuments(myDocumentsLock);
 			})
 			.catch((err) => {
 				setInfoToolTip({
