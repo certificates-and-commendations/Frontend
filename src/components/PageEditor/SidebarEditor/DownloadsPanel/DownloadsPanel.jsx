@@ -53,7 +53,7 @@ function DownloadsPanel({
 					return new Promise((resolve) => {
 						const reader = new FileReader();
 						reader.onload = (event) => {
-							const background = event.target.result; // Сохраняем background в переменной
+							const background = event.target.result;
 							resolve({
 								background,
 								title: file.name,

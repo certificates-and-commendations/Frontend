@@ -188,7 +188,7 @@ class AuthApi {
 		// создание готовой грамоты
 		const title = textData.title.join('');
 
-		const background = textData.background;
+		const background = textData.background.join('');
 
 		const texts = textData.texts;
 

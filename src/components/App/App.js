@@ -284,7 +284,7 @@ function App() {
 		// Создание JSON объекта
 		const jsonToSave = {
 			title: uploadedCertificate.map((elem) => elem.title),
-			background: background.background,
+			background: background.map((base64) => base64.background),
 			texts: textDataArray,
 			Element: elementsDataArray,
 		};
