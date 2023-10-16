@@ -90,14 +90,21 @@ class AuthApi {
 
 	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
 	getAllSamples() {
-		return fetch(`${this.url}/documents/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${localStorage.getItem('jwt')}`,
-			},
-		}).then(handleResponse);
-	}
+    const tokenLock = localStorage.getItem('jwt');
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    if (token) {
+        headers.Authorization = `Token ${tokenLock}`;
+    }
+
+    return fetch(`${this.url}/documents/`, {
+        method: 'GET',
+        headers,
+    }).then(handleResponse);
+}
+
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
