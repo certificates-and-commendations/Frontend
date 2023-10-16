@@ -236,12 +236,16 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
+		const formData = new FormData();
+		formData.append('file', data, 'names.csv');
+
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
+				'Content-Type': 'multipart/form-data', // Установите правильный Content-Type
 			},
-			body: data,
+			body: formData,
 		}).then(handleResponse);
 	}
 }
