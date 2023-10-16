@@ -11,6 +11,7 @@ function Profile({
 	setFavoriteSamples,
 	onGetUsersDocument,
 	onGetUsersDocumentById,
+	setInfoToolTip,
 }) {
 	const isFavoriteSamples = true;
 	const currentUser = React.useContext(CurrentUserContext);
@@ -36,6 +37,7 @@ function Profile({
 					setDiploma={setDiploma}
 					isFavoriteSamples={isFavoriteSamples}
 					setFavoriteSamples={setFavoriteSamples}
+					setInfoToolTip={setInfoToolTip}
 				/>
 			</div>
 			<div className="profile__documents">
@@ -45,6 +47,7 @@ function Profile({
 					setDiploma={setDiploma}
 					isFavoriteSamples={!isFavoriteSamples}
 					onGetUsersDocumentById={onGetUsersDocumentById}
+					setInfoToolTip={setInfoToolTip}
 				/>
 			</div>
 		</main>

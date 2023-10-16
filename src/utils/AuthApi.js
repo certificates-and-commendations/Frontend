@@ -155,12 +155,21 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	handleFontFamily(fontUrl) {
+	handleFontFamily(csvFile) {
 		const formData = new FormData();
-		formData.append('font_file', fontUrl);
+
+		// Создайте файловый объект из .csv-файла
+		const file = new File([csvFile], 'names.csv', { type: 'text/csv' });
+
+		// Добавьте файловый объект к FormData
+		formData.append('csv_file', file);
 
 		return fetch(`${this.url}/font/`, {
 			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Token ${localStorage.getItem('jwt')}`,
+			},
 			body: formData,
 		}).then(handleResponse);
 	}

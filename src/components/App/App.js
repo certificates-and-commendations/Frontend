@@ -277,8 +277,8 @@ function App() {
 
 		const elementsDataArray = imageURLsElements.map((img, index) => ({
 			image: img.base64,
-			coordinate_x: img.position.x,
-			coordinate_y: img.position.y,
+			coordinate_x: img.position.x || 0,
+			coordinate_y: img.position.y || 0,
 		}));
 
 		// Создание JSON объекта
@@ -381,6 +381,7 @@ function App() {
 								myDocuments={myDocuments || []}
 								onGetUsersDocument={getUsersDocument}
 								onGetUsersDocumentById={getUsersDocumentById}
+								setInfoToolTip={setInfoToolTip}
 							/>
 						}
 					/>
