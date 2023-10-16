@@ -58,7 +58,6 @@ function DownloadsPanel({
 								background,
 								title: file.name,
 							});
-							setBackground(background);
 						};
 						reader.readAsDataURL(file);
 					});
@@ -99,6 +98,7 @@ function DownloadsPanel({
 			setPanelSidebarActive(false);
 		} else {
 			setUploadedCertificate([imageURLsDownloads[index]]);
+			setBackground([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
 	};
