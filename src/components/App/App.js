@@ -25,7 +25,7 @@ import NewPassword from '../NewPassword/NewPassword';
 import authApi from '../../utils/AuthApi';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [timeoutButton, setTimeoutButton] = useState(false);
 	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 	const [isNewPasswordPopupOpen, setIsNewPasswordPopupOpen] = useState(false);
@@ -165,22 +165,22 @@ function App() {
 			});
 	};
 
-	const getUsersDocument = () => {
-		return authApi
-			.handleGetUsersDocument()
-			.then((res) => {
-				if (res.results) {
-					setMyDocuments(res.results);
-				}
-			})
-			.catch((err) => {
-				setInfoToolTip({
-					text: err.message,
-					status: false,
-					opened: true,
-				});
-			});
-	};
+	// const getUsersDocument = () => {
+	// 	return authApi
+	// 		.handleGetUsersDocument()
+	// 		.then((res) => {
+	// 			if (res.results) {
+	// 				setMyDocuments(res.results);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			setInfoToolTip({
+	// 				text: err.message,
+	// 				status: false,
+	// 				opened: true,
+	// 			});
+	// 		});
+	// };
 
 	const getUsersDocumentById = (id) => {
 		return authApi
