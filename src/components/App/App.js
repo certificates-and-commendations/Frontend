@@ -284,7 +284,7 @@ function App() {
 		// Создание JSON объекта
 		const jsonToSave = {
 			title: uploadedCertificate.map((elem) => elem.title),
-			background,
+			background: background.background,
 			texts: textDataArray,
 			Element: elementsDataArray,
 		};
@@ -352,6 +352,7 @@ function App() {
 								setTextBlockColors={setTextBlockColors}
 								textBlockColors={textBlockColors}
 								setBackground={setBackground}
+								background={background}
 							/>
 						}
 					/>

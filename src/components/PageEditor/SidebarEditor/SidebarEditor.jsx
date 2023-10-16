@@ -34,6 +34,7 @@ function SidebarEditor({
 	setSquareStatesDownloadPanel,
 	squareStatesDownloadPanel,
 	setIsTablePopupOpen,
+	background,
 }) {
 	const [activePanel, setActivePanel] = useState('panelTemplates');
 	const [activeClass, setActiveClass] = useState('panelTemplates');
@@ -76,6 +77,7 @@ function SidebarEditor({
 						setBackground={setBackground}
 						setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
 						squareStatesDownloadPanel={squareStatesDownloadPanel}
+						background={background}
 					/>
 				);
 			default:
