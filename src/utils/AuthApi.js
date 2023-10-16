@@ -235,7 +235,7 @@ class AuthApi {
 		}).then(handleResponse);
 	}
 
-	handleUploadFile(data) {
+	handleUploadFile(data, boundary) {
 		const formData = new FormData();
 		formData.append('file', data, 'names.csv');
 
@@ -243,7 +243,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
-				'Content-Type': `multipart/form-data; boundary=-`,
+				'Content-Type': `multipart/form-data; boundary=${boundary}`,
 			},
 			body: formData,
 		}).then(handleResponse);
