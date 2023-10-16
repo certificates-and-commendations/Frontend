@@ -243,7 +243,7 @@ class AuthApi {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
-				'Content-Type': 'multipart/form-data', // Установите правильный Content-Type
+				'Content-Type': `multipart/form-data; boundary=-`,
 			},
 			body: formData,
 		}).then(handleResponse);
