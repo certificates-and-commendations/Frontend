@@ -395,7 +395,7 @@ function App() {
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
-								myDocuments={myDocuments || []}
+								myDocuments={myDocuments}
 								onGetUsersDocument={getAllUserDocuments}
 								onGetUsersDocumentById={getUsersDocumentById}
 								setInfoToolTip={setInfoToolTip}
