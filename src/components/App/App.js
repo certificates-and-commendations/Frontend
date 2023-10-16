@@ -275,11 +275,21 @@ function App() {
 			align: textBlockStyles[index].isAlign,
 		}));
 
-		const elementsDataArray = imageURLsElements.map((img, index) => ({
-			image: img.base64,
-			coordinate_x: img.position.x || 0,
-			coordinate_y: img.position.y || 0,
-		}));
+		const elementsDataArray = imageURLsElements.map((img, index) => {
+			if (img.position === undefined) {
+				return {
+					image: img.base64,
+					coordinate_x: 0,
+					coordinate_y: 0,
+				};
+			}
+
+			return {
+				image: img.base64,
+				coordinate_x: img.position.x,
+				coordinate_y: img.position.y,
+			};
+		});
 
 		// Создание JSON объекта
 		const jsonToSave = {
