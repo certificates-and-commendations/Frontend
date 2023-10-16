@@ -243,7 +243,7 @@ class AuthApi {
 				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
 				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
-			body: data,
+			body: data[0],
 		}).then(handleResponse);
 	}
 }
