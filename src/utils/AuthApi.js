@@ -236,9 +236,6 @@ class AuthApi {
 	}
 
 	handleUploadFile(data) {
-		const formData = new FormData();
-		formData.append('names.csv', data);
-
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
@@ -246,7 +243,7 @@ class AuthApi {
 				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
 				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
 			},
-			body: formData,
+			body: data,
 		}).then(handleResponse);
 	}
 }
