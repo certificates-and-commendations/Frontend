@@ -53,6 +53,7 @@ function PropertiesPanel({
 	setIsDedicated,
 	borderTextIndex,
 	fontResult,
+	setShouldUpdateFontResult,
 }) {
 	const [fontSizeIncrease, setFontSizeIncrease] = useState(false);
 	const [fontSizeReduce, setFontSizeReduce] = useState(false);

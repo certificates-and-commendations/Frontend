@@ -53,6 +53,7 @@ function PageEditor({
 		useState(false);
 	const [isDedicated, setIsDedicated] = useState(false);
 	const [fontResult, setFontResult] = useState([]);
+	const [shouldUpdateFontResult, setShouldUpdateFontResult] = useState(false);
 	const [squareStatesElementsPanel, setSquareStatesElementsPanel] = useState(
 		[]
 	);
@@ -66,6 +67,18 @@ function PageEditor({
 	function generateUniqueId() {
 		return Math.random().toString(36).substr(2, 9);
 	}
+
+	useEffect(() => {
+		if (shouldUpdateFontResult) {
+			const newFontResult = fontResult.map((elem) => {
+				const updatedFontFile = elem.font_file.replace(/^http:/, 'https:');
+				return { ...elem, font_file: updatedFontFile };
+			});
+			setFontResult(newFontResult);
+			console.log(newFontResult);
+			setShouldUpdateFontResult(false); // Сброс флага
+		}
+	}, [fontResult, shouldUpdateFontResult]);
 
 	useEffect(() => {
 		if (documentById) {
@@ -314,6 +327,7 @@ function PageEditor({
 				squareStatesElementsPanel={squareStatesElementsPanel}
 				setSquareStatesDownloadPanel={setSquareStatesDownloadPanel}
 				squareStatesDownloadPanel={squareStatesDownloadPanel}
+				setShouldUpdateFontResult={setShouldUpdateFontResult}
 			/>
 			<section className="certificate-main">
 				<PropertiesPanel
@@ -357,6 +371,7 @@ function PageEditor({
 					onDeleteTextBlock={handleDeleteTextBlock}
 					borderTextIndex={borderTextIndex}
 					fontResult={fontResult}
+					setShouldUpdateFontResult={setShouldUpdateFontResult}
 				/>
 				<CertificateEditor
 					setCurrentIndex={setCurrentIndex}
