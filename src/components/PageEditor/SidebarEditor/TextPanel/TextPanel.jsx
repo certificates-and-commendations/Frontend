@@ -3,7 +3,12 @@ import trashFont from '../../../../images/IconsFunctionsText/text-panel__trash-f
 import authApi from '../../../../utils/AuthApi';
 import FontFaceStyles from './FontFaceStyles/FontFaceStyles';
 
-function TextPanel({ onTextClick, setFontResult, fontResult }) {
+function TextPanel({
+	onTextClick,
+	setFontResult,
+	fontResult,
+	setShouldUpdateFontResult,
+}) {
 	const [btnClick, setBtnClick] = useState(true);
 	const [fontFiles, setFontFiles] = useState([]);
 
@@ -19,9 +24,8 @@ function TextPanel({ onTextClick, setFontResult, fontResult }) {
 		return authApi
 			.handleFontFamily(formData)
 			.then((res) => {
-				const updatedFontFile = res.font_file.replace(/^http:/, 'https:');
-				const updatedRes = { ...res, font_file: updatedFontFile };
-				setFontResult((prevFontResult) => [...prevFontResult, updatedRes]);
+				setFontResult((prevFontResult) => [...prevFontResult, res]);
+				setShouldUpdateFontResult(true);
 			})
 			.catch((err) => console.log(err));
 	};
