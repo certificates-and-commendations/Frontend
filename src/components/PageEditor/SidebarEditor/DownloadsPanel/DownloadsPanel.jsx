@@ -12,8 +12,6 @@ function DownloadsPanel({
 	squareStatesDownloadPanel,
 	setBackground,
 }) {
-	console.log(imageURLsDownloads);
-
 	function isImageValid(file) {
 		const allowedFormats = ['image/jpeg', 'image/png'];
 		return allowedFormats.includes(file.type);

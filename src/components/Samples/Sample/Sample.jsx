@@ -38,7 +38,7 @@ export const Sample = ({
 	// 	setIsCliked(result);
 	// }, [favoriteSamples]);
 
-const hardCode = item.thumbnail.replace('http', 'https')
+	const hardCode = item.thumbnail.replace('http', 'https');
 
 	return (
 		<div className="samples__div" key={item.id}>
