@@ -19,7 +19,9 @@ function TextPanel({ onTextClick, setFontResult, fontResult }) {
 		return authApi
 			.handleFontFamily(formData)
 			.then((res) => {
-				setFontResult((prevFontResult) => [...prevFontResult, res]);
+				const updatedFontFile = res.font_file.replace(/^http:/, 'https:');
+				const updatedRes = { ...res, font_file: updatedFontFile };
+				setFontResult((prevFontResult) => [...prevFontResult, updatedRes]);
 			})
 			.catch((err) => console.log(err));
 	};

@@ -151,8 +151,12 @@ function App() {
 			.handleGetUsersDocument()
 			.then((res) => {
 				const mixedDocuments = res.results;
-				const favoriteSamplesLock = mixedDocuments.filter((item) => item.is_favourite === true );
-				const myDocumentsLock = mixedDocuments.filter((item) => item.is_favourite === false );
+				const favoriteSamplesLock = mixedDocuments.filter(
+					(item) => item.is_favourite === true
+				);
+				const myDocumentsLock = mixedDocuments.filter(
+					(item) => item.is_favourite === false
+				);
 				setFavoriteSamples(favoriteSamplesLock);
 				setMyDocuments(myDocumentsLock);
 			})
