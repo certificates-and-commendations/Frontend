@@ -120,7 +120,6 @@ function App() {
 		}
 
 		if (isOpen) {
-			// навешиваем только при открытии
 			document.addEventListener('keydown', closeByEscape);
 			document.addEventListener('mousedown', closeByOverlay);
 			return () => {
@@ -130,58 +129,65 @@ function App() {
 		}
 	}, [isOpen]);
 
-	const getUsersDocument = () => {
-		return authApi
-			.handleGetUsersDocument()
-			.then((res) => {
-				console.log('в ответе getUsersDocument получили', res);
-				if (res.results) {
-					setMyDocuments(res.results);
-				}
-			})
-			.catch((err) => {
-				setInfoToolTip({
-					text: err.message,
-					status: false,
-					opened: true,
-				});
-			});
-	};
-
-	const getUsersDocumentById = (id) => {
-		return authApi
-			.handleGetUsersDocumentById(id)
-			.then((res) => {
-				console.log('в ответе getUsersDocumentById получили', res);
-				setDocumentById(res);
-				navigate('/editor');
-			})
-			.catch((err) => {
-				setInfoToolTip({
-					text: err.message,
-					status: false,
-					opened: true,
-				});
-			});
-	};
-
 	const getAllSamples = () => {
 		return authApi
 			.getAllSamples()
 			.then((res) => {
 				if (res.results) {
-					const { results } = res;
-					const favoriteSamplesLock = results.filter(
-						(item) => item.is_favourite === true
-					);
-					const myDocumentsLock = results.filter(
-						(item) => item.is_favourite === false
-					);
-
-					setFavoriteSamples(favoriteSamplesLock);
-					setMyDocuments(myDocumentsLock);
-					setSamples(results);
+					setSamples(res.results);
 				}
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
+	};
+
+	const getAllUserDocuments = () => {
+		return authApi
+			.handleGetUsersDocument()
+			.then((res) => {
+				const mixedDocuments = res.results;
+				const favoriteSamplesLock = mixedDocuments.filter((item) => item.is_favourite === true );
+				const myDocumentsLock = mixedDocuments.filter((item) => item.is_favourite === false );
+				setFavoriteSamples(favoriteSamplesLock);
+				setMyDocuments(myDocumentsLock);
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
+	};
+
+	// const getUsersDocument = () => {
+	// 	return authApi
+	// 		.handleGetUsersDocument()
+	// 		.then((res) => {
+	// 			if (res.results) {
+	// 				setMyDocuments(res.results);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			setInfoToolTip({
+	// 				text: err.message,
+	// 				status: false,
+	// 				opened: true,
+	// 			});
+	// 		});
+	// };
+
+	const getUsersDocumentById = (id) => {
+		return authApi
+			.handleGetUsersDocumentById(id)
+			.then((res) => {
+				setDocumentById(res);
+				navigate('/editor');
 			})
 			.catch((err) => {
 				setInfoToolTip({
@@ -306,7 +312,7 @@ function App() {
 	};
 
 	const handleSavePDF = async () => {
-		const scale = 3; // Увеличение разрешения в 3 раза
+		const scale = 3;
 		html2canvas(certificateRef.current, {
 			scale,
 			allowTaint: true,
@@ -389,8 +395,8 @@ function App() {
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
-								myDocuments={myDocuments || []}
-								onGetUsersDocument={getUsersDocument}
+								myDocuments={myDocuments}
+								onGetUsersDocument={getAllUserDocuments}
 								onGetUsersDocumentById={getUsersDocumentById}
 								setInfoToolTip={setInfoToolTip}
 							/>

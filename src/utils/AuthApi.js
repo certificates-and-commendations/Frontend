@@ -90,13 +90,21 @@ class AuthApi {
 
 	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
 	getAllSamples() {
-		return fetch(`${this.url}/documents/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}).then(handleResponse);
-	}
+    const tokenLock = localStorage.getItem('jwt');
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    if (token) {
+        headers.Authorization = `Token ${tokenLock}`;
+    }
+
+    return fetch(`${this.url}/documents/`, {
+        method: 'GET',
+        headers,
+    }).then(handleResponse);
+}
+
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
@@ -146,7 +154,6 @@ class AuthApi {
 			queryString.length === 0 ? '' : `?${queryString}`
 		}`;
 
-		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
 			method: 'GET',
 			headers: {
