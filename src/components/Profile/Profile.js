@@ -11,15 +11,17 @@ function Profile({
 	setFavoriteSamples,
 	onGetUsersDocument,
 	onGetUsersDocumentById,
+	setInfoToolTip,
 }) {
+	const isFavoriteSamples = true;
 	const currentUser = React.useContext(CurrentUserContext);
 
-	function getDocumentUsers() {
-		return onGetUsersDocument();
-	}
+	// function getDocumentUsers() {
+	// 	return onGetUsersDocument();
+	// }
 
 	useEffect(() => {
-		getDocumentUsers();
+		onGetUsersDocument();
 	}, []);
 
 	return (
@@ -31,15 +33,22 @@ function Profile({
 			<div className="profile__templates">
 				<h2 className="profile__subtitle">Избранные шаблоны</h2>
 				<CenterSlider
-					array={favoriteSamples}
+					array={favoriteSamples || []}
 					setDiploma={setDiploma}
-					isFavoriteSamples
+					isFavoriteSamples={isFavoriteSamples}
 					setFavoriteSamples={setFavoriteSamples}
+					setInfoToolTip={setInfoToolTip}
 				/>
 			</div>
 			<div className="profile__documents">
 				<h2 className="profile__subtitle">Созданные документы</h2>
-				<CenterSlider array={myDocuments} setDiploma={setDiploma} />
+				<CenterSlider
+					array={myDocuments || []}
+					setDiploma={setDiploma}
+					isFavoriteSamples={!isFavoriteSamples}
+					onGetUsersDocumentById={onGetUsersDocumentById}
+					setInfoToolTip={setInfoToolTip}
+				/>
 			</div>
 		</main>
 	);

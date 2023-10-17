@@ -51,12 +51,11 @@ function DownloadsPanel({
 					return new Promise((resolve) => {
 						const reader = new FileReader();
 						reader.onload = (event) => {
-							const background = event.target.result; // Сохраняем background в переменной
+							const background = event.target.result;
 							resolve({
 								background,
 								title: file.name,
 							});
-							setBackground(background);
 						};
 						reader.readAsDataURL(file);
 					});
@@ -97,6 +96,7 @@ function DownloadsPanel({
 			setPanelSidebarActive(false);
 		} else {
 			setUploadedCertificate([imageURLsDownloads[index]]);
+			setBackground([imageURLsDownloads[index]]);
 			setPanelSidebarActive(true);
 		}
 	};

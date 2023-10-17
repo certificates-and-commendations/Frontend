@@ -80,8 +80,6 @@ function App() {
 	const [background, setBackground] = useState('');
 	const certificateRef = useRef(null);
 
-	const [dataDocumentId, setDataDocumentId] = useState(null);
-
 	function closeAllPopups() {
 		setIsRegisterPopupOpen(false);
 		setIsLoginPopupOpen(false);
@@ -122,7 +120,6 @@ function App() {
 		}
 
 		if (isOpen) {
-			// навешиваем только при открытии
 			document.addEventListener('keydown', closeByEscape);
 			document.addEventListener('mousedown', closeByOverlay);
 			return () => {
@@ -149,14 +146,19 @@ function App() {
 			});
 	};
 
-	const getUsersDocument = () => {
+	const getAllUserDocuments = () => {
 		return authApi
 			.handleGetUsersDocument()
 			.then((res) => {
-				console.log('в ответе getUsersDocument получили', res);
-				if (res.results) {
-					setMyDocuments(res.results);
-				}
+				const mixedDocuments = res.results;
+				const favoriteSamplesLock = mixedDocuments.filter(
+					(item) => item.is_favourite === true
+				);
+				const myDocumentsLock = mixedDocuments.filter(
+					(item) => item.is_favourite === false
+				);
+				setFavoriteSamples(favoriteSamplesLock);
+				setMyDocuments(myDocumentsLock);
 			})
 			.catch((err) => {
 				setInfoToolTip({
@@ -167,14 +169,29 @@ function App() {
 			});
 	};
 
+	// const getUsersDocument = () => {
+	// 	return authApi
+	// 		.handleGetUsersDocument()
+	// 		.then((res) => {
+	// 			if (res.results) {
+	// 				setMyDocuments(res.results);
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			setInfoToolTip({
+	// 				text: err.message,
+	// 				status: false,
+	// 				opened: true,
+	// 			});
+	// 		});
+	// };
+
 	const getUsersDocumentById = (id) => {
 		return authApi
 			.handleGetUsersDocumentById(id)
 			.then((res) => {
-				console.log('в ответе getUsersDocumentById получили', res);
-				if (res.results) {
-					setDocumentById(res.results);
-				}
+				setDocumentById(res);
+				navigate('/editor');
 			})
 			.catch((err) => {
 				setInfoToolTip({
@@ -214,7 +231,6 @@ function App() {
 				})
 				.catch((err) => {
 					localStorage.clear('jwt');
-					console.log('Token check', err);
 				});
 			// здесь будем проверять токен
 		}
@@ -269,28 +285,35 @@ function App() {
 			align: textBlockStyles[index].isAlign,
 		}));
 
-		const elementsDataArray = imageURLsElements.map((img, index) => ({
-			image: img.base64,
-			coordinate_x: img.position.x,
-			coordinate_y: img.position.y,
-		}));
+		const elementsDataArray = imageURLsElements.map((img, index) => {
+			if (img.position === undefined) {
+				return {
+					image: img.base64,
+					coordinate_x: 0,
+					coordinate_y: 0,
+				};
+			}
+
+			return {
+				image: img.base64,
+				coordinate_x: img.position.x,
+				coordinate_y: img.position.y,
+			};
+		});
 
 		// Создание JSON объекта
 		const jsonToSave = {
 			title: uploadedCertificate.map((elem) => elem.title),
-			background,
+			background: background.map((base64) => base64.background),
 			texts: textDataArray,
 			Element: elementsDataArray,
 		};
 
-		authApi
-			.handleCreateDocument(jsonToSave)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+		authApi.handleCreateDocument(jsonToSave).catch((err) => console.log(err));
 	};
 
 	const handleSavePDF = async () => {
-		const scale = 3; // Увеличение разрешения в 3 раза
+		const scale = 3;
 		html2canvas(certificateRef.current, {
 			scale,
 			allowTaint: true,
@@ -329,7 +352,7 @@ function App() {
 								samples={samples}
 								loggedIn={isLoggedIn}
 								setIsTablePopupOpen={setIsTablePopupOpen}
-								documentById={documentById || {}}
+								documentById={documentById}
 								certificateRef={certificateRef}
 								setTextBlocks={setTextBlocks}
 								textBlocks={textBlocks}
@@ -346,7 +369,7 @@ function App() {
 								setTextBlockColors={setTextBlockColors}
 								textBlockColors={textBlockColors}
 								setBackground={setBackground}
-								dataDocumentId={dataDocumentId}
+								background={background}
 							/>
 						}
 					/>
@@ -373,9 +396,10 @@ function App() {
 								setDiploma={setDiploma}
 								favoriteSamples={favoriteSamples}
 								setFavoriteSamples={setFavoriteSamples}
-								myDocuments={myDocuments || []}
-								onGetUsersDocument={getUsersDocument}
+								myDocuments={myDocuments}
+								onGetUsersDocument={getAllUserDocuments}
 								onGetUsersDocumentById={getUsersDocumentById}
+								setInfoToolTip={setInfoToolTip}
 							/>
 						}
 					/>

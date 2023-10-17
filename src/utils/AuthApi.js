@@ -90,17 +90,23 @@ class AuthApi {
 
 	// ПОЛУЧАЕМ ВСЕ ШАБЛОНЫ
 	getAllSamples() {
+		const tokenLock = localStorage.getItem('jwt');
+		const headers = {
+			'Content-Type': 'application/json',
+		};
+
+		if (token) {
+			headers.Authorization = `Token ${tokenLock}`;
+		}
+
 		return fetch(`${this.url}/documents/`, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers,
 		}).then(handleResponse);
 	}
 
 	// СТАВИМ ЛАЙК
 	addLike(item) {
-		console.log('Токен', localStorage.getItem('jwt'));
 		if (localStorage.getItem('jwt')) {
 			return fetch(`${this.url}/documents/${item.id}/favourite/`, {
 				method: 'POST',
@@ -118,11 +124,7 @@ class AuthApi {
 
 	// УДАЛЯЕМ ЛАЙК
 	removeLike(id) {
-		console.log(
-			'ПРИ ПОЛУЧЕНИИ ДИЗЛАЙКЕ В ЗАГАЛОВКЕ',
-			`Authorization : Token ${token}`
-		);
-		return fetch(`${this.url}/users/favourite/${id}/`, {
+		return fetch(`${this.url}/documents/${id}/favourite/`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -151,7 +153,6 @@ class AuthApi {
 			queryString.length === 0 ? '' : `?${queryString}`
 		}`;
 
-		console.log('ПРИ ЗАПРОСЕ ФИЛЬТРАЦИИ ПУТЬ', `ТАКОЙ ${url}`);
 		return fetch(url, {
 			method: 'GET',
 			headers: {
@@ -184,7 +185,7 @@ class AuthApi {
 		// создание готовой грамоты
 		const title = textData.title.join('');
 
-		const background = textData.background;
+		const background = textData.background.join('');
 
 		const texts = textData.texts;
 
@@ -223,36 +224,34 @@ class AuthApi {
 	}
 
 	handleGetUsersDocument() {
-		return fetch(`${this.url}/profile/profile/`, {
+		return fetch(`${this.url}/profile/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		});
+		}).then(handleResponse);
 	}
 
 	handleGetUsersDocumentById(id) {
-		return fetch(`${this.url}/profile/${id}/`, {
+		return fetch(`${this.url}/documents/${id}/`, {
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
 			},
-		});
+		}).then(handleResponse);
 	}
 
-	handleUploadFile(data) {
-		// const formData = new FormData();
-		// formData.append('csvFile', data[0]);
+	handleUploadFile(data, boundary) {
+		const formData = new FormData();
+		formData.append('file', data, 'names.csv');
+
 		return fetch(`${this.url}/documents/upload/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${localStorage.getItem('jwt')}`,
-				'Content-Disposition': `attachment; name="file"; filename="names.csv"`,
-				// 'Content-Disposition': `form-data; name="file"; filename="names.csv"`,
+				'Content-Type': `multipart/form-data; boundary=${boundary}`,
 			},
-			body: JSON.stringify({
-				file: data[0],
-			}),
+			body: formData,
 		}).then(handleResponse);
 	}
 }
@@ -261,7 +260,7 @@ const authApi = new AuthApi({
 	baseUrl:
 		currentUrl === 'https://certificates.acceleratorpracticum.ru'
 			? 'https://certificates.acceleratorpracticum.ru/api'
-			: currentUrl === 'localhost:3000'
+			: currentUrl === 'http://localhost:3000'
 			? 'http://127.0.0.1:8000/api'
 			: 'https://185.93.111.238/api',
 });

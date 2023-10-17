@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import trash from '../../images/trash.svg';
 import authApi from '../../utils/AuthApi';
 
@@ -10,6 +10,8 @@ export default function CenterSlider({
 	setDiploma,
 	isFavoriteSamples,
 	setFavoriteSamples,
+	onGetUsersDocumentById,
+	setInfoToolTip,
 }) {
 	const navigate = useNavigate();
 
@@ -30,13 +32,29 @@ export default function CenterSlider({
 			navigate('/editor');
 			setDiploma(item);
 		} else {
-			return authApi.handleGetUsersDocumentById(item.id);
+			return onGetUsersDocumentById(item.id);
 		}
 	}
 
 	function onTrashClick(item) {
-		const newSamples = array.filter((card) => card.id !== item.id);
-		setFavoriteSamples(newSamples);
+		return authApi
+			.removeLike()
+			.then((res) => {
+				const newSamples = array.filter((card) => card.id !== item.i);
+				setFavoriteSamples(newSamples);
+				setInfoToolTip({
+					text: 'Успешно',
+					status: true,
+					opened: true,
+				});
+			})
+			.catch((err) => {
+				setInfoToolTip({
+					text: err.message,
+					status: false,
+					opened: true,
+				});
+			});
 	}
 
 	return (
@@ -52,13 +70,11 @@ export default function CenterSlider({
 							onClick={() => onTrashClick(item)}
 						/>
 						<div
-							onClick={() => onTemplateClick()}
+							onClick={() => onTemplateClick(item)}
 							// src={isFavoriteSamples ? item.thumbnail : item.image}
 							alt={isFavoriteSamples ? item.title : item.name}
 							style={{
-								backgroundImage: `url(${
-									isFavoriteSamples ? item.thumbnail : item.image
-								})`,
+								backgroundImage: `url(${item.thumbnail})`,
 							}}
 							className={
 								isFavoriteSamples

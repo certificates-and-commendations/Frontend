@@ -29,7 +29,7 @@ export default function Header({
 				<Link className="header__logo" to="/">
 					<Logo />
 				</Link>
-				{!isMainPage && <HeaderNav />}
+				<HeaderNav />
 			</div>
 
 			{isEditorPage && <ButtonDowload onSavePDF={onSavePDF} />}
