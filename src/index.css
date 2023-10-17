@@ -44,3 +44,9 @@ body {
 	font-style: normal;
 	font-weight: 400;
 }
+
+@media screen and (max-width: 1279px) {
+	.body {
+		overflow: hidden;
+	}
+}
