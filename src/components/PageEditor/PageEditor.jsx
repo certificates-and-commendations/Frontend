@@ -75,8 +75,7 @@ function PageEditor({
 				return { ...elem, font_file: updatedFontFile };
 			});
 			setFontResult(newFontResult);
-			console.log(newFontResult);
-			setShouldUpdateFontResult(false); // Сброс флага
+			setShouldUpdateFontResult(false);
 		}
 	}, [fontResult, shouldUpdateFontResult]);
 

@@ -17,17 +17,14 @@ function ButtonDownload({ onSavePDF, onPrint, onMail }) {
 	});
 
 	function handleDownload() {
-		console.log('Download');
 		onSavePDF();
 	}
 
 	function handlePrint() {
-		console.log('Print');
 		onPrint();
 	}
 
 	function handleMail() {
-		console.log('Mail');
 		onMail();
 	}
 

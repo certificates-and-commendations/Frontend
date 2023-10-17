@@ -309,10 +309,7 @@ function App() {
 			Element: elementsDataArray,
 		};
 
-		authApi
-			.handleCreateDocument(jsonToSave)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+		authApi.handleCreateDocument(jsonToSave).catch((err) => console.log(err));
 	};
 
 	const handleSavePDF = async () => {
