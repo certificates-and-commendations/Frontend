@@ -57,12 +57,9 @@ function TextPanel({
 		const updatedFontFiles = fontResult.filter((elem) => elem.id !== id);
 		setFontResult(updatedFontFiles);
 
-		authApi
-			.handleDeleteFontFamily(id)
-			.then((res) => console.log(res))
-			.catch((err) => {
-				console.log(err);
-			});
+		authApi.handleDeleteFontFamily(id).catch((err) => {
+			console.log(err);
+		});
 	};
 
 	return (
